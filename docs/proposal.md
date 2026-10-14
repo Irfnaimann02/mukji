@@ -180,3 +180,4 @@ Phases are ordered by priority.
 - Main wow feature: Menu Scanner or Korean order card?
 - Final app name (Mukji?, BolehMakan, Bapsang, or another)
 - Which revenue route to emphasize
+- Tech stack: React Native with Expo (proposed) or Flutter, depending on what the team already knows

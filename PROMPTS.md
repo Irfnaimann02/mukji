@@ -7,3 +7,9 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Prompt: asked for ideas to make the app stand out, then a project proposal, and then a draft of the Week 07 worksheet (architecture layers, issues, milestones). Also asked how the menu scanner can work without menus on Naver or Kakao Map.
 - Output used: proposal structure, layer table, issue list, milestones, and the repository starter files
 - Changes by the team: (fill in: renamed modules to match the repository, assigned owners, adjusted acceptance criteria)
+
+## 2026-10-14 - Mobile tech stack
+- Tool: Claude
+- Prompt: asked whether one mobile app can run on both iOS and Android, and which framework to use.
+- Output used: proposed tech stack table in the Week 07 worksheet (Expo, react-native-maps, Supabase, Kakao Local API)
+- Changes by the team: (fill in after the team agrees on the stack)

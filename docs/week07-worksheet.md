@@ -20,6 +20,21 @@ Rule: a screen never reads the database directly; it asks a Logic module, and Lo
 
 Module names are proposed; rename them to match the actual files.
 
+### 기술 스택 / Tech Stack (proposed, pending team agreement)
+
+The app is mobile and runs on both iOS and Android from one codebase.
+
+| 계층 / Layer | 선택 / Choice | 이유 / Why |
+| --- | --- | --- |
+| 표현 / Presentation | React Native with Expo (TypeScript) | One codebase for iOS and Android; anyone can test on their own phone with Expo Go, with no Mac needed for iPhone |
+| 지도 / Map | `react-native-maps` | Works inside Expo Go; the markers come from our own data |
+| 카메라 / Camera | `expo-image-picker` | Menu photo for the scanner (#10) |
+| 로직 / Logic | TypeScript modules in the app, plus an optional Python FastAPI service | Filtering and ranking can run in the app for the MVP; the AI call goes through a server so the API key never ships in the app |
+| 데이터 / Data | Supabase (PostgreSQL) | Real SQL, a hosted API, and location queries for the 100 m filter (#6) |
+| 데이터 수집 / Data seeding | Kakao Local API | Real restaurant names and coordinates around ERICA for #3 |
+
+Not needed for the course: App Store or Play Store release. The demo runs from Expo Go.
+
 ## 2. 이슈 / Issues
 
 Each issue is one piece of work with a test you can check. Put the number in commits (for example "#4 add diet profile filter") and close the issue when its criteria are met.
