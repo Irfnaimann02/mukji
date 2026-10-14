@@ -2,7 +2,7 @@
 
 | 팀명 / Team | 작성일 / Date | 참여자 / Members |
 | --- | --- | --- |
-| Team 1, project: Mukji? | 2026-10-14 | (add members) |
+| Team 1, project: Mukji? | 2026-10-14 | Irfan, Adib, Aqil, Nik Ammar |
 
 ## 1. 아키텍처 다이어그램 / Architecture Diagram
 
@@ -37,24 +37,24 @@ Not needed for the course: App Store or Play Store release. The demo runs from E
 
 ## 2. 이슈 / Issues
 
-Each issue is one piece of work with a test you can check. Put the number in commits (for example "#4 add diet profile filter") and close the issue when its criteria are met.
+Each issue is one piece of work with a test you can check. Each issue has one owner who gets it to done; anyone can help or review. Put the number in commits (for example "#4 add diet profile filter") and close the issue when its criteria are met.
 
 | # | 제목 / Title | 라벨 / Label | 담당 / Assignee | 완료 조건 / Acceptance Criteria |
 | --- | --- | --- | --- | --- |
-| #1 | Map home screen | frontend | | Opening the app shows a map with a marker for every seeded restaurant |
-| #2 | Three bottom tabs | frontend | | Tapping Restaurant, Nearby and Settings switches screens and the map is still the first screen on launch |
-| #3 | Restaurant and dish data with 15 seeded restaurants | data | | The data store holds at least 15 restaurants near ERICA, each with a location and at least one dish |
-| #4 | Diet profile filter | backend | | Selecting "vegan" or "no pork" removes dishes containing the excluded ingredients from every restaurant's dish list |
-| #5 | Dish page with modification rules | frontend | | Tapping a restaurant lists its dishes, and a dish with a rule such as "broth only" shows that rule |
-| #6 | Nearby tab (100 m) | backend | | With a test location, only restaurants within 100 m appear and one at 150 m does not |
-| #7 | Community-recommended ranking | backend | | A restaurant with more recommendations appears above one with fewer |
-| #8 | Trust badge | backend | | A dish shows its verification count and last-checked date, and a dish with none shows "not verified" |
-| #9 | Korean order card | frontend | | Tapping a dish opens a full-screen Korean sentence, with at least 3 phrases available |
-| #10 | Menu Scanner prototype | ai | | A test menu photo returns dishes marked green, yellow or red, and each yellow dish shows a Korean question for staff |
-| #11 | User survey | docs | | At least 8 people (Korean and international) answer, and one headline number plus two quotes are saved in the repository |
-| #12 | Demo script and pitch | docs | | A 3-minute script exists and the team has run the demo once from start to finish |
-| #13 | Bilingual UI (Korean and English) | frontend | | Changing the language setting switches all screen text between Korean and English without restarting the app |
-| #14 | Allergy filter | backend | | Selecting "peanut" removes every dish tagged with peanut from the results |
+| #1 | Map home screen | frontend | Irfan | Opening the app shows a map with a marker for every seeded restaurant |
+| #2 | Three bottom tabs | frontend | Aqil | Tapping Restaurant, Nearby and Settings switches screens and the map is still the first screen on launch |
+| #3 | Restaurant and dish data with 15 seeded restaurants | data | Adib | The data store holds at least 15 restaurants near ERICA, each with a location and at least one dish |
+| #4 | Diet profile filter | backend | Nik Ammar | Selecting "vegan" or "no pork" removes dishes containing the excluded ingredients from every restaurant's dish list |
+| #5 | Dish page with modification rules | frontend | Adib | Tapping a restaurant lists its dishes, and a dish with a rule such as "broth only" shows that rule |
+| #6 | Nearby tab (100 m) | backend | Irfan | With a test location, only restaurants within 100 m appear and one at 150 m does not |
+| #7 | Community-recommended ranking | backend | Irfan | A restaurant with more recommendations appears above one with fewer |
+| #8 | Trust badge | backend | Adib | A dish shows its verification count and last-checked date, and a dish with none shows "not verified" |
+| #9 | Korean order card | frontend | Aqil | Tapping a dish opens a full-screen Korean sentence, with at least 3 phrases available |
+| #10 | Menu Scanner prototype | ai | Nik Ammar | A test menu photo returns dishes marked green, yellow or red, and each yellow dish shows a Korean question for staff |
+| #11 | User survey | docs | Irfan | At least 8 people (Korean and international) answer, and one headline number plus two quotes are saved in the repository |
+| #12 | Demo script and pitch | docs | Irfan | A 3-minute script exists and the team has run the demo once from start to finish |
+| #13 | Bilingual UI (Korean and English) | frontend | Aqil | Changing the language setting switches all screen text between Korean and English without restarting the app |
+| #14 | Allergy filter | backend | Adib | Selecting "peanut" removes every dish tagged with peanut from the results |
 
 ## 3. 마일스톤 / Milestones
 
