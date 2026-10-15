@@ -13,3 +13,9 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Prompt: asked whether one mobile app can run on both iOS and Android, and which framework to use.
 - Output used: proposed tech stack table in the Week 07 worksheet (Expo, react-native-maps, Supabase, Kakao Local API)
 - Changes by the team: (fill in after the team agrees on the stack)
+
+## 2026-10-15 - New concept, prototype and onboarding
+- Tool: Claude
+- Prompt: shared the team's sketches and explained each screen (map first, five tabs, badges for every diet including pork, contact-only reservation, reviews, profile with QR); asked for a visual prototype, answers to open questions, an onboarding guide and updates to the repository and issues.
+- Output used: clickable prototype, updated proposal, worksheet (architecture, decided tech stack, issues #1 to #21), README, docs/ONBOARDING.md, scripts/update-issues.sh
+- Changes by the team: (fill in after the team reviews the prototype)
