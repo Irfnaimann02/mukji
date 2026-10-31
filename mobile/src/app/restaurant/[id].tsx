@@ -36,6 +36,9 @@ export default function RestaurantScreen() {
         {r.halalCertified && <Text style={styles.badge}>Halal certified</Text>}
 
         <Text style={styles.heading}>Menu</Text>
+        {r.dishes.length === 0 && (
+          <Text style={styles.sub}>Menu not added yet. Ask staff before ordering.</Text>
+        )}
         {r.dishes.map((d) => (
           <DishRow key={d.id} dish={d} status={dishStatus(d, r, profile)} />
         ))}
