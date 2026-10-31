@@ -1,5 +1,12 @@
-import { PlaceholderScreen } from '../../components/placeholder-screen';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { FoodProfileForm } from '@/components/food-profile-form';
+
+// #4: the food profile for the MVP. Profile, QR and friends (#18) come later.
 export default function ProfileScreen() {
-  return <PlaceholderScreen title="Profile" issue="Issue #18" />;
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#f4f7fa' }} edges={['top']}>
+      <FoodProfileForm />
+    </SafeAreaView>
+  );
 }
