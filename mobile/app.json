@@ -25,6 +25,12 @@
     },
     "plugins": [
       "expo-router",
+            [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Mukji uses your location to show restaurants near you."
+        }
+      ],
       [
         "expo-splash-screen",
         {
