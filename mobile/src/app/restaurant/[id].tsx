@@ -1,6 +1,6 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 
 import { DEFAULT_PROFILE, type Dish, type DishStatus, type Restaurant } from '@/data/types';
 import { dishStatus } from '@/logic/profile-filter';
@@ -14,6 +14,7 @@ const STATUS: Record<DishStatus, { label: string; color: string }> = {
 
 export default function RestaurantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const router = useRouter();
   const [r, setR] = useState<Restaurant | null>();
   // Replace with the saved food profile once #4's profile screen is in.
   const profile = DEFAULT_PROFILE;
@@ -37,7 +38,11 @@ export default function RestaurantScreen() {
 
         <Text style={styles.heading}>Menu</Text>
         {r.dishes.map((d) => (
-          <DishRow key={d.id} dish={d} status={dishStatus(d, r, profile)} />
+          <DishRow key={d.id} dish={d} status={dishStatus(d, r, profile)}
+          onPress={() =>
+          router.push({ pathname: '/order-card', params: { restaurantId: r.id, dishId: d.id } })
+          } 
+          />
         ))}
 
         <Text style={styles.heading}>원산지 (origin)</Text>
@@ -60,11 +65,18 @@ export default function RestaurantScreen() {
   );
 }
 
-// Tapping a dish will open Aqil's Korean order card (#9) once it exists.
-function DishRow({ dish, status }: { dish: Dish; status: DishStatus }) {
+function DishRow({
+  dish,
+  status,
+  onPress,
+}: {
+  dish: Dish;
+  status: DishStatus;
+  onPress: () => void;
+}) {
   const s = STATUS[status];
   return (
-    <View style={styles.dish}>
+    <Pressable style={styles.dish} onPress={onPress}>
       <View style={styles.dishTop}>
         <Text style={styles.dishName}>
           {dish.nameKo} · ₩{dish.priceWon.toLocaleString()}
@@ -79,7 +91,7 @@ function DishRow({ dish, status }: { dish: Dish; status: DishStatus }) {
       {status !== 'safe' && dish.leaveOutEn && (
         <Text style={styles.small}>Ask: {dish.leaveOutEn}</Text>
       )}
-    </View>
+    </Pressable>
   );
 }
 
