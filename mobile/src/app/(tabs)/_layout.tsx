@@ -1,8 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
-import type { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs';
 import { Tabs } from 'expo-router';
+import type { BottomTabBarButtonProps } from 'expo-router/tabs';
 import type { ComponentProps } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View, type ColorValue } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const BLUE = '#1b5fad';
@@ -13,8 +13,8 @@ type IconName = ComponentProps<typeof Ionicons>['name'];
 // Filled icon when the tab is active, outline when it is not.
 const icon =
   (on: IconName, off: IconName) =>
-  ({ color, focused }: { color: string; focused: boolean }) => (
-    <Ionicons name={focused ? on : off} size={26} color={color} />
+  ({ color, focused }: { color: ColorValue; focused: boolean }) => (
+    <Ionicons name={focused ? on : off} size={26} color={color as string} />
   );
 
 // Centre button from our sketch: a raised circle with a magnifier.
