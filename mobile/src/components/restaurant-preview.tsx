@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { MapPin } from '@/logic/map-pins';
@@ -10,12 +11,15 @@ type Props = {
 export function RestaurantPreview({ pin, onClose }: Props) {
   return (
     <View style={styles.card}>
-      <View style={styles.info}>
+      <Pressable
+        style={styles.info}
+        onPress={() => router.push({ pathname: '/restaurant/[id]', params: { id: pin.id } })}>
         <Text style={styles.name}>{pin.name}</Text>
         <Text style={styles.detail}>
           {pin.foodType} · {pin.badgeCount} {pin.badgeCount === 1 ? 'badge' : 'badges'}
         </Text>
-      </View>
+        <Text style={styles.more}>Tap for menu and details</Text>
+      </Pressable>
       <Pressable onPress={onClose} hitSlop={12}>
         <Text style={styles.close}>✕</Text>
       </Pressable>
@@ -39,4 +43,5 @@ const styles = StyleSheet.create({
   name: { fontSize: 17, fontWeight: 'bold', color: '#222' },
   detail: { fontSize: 14, color: '#666', marginTop: 4 },
   close: { fontSize: 18, color: '#666' },
+  more: { fontSize: 13, color: '#1b5fad', marginTop: 6 },
 });
