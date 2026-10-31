@@ -38,7 +38,7 @@ export function buildOrderPhrases(dish: Dish, profile: FoodProfile): OrderPhrase
 
   // In the dish for sure: ask to leave it out.
   for (const i of dish.contains) {
-    if (!blocked.has(i) || dish.leaveOutKo) continue;
+    if (!blocked.has(i)) continue;
     const w = WORD[i];
     out.push({ ko: `${w.ko} 빼 주세요.`, rom: `${cap(w.rom)} ppae juseyo.`, en: `Please leave out the ${w.en}.` });
   }
@@ -51,7 +51,7 @@ export function buildOrderPhrases(dish: Dish, profile: FoodProfile): OrderPhrase
   }
 
   if (profile.allergens.length > 0) out.push(ALLERGY);
-  for (const p of [ALLERGY, BROTH]) if (out.length < MIN_PHRASES && !out.includes(p)) out.push(p);
+  if (out.length < MIN_PHRASES) out.push(BROTH);
   out.push(THANKS);
   return out;
 }

@@ -1,10 +1,11 @@
-import { useRouter, useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { DEFAULT_PROFILE, type Restaurant } from '@/data/types';
+import type { Restaurant } from '@/data/types';
+import { useProfile } from '@/hooks/use-profile';
 import { buildOrderPhrases } from '@/logic/order-phrases';
 import { findRestaurant } from '@/logic/restaurant-service';
 
@@ -20,8 +21,7 @@ export default function OrderCardScreen() {
   const [r, setR] = useState<Restaurant | null>();
   const [index, setIndex] = useState(0);
   const [height, setHeight] = useState(0);
-  // Replace with the saved food profile once #4's profile screen is in.
-  const profile = DEFAULT_PROFILE;
+  const { profile } = useProfile();
 
   useEffect(() => {
     findRestaurant(restaurantId).then((found) => setR(found ?? null));
