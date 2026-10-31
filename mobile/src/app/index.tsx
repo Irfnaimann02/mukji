@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -14,16 +14,19 @@ const ERICA_REGION = {
   longitudeDelta: 0.01,
 };
 
-const PINS = getMapPins();
-
 export default function MapScreen() {
+  const [pins, setPins] = useState<MapPin[]>([]);
   const [selectedPin, setSelectedPin] = useState<MapPin | null>(null);
   const insets = useSafeAreaInsets();
+
+  useEffect(() => {
+    getMapPins().then(setPins);
+  }, []);
 
   return (
     <View style={styles.screen}>
       <MapView style={styles.map} initialRegion={ERICA_REGION}>
-        {PINS.map((pin) => (
+        {pins.map((pin) => (
           <Marker
             key={pin.id}
             coordinate={{ latitude: pin.latitude, longitude: pin.longitude }}

@@ -4,9 +4,11 @@ import { MapPin } from '@/logic/map-pins';
 
 const FOOD_TYPE_ICON: Record<MapPin['foodType'], string> = {
   korean: '🍚',
-  halal: '🥙',
-  vegan: '🥗',
+  chicken: '🍗',
+  noodles: '🍜',
   cafe: '☕',
+  halal: '🥙',
+  other: '🍽️',
 };
 
 type Props = {
