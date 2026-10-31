@@ -13,7 +13,7 @@ export function RestaurantPreview({ pin, onClose }: Props) {
       <View style={styles.info}>
         <Text style={styles.name}>{pin.name}</Text>
         <Text style={styles.detail}>
-          {pin.foodType} · {pin.badgeCount} badges
+          {pin.foodType} · {pin.badgeCount} {pin.badgeCount === 1 ? 'badge' : 'badges'}
         </Text>
       </View>
       <Pressable onPress={onClose} hitSlop={12}>
