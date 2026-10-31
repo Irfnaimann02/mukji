@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { MapPin } from '@/logic/map-pins';
 
-const FOOD_TYPE_ICON: Record<MapPin['foodType'], string> = {
+export const FOOD_TYPE_ICON: Record<MapPin['foodType'], string> = {
   korean: '🍚',
   chicken: '🍗',
   noodles: '🍜',
