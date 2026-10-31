@@ -4,8 +4,9 @@ import { ActivityIndicator, FlatList, Pressable, StyleSheet, Text, View } from '
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { FOOD_TYPE_ICON } from '@/components/restaurant-pin';
-import { DEFAULT_PROFILE, type FoodType } from '@/data/types';
+import type { FoodType } from '@/data/types';
 import { useCurrentLocation } from '@/hooks/use-current-location';
+import { useProfile } from '@/hooks/use-profile';
 import { badgesFor } from '@/logic/map-pins';
 import { nearbyRestaurants, walkMinutes, type NearbyRestaurant } from '@/logic/nearby-service';
 
@@ -17,11 +18,9 @@ const FOOD_TYPES: { type: FoodType; label: string }[] = [
   { type: 'halal', label: 'Halal' },
 ];
 
-// TODO: use the saved profile once the profile store from #4 is ready.
-const profile = DEFAULT_PROFILE;
-
 export default function HomeScreen() {
   const location = useCurrentLocation();
+  const { profile } = useProfile();
   const [foodType, setFoodType] = useState<FoodType | null>(null);
   const [items, setItems] = useState<NearbyRestaurant[]>([]);
   const [loading, setLoading] = useState(true);
@@ -37,7 +36,7 @@ export default function HomeScreen() {
     } finally {
       setLoading(false);
     }
-  }, [foodType, location.point]);
+  }, [foodType, location.point, profile]);
 
   useEffect(() => {
     if (location.ready) load();
