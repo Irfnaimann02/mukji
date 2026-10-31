@@ -15,7 +15,7 @@ const VEGAN_BLOCKED: Ingredient[] = ['pork', 'beef', 'chicken', 'seafood', 'egg'
 
 // "Who it fits" badges, worked out from what the restaurant serves.
 // Adib's BadgeService (#8) can replace this later.
-function badgesFor(r: Restaurant): string[] {
+export function badgesFor(r: Restaurant): string[] {
   const badges: string[] = [];
   const all = (d: Restaurant['dishes'][number]) => [...d.contains, ...d.mayContain];
   if (r.halalCertified) badges.push('halal');
