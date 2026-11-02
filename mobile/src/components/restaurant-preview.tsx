@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -20,8 +21,12 @@ export function RestaurantPreview({ pin, onClose }: Props) {
         </Text>
         <Text style={styles.more}>Tap for menu and details</Text>
       </Pressable>
-      <Pressable onPress={onClose} hitSlop={12}>
-        <Text style={styles.close}>✕</Text>
+      <Pressable
+        onPress={onClose}
+        hitSlop={8}
+        style={styles.closeButton}
+        accessibilityLabel="Close preview">
+        <Ionicons name="close" size={20} color="#666" />
       </Pressable>
     </View>
   );
@@ -42,6 +47,14 @@ const styles = StyleSheet.create({
   info: { flex: 1 },
   name: { fontSize: 17, fontWeight: 'bold', color: '#222' },
   detail: { fontSize: 14, color: '#666', marginTop: 4 },
-  close: { fontSize: 18, color: '#666' },
+  closeButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    marginLeft: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#f0f3f7',
+  },
   more: { fontSize: 13, color: '#1b5fad', marginTop: 6 },
 });
