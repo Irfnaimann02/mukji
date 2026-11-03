@@ -5,6 +5,7 @@ import { FlatList, Pressable, ScrollView, StyleSheet, Text, TextInput, View } fr
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { FOOD_TYPE_ICON } from '@/components/restaurant-pin';
+import type { Restaurant } from '@/data/types';
 import { useProfile } from '@/hooks/use-profile';
 import {
   forgetSearches,
@@ -45,9 +46,9 @@ export default function SearchScreen() {
 
   const remember = async (text: string) => setRecent(await rememberSearch(text));
 
-  const openRestaurant = (id: string) => {
-    remember(query);
-    router.push({ pathname: '/restaurant/[id]', params: { id } });
+  const openRestaurant = (restaurant: Restaurant) => {
+    remember(restaurant.nameEn);
+    router.push({ pathname: '/restaurant/[id]', params: { id: restaurant.id } });
   };
 
   const clearRecent = async () => {
@@ -86,7 +87,7 @@ export default function SearchScreen() {
             <Text style={styles.empty}>{`No restaurants match "${query.trim()}".`}</Text>
           }
           renderItem={({ item }) => (
-            <Pressable style={styles.result} onPress={() => openRestaurant(item.restaurant.id)}>
+            <Pressable style={styles.result} onPress={() => openRestaurant(item.restaurant)}>
               <Text style={styles.resultIcon}>{FOOD_TYPE_ICON[item.restaurant.foodType]}</Text>
               <View style={styles.resultInfo}>
                 <Text style={styles.resultName}>{item.restaurant.nameEn}</Text>
