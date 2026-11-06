@@ -29,11 +29,16 @@ export default function MapScreen() {
 
   // Reload when the food profile changes, so pins fade as soon as an allergy is switched on (#14).
   useEffect(() => {
-    getMapPins(profile).then((next) => {
-      setPins(next);
-      // Keep the open preview in sync with the new pin data.
-      setSelectedPin((prev) => (prev ? (next.find((p) => p.id === prev.id) ?? null) : null));
-    });
+    getMapPins(profile)
+      .then((next) => {
+        setPins(next);
+        // Keep the open preview in sync with the new pin data.
+        setSelectedPin((prev) => (prev ? (next.find((p) => p.id === prev.id) ?? null) : null));
+      })
+      .catch((error) => {
+        // Keep the pins already on the map instead of crashing.
+        console.error('Failed to load map pins:', error);
+      });
   }, [profile]);
 
   return (
