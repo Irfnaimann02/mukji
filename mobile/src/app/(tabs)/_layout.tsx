@@ -11,10 +11,18 @@ const GREY = '#8a94a3';
 type IconName = ComponentProps<typeof Ionicons>['name'];
 
 // Filled icon when the tab is active, outline when it is not.
-const icon =
-  (on: IconName, off: IconName) =>
-  ({ color, focused }: { color: ColorValue; focused: boolean }) => (
-    <Ionicons name={focused ? on : off} size={26} color={color as string} />
+const icon = (on: IconName, off: IconName) =>
+  Object.assign(
+    ({ color, focused }: { color: ColorValue; focused: boolean }) => (
+      <Ionicons
+        name={focused ? on : off}
+        size={26}
+        color={color as string}
+      />
+    ),
+    {
+      displayName: `TabIcon(${on}, ${off})`,
+    }
   );
 
 // Centre button from our sketch: a raised circle with a magnifier.
