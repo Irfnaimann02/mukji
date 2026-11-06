@@ -101,7 +101,10 @@ export default function HomeScreen() {
                   min walk
                 </Text>
                 <Text style={styles.detail}>
-                  {item.restaurant.rating.toFixed(1)} · {item.restaurant.recommendCount} recommend
+                  {'₩'.repeat(item.restaurant.priceLevel)} ·{' '}
+                  {item.restaurant.recommendCount === 0
+                    ? 'No reviews yet'
+                    : ` ${item.restaurant.rating.toFixed(1)} ·  ${item.restaurant.recommendCount} recommend`}
                 </Text>
                 <View style={styles.badges}>
                   {badgesFor(item.restaurant).map((badge) => (
