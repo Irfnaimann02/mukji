@@ -93,7 +93,7 @@ export default function SearchScreen() {
                 <Text style={styles.resultName}>{item.restaurant.nameEn}</Text>
                 <Text style={styles.resultSub}>{item.restaurant.nameKo}</Text>
               </View>
-              {!item.fits && <Text style={styles.noFit}>Doesn't fit</Text>}
+              {!item.fits && <Text style={styles.noFit}>Doesn&apos;t fit</Text>}
             </Pressable>
           )}
         />

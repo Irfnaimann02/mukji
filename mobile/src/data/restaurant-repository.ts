@@ -6,11 +6,18 @@ import type { Dish, Restaurant } from './types';
 // Supabase only returns approved restaurants (row level security).
 export async function fetchRestaurants(): Promise<Restaurant[]> {
   if (!supabase) {
-    console.warn('Supabase keys missing in mobile/.env, using mock restaurants.');
+    console.warn(
+      'Supabase keys missing in mobile/.env, using mock restaurants.'
+    );
     return MOCK_RESTAURANTS;
   }
-  const { data, error } = await supabase.from('restaurants').select('*, dishes(*)');
+
+  const { data, error } = await supabase
+    .from('restaurants')
+    .select('*, dishes(*)');
+
   if (error) throw error;
+
   return data.map(toRestaurant);
 }
 
@@ -25,6 +32,10 @@ function toRestaurant(row: any): Restaurant {
     lng: row.lng,
     address: row.address,
     phone: row.phone,
+
+    // Older database rows may not have a booking URL.
+    reservationUrl: row.reservation_url ?? undefined,
+
     priceLevel: row.price_level,
     halalCertified: row.halal_certified,
     origin: row.origin ?? [],
