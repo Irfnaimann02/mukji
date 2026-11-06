@@ -10,12 +10,9 @@ import {
 } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 
+import { DishList } from '@/components/dish-list';
 import { ReservationContactSheet } from '@/components/reservation-contact-sheet';
-import type {
-  Dish,
-  DishStatus,
-  Restaurant,
-} from '@/data/types';
+import type { Restaurant } from '@/data/types';
 import {
   getOngoingReservation,
   startReservation,
@@ -23,17 +20,7 @@ import {
   type ReservationRecord,
 } from '@/data/reservation-history-store';
 import { useProfile } from '@/hooks/use-profile';
-import { dishStatus } from '@/logic/profile-filter';
 import { findRestaurant } from '@/logic/restaurant-service';
-
-const STATUS: Record<
-  DishStatus,
-  { label: string; color: string }
-> = {
-  safe: { label: 'Safe', color: '#2e7d32' },
-  ask_first: { label: 'Ask first', color: '#ef6c00' },
-  avoid: { label: 'Avoid', color: '#c62828' },
-};
 
 export default function RestaurantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -204,28 +191,19 @@ export default function RestaurantScreen() {
 
         <Text style={styles.heading}>Menu</Text>
 
-        {restaurant.dishes.length === 0 && (
-          <Text style={styles.sub}>
-            Menu not added yet. Ask staff before ordering.
-          </Text>
-        )}
-
-        {restaurant.dishes.map((dish) => (
-          <DishRow
-            key={dish.id}
-            dish={dish}
-            status={dishStatus(dish, restaurant, profile)}
-            onPress={() =>
-              router.push({
-                pathname: '/order-card',
-                params: {
-                  restaurantId: restaurant.id,
-                  dishId: dish.id,
-                },
-              })
-            }
-          />
-        ))}
+        <DishList
+          restaurant={restaurant}
+          profile={profile}
+          onDishPress={(dish) =>
+            router.push({
+              pathname: '/order-card',
+              params: {
+                restaurantId: restaurant.id,
+                dishId: dish.id,
+              },
+            })
+          }
+        />
 
         <Text style={styles.heading}>원산지 (origin)</Text>
 
@@ -317,54 +295,6 @@ export default function RestaurantScreen() {
   );
 }
 
-function DishRow({
-  dish,
-  status,
-  onPress,
-}: {
-  dish: Dish;
-  status: DishStatus;
-  onPress: () => void;
-}) {
-  const statusInfo = STATUS[status];
-
-  return (
-    <Pressable style={styles.dish} onPress={onPress}>
-      <View style={styles.dishTop}>
-        <Text style={styles.dishName}>
-          {dish.nameKo} · ₩{dish.priceWon.toLocaleString()}
-        </Text>
-
-        <Text
-          style={[
-            styles.status,
-            {
-              color: statusInfo.color,
-              borderColor: statusInfo.color,
-            },
-          ]}>
-          {statusInfo.label}
-        </Text>
-      </View>
-
-      <Text style={styles.sub}>{dish.nameEn}</Text>
-
-      <Text style={styles.small}>
-        Contains: {dish.contains.join(', ') || 'nothing listed'}
-        {dish.mayContain.length > 0
-          ? ` · May contain: ${dish.mayContain.join(', ')}`
-          : ''}
-      </Text>
-
-      {status !== 'safe' && dish.leaveOutEn && (
-        <Text style={styles.small}>
-          Ask: {dish.leaveOutEn}
-        </Text>
-      )}
-    </Pressable>
-  );
-}
-
 const styles = StyleSheet.create({
   page: {
     padding: 16,
@@ -388,39 +318,10 @@ const styles = StyleSheet.create({
   sub: {
     color: '#666',
   },
-  small: {
-    fontSize: 12,
-    color: '#666',
-  },
   badge: {
     alignSelf: 'flex-start',
     color: '#2e7d32',
     fontWeight: '600',
-  },
-  dish: {
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-    gap: 2,
-  },
-  dishTop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: 8,
-  },
-  dishName: {
-    fontSize: 16,
-    fontWeight: '600',
-    flexShrink: 1,
-    color: '#14213d',
-  },
-  status: {
-    fontSize: 12,
-    fontWeight: '700',
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 6,
   },
   reserve: {
     position: 'absolute',
