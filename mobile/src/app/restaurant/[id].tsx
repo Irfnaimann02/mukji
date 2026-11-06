@@ -1,8 +1,9 @@
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 
-import { DEFAULT_PROFILE, type Dish, type DishStatus, type Restaurant } from '@/data/types';
+import type { Dish, DishStatus, Restaurant } from '@/data/types';
+import { useProfile } from '@/hooks/use-profile';
 import { dishStatus } from '@/logic/profile-filter';
 import { findRestaurant } from '@/logic/restaurant-service';
 
@@ -16,8 +17,7 @@ export default function RestaurantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const [r, setR] = useState<Restaurant | null>();
-  // Replace with the saved food profile once #4's profile screen is in.
-  const profile = DEFAULT_PROFILE;
+  const { profile } = useProfile();
 
   useEffect(() => {
     findRestaurant(id).then((found) => setR(found ?? null));
