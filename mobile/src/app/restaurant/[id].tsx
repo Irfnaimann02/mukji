@@ -2,16 +2,10 @@ import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import type { Dish, DishStatus, Restaurant } from '@/data/types';
+import type { Restaurant } from '@/data/types';
 import { useProfile } from '@/hooks/use-profile';
-import { dishStatus } from '@/logic/profile-filter';
+import { DishList } from '@/components/dish-list';
 import { findRestaurant } from '@/logic/restaurant-service';
-
-const STATUS: Record<DishStatus, { label: string; color: string }> = {
-  safe: { label: 'Safe', color: '#2e7d32' },
-  ask_first: { label: 'Ask first', color: '#ef6c00' },
-  avoid: { label: 'Avoid', color: '#c62828' },
-};
 
 export default function RestaurantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -37,16 +31,13 @@ export default function RestaurantScreen() {
         {r.halalCertified && <Text style={styles.badge}>Halal certified</Text>}
 
         <Text style={styles.heading}>Menu</Text>
-        {r.dishes.length === 0 && (
-          <Text style={styles.sub}>Menu not added yet. Ask staff before ordering.</Text>
-        )}
-        {r.dishes.map((d) => (
-          <DishRow key={d.id} dish={d} status={dishStatus(d, r, profile)}
-          onPress={() =>
-          router.push({ pathname: '/order-card', params: { restaurantId: r.id, dishId: d.id } })
-          } 
-          />
-        ))}
+        <DishList
+          restaurant={r}
+          profile={profile}
+          onDishPress={(d) =>
+            router.push({ pathname: '/order-card', params: { restaurantId: r.id, dishId: d.id } })
+          }
+        />
 
         <Text style={styles.heading}>원산지 (origin)</Text>
         {r.origin.length === 0 ? (
@@ -68,48 +59,13 @@ export default function RestaurantScreen() {
   );
 }
 
-function DishRow({
-  dish,
-  status,
-  onPress,
-}: {
-  dish: Dish;
-  status: DishStatus;
-  onPress: () => void;
-}) {
-  const s = STATUS[status];
-  return (
-    <Pressable style={styles.dish} onPress={onPress}>
-      <View style={styles.dishTop}>
-        <Text style={styles.dishName}>
-          {dish.nameKo} · ₩{dish.priceWon.toLocaleString()}
-        </Text>
-        <Text style={[styles.status, { color: s.color, borderColor: s.color }]}>{s.label}</Text>
-      </View>
-      <Text style={styles.sub}>{dish.nameEn}</Text>
-      <Text style={styles.small}>
-        Contains: {dish.contains.join(', ') || 'nothing listed'}
-        {dish.mayContain.length > 0 ? ` · May contain: ${dish.mayContain.join(', ')}` : ''}
-      </Text>
-      {status !== 'safe' && dish.leaveOutEn && (
-        <Text style={styles.small}>Ask: {dish.leaveOutEn}</Text>
-      )}
-    </Pressable>
-  );
-}
-
 const styles = StyleSheet.create({
   page: { padding: 16, gap: 8, paddingBottom: 100 },
   message: { padding: 32 },
   name: { fontSize: 24, fontWeight: '700' },
   heading: { fontSize: 18, fontWeight: '600', marginTop: 16 },
   sub: { color: '#666' },
-  small: { fontSize: 12, color: '#666' },
   badge: { alignSelf: 'flex-start', color: '#2e7d32', fontWeight: '600' },
-  dish: { paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#eee', gap: 2 },
-  dishTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  dishName: { fontSize: 16, fontWeight: '600', flexShrink: 1 },
-  status: { fontSize: 12, fontWeight: '700', borderWidth: 1, borderRadius: 8, paddingHorizontal: 6 },
   reserve: {
     position: 'absolute',
     left: 16,

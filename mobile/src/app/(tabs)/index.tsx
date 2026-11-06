@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { RestaurantPin } from '@/components/restaurant-pin';
 import { RestaurantPreview } from '@/components/restaurant-preview';
+import { useProfile } from '@/hooks/use-profile';
 import { getMapPins, MapPin } from '@/logic/map-pins';
 
 const ERICA_REGION = {
@@ -24,17 +25,24 @@ export default function MapScreen() {
   const [selectedPin, setSelectedPin] = useState<MapPin | null>(null);
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { profile } = useProfile();
 
+  // Reload when the food profile changes, so pins fade as soon as an allergy is switched on (#14).
   useEffect(() => {
-    getMapPins().then(setPins);
-  }, []);
+    getMapPins(profile).then((next) => {
+      setPins(next);
+      // Keep the open preview in sync with the new pin data.
+      setSelectedPin((prev) => (prev ? (next.find((p) => p.id === prev.id) ?? null) : null));
+    });
+  }, [profile]);
 
   return (
     <View style={styles.screen}>
       <MapView style={styles.map} initialRegion={ERICA_REGION}>
         {pins.map((pin) => (
           <Marker
-            key={pin.id}
+            // The key includes `faded` so the marker redraws on Android when it changes.
+            key={`${pin.id}-${pin.faded ? 'faded' : 'normal'}`}
             coordinate={{ latitude: pin.latitude, longitude: pin.longitude }}
             onPress={() => setSelectedPin(pin)}>
             <RestaurantPin pin={pin} selected={selectedPin?.id === pin.id} />

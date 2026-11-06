@@ -19,6 +19,7 @@ export function RestaurantPreview({ pin, onClose }: Props) {
         <Text style={styles.detail}>
           {pin.foodType} · {pin.badgeCount} {pin.badgeCount === 1 ? 'badge' : 'badges'}
         </Text>
+        {pin.faded && <Text style={styles.warning}>No dish here is free of your allergens</Text>}
         <Text style={styles.more}>Tap for menu and details</Text>
       </Pressable>
       <Pressable
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
   info: { flex: 1 },
   name: { fontSize: 17, fontWeight: 'bold', color: '#222' },
   detail: { fontSize: 14, color: '#666', marginTop: 4 },
+  warning: { fontSize: 13, color: '#c62828', fontWeight: '600', marginTop: 4 },
   closeButton: {
     width: 36,
     height: 36,
