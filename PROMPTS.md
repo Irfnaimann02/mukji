@@ -20,9 +20,26 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Output used: clickable prototype, updated proposal, worksheet (architecture, decided tech stack, issues #1 to #21), README, docs/ONBOARDING.md, scripts/update-issues.sh
 - Changes by the team: (fill in after the team reviews the prototype)
 
+## 2026-10-31 - #1 Map screen (Aiman)
+- Tool: Claude
+- Prompt: asked for step-by-step guidance to build the map screen with react-native-maps: centre on ERICA, a pin per restaurant, food-type icon and badge count, and a preview card on tap.
+- Output used: file structure across the three layers and the code for each step
+- Changes by the team: typed every file by hand, fixed a missing import, tested on iPhone with Expo Go
 
 ## 2026-10-31 - #4 food profile filter (Nik Ammar)
 - Tool: Claude
 - Prompt: shared the team handoff for #4 and asked for help setting up and testing it; ran the handoff's filter code in a separate test folder with halal, vegan and egg-allergy profiles against the 3 mock restaurants.
 - Output used: `profile-filter.ts` from the handoff (`blockedIngredients`, `dishStatus`, `restaurantFits`); halal output matches the handoff.
 - Changes by me: left out `visibleDishes` (it belongs to #14, Adib); found that a drink alone makes a restaurant fit for vegans (Draft beer at Mock Chicken) and raised it with the team.
+
+## 2026-10-31 - #6 Home suggestions nearby (Aiman)
+- Tool: Claude
+- Prompt: asked for guidance to build the Home list: distance filter (haversine), GPS with a campus fallback, food-type chips, badges, loading and error states, linking cards to the detail page, then using the saved profile.
+- Output used: nearby-service.ts, use-current-location.ts and home.tsx structure and code
+- Changes by the team: typed every file by hand, tested on iPhone with Expo Go
+
+## 2026-11-04 - #15 Search page (Aiman)
+- Tool: Claude
+- Prompt: asked for guidance to finish the Search screen: popular searches based on the food profile, the 5 most recent searches saved on the phone, and results by restaurant or dish name.
+- Output used: search-history-store.ts, search-service.ts and search.tsx structure and code
+- Changes by the team: built the search bar and empty screen first, typed the rest by hand, tested on iPhone with Expo Go
