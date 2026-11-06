@@ -5,6 +5,7 @@ import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { DEFAULT_PROFILE, type Dish, type DishStatus, type Restaurant } from '@/data/types';
 import { dishStatus } from '@/logic/profile-filter';
 import { findRestaurant } from '@/logic/restaurant-service';
+import { ContactSheet } from '@/components/contact-sheet';
 
 const STATUS: Record<DishStatus, { label: string; color: string }> = {
   safe: { label: 'Safe', color: '#2e7d32' },
@@ -16,6 +17,7 @@ export default function RestaurantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const [r, setR] = useState<Restaurant | null>();
+  const [contactOpen, setContactOpen] = useState(false);
   // Replace with the saved food profile once #4's profile screen is in.
   const profile = DEFAULT_PROFILE;
 
@@ -60,10 +62,10 @@ export default function RestaurantScreen() {
         )}
       </ScrollView>
 
-      {/* Opens Aqil's ContactSheet (#16) once it exists. */}
-      <Pressable style={styles.reserve} onPress={() => {}}>
+      <Pressable style={styles.reserve} onPress={() => setContactOpen(true)}>
         <Text style={styles.reserveText}>Do reservation</Text>
       </Pressable>
+      <ContactSheet restaurant={contactOpen ? r : null} onClose={() => setContactOpen(false)} />
     </View>
   );
 }
