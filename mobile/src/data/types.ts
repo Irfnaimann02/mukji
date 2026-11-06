@@ -1,5 +1,6 @@
 export type Diet = 'halal' | 'vegan' | 'no_pork';
 
+// What can be in a dish. Diets and allergies both check against this list.
 export type Ingredient =
   | 'pork' | 'beef' | 'chicken' | 'seafood' | 'egg' | 'dairy'
   | 'alcohol' | 'peanut' | 'wheat' | 'soy';
@@ -12,6 +13,7 @@ export type Allergen = Extract<
 export type FoodType =
   | 'korean' | 'chicken' | 'noodles' | 'cafe' | 'halal' | 'other';
 
+// Worked out by the filter for each person. Never stored.
 export type DishStatus = 'safe' | 'ask_first' | 'avoid';
 
 export interface Dish {
@@ -19,12 +21,12 @@ export interface Dish {
   nameKo: string;
   nameEn: string;
   priceWon: number;
-  contains: Ingredient[];
-  mayContain: Ingredient[];
-  leaveOutKo?: string;
+  contains: Ingredient[]; // known to be in it
+  mayContain: Ingredient[]; // unclear, e.g. the broth: makes it "ask first"
+  leaveOutKo?: string; // e.g. '햄 빼 주세요'
   leaveOutEn?: string;
-  verifiedCount: number;
-  lastChecked: string | null;
+  verifiedCount: number; // #8
+  lastChecked: string | null; // '2026-10-20', or null = not verified
 }
 
 export interface OriginLabel {
@@ -49,9 +51,9 @@ export interface Restaurant {
   priceLevel: 1 | 2 | 3;
   halalCertified: boolean;
   origin: OriginLabel[];
-  recommendCount: number;
-  rating: number;
-  sources: string[];
+  recommendCount: number; // #7
+  rating: number; // 0 to 5, #7
+  sources: string[]; // #8, e.g. ['menu', '원산지 label', 'reviews']
   dishes: Dish[];
 }
 

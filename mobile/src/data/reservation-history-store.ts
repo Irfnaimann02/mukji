@@ -104,11 +104,14 @@ export async function updateReservationStatus(
   return updated;
 }
 
-export async function getOngoingReservation():
-  Promise<ReservationRecord | undefined> {
+export async function getOngoingReservation(
+  restaurantId: string
+): Promise<ReservationRecord | undefined> {
   const records = await getReservationRecords();
 
   return records.find(
-    (record) => record.status === 'ongoing'
+    (record) =>
+      record.restaurantId === restaurantId &&
+      record.status === 'ongoing'
   );
 }

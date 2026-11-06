@@ -66,11 +66,9 @@ export default function RestaurantScreen() {
     useCallback(() => {
       let active = true;
 
-      getOngoingReservation().then((record) => {
+      getOngoingReservation(id).then((record) => {
         if (active) {
-          setOngoing(
-            record?.restaurantId === id ? record : undefined
-          );
+          setOngoing(record);
         }
       });
 
@@ -98,6 +96,8 @@ export default function RestaurantScreen() {
           return;
         }
 
+        await WebBrowser.openBrowserAsync(url);
+
         const records = await startReservation(restaurant.id, 'online');
 
         setOngoing(
@@ -107,8 +107,6 @@ export default function RestaurantScreen() {
               record.status === 'ongoing'
           )
         );
-
-        await WebBrowser.openBrowserAsync(url);
       } else {
         if (!restaurant.phone?.trim()) {
           Alert.alert(
@@ -117,16 +115,6 @@ export default function RestaurantScreen() {
           );
           return;
         }
-
-        const records = await startReservation(restaurant.id, 'phone');
-
-        setOngoing(
-          records.find(
-            (record) =>
-              record.restaurantId === restaurant.id &&
-              record.status === 'ongoing'
-          )
-        );
 
         setContactVisible(true);
       }
@@ -313,6 +301,17 @@ export default function RestaurantScreen() {
         restaurant={restaurant}
         visible={contactVisible}
         onClose={() => setContactVisible(false)}
+        onContactStarted={async () => {
+          const records = await startReservation(restaurant.id, 'phone');
+
+          setOngoing(
+            records.find(
+              (record) =>
+                record.restaurantId === restaurant.id &&
+                record.status === 'ongoing'
+            )
+          );
+        }}
       />
     </View>
   );

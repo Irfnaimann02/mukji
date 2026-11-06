@@ -16,12 +16,14 @@ interface Props {
   restaurant: Restaurant | null;
   visible: boolean;
   onClose: () => void;
+  onContactStarted: () => Promise<void>;
 }
 
 export function ReservationContactSheet({
   restaurant,
   visible,
   onClose,
+  onContactStarted,
 }: Props) {
   const [busy, setBusy] = useState(false);
 
@@ -36,8 +38,9 @@ export function ReservationContactSheet({
     setBusy(true);
 
     try {
-      const phoneNumber = phone.replace(/[^\d+]/g, '');
-      await Linking.openURL(`tel:${phoneNumber}`);
+        const phoneNumber = phone.replace(/[^\d+]/g, '');
+        await Linking.openURL(`tel:${phoneNumber}`);
+        await onContactStarted();
     } catch {
       Alert.alert(
         'Unable to open phone app',
@@ -54,11 +57,12 @@ export function ReservationContactSheet({
     setBusy(true);
 
     try {
-      await Clipboard.setStringAsync(phone);
-      Alert.alert(
-        'Copied',
-        'The restaurant phone number has been copied.'
-      );
+        await Clipboard.setStringAsync(phone);
+        await onContactStarted();
+        Alert.alert(
+            'Copied',
+            'The restaurant phone number has been copied.'
+        );
     } catch {
       Alert.alert('Copy failed', 'Please try again.');
     } finally {
@@ -122,11 +126,11 @@ export function ReservationContactSheet({
 
           <View style={styles.phraseBox}>
             <Text style={styles.phraseKo}>
-              예약하고 싶어요. 두 명이에요.
+                예약하고 싶어요.
             </Text>
 
             <Text style={styles.phraseEn}>
-              I&apos;d like to reserve a table for two.
+                I&apos;d like to make a reservation.
             </Text>
           </View>
 
