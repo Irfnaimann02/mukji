@@ -39,17 +39,29 @@ export function ReservationContactSheet({
 
     try {
         const phoneNumber = phone.replace(/[^\d+]/g, '');
-        await Linking.openURL(`tel:${phoneNumber}`);
-        await onContactStarted();
-    } catch {
-      Alert.alert(
-        'Unable to open phone app',
-        'Please try again or copy the phone number.'
-      );
+
+        try {
+            await Linking.openURL(`tel:${phoneNumber}`);
+        } catch {
+            Alert.alert(
+                'Unable to open phone app',
+                'Please try again or copy the phone number.'
+            );
+            return;
+        }
+
+        try {
+            await onContactStarted();
+        } catch {
+            Alert.alert(
+                'Reservation not saved',
+                'The phone app opened, but Mukji could not save this reservation activity.'
+            );
+        }
     } finally {
-      setBusy(false);
+        setBusy(false);
     }
-  };
+};
 
   const handleCopy = async () => {
     if (!hasPhone || busy) return;
