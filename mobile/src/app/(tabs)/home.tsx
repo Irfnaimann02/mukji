@@ -100,6 +100,9 @@ export default function HomeScreen() {
                   {item.restaurant.nameKo} · {Math.round(item.meters)} m · {walkMinutes(item.meters)}{' '}
                   min walk
                 </Text>
+                <Text style={styles.detail}>
+                  {item.restaurant.rating.toFixed(1)} · {item.restaurant.recommendCount} recommend
+                </Text>
                 <View style={styles.badges}>
                   {badgesFor(item.restaurant).map((badge) => (
                     <Text key={badge} style={styles.badge}>
