@@ -18,8 +18,14 @@ type Props = {
 
 export function RestaurantPin({ pin, selected }: Props) {
   return (
-    <View style={styles.wrapper}>
-      <View style={[styles.circle, selected && styles.circleSelected]}>
+    // #14: faded = nothing here is free of the user's allergens.
+    <View style={[styles.wrapper, pin.faded && styles.faded]}>
+      <View
+        style={[
+          styles.circle,
+          pin.faded && styles.circleFaded,
+          selected && styles.circleSelected,
+        ]}>
         <Text style={styles.icon}>{FOOD_TYPE_ICON[pin.foodType]}</Text>
       </View>
       <View style={styles.badge}>
@@ -31,6 +37,7 @@ export function RestaurantPin({ pin, selected }: Props) {
 
 const styles = StyleSheet.create({
   wrapper: { padding: 6 },
+  faded: { opacity: 0.35 },
   circle: {
     width: 40,
     height: 40,
@@ -41,6 +48,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  circleFaded: { borderColor: '#9aa8b8' },
   circleSelected: { borderColor: '#d84315', borderWidth: 3 },
   icon: { fontSize: 20 },
   badge: {
