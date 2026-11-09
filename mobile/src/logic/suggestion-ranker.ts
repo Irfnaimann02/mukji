@@ -1,11 +1,11 @@
 import type { Restaurant } from '@/data/types';
 
-// How much each part counts. Reviews matter most, then recommendations,
-// then how close it is.
-const PRICE_WEIGHT = 0.4;
-const DISTANCE_WEIGHT = 0.25;
-const RECOMMEND_WEIGHT = 0.2;
-const RATING_WEIGHT = 0.15;
+// How much each part counts (adds up to 1). Recommendations and reviews
+// matter most (issue #7), then how close it is, then price.
+const RECOMMEND_WEIGHT = 0.35;
+const RATING_WEIGHT = 0.30;
+const DISTANCE_WEIGHT = 0.20;
+const PRICE_WEIGHT = 0.15;
 
 const RECOMMEND_CAP = 50;
 
