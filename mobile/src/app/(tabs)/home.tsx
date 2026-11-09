@@ -39,7 +39,13 @@ export default function HomeScreen() {
   }, [foodType, location.point, profile]);
 
   useEffect(() => {
-    if (location.ready) load();
+    if (!location.ready) return;
+
+    const timer = setTimeout(() => {
+      void load();
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, [location.ready, load]);
 
   return (
