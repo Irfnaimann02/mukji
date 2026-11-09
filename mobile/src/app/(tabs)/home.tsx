@@ -106,6 +106,12 @@ export default function HomeScreen() {
                   {item.restaurant.nameKo} · {Math.round(item.meters)} m · {walkMinutes(item.meters)}{' '}
                   min walk
                 </Text>
+                <Text style={styles.detail}>
+                  {'₩'.repeat(item.restaurant.priceLevel)} ·{' '}
+                  {item.restaurant.recommendCount === 0
+                    ? 'No reviews yet'
+                    : ` ${item.restaurant.rating.toFixed(1)} ·  ${item.restaurant.recommendCount} recommend`}
+                </Text>
                 <View style={styles.badges}>
                   {badgesFor(item.restaurant).map((badge) => (
                     <Text key={badge} style={styles.badge}>

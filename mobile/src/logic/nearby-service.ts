@@ -1,6 +1,7 @@
 import type { FoodProfile, FoodType, Restaurant } from '@/data/types';
 import { restaurantFits } from '@/logic/profile-filter';
 import { listRestaurants } from '@/logic/restaurant-service';
+import { rankSuggestions } from '@/logic/suggestion-ranker';
 
 export type Point = { lat: number; lng: number };
 
@@ -31,20 +32,20 @@ export function walkMinutes(meters: number): number {
 }
 
 // Restaurants within the profile's distance that fit the profile,
-// optionally only one food type, nearest first.
+// optionally only one food type, best suggestion first.
 export async function nearbyRestaurants(
   profile: FoodProfile,
   foodType: FoodType | null,
   from: Point = ERICA_CENTRE,
 ): Promise<NearbyRestaurant[]> {
   const all = await listRestaurants();
-  return all
+  const fitting = all
     .map((restaurant) => ({ restaurant, meters: distanceInMeters(from, restaurant) }))
     .filter(
       ({ restaurant, meters }) =>
         meters <= profile.maxDistanceM &&
         restaurantFits(restaurant, profile) &&
         (foodType === null || restaurant.foodType === foodType),
-    )
-    .sort((a, b) => a.meters - b.meters);
+    );
+  return rankSuggestions(fitting, profile.maxDistanceM);
 }
