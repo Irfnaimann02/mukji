@@ -11,10 +11,14 @@ import {
 import * as WebBrowser from 'expo-web-browser';
 
 import { DishList } from '@/components/dish-list';
+import {
+  addFavourite,
+  getFavourites,
+  removeFavourite,
+} from '@/data/favourites-store';
 import { ReservationContactSheet } from '@/components/reservation-contact-sheet';
 import type { Restaurant } from '@/data/types';
 import {
-  getOngoingReservation,
   startReservation,
   updateReservationStatus,
   type ReservationRecord,
@@ -30,6 +34,8 @@ export default function RestaurantScreen() {
   const [contactVisible, setContactVisible] = useState(false);
   const [ongoing, setOngoing] = useState<ReservationRecord | undefined>();
   const [reserving, setReserving] = useState(false);
+  const [isFavourite, setIsFavourite] = useState<boolean | null>(null);
+  const [favouriteBusy, setFavouriteBusy] = useState(false);
 
   const { profile } = useProfile();
 
@@ -53,11 +59,21 @@ export default function RestaurantScreen() {
     useCallback(() => {
       let active = true;
 
-      getOngoingReservation(id).then((record) => {
-        if (active) {
-          setOngoing(record);
-        }
-      });
+      getFavourites()
+        .then((records) => {
+          if (active) {
+            setIsFavourite(
+              records.some((record) => record.restaurantId === id)
+            );
+          }
+        })
+        .catch((error) => {
+          console.error('Failed to load favourite status:', error);
+
+          if (active) {
+            setIsFavourite(false);
+          }
+        });
 
       return () => {
         active = false;
@@ -112,6 +128,30 @@ export default function RestaurantScreen() {
       );
     } finally {
       setReserving(false);
+    }
+  };
+
+  const handleToggleFavourite = async () => {
+    if (!restaurant || isFavourite === null || favouriteBusy) return;
+
+    setFavouriteBusy(true);
+
+    try {
+      if (isFavourite) {
+        await removeFavourite(restaurant.id);
+        setIsFavourite(false);
+      } else {
+        await addFavourite(restaurant.id);
+        setIsFavourite(true);
+      }
+    } catch (error) {
+      console.error('Failed to update favourite:', error);
+      Alert.alert(
+        'Favourites update failed',
+        'Please try again.'
+      );
+    } finally {
+      setFavouriteBusy(false);
     }
   };
 
@@ -184,6 +224,33 @@ export default function RestaurantScreen() {
           {restaurant.nameEn} · {'₩'.repeat(restaurant.priceLevel)} ·{' '}
           {restaurant.address}
         </Text>
+
+        <Pressable
+          style={[
+            styles.favoriteButton,
+            isFavourite && styles.favoriteButtonActive,
+            (isFavourite === null || favouriteBusy) && styles.disabled,
+          ]}
+          disabled={isFavourite === null || favouriteBusy}
+          onPress={() => void handleToggleFavourite()}>
+          <Text
+            style={[
+              styles.favoriteButtonText,
+              isFavourite && styles.favoriteButtonTextActive,
+            ]}>
+            {favouriteBusy
+              ? 'Please wait...'
+              : isFavourite
+                ? '♥  Saved to Favourites'
+                : '♡  Add to Favourites'}
+          </Text>
+        </Pressable>
+
+        {isFavourite && (
+          <Text style={styles.favoriteHint}>
+            You can add or edit your private note in the Favourites tab.
+          </Text>
+        )}
 
         {restaurant.halalCertified && (
           <Text style={styles.badge}>Halal certified</Text>
@@ -392,5 +459,30 @@ const styles = StyleSheet.create({
   cancelText: {
     color: '#c62828',
     fontWeight: '700',
+  },
+  favoriteButton: {
+    alignSelf: 'flex-start',
+    borderWidth: 1,
+    borderColor: '#1b5fad',
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    marginTop: 8,
+    backgroundColor: '#fff',
+  },
+  favoriteButtonActive: {
+    backgroundColor: '#e8f0fb',
+  },
+  favoriteButtonText: {
+    color: '#1b5fad',
+    fontWeight: '700',
+  },
+  favoriteButtonTextActive: {
+    color: '#1b5fad',
+  },
+  favoriteHint: {
+    color: '#6b7a8d',
+    fontSize: 12,
+    marginTop: 2,
   },
 });
