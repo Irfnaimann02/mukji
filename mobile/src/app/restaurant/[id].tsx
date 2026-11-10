@@ -1,4 +1,9 @@
-import { Stack, useLocalSearchParams, useRouter, useFocusEffect } from 'expo-router';
+import {
+  Stack,
+  useFocusEffect,
+  useLocalSearchParams,
+  useRouter,
+} from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import {
   Alert,
@@ -11,43 +16,57 @@ import {
 import * as WebBrowser from 'expo-web-browser';
 
 import { DishList } from '@/components/dish-list';
+import { ReservationContactSheet } from '@/components/reservation-contact-sheet';
 import {
   addFavourite,
   getFavourites,
   removeFavourite,
 } from '@/data/favourites-store';
-import { ReservationContactSheet } from '@/components/reservation-contact-sheet';
 import type { Restaurant } from '@/data/types';
 import {
+  getOngoingReservation,
   startReservation,
   updateReservationStatus,
   type ReservationRecord,
 } from '@/data/reservation-history-store';
 import { useProfile } from '@/hooks/use-profile';
+import { useTranslation } from '@/hooks/use-translation';
 import { findRestaurant } from '@/logic/restaurant-service';
 
 export default function RestaurantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
 
-  const [restaurant, setRestaurant] = useState<Restaurant | null>();
+  const [restaurant, setRestaurant] = useState<
+    Restaurant | null | undefined
+  >(undefined);
+
   const [contactVisible, setContactVisible] = useState(false);
-  const [ongoing, setOngoing] = useState<ReservationRecord | undefined>();
+  const [ongoing, setOngoing] = useState<
+    ReservationRecord | undefined
+  >(undefined);
   const [reserving, setReserving] = useState(false);
+
   const [isFavourite, setIsFavourite] = useState<boolean | null>(null);
   const [favouriteBusy, setFavouriteBusy] = useState(false);
 
   const { profile } = useProfile();
+  const { t } = useTranslation();
 
+  // Load the restaurant information.
   useEffect(() => {
     let active = true;
 
     findRestaurant(id)
       .then((found) => {
-        if (active) setRestaurant(found ?? null);
+        if (active) {
+          setRestaurant(found ?? null);
+        }
       })
       .catch(() => {
-        if (active) setRestaurant(null);
+        if (active) {
+          setRestaurant(null);
+        }
       });
 
     return () => {
@@ -55,6 +74,8 @@ export default function RestaurantScreen() {
     };
   }, [id]);
 
+  // Refresh favourite and reservation information whenever
+  // the restaurant screen becomes active.
   useFocusEffect(
     useCallback(() => {
       let active = true;
@@ -75,14 +96,29 @@ export default function RestaurantScreen() {
           }
         });
 
+      getOngoingReservation(id)
+        .then((record) => {
+          if (active) {
+            setOngoing(record);
+          }
+        })
+        .catch(() => {
+          if (active) {
+            setOngoing(undefined);
+          }
+        });
+
       return () => {
         active = false;
       };
     }, [id])
   );
 
+  // Start the reservation process.
   const handleReservation = async () => {
-    if (!restaurant || reserving) return;
+    if (!restaurant || reserving) {
+      return;
+    }
 
     setReserving(true);
 
@@ -90,18 +126,20 @@ export default function RestaurantScreen() {
       if (restaurant.reservationUrl?.trim()) {
         const url = restaurant.reservationUrl.trim();
 
-        // Only open valid HTTP or HTTPS booking links.
         if (!/^https?:\/\//i.test(url)) {
           Alert.alert(
-            'Invalid booking link',
-            'The online reservation link is not valid. Please contact the restaurant directly.'
+            t('invalidBookingLink'),
+            t('invalidBookingDescription')
           );
           return;
         }
 
         await WebBrowser.openBrowserAsync(url);
 
-        const records = await startReservation(restaurant.id, 'online');
+        const records = await startReservation(
+          restaurant.id,
+          'online'
+        );
 
         setOngoing(
           records.find(
@@ -113,8 +151,8 @@ export default function RestaurantScreen() {
       } else {
         if (!restaurant.phone?.trim()) {
           Alert.alert(
-            'Contact unavailable',
-            'This restaurant has no online booking link or phone number yet.'
+            t('contactUnavailable'),
+            t('noBookingOrPhone')
           );
           return;
         }
@@ -123,16 +161,19 @@ export default function RestaurantScreen() {
       }
     } catch {
       Alert.alert(
-        'Reservation error',
-        'Something went wrong. Please try again.'
+        t('reservationError'),
+        t('somethingWentWrong')
       );
     } finally {
       setReserving(false);
     }
   };
 
+  // Add or remove this restaurant from Favourites.
   const handleToggleFavourite = async () => {
-    if (!restaurant || isFavourite === null || favouriteBusy) return;
+    if (!restaurant || isFavourite === null || favouriteBusy) {
+      return;
+    }
 
     setFavouriteBusy(true);
 
@@ -146,51 +187,69 @@ export default function RestaurantScreen() {
       }
     } catch (error) {
       console.error('Failed to update favourite:', error);
+
       Alert.alert(
-        'Favourites update failed',
-        'Please try again.'
+        t('updateFailed'),
+        t('tryAgain')
       );
     } finally {
       setFavouriteBusy(false);
     }
   };
 
-  const handleStatusUpdate = (status: 'completed' | 'cancelled') => {
-    if (!restaurant) return;
+  // Update the status of an ongoing reservation.
+  const handleStatusUpdate = (
+    status: 'completed' | 'cancelled'
+  ) => {
+    if (!restaurant) {
+      return;
+    }
 
     const title =
       status === 'completed'
-        ? 'Complete reservation?'
-        : 'Cancel reservation?';
+        ? t('completeReservationQuestion')
+        : t('cancelReservationQuestion');
 
     const message =
       status === 'completed'
-        ? 'Have you finished contacting or booking this restaurant?'
-        : 'Are you sure you want to cancel this ongoing reservation?';
+        ? t('completeReservationDescription')
+        : t('cancelReservationDescription');
 
     Alert.alert(title, message, [
       {
-        text: 'Keep ongoing',
+        text: t('keepOngoing'),
         style: 'cancel',
       },
       {
-        text: status === 'completed' ? 'Complete' : 'Cancel reservation',
-        style: status === 'cancelled' ? 'destructive' : 'default',
+        text:
+          status === 'completed'
+            ? t('complete')
+            : t('cancelReservation'),
+        style:
+          status === 'cancelled'
+            ? 'destructive'
+            : 'default',
         onPress: async () => {
           try {
-            await updateReservationStatus(restaurant.id, status);
+            await updateReservationStatus(
+              restaurant.id,
+              status
+            );
+
             setOngoing(undefined);
 
             Alert.alert(
-              status === 'completed' ? 'Completed' : 'Cancelled',
               status === 'completed'
-                ? 'Your reservation activity has been moved to History.'
-                : 'Your reservation activity has been cancelled.'
+                ? t('completed')
+                : t('cancelled'),
+              status === 'completed'
+                ? t('reservationActivityMoved')
+                : t('reservationActivityCancelled')
             );
           } catch {
             Alert.alert(
-              'Update failed',
-              'Please try again.'
+              t('updateFailed'),
+              t('tryAgain')
             );
           }
         },
@@ -198,18 +257,28 @@ export default function RestaurantScreen() {
     ]);
   };
 
+  // Loading state.
   if (restaurant === undefined) {
-    return <Text style={styles.message}>Loading...</Text>;
+    return (
+      <Text style={styles.message}>
+        {t('loading')}
+      </Text>
+    );
   }
 
+  // Restaurant not found.
   if (restaurant === null) {
-    return <Text style={styles.message}>Restaurant not found.</Text>;
+    return (
+      <Text style={styles.message}>
+        {t('restaurantNotFound')}
+      </Text>
+    );
   }
 
   const isOnlineBooking = !!restaurant.reservationUrl?.trim();
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#f4f7fa' }}>
+    <View style={styles.root}>
       <Stack.Screen
         options={{
           headerShown: true,
@@ -218,45 +287,51 @@ export default function RestaurantScreen() {
       />
 
       <ScrollView contentContainerStyle={styles.page}>
-        <Text style={styles.name}>{restaurant.nameKo}</Text>
+        <Text style={styles.name}>
+          {restaurant.nameKo}
+        </Text>
 
         <Text style={styles.sub}>
-          {restaurant.nameEn} · {'₩'.repeat(restaurant.priceLevel)} ·{' '}
+          {restaurant.nameEn} ·{' '}
+          {'₩'.repeat(restaurant.priceLevel)} ·{' '}
           {restaurant.address}
         </Text>
 
+        {/* Favourite button */}
         <Pressable
           style={[
             styles.favoriteButton,
             isFavourite && styles.favoriteButtonActive,
-            (isFavourite === null || favouriteBusy) && styles.disabled,
+            (isFavourite === null || favouriteBusy) &&
+              styles.disabled,
           ]}
           disabled={isFavourite === null || favouriteBusy}
-          onPress={() => void handleToggleFavourite()}>
+          onPress={() => void handleToggleFavourite()}
+        >
           <Text
             style={[
               styles.favoriteButtonText,
               isFavourite && styles.favoriteButtonTextActive,
-            ]}>
+            ]}
+          >
             {favouriteBusy
-              ? 'Please wait...'
+              ? t('loading')
               : isFavourite
-                ? '♥  Saved to Favourites'
-                : '♡  Add to Favourites'}
+                ? `♥  ${t('favourites')}`
+                : `♡  ${t('favourites')}`}
           </Text>
         </Pressable>
 
-        {isFavourite && (
-          <Text style={styles.favoriteHint}>
-            You can add or edit your private note in the Favourites tab.
+        {restaurant.halalCertified && (
+          <Text style={styles.badge}>
+            {t('halalCertified')}
           </Text>
         )}
 
-        {restaurant.halalCertified && (
-          <Text style={styles.badge}>Halal certified</Text>
-        )}
-
-        <Text style={styles.heading}>Menu</Text>
+        {/* Restaurant menu */}
+        <Text style={styles.heading}>
+          {t('menu')}
+        </Text>
 
         <DishList
           restaurant={restaurant}
@@ -272,10 +347,15 @@ export default function RestaurantScreen() {
           }
         />
 
-        <Text style={styles.heading}>원산지 (origin)</Text>
+        {/* Ingredient origins */}
+        <Text style={styles.heading}>
+          {t('origin')}
+        </Text>
 
         {restaurant.origin.length === 0 ? (
-          <Text style={styles.sub}>Not checked yet</Text>
+          <Text style={styles.sub}>
+            {t('notCheckedYet')}
+          </Text>
         ) : (
           restaurant.origin.map((origin) => (
             <Text key={origin.itemKo}>
@@ -284,46 +364,54 @@ export default function RestaurantScreen() {
           ))
         )}
 
-        {/* Ongoing reservation status */}
+        {/* Ongoing reservation */}
         {ongoing && (
           <View style={styles.ongoingBox}>
             <View style={styles.ongoingHeader}>
               <Text style={styles.ongoingTitle}>
-                Reservation Ongoing
+                {t('reservationOngoing')}
               </Text>
 
-              <Text style={styles.ongoingBadge}>Ongoing</Text>
+              <Text style={styles.ongoingBadge}>
+                {t('ongoing')}
+              </Text>
             </View>
 
             <Text style={styles.ongoingDescription}>
-              Started using{' '}
+              {t('startedUsing')}{' '}
               {ongoing.method === 'online'
-                ? 'online booking'
-                : 'phone contact'}
-              .
-              {'\n'}
-              Update the status when you finish.
+                ? t('onlineBooking')
+                : t('phoneContact')}
+              .{' '}
+              {t('updateWhenFinished')}
             </Text>
 
             <Pressable
               style={styles.completeButton}
-              onPress={() => handleStatusUpdate('completed')}>
+              onPress={() =>
+                handleStatusUpdate('completed')
+              }
+            >
               <Text style={styles.completeText}>
-                Mark as completed
+                {t('markCompleted')}
               </Text>
             </Pressable>
 
             <Pressable
               style={styles.cancelButton}
-              onPress={() => handleStatusUpdate('cancelled')}>
+              onPress={() =>
+                handleStatusUpdate('cancelled')
+              }
+            >
               <Text style={styles.cancelText}>
-                Cancel reservation
+                {t('cancelReservation')}
               </Text>
             </Pressable>
           </View>
         )}
       </ScrollView>
 
+      {/* Reservation button */}
       {!ongoing && (
         <Pressable
           style={[
@@ -331,23 +419,28 @@ export default function RestaurantScreen() {
             reserving && styles.disabled,
           ]}
           disabled={reserving}
-          onPress={() => void handleReservation()}>
+          onPress={() => void handleReservation()}
+        >
           <Text style={styles.reserveText}>
             {reserving
-              ? 'Please wait...'
+              ? t('pleaseWait')
               : isOnlineBooking
-                ? 'Reserve online'
-                : 'Do reservation'}
+                ? t('reserveOnline')
+                : t('doReserve')}
           </Text>
         </Pressable>
       )}
 
+      {/* Phone reservation contact sheet */}
       <ReservationContactSheet
         restaurant={restaurant}
         visible={contactVisible}
         onClose={() => setContactVisible(false)}
         onContactStarted={async () => {
-          const records = await startReservation(restaurant.id, 'phone');
+          const records = await startReservation(
+            restaurant.id,
+            'phone'
+          );
 
           setOngoing(
             records.find(
@@ -363,6 +456,10 @@ export default function RestaurantScreen() {
 }
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    backgroundColor: '#f4f7fa',
+  },
   page: {
     padding: 16,
     gap: 8,
@@ -479,10 +576,5 @@ const styles = StyleSheet.create({
   },
   favoriteButtonTextActive: {
     color: '#1b5fad',
-  },
-  favoriteHint: {
-    color: '#6b7a8d',
-    fontSize: 12,
-    marginTop: 2,
   },
 });

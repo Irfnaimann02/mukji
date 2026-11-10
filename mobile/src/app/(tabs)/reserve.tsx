@@ -16,6 +16,7 @@ import {
   getReservationRecords,
   type ReservationRecord,
 } from '@/data/reservation-history-store';
+import { useTranslation } from '@/hooks/use-translation';
 import { listRestaurants } from '@/logic/restaurant-service';
 
 type ScreenMode = 'ongoing' | 'history' | 'pick';
@@ -25,6 +26,7 @@ const GREY = '#8a94a3';
 
 export default function ReserveScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const [mode, setMode] = useState<ScreenMode>('ongoing');
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -37,10 +39,11 @@ export default function ReserveScreen() {
     setError(false);
 
     try {
-      const [restaurantList, reservationRecords] = await Promise.all([
-        listRestaurants(),
-        getReservationRecords(),
-      ]);
+      const [restaurantList, reservationRecords] =
+        await Promise.all([
+          listRestaurants(),
+          getReservationRecords(),
+        ]);
 
       setRestaurants(restaurantList);
       setRecords(reservationRecords);
@@ -75,12 +78,20 @@ export default function ReserveScreen() {
     });
   };
 
-  const renderRestaurant = ({ item }: { item: Restaurant }) => (
+  const renderRestaurant = ({
+    item,
+  }: {
+    item: Restaurant;
+  }) => (
     <Pressable
       style={styles.restaurantCard}
       onPress={() => openRestaurant(item)}>
       <View style={styles.restaurantIcon}>
-        <Ionicons name="restaurant-outline" size={24} color={BLUE} />
+        <Ionicons
+          name="restaurant-outline"
+          size={24}
+          color={BLUE}
+        />
       </View>
 
       <View style={styles.restaurantInfo}>
@@ -89,13 +100,16 @@ export default function ReserveScreen() {
         <Text style={styles.restaurantAddress} numberOfLines={2}>
           {item.address}
         </Text>
-
         <Text style={styles.restaurantAction}>
-          View restaurant details
+          {t('viewDetails')}
         </Text>
       </View>
 
-      <Ionicons name="chevron-forward" size={20} color={GREY} />
+      <Ionicons
+        name="chevron-forward"
+        size={20}
+        color={GREY}
+      />
     </Pressable>
   );
 
@@ -119,14 +133,18 @@ export default function ReserveScreen() {
           <View
             style={[
               styles.statusBadge,
-              completed ? styles.completedBadge : styles.cancelledBadge,
+              completed
+                ? styles.completedBadge
+                : styles.cancelledBadge,
             ]}>
             <Text
               style={[
                 styles.statusText,
-                completed ? styles.completedText : styles.cancelledText,
+                completed
+                  ? styles.completedText
+                  : styles.cancelledText,
               ]}>
-              {completed ? 'Completed' : 'Cancelled'}
+              {completed ? t('completed') : t('cancelled')}
             </Text>
           </View>
         </View>
@@ -136,7 +154,7 @@ export default function ReserveScreen() {
         </Text>
 
         <Text style={styles.historyDate}>
-          Started: {new Date(record.startedAt).toLocaleString()}
+          {t('started')}: {new Date(record.startedAt).toLocaleString()}
         </Text>
       </Pressable>
     );
@@ -145,34 +163,40 @@ export default function ReserveScreen() {
   return (
     <SafeAreaView style={styles.root} edges={['top']}>
       <View style={styles.header}>
-        <Text style={styles.title}>Reservation</Text>
+        <Text style={styles.title}>{t('reservation')}</Text>
         <Text style={styles.subtitle}>
-          Manage your restaurant reservation activity.
+          {t('manageReservations')}
         </Text>
       </View>
 
       <View style={styles.tabs}>
         <Pressable
           onPress={() => setMode('ongoing')}
-          style={[styles.tab, mode === 'ongoing' && styles.activeTab]}>
+          style={[
+            styles.tab,
+            mode === 'ongoing' && styles.activeTab,
+          ]}>
           <Text
             style={[
               styles.tabText,
               mode === 'ongoing' && styles.activeTabText,
             ]}>
-            Ongoing
+            {t('ongoing')}
           </Text>
         </Pressable>
 
         <Pressable
           onPress={() => setMode('history')}
-          style={[styles.tab, mode === 'history' && styles.activeTab]}>
+          style={[
+            styles.tab,
+            mode === 'history' && styles.activeTab,
+          ]}>
           <Text
             style={[
               styles.tabText,
               mode === 'history' && styles.activeTabText,
             ]}>
-            History
+            {t('history')}
           </Text>
         </Pressable>
       </View>
@@ -183,12 +207,18 @@ export default function ReserveScreen() {
         </View>
       ) : error ? (
         <View style={styles.center}>
-          <Ionicons name="alert-circle-outline" size={42} color={GREY} />
+          <Ionicons
+            name="alert-circle-outline"
+            size={42}
+            color={GREY}
+          />
           <Text style={styles.emptyTitle}>
-            Could not load reservations.
+            {t('couldNotLoadReservations')}
           </Text>
-          <Pressable onPress={() => void refresh()} style={styles.retryButton}>
-            <Text style={styles.retryText}>Try again</Text>
+          <Pressable
+            onPress={() => void refresh()}
+            style={styles.retryButton}>
+            <Text style={styles.retryText}>{t('tryAgain')}</Text>
           </Pressable>
         </View>
       ) : mode === 'pick' ? (
@@ -197,13 +227,19 @@ export default function ReserveScreen() {
             <Pressable
               onPress={() => setMode('ongoing')}
               hitSlop={10}>
-              <Ionicons name="arrow-back" size={23} color={BLUE} />
+              <Ionicons
+                name="arrow-back"
+                size={23}
+                color={BLUE}
+              />
             </Pressable>
 
             <View style={styles.flex}>
-              <Text style={styles.pickTitle}>Choose a restaurant</Text>
+              <Text style={styles.pickTitle}>
+                {t('chooseRestaurant')}
+              </Text>
               <Text style={styles.subtitle}>
-                Select a restaurant to view its details and reservation options.
+                {t('selectRestaurant')}
               </Text>
             </View>
           </View>
@@ -215,7 +251,7 @@ export default function ReserveScreen() {
             contentContainerStyle={styles.list}
             ListEmptyComponent={
               <Text style={styles.emptyText}>
-                No restaurants are available yet.
+                {t('noRestaurants')}
               </Text>
             }
           />
@@ -233,19 +269,18 @@ export default function ReserveScreen() {
               </View>
 
               <Text style={styles.emptyTitle}>
-                No Ongoing Reservation
+                {t('noOngoingReservation')}
               </Text>
 
               <Text style={styles.emptyText}>
-                You don&apos;t have an ongoing reservation yet.
-                Find a restaurant and start your reservation.
+                {t('noOngoingDescription')}
               </Text>
 
               <Pressable
                 style={styles.primaryButton}
                 onPress={() => setMode('pick')}>
                 <Text style={styles.primaryButtonText}>
-                  Do Reserve
+                  {t('doReserve')}
                 </Text>
               </Pressable>
             </View>
@@ -281,15 +316,17 @@ export default function ReserveScreen() {
                       </Text>
 
                       <View style={styles.ongoingBadge}>
-                        <Text style={styles.ongoingText}>Ongoing</Text>
+                        <Text style={styles.ongoingText}>
+                          {t('ongoing')}
+                        </Text>
                       </View>
 
                       <Text style={styles.historyDate}>
-                        Started: {new Date(item.startedAt).toLocaleString()}
+                        {t('started')}: {new Date(item.startedAt).toLocaleString()}
                       </Text>
 
                       <Text style={styles.restaurantAction}>
-                        View details and update status
+                        {t('viewUpdateStatus')}
                       </Text>
                     </View>
 
@@ -306,7 +343,7 @@ export default function ReserveScreen() {
                   style={styles.secondaryButton}
                   onPress={() => setMode('pick')}>
                   <Text style={styles.secondaryButtonText}>
-                    Choose another restaurant
+                    {t('chooseAnotherRestaurant')}
                   </Text>
                 </Pressable>
               }
@@ -320,15 +357,19 @@ export default function ReserveScreen() {
             `${item.restaurantId}-${item.startedAt}`
           }
           contentContainerStyle={styles.list}
-          renderItem={({ item }) => (
-            <>{renderHistory(item)}</>
-          )}
+          renderItem={({ item }) => renderHistory(item)}
           ListEmptyComponent={
             <View style={styles.center}>
-              <Ionicons name="time-outline" size={42} color={GREY} />
-              <Text style={styles.emptyTitle}>No reservation history</Text>
+              <Ionicons
+                name="time-outline"
+                size={42}
+                color={GREY}
+              />
+              <Text style={styles.emptyTitle}>
+                {t('noReservationHistory')}
+              </Text>
               <Text style={styles.emptyText}>
-                Completed and cancelled reservations will appear here.
+                {t('reservationHistoryDescription')}
               </Text>
             </View>
           }
