@@ -2,7 +2,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { Restaurant } from '@/data/types';
 import { useProfile } from '@/hooks/use-profile';
@@ -22,6 +22,8 @@ export default function OrderCardScreen() {
   const [index, setIndex] = useState(0);
   const [height, setHeight] = useState(0);
   const { profile } = useProfile();
+  // Real notch / status bar / home bar sizes, so the close button is reachable on iPhone.
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     findRestaurant(restaurantId).then((found) => setR(found ?? null));
@@ -41,10 +43,15 @@ export default function OrderCardScreen() {
 
   const last = phrases.length - 1;
   return (
-    <SafeAreaView style={styles.root}>
+    <View style={[styles.root, { paddingTop: insets.top + 12, paddingBottom: insets.bottom }]}>
       <StatusBar style="light" />
       <View style={styles.top}>
-        <Pressable onPress={() => router.back()} hitSlop={12} accessibilityLabel="Close">
+        <Pressable
+          onPress={() => router.back()}
+          hitSlop={12}
+          accessibilityRole="button"
+          accessibilityLabel="Close"
+          style={styles.closeButton}>
           <Text style={styles.close}>✕</Text>
         </Pressable>
         <View style={styles.dishBox}>
@@ -84,16 +91,25 @@ export default function OrderCardScreen() {
           <Text style={styles.navText}>›</Text>
         </Pressable>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: BLUE },
   center: { flex: 1, backgroundColor: BLUE, alignItems: 'center', justifyContent: 'center' },
-  top: { flexDirection: 'row', alignItems: 'flex-start', padding: 16, gap: 16 },
-  close: { color: '#fff', fontSize: 26 },
-  dishBox: { flex: 1, alignItems: 'center', marginRight: 26 },
+  top: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingBottom: 16, gap: 16 },
+  // 44x44 is Apple's minimum comfortable tap size.
+  closeButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.18)',
+  },
+  close: { color: '#fff', fontSize: 22, lineHeight: 26 },
+  dishBox: { flex: 1, alignItems: 'center', marginRight: 44 },
   dishKo: { color: '#fff', fontSize: 20, fontWeight: '700' },
   dishEn: { color: '#cfe0f6', fontSize: 14 },
   list: { flex: 1 },
