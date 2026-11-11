@@ -2,25 +2,28 @@ import { useRouter } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { useAuth } from '@/hooks/use-auth';
+import { useTranslation } from '@/hooks/use-translation';
 
 // #45: small "who am I" card. Put <AccountCard /> anywhere, e.g. the Profile tab.
+// Text comes from translations.ts (#13).
 export function AccountCard() {
   const auth = useAuth();
   const router = useRouter();
+  const { t } = useTranslation();
 
   const label = !auth.ready
-    ? 'Signing in...'
+    ? t('signingIn')
     : auth.user === null
-      ? 'Offline (no account)'
+      ? t('offlineNoAccount')
       : auth.isAnonymous
-        ? 'Guest account'
-        : `Signed in as ${auth.email}`;
+        ? t('guestAccount')
+        : t('signedInAs', { email: auth.email ?? '' });
 
   return (
     <View style={styles.card}>
       <Text style={styles.label}>{label}</Text>
       <Pressable onPress={() => router.push('/owner-login')} hitSlop={8}>
-        <Text style={styles.link}>{auth.isAnonymous ? 'Restaurant owner? Sign in' : 'Account'}</Text>
+        <Text style={styles.link}>{auth.isAnonymous ? t('ownerSignInLink') : t('account')}</Text>
       </Pressable>
     </View>
   );

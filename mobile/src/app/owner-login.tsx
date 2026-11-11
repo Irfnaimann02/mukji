@@ -19,11 +19,14 @@ import {
   verifyOwnerCode,
 } from '@/data/auth';
 import { useAuth } from '@/hooks/use-auth';
+import { useTranslation } from '@/hooks/use-translation';
 
 // #45: restaurant owners sign in with email + a code from the email.
 // Open it with router.push('/owner-login').
+// All text comes from translations.ts (#13), so it follows the language setting.
 export default function OwnerLoginScreen() {
   const auth = useAuth();
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [codeSent, setCodeSent] = useState(false);
@@ -45,7 +48,8 @@ export default function OwnerLoginScreen() {
     try {
       await action();
     } catch (e) {
-      Alert.alert('Login', e instanceof Error ? e.message : 'Something went wrong.');
+      // Our own messages are already translated; Supabase's messages stay as Supabase sends them.
+      Alert.alert(t('loginAlertTitle'), e instanceof Error ? e.message : t('somethingWentWrong'));
     } finally {
       setBusy(false);
     }
@@ -53,14 +57,14 @@ export default function OwnerLoginScreen() {
 
   const onSendCode = () =>
     run(async () => {
-      if (!isValidEmail(email)) throw new Error('Enter a valid email.');
+      if (!isValidEmail(email)) throw new Error(t('enterValidEmail'));
       await sendOwnerCode(email);
       setCodeSent(true);
     });
 
   const onVerify = () =>
     run(async () => {
-      if (!/^\d{6,10}$/.test(code.trim())) throw new Error('Enter the code from the email.');
+      if (!/^\d{6,10}$/.test(code.trim())) throw new Error(t('enterEmailCode'));
       await verifyOwnerCode(email, code);
       setCode('');
       setCodeSent(false);
@@ -70,30 +74,26 @@ export default function OwnerLoginScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-      <Stack.Screen options={{ headerShown: true, title: 'Owner login' }} />
+      <Stack.Screen options={{ headerShown: true, title: t('ownerLoginTitle') }} />
       <ScrollView contentContainerStyle={styles.page} keyboardShouldPersistTaps="handled">
         {!auth.ready ? (
           <ActivityIndicator />
         ) : signedInAsOwner ? (
           <View style={styles.card}>
-            <Text style={styles.title}>Signed in as {auth.email}</Text>
+            <Text style={styles.title}>{t('signedInAs', { email: auth.email ?? '' })}</Text>
             {owned.length > 0 ? (
-              <Text style={styles.sub}>Owner of: {owned.join(', ')}</Text>
+              <Text style={styles.sub}>{t('ownerOf', { restaurants: owned.join(', ') })}</Text>
             ) : (
-              <Text style={styles.sub}>
-                Not linked to a restaurant yet. Ask the Mukji team to add you as an owner.
-              </Text>
+              <Text style={styles.sub}>{t('notLinkedToRestaurant')}</Text>
             )}
             <Pressable style={[styles.button, styles.secondary]} onPress={onSignOut} disabled={busy}>
-              <Text style={[styles.buttonText, styles.secondaryText]}>Sign out</Text>
+              <Text style={[styles.buttonText, styles.secondaryText]}>{t('signOut')}</Text>
             </Pressable>
           </View>
         ) : (
           <View style={styles.card}>
-            <Text style={styles.title}>Restaurant owner?</Text>
-            <Text style={styles.sub}>
-              Sign in with your email. We will send you a code. You are browsing as a guest now.
-            </Text>
+            <Text style={styles.title}>{t('restaurantOwnerQuestion')}</Text>
+            <Text style={styles.sub}>{t('ownerLoginDescription')}</Text>
 
             <TextInput
               style={styles.input}
@@ -108,23 +108,23 @@ export default function OwnerLoginScreen() {
 
             {!codeSent ? (
               <Pressable style={styles.button} onPress={onSendCode} disabled={busy}>
-                <Text style={styles.buttonText}>{busy ? 'Sending...' : 'Send code'}</Text>
+                <Text style={styles.buttonText}>{busy ? t('sending') : t('sendCode')}</Text>
               </Pressable>
             ) : (
               <>
                 <TextInput
                   style={styles.input}
-                  placeholder="Code from the email"
+                  placeholder={t('codePlaceholder')}
                   keyboardType="number-pad"
                   value={code}
                   onChangeText={setCode}
                   editable={!busy}
                 />
                 <Pressable style={styles.button} onPress={onVerify} disabled={busy}>
-                  <Text style={styles.buttonText}>{busy ? 'Checking...' : 'Sign in'}</Text>
+                  <Text style={styles.buttonText}>{busy ? t('checking') : t('signIn')}</Text>
                 </Pressable>
                 <Pressable onPress={() => setCodeSent(false)} disabled={busy} hitSlop={8}>
-                  <Text style={styles.link}>Use a different email</Text>
+                  <Text style={styles.link}>{t('useDifferentEmail')}</Text>
                 </Pressable>
               </>
             )}
