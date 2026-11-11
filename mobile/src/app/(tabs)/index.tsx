@@ -1,16 +1,15 @@
-
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
 import { RestaurantPin } from '@/components/restaurant-pin';
 import { RestaurantPreview } from '@/components/restaurant-preview';
+import { useLiveLocation } from '@/hooks/use-live-location';
 import { useProfile } from '@/hooks/use-profile';
 import { useTranslation } from '@/hooks/use-translation';
 import { getMapPins, type MapPin } from '@/logic/map-pins';
+import { Ionicons } from '@expo/vector-icons';
+import { useFocusEffect, useRouter } from 'expo-router';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const ERICA_REGION = {
   latitude: 37.2967,
@@ -30,6 +29,29 @@ export default function MapScreen() {
   const router = useRouter();
   const { profile } = useProfile();
   const { t } = useTranslation();
+  const mapRef = useRef<MapView>(null);
+  // #46: only watch GPS while the map tab is on screen (saves battery).
+  const [focused, setFocused] = useState(true);
+  useFocusEffect(
+    useCallback(() => {
+      setFocused(true);
+      return () => setFocused(false);
+    }, [])
+  );
+  const me = useLiveLocation(focused);
+
+  const goToMe = () => {
+    if (!me) return;
+    mapRef.current?.animateToRegion(
+      {
+        latitude: me.lat,
+        longitude: me.lng,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      },
+      500
+    );
+  };  
 
   useEffect(() => {
     getMapPins(profile)
@@ -48,7 +70,12 @@ export default function MapScreen() {
 
   return (
     <View style={styles.screen}>
-      <MapView style={styles.map} initialRegion={ERICA_REGION}>
+      <MapView
+        ref={mapRef}
+        style={styles.map}
+        initialRegion={ERICA_REGION}
+        showsUserLocation
+        showsMyLocationButton={false}>
         {pins.map((pin) => (
           <Marker
             key={`${pin.id}-${pin.faded ? 'faded' : 'normal'}`}
@@ -90,9 +117,19 @@ export default function MapScreen() {
           ]}>
           <RestaurantPreview
             pin={selectedPin}
+            from={me}
             onClose={() => setSelectedPin(null)}
           />
         </View>
+      )}
+      {me && (
+        <Pressable
+          style={styles.locateButton}
+          onPress={goToMe}
+          accessibilityRole="button"
+          accessibilityLabel={t('myLocation')}>
+          <Ionicons name="locate" size={22} color="#1b5fad" />
+        </Pressable>
       )}
     </View>
   );
@@ -130,5 +167,21 @@ const styles = StyleSheet.create({
   searchText: {
     color: '#8a94a3',
     fontSize: 15,
+  },
+  locateButton: {
+    position: 'absolute',
+    right: 16,
+    bottom: 24,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 4,
   },
 });

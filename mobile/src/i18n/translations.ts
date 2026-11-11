@@ -197,6 +197,13 @@ export const translations = {
     removeFailed: 'Remove failed',
     privateNotePrivacy: 'Private notes are stored locally on this device and are not uploaded to the Mukji restaurant database.',
 
+    directions: 'Directions',
+    directionsMessage: 'Open the walking route in:',
+    naverMap: 'Naver Map',
+    kakaoMap: 'Kakao Map',
+    cancel: 'Cancel',
+    myLocation: 'Go to my location',
+
     // #45 Login: owner-login.tsx and account-card.tsx
     ownerLoginTitle: 'Owner login',
     loginAlertTitle: 'Login',
@@ -418,6 +425,13 @@ export const translations = {
     removeFailed: '삭제 실패',
     privateNotePrivacy: '비공개 메모는 이 기기에만 저장되며 Mukji 음식점 데이터베이스에 업로드되지 않습니다.',
 
+    directions: '길찾기',
+    directionsMessage: '도보 길찾기를 열 앱을 선택하세요:',
+    naverMap: '네이버 지도',
+    kakaoMap: '카카오맵',
+    cancel: '취소',
+    myLocation: '내 위치로 이동',
+
     // #45 Login: owner-login.tsx and account-card.tsx
     ownerLoginTitle: '사장님 로그인',
     loginAlertTitle: '로그인',
@@ -440,6 +454,7 @@ export const translations = {
     guestAccount: '게스트 계정',
     ownerSignInLink: '사장님이신가요? 로그인',
     account: '계정',
+
   },
 } as const;
 

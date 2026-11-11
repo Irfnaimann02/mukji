@@ -1,11 +1,12 @@
 
-import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-
+import { DirectionsButton } from '@/components/directions-button';
 import type { FoodType } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
 import type { MapPin } from '@/logic/map-pins';
+import { distanceInMeters, walkMinutes, type Point } from '@/logic/nearby-service';
+import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 const FOOD_TYPE_KEYS: Record<
   FoodType,
@@ -21,12 +22,14 @@ const FOOD_TYPE_KEYS: Record<
 
 type Props = {
   pin: MapPin;
+  from: Point | null; // #46: the user's live location, if we have it
   onClose: () => void;
 };
 
-export function RestaurantPreview({ pin, onClose }: Props) {
+export function RestaurantPreview({ pin, from, onClose }: Props) {
   const { t } = useTranslation();
-
+  const to = { name: pin.name, lat: pin.latitude, lng: pin.longitude };
+  const meters = from ? distanceInMeters(from, to) : null;
   return (
     <View style={styles.card}>
       <Pressable
@@ -50,6 +53,15 @@ export function RestaurantPreview({ pin, onClose }: Props) {
           </Text>
         )}
 
+        {meters !== null && (
+          <Text style={styles.detail}>
+            {formatDistance(meters)} ·{' '}
+            {t('walkTime', { minutes: walkMinutes(meters) })}
+          </Text>
+        )}
+
+        <DirectionsButton to={to} />
+
         <Text style={styles.more}>{t('tapForDetails')}</Text>
       </Pressable>
 
@@ -63,6 +75,12 @@ export function RestaurantPreview({ pin, onClose }: Props) {
       </Pressable>
     </View>
   );
+}
+
+function formatDistance(meters: number): string {
+  return meters < 1000
+    ? `${Math.round(meters)} m`
+    : `${(meters / 1000).toFixed(1)} km`;
 }
 
 const styles = StyleSheet.create({
