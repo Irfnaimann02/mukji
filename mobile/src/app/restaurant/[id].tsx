@@ -1,3 +1,4 @@
+import { RestaurantTrustCard } from '@/components/restaurant-trust-card';
 
 import {
   Stack,
@@ -5,6 +6,7 @@ import {
   useLocalSearchParams,
   useRouter,
 } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
 import { useCallback, useEffect, useState } from 'react';
 import {
   Alert,
@@ -14,7 +16,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import * as WebBrowser from 'expo-web-browser';
 
 import { DishList } from '@/components/dish-list';
 import { ReservationContactSheet } from '@/components/reservation-contact-sheet';
@@ -23,13 +24,13 @@ import {
   getFavourites,
   removeFavourite,
 } from '@/data/favourites-store';
-import type { Restaurant } from '@/data/types';
 import {
   getOngoingReservation,
   startReservation,
   updateReservationStatus,
   type ReservationRecord,
 } from '@/data/reservation-history-store';
+import type { Restaurant } from '@/data/types';
 import { useProfile } from '@/hooks/use-profile';
 import { useTranslation } from '@/hooks/use-translation';
 import { findRestaurant } from '@/logic/restaurant-service';
@@ -333,6 +334,9 @@ export default function RestaurantScreen() {
           </Text>
         )}
 
+        {/* #8 trust badge and confidence */}
+        <RestaurantTrustCard restaurant={restaurant} />
+        
         {/* Restaurant menu */}
         <Text style={styles.heading}>
           {t('menu')}
