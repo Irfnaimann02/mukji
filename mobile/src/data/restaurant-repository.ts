@@ -43,6 +43,8 @@ function toRestaurant(row: any): Restaurant {
     rating: row.rating,
     sources: row.sources ?? [],
     dishes: (row.dishes ?? []).map(toDish),
+    source: 'mukji',
+    kakaoPlaceId: row.kakao_place_id ?? undefined,
   };
 }
 

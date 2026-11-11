@@ -341,6 +341,13 @@ export default function RestaurantScreen() {
 
         {/* #8 trust badge and confidence */}
         <RestaurantTrustCard restaurant={restaurant} />
+
+        {/* #47 Kakao places have no menu here, but Kakao's page has photos and the menu */}
+        {restaurant.kakaoUrl && (
+          <Pressable onPress={() => void WebBrowser.openBrowserAsync(restaurant.kakaoUrl!)}>
+            <Text style={styles.kakaoLink}>{t('seeOnKakaoMap')}</Text>
+          </Pressable>
+        )}
         
         {/* Restaurant menu */}
         <Text style={styles.heading}>
@@ -593,4 +600,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 2,
   },
+  kakaoLink: { color: '#1b5fad', fontWeight: '600', marginTop: 12 },
+
 });
