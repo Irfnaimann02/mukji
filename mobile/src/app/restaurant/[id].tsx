@@ -1,3 +1,4 @@
+
 import {
   Stack,
   useFocusEffect,
@@ -190,7 +191,7 @@ export default function RestaurantScreen() {
 
       Alert.alert(
         t('updateFailed'),
-        t('tryAgain')
+        t('pleaseTryAgain')
       );
     } finally {
       setFavouriteBusy(false);
@@ -249,7 +250,7 @@ export default function RestaurantScreen() {
           } catch {
             Alert.alert(
               t('updateFailed'),
-              t('tryAgain')
+              t('pleaseTryAgain')
             );
           }
         },
@@ -306,21 +307,25 @@ export default function RestaurantScreen() {
               styles.disabled,
           ]}
           disabled={isFavourite === null || favouriteBusy}
-          onPress={() => void handleToggleFavourite()}
-        >
+          onPress={() => void handleToggleFavourite()}>
           <Text
             style={[
               styles.favoriteButtonText,
               isFavourite && styles.favoriteButtonTextActive,
-            ]}
-          >
+            ]}>
             {favouriteBusy
-              ? t('loading')
+              ? t('savingFavourite')
               : isFavourite
-                ? `♥  ${t('favourites')}`
-                : `♡  ${t('favourites')}`}
+                ? `♥  ${t('savedToFavourites')}`
+                : `♡  ${t('addToFavourites')}`}
           </Text>
         </Pressable>
+
+        {isFavourite && (
+          <Text style={styles.favoriteHint}>
+            {t('privateNoteHint')}
+          </Text>
+        )}
 
         {restaurant.halalCertified && (
           <Text style={styles.badge}>
@@ -390,8 +395,7 @@ export default function RestaurantScreen() {
               style={styles.completeButton}
               onPress={() =>
                 handleStatusUpdate('completed')
-              }
-            >
+              }>
               <Text style={styles.completeText}>
                 {t('markCompleted')}
               </Text>
@@ -401,8 +405,7 @@ export default function RestaurantScreen() {
               style={styles.cancelButton}
               onPress={() =>
                 handleStatusUpdate('cancelled')
-              }
-            >
+              }>
               <Text style={styles.cancelText}>
                 {t('cancelReservation')}
               </Text>
@@ -419,8 +422,7 @@ export default function RestaurantScreen() {
             reserving && styles.disabled,
           ]}
           disabled={reserving}
-          onPress={() => void handleReservation()}
-        >
+          onPress={() => void handleReservation()}>
           <Text style={styles.reserveText}>
             {reserving
               ? t('pleaseWait')
@@ -576,5 +578,10 @@ const styles = StyleSheet.create({
   },
   favoriteButtonTextActive: {
     color: '#1b5fad',
+  },
+  favoriteHint: {
+    color: '#6b7a8d',
+    fontSize: 12,
+    marginTop: 2,
   },
 });

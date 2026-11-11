@@ -1,3 +1,4 @@
+
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -66,7 +67,9 @@ export default function MapScreen() {
 
       <Pressable
         style={[styles.searchBar, { top: insets.top + EDGE_GAP }]}
-        onPress={() => router.push('/search')}>
+        onPress={() => router.push('/search')}
+        accessibilityRole="button"
+        accessibilityLabel={t('searchRestaurantsOrFood')}>
         <Ionicons name="search" size={20} color="#8a94a3" />
         <Text style={styles.searchText}>
           {t('searchRestaurantsOrFood')}

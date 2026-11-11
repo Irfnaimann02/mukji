@@ -1,3 +1,4 @@
+
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -30,14 +31,14 @@ const GREY = '#8a94a3';
 
 const FOOD_TYPE_KEYS: Record<
   FoodType,
-  'koreanFood' | 'chicken' | 'noodles' | 'cafe' | 'halal' | 'koreanFood'
+  'koreanFood' | 'chicken' | 'noodles' | 'cafe' | 'halal' | 'other'
 > = {
   korean: 'koreanFood',
   chicken: 'chicken',
   noodles: 'noodles',
   cafe: 'cafe',
   halal: 'halal',
-  other: 'koreanFood',
+  other: 'other',
 };
 
 export default function SearchScreen() {
@@ -118,7 +119,8 @@ export default function SearchScreen() {
         <Pressable
           onPress={() => router.back()}
           hitSlop={12}
-          accessibilityLabel={t('close')}>
+          accessibilityRole="button"
+          accessibilityLabel={t('back')}>
           <Ionicons name="arrow-back" size={24} color={BLUE} />
         </Pressable>
 
@@ -199,8 +201,12 @@ export default function SearchScreen() {
             </Text>
 
             {recent.length > 0 && (
-              <Pressable onPress={() => void clearRecent()} hitSlop={8}>
-                <Text style={styles.clear}>{t('clear')}</Text>
+              <Pressable
+                onPress={() => void clearRecent()}
+                hitSlop={8}>
+                <Text style={styles.clear}>
+                  {t('clear')}
+                </Text>
               </Pressable>
             )}
           </View>

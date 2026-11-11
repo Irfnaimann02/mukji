@@ -1,3 +1,4 @@
+
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
@@ -226,7 +227,9 @@ export default function ReserveScreen() {
           <View style={styles.pickHeader}>
             <Pressable
               onPress={() => setMode('ongoing')}
-              hitSlop={10}>
+              hitSlop={10}
+              accessibilityRole="button"
+              accessibilityLabel={t('back')}>
               <Ionicons
                 name="arrow-back"
                 size={23}

@@ -1,3 +1,4 @@
+
 import { router } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import {
@@ -146,7 +147,9 @@ export default function HomeScreen() {
 
                 <Text style={styles.detail}>
                   {item.restaurant.nameKo} · {Math.round(item.meters)} m ·{' '}
-                  {walkMinutes(item.meters)} {t('minWalk')}
+                  {t('walkTime', {
+                    minutes: walkMinutes(item.meters),
+                  })}
                 </Text>
 
                 <Text style={styles.detail}>

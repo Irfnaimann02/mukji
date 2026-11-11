@@ -21,92 +21,13 @@ import {
   type FavouriteRecord,
 } from '@/data/favourites-store';
 import type { Restaurant } from '@/data/types';
-import { listRestaurants } from '@/logic/restaurant-service';
 import { useTranslation } from '@/hooks/use-translation';
+import { listRestaurants } from '@/logic/restaurant-service';
 
 export default function FavouritesScreen() {
   const router = useRouter();
-  const { language } = useTranslation();
+  const { t, language } = useTranslation();
   const isKorean = language === 'ko';
-
-  const copy = isKorean
-    ? {
-        title: '내 즐겨찾기',
-        subtitle: '저장한 음식점과 개인 메모를 확인하세요.',
-        loading: '즐겨찾기를 불러오는 중...',
-        loadError: '즐겨찾기를 불러올 수 없습니다',
-        connectionError: '인터넷 연결을 확인한 후 다시 시도해 주세요.',
-        tryAgain: '다시 시도',
-        emptyTitle: '아직 즐겨찾기가 없습니다',
-        emptyDescription:
-          '음식점 페이지에서 하트 버튼을 눌러 저장하세요. 저장한 음식점이 여기에 표시됩니다.',
-        explore: '음식점 둘러보기',
-        saved: '개 저장됨',
-        restaurant: '음식점',
-        restaurants: '음식점',
-        unavailable: '음식점 정보를 확인할 수 없음',
-        noRating: '평점 없음',
-        rating: '평점',
-        removeLabel: '즐겨찾기에서 삭제',
-        unavailableDescription:
-          '현재 음식점 정보를 불러올 수 없습니다. 저장한 메모는 계속 확인할 수 있습니다.',
-        privateNote: '비공개 메모',
-        notePlaceholder: '나만 볼 수 있는 메모를 작성하세요...',
-        saving: '저장 중...',
-        saveNote: '메모 저장',
-        noteSaved: '메모 저장 완료',
-        noteSavedDescription: '비공개 메모가 이 기기에 저장되었습니다.',
-        saveFailed: '저장 실패',
-        tryAgainShort: '다시 시도해 주세요.',
-        removeTitle: '즐겨찾기를 삭제할까요?',
-        removeDescription:
-          '이 음식점과 해당 음식점의 비공개 메모가 즐겨찾기에서 삭제됩니다.',
-        keep: '유지',
-        remove: '삭제',
-        removeFailed: '삭제 실패',
-        privacy:
-          '비공개 메모는 이 기기에만 저장되며 Mukji 음식점 데이터베이스에 업로드되지 않습니다.',
-        accessibilityRemove: '즐겨찾기에서 음식점 삭제',
-      }
-    : {
-        title: 'My Favourites',
-        subtitle: 'Your saved restaurants and personal notes.',
-        loading: 'Loading your favourites...',
-        loadError: 'Could not load favourites',
-        connectionError: 'Please check your connection and try again.',
-        tryAgain: 'Try again',
-        emptyTitle: 'No favourites yet',
-        emptyDescription:
-          'Save a restaurant by tapping the heart on its restaurant page. Your saved places will appear here.',
-        explore: 'Explore restaurants',
-        saved: 'saved',
-        restaurant: 'restaurant',
-        restaurants: 'restaurants',
-        unavailable: 'Restaurant unavailable',
-        noRating: 'No rating yet',
-        rating: 'rating',
-        removeLabel: 'Remove from favourites',
-        unavailableDescription:
-          'Restaurant details are currently unavailable. Your saved note is still available.',
-        privateNote: 'Private note',
-        notePlaceholder: 'Write a note for yourself...',
-        saving: 'Saving...',
-        saveNote: 'Save note',
-        noteSaved: 'Note saved',
-        noteSavedDescription:
-          'Your private note has been saved on this device.',
-        saveFailed: 'Save failed',
-        tryAgainShort: 'Please try again.',
-        removeTitle: 'Remove favourite?',
-        removeDescription:
-          'This restaurant and its private note will be removed from your Favourites.',
-        keep: 'Keep',
-        remove: 'Remove',
-        removeFailed: 'Remove failed',
-        privacy:
-          'Private notes are stored locally on this device and are not uploaded to the Mukji restaurant database.',
-        accessibilityRemove: 'Remove from favourites',
-      };
 
   const [favourites, setFavourites] = useState<FavouriteRecord[]>([]);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
@@ -129,11 +50,16 @@ export default function FavouritesScreen() {
         )
       );
 
+      // Keep saved favourites and notes available even if restaurant
+      // details cannot be loaded.
       try {
         const allRestaurants = await listRestaurants();
         setRestaurants(allRestaurants);
       } catch (restaurantError) {
-        console.error('Failed to load restaurant details:', restaurantError);
+        console.error(
+          'Failed to load restaurant details:',
+          restaurantError
+        );
         setRestaurants([]);
       }
     } catch (loadError) {
@@ -159,16 +85,17 @@ export default function FavouritesScreen() {
 
     try {
       const updated = await saveFavouriteNote(restaurantId, note);
+
       setFavourites(updated);
       setNoteDrafts((current) => ({
         ...current,
         [restaurantId]: note,
       }));
 
-      Alert.alert(copy.noteSaved, copy.noteSavedDescription);
+      Alert.alert(t('noteSaved'), t('noteSavedDescription'));
     } catch (saveError) {
       console.error('Failed to save favourite note:', saveError);
-      Alert.alert(copy.saveFailed, copy.tryAgainShort);
+      Alert.alert(t('saveFailed'), t('pleaseTryAgain'));
     } finally {
       setSavingId(null);
     }
@@ -176,20 +103,21 @@ export default function FavouritesScreen() {
 
   const handleRemoveFavourite = (restaurantId: string) => {
     Alert.alert(
-      copy.removeTitle,
-      copy.removeDescription,
+      t('removeFavouriteTitle'),
+      t('removeFavouriteDescription'),
       [
         {
-          text: copy.keep,
+          text: t('keep'),
           style: 'cancel',
         },
         {
-          text: copy.remove,
+          text: t('remove'),
           style: 'destructive',
           onPress: () => {
             void (async () => {
               try {
                 const updated = await removeFavourite(restaurantId);
+
                 setFavourites(updated);
                 setNoteDrafts((current) => {
                   const next = { ...current };
@@ -197,8 +125,11 @@ export default function FavouritesScreen() {
                   return next;
                 });
               } catch (removeError) {
-                console.error('Failed to remove favourite:', removeError);
-                Alert.alert(copy.removeFailed, copy.tryAgainShort);
+                console.error(
+                  'Failed to remove favourite:',
+                  removeError
+                );
+                Alert.alert(t('removeFailed'), t('pleaseTryAgain'));
               }
             })();
           },
@@ -216,7 +147,9 @@ export default function FavouritesScreen() {
       <SafeAreaView style={styles.root} edges={['top']}>
         <View style={styles.center}>
           <ActivityIndicator size="large" color="#1b5fad" />
-          <Text style={styles.helper}>{copy.loading}</Text>
+          <Text style={styles.helper}>
+            {t('loadingFavourites')}
+          </Text>
         </View>
       </SafeAreaView>
     );
@@ -226,13 +159,23 @@ export default function FavouritesScreen() {
     return (
       <SafeAreaView style={styles.root} edges={['top']}>
         <View style={styles.center}>
-          <Ionicons name="cloud-offline-outline" size={42} color="#8a94a3" />
-          <Text style={styles.emptyTitle}>{copy.loadError}</Text>
-          <Text style={styles.helper}>{copy.connectionError}</Text>
+          <Ionicons
+            name="cloud-offline-outline"
+            size={42}
+            color="#8a94a3"
+          />
+          <Text style={styles.emptyTitle}>
+            {t('favouritesLoadError')}
+          </Text>
+          <Text style={styles.helper}>
+            {t('connectionError')}
+          </Text>
           <Pressable
             style={styles.primaryButton}
             onPress={() => void loadFavourites()}>
-            <Text style={styles.primaryButtonText}>{copy.tryAgain}</Text>
+            <Text style={styles.primaryButtonText}>
+              {t('tryAgain')}
+            </Text>
           </Pressable>
         </View>
       </SafeAreaView>
@@ -244,40 +187,53 @@ export default function FavouritesScreen() {
       <ScrollView
         contentContainerStyle={styles.content}
         keyboardShouldPersistTaps="handled">
-        <Text style={styles.title}>{copy.title}</Text>
-        <Text style={styles.subtitle}>{copy.subtitle}</Text>
+        <Text style={styles.title}>
+          {t('favouritesTitle')}
+        </Text>
+        <Text style={styles.subtitle}>
+          {t('favouritesSubtitle')}
+        </Text>
 
         {favourites.length === 0 ? (
           <View style={styles.empty}>
             <View style={styles.emptyIcon}>
-              <Ionicons name="heart-outline" size={34} color="#1b5fad" />
+              <Ionicons
+                name="heart-outline"
+                size={34}
+                color="#1b5fad"
+              />
             </View>
 
-            <Text style={styles.emptyTitle}>{copy.emptyTitle}</Text>
-            <Text style={styles.helper}>{copy.emptyDescription}</Text>
+            <Text style={styles.emptyTitle}>
+              {t('emptyFavouritesTitle')}
+            </Text>
+            <Text style={styles.helper}>
+              {t('emptyFavouritesDescription')}
+            </Text>
 
             <Pressable
               style={styles.primaryButton}
               onPress={() => router.push('/search')}>
-              <Text style={styles.primaryButtonText}>{copy.explore}</Text>
+              <Text style={styles.primaryButtonText}>
+                {t('exploreRestaurants')}
+              </Text>
             </Pressable>
           </View>
         ) : (
           <>
             <Text style={styles.count}>
-              {favourites.length} {copy.saved}{' '}
-              {isKorean
-                ? ''
-                : favourites.length === 1
-                  ? copy.restaurant
-                  : copy.restaurants}
+              {t('favouritesCount', { count: favourites.length })}
             </Text>
 
             {favourites.map((favourite) => {
-              const restaurant = restaurantById.get(favourite.restaurantId);
+              const restaurant = restaurantById.get(
+                favourite.restaurantId
+              );
 
               return (
-                <View key={favourite.restaurantId} style={styles.card}>
+                <View
+                  key={favourite.restaurantId}
+                  style={styles.card}>
                   <View style={styles.cardHeader}>
                     <Pressable
                       style={styles.restaurantInfo}
@@ -285,7 +241,9 @@ export default function FavouritesScreen() {
                       onPress={() =>
                         router.push({
                           pathname: '/restaurant/[id]',
-                          params: { id: favourite.restaurantId },
+                          params: {
+                            id: favourite.restaurantId,
+                          },
                         })
                       }>
                       <Text style={styles.restaurantName}>
@@ -293,7 +251,7 @@ export default function FavouritesScreen() {
                           ? isKorean
                             ? restaurant.nameKo
                             : restaurant.nameEn
-                          : copy.unavailable}
+                          : t('restaurantUnavailable')}
                       </Text>
 
                       {restaurant && (
@@ -307,8 +265,8 @@ export default function FavouritesScreen() {
                           <Text style={styles.restaurantDetail}>
                             {'₩'.repeat(restaurant.priceLevel)} ·{' '}
                             {restaurant.rating > 0
-                              ? `${restaurant.rating.toFixed(1)} ${copy.rating}`
-                              : copy.noRating}
+                              ? `${restaurant.rating.toFixed(1)} ${t('rating')}`
+                              : t('noRating')}
                           </Text>
                         </>
                       )}
@@ -316,10 +274,14 @@ export default function FavouritesScreen() {
 
                     <Pressable
                       accessibilityRole="button"
-                      accessibilityLabel={`${restaurant?.nameEn ?? copy.restaurant} ${copy.accessibilityRemove}`}
+                      accessibilityLabel={t(
+                        'removeFavouriteAccessibility'
+                      )}
                       hitSlop={10}
                       onPress={() =>
-                        handleRemoveFavourite(favourite.restaurantId)
+                        handleRemoveFavourite(
+                          favourite.restaurantId
+                        )
                       }>
                       <Ionicons
                         name="heart-dislike-outline"
@@ -331,7 +293,7 @@ export default function FavouritesScreen() {
 
                   {!restaurant && (
                     <Text style={styles.unavailable}>
-                      {copy.unavailableDescription}
+                      {t('unavailableDescription')}
                     </Text>
                   )}
 
@@ -341,7 +303,9 @@ export default function FavouritesScreen() {
                       size={15}
                       color="#6b7a8d"
                     />
-                    <Text style={styles.noteLabel}>{copy.privateNote}</Text>
+                    <Text style={styles.noteLabel}>
+                      {t('privateNote')}
+                    </Text>
                   </View>
 
                   <TextInput
@@ -352,7 +316,7 @@ export default function FavouritesScreen() {
                         [favourite.restaurantId]: value,
                       }))
                     }
-                    placeholder={copy.notePlaceholder}
+                    placeholder={t('privateNotePlaceholder')}
                     placeholderTextColor="#8a94a3"
                     multiline
                     maxLength={280}
@@ -368,7 +332,8 @@ export default function FavouritesScreen() {
                     <Pressable
                       style={[
                         styles.saveButton,
-                        savingId === favourite.restaurantId && styles.disabled,
+                        savingId === favourite.restaurantId &&
+                          styles.disabled,
                       ]}
                       disabled={savingId !== null}
                       onPress={() =>
@@ -376,8 +341,8 @@ export default function FavouritesScreen() {
                       }>
                       <Text style={styles.saveButtonText}>
                         {savingId === favourite.restaurantId
-                          ? copy.saving
-                          : copy.saveNote}
+                          ? t('saving')
+                          : t('saveNote')}
                       </Text>
                     </Pressable>
                   </View>
@@ -387,7 +352,9 @@ export default function FavouritesScreen() {
           </>
         )}
 
-        <Text style={styles.privacy}>{copy.privacy}</Text>
+        <Text style={styles.privacy}>
+          {t('privateNotePrivacy')}
+        </Text>
       </ScrollView>
     </SafeAreaView>
   );

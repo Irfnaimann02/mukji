@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -46,9 +47,7 @@ export function DishList({
   const { t } = useTranslation();
 
   if (restaurant.dishes.length === 0) {
-    return (
-      <Text style={styles.sub}>{t('menuNotAdded')}</Text>
-    );
+    return <Text style={styles.sub}>{t('menuNotAdded')}</Text>;
   }
 
   const { shown, hidden, hiddenBecause } = splitMenu(
@@ -56,21 +55,17 @@ export function DishList({
     profile
   );
 
-  const dishes = showHidden
-    ? restaurant.dishes
-    : shown;
+  const dishes = showHidden ? restaurant.dishes : shown;
 
   return (
     <View>
       {hidden.length > 0 && (
         <View style={styles.notice}>
           <Text style={styles.noticeText}>
-            {hidden.length}{' '}
-            {hidden.length === 1
-              ? t('dish')
-              : t('dishes')}{' '}
-            {t('hiddenForAllergies')} (
-            {hiddenBecause.join(', ')})
+            {t('hiddenForAllergies', { count: hidden.length })}
+            {hiddenBecause.length > 0
+              ? ` (${hiddenBecause.join(', ')})`
+              : ''}
           </Text>
 
           <Pressable

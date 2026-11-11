@@ -1,4 +1,11 @@
-import { Pressable, ScrollView, Switch, Text, View } from 'react-native';
+
+import {
+  Pressable,
+  ScrollView,
+  Switch,
+  Text,
+  View,
+} from 'react-native';
 
 import type { Allergen, Diet } from '@/data/types';
 import { useProfile } from '@/hooks/use-profile';

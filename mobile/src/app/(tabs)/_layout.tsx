@@ -1,6 +1,14 @@
+
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import { Pressable, StyleSheet, View } from 'react-native';
+import type { BottomTabBarButtonProps } from 'expo-router/tabs';
+import type { ComponentProps } from 'react';
+import {
+  Pressable,
+  StyleSheet,
+  View,
+  type ColorValue,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useTranslation } from '@/hooks/use-translation';
@@ -8,19 +16,42 @@ import { useTranslation } from '@/hooks/use-translation';
 const BLUE = '#1b5fad';
 const GREY = '#8a94a3';
 
-function TabIcon({
-  name,
-  focused,
-}: {
-  name: keyof typeof Ionicons.glyphMap;
-  focused: boolean;
-}) {
+type IconName = ComponentProps<typeof Ionicons>['name'];
+
+// Filled icon when the tab is active, outline when it is not.
+const icon = (on: IconName, off: IconName) =>
+  Object.assign(
+    ({ color, focused }: { color: ColorValue; focused: boolean }) => (
+      <Ionicons
+        name={focused ? on : off}
+        size={26}
+        color={color as string}
+      />
+    ),
+    {
+      displayName: `TabIcon(${on}, ${off})`,
+    }
+  );
+
+// Centre button from our sketch: a raised circle with a magnifier.
+function SearchButton({
+  onPress,
+  accessibilityState,
+  label,
+}: BottomTabBarButtonProps & { label: string }) {
+  const focused = !!accessibilityState?.selected;
+
   return (
-    <Ionicons
-      name={name}
-      size={26}
-      color={focused ? BLUE : GREY}
-    />
+    <Pressable
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      accessibilityState={accessibilityState}
+      style={styles.cell}>
+      <View style={[styles.circle, !focused && styles.circleIdle]}>
+        <Ionicons name="search" size={28} color="#fff" />
+      </View>
+    </Pressable>
   );
 }
 
@@ -32,7 +63,7 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: false,
+        tabBarShowLabel: false, // icons only, like the sketch
         tabBarActiveTintColor: BLUE,
         tabBarInactiveTintColor: GREY,
         tabBarStyle: {
@@ -42,17 +73,13 @@ export default function TabsLayout() {
           borderTopColor: '#dbe3ec',
         },
       }}>
+      {/* The order here is the order on screen. "index" is the Search map, so the app opens on it. */}
       <Tabs.Screen
         name="home"
         options={{
           title: t('home'),
           tabBarAccessibilityLabel: t('home'),
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              name={focused ? 'home' : 'home-outline'}
-              focused={focused}
-            />
-          ),
+          tabBarIcon: icon('home', 'home-outline'),
         }}
       />
 
@@ -61,12 +88,7 @@ export default function TabsLayout() {
         options={{
           title: t('reserve'),
           tabBarAccessibilityLabel: t('reserve'),
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              name={focused ? 'restaurant' : 'restaurant-outline'}
-              focused={focused}
-            />
-          ),
+          tabBarIcon: icon('restaurant', 'restaurant-outline'),
         }}
       />
 
@@ -76,14 +98,7 @@ export default function TabsLayout() {
           title: t('searchMap'),
           tabBarAccessibilityLabel: t('searchMap'),
           tabBarButton: (props) => (
-            <Pressable
-              {...props}
-              ref={undefined}
-              style={[props.style, styles.searchButton]}>
-              <View style={styles.searchCircle}>
-                <Ionicons name="search" size={27} color="#fff" />
-              </View>
-            </Pressable>
+            <SearchButton {...props} label={t('searchMap')} />
           ),
         }}
       />
@@ -93,12 +108,7 @@ export default function TabsLayout() {
         options={{
           title: t('favourites'),
           tabBarAccessibilityLabel: t('favourites'),
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              name={focused ? 'heart' : 'heart-outline'}
-              focused={focused}
-            />
-          ),
+          tabBarIcon: icon('heart', 'heart-outline'),
         }}
       />
 
@@ -107,12 +117,7 @@ export default function TabsLayout() {
         options={{
           title: t('profile'),
           tabBarAccessibilityLabel: t('profile'),
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              name={focused ? 'person' : 'person-outline'}
-              focused={focused}
-            />
-          ),
+          tabBarIcon: icon('person', 'person-outline'),
         }}
       />
     </Tabs>
@@ -120,16 +125,12 @@ export default function TabsLayout() {
 }
 
 const styles = StyleSheet.create({
-  searchButton: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  searchCircle: {
+  cell: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  circle: {
     width: 58,
     height: 58,
     borderRadius: 29,
-    marginTop: -40,
+    marginTop: -40, // lifts the circle above the bar
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: BLUE,
@@ -139,9 +140,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOpacity: 0.2,
     shadowRadius: 6,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
+    shadowOffset: { width: 0, height: 3 },
   },
+  circleIdle: { backgroundColor: '#6f9bd1' },
 });

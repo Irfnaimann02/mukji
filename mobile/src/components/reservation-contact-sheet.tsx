@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import {
   Alert,
@@ -76,7 +77,7 @@ export function ReservationContactSheet({
 
       Alert.alert(t('copied'), t('phoneCopied'));
     } catch {
-      Alert.alert(t('copyFailed'), t('tryAgain'));
+      Alert.alert(t('copyFailed'), t('pleaseTryAgain'));
     } finally {
       setBusy(false);
     }

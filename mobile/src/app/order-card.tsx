@@ -1,3 +1,4 @@
+
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -183,6 +184,7 @@ export default function OrderCardScreen() {
         <Pressable
           onPress={() => go(index - 1)}
           disabled={index === 0}
+          accessibilityRole="button"
           accessibilityLabel={t('previousPhrase')}
           style={[
             styles.nav,
@@ -198,6 +200,7 @@ export default function OrderCardScreen() {
         <Pressable
           onPress={() => go(index + 1)}
           disabled={index === last || last < 0}
+          accessibilityRole="button"
           accessibilityLabel={t('nextPhrase')}
           style={[
             styles.nav,
