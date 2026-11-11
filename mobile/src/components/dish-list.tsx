@@ -1,4 +1,5 @@
-
+import { TrustBadge } from '@/components/trust-badge';
+import { dishTrust } from '@/logic/trust-score';
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -141,7 +142,35 @@ function DishRow({
           {t('ask')}: {dish.leaveOutEn}
         </Text>
       )}
+    <DishTrustLine dish={dish} />
     </Pressable>
+  );
+}
+
+// #8: confidence pill, how many people checked the dish, and when.
+function DishTrustLine({ dish }: { dish: Dish }) {
+  const { t, language } = useTranslation();
+  const trust = dishTrust(dish);
+
+  return (
+    <View style={styles.trustRow}>
+      <TrustBadge confidence={trust.confidence} />
+      <Text style={styles.small}>
+        {trust.verifiedCount === 0
+          ? t('notVerifiedYet')
+          : t('verifiedBy', { count: trust.verifiedCount })}
+        {dish.lastChecked
+          ? ` · ${t('lastChecked')} ${formatDate(dish.lastChecked, language)}`
+          : ''}
+      </Text>
+    </View>
+  );
+}
+
+function formatDate(date: string, language: 'ko' | 'en'): string {
+  return new Date(date).toLocaleDateString(
+    language === 'ko' ? 'ko-KR' : 'en-GB',
+    { day: 'numeric', month: 'short' }
   );
 }
 
@@ -195,5 +224,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 6,
+  },
+  trustRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 6,
+    marginTop: 4,
   },
 });
