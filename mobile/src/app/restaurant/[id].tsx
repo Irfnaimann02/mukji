@@ -1,5 +1,5 @@
+import { DirectionsButton } from '@/components/directions-button';
 import { RestaurantTrustCard } from '@/components/restaurant-trust-card';
-
 import {
   Stack,
   useFocusEffect,
@@ -327,6 +327,11 @@ export default function RestaurantScreen() {
             {t('privateNoteHint')}
           </Text>
         )}
+
+        {/* #46 walking directions in Naver Map or Kakao Map */}
+        <DirectionsButton
+          to={{ name: restaurant.nameKo, lat: restaurant.lat, lng: restaurant.lng }}
+        />
 
         {restaurant.halalCertified && (
           <Text style={styles.badge}>

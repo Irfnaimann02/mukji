@@ -196,6 +196,12 @@ export const translations = {
     remove: 'Remove',
     removeFailed: 'Remove failed',
     privateNotePrivacy: 'Private notes are stored locally on this device and are not uploaded to the Mukji restaurant database.',
+    directions: 'Directions',
+    directionsMessage: 'Open the walking route in:',
+    naverMap: 'Naver Map',
+    kakaoMap: 'Kakao Map',
+    cancel: 'Cancel',
+    myLocation: 'Go to my location',
   },
 
   ko: {
@@ -394,6 +400,12 @@ export const translations = {
     remove: '삭제',
     removeFailed: '삭제 실패',
     privateNotePrivacy: '비공개 메모는 이 기기에만 저장되며 Mukji 음식점 데이터베이스에 업로드되지 않습니다.',
+    directions: '길찾기',
+    directionsMessage: '도보 길찾기를 열 앱을 선택하세요:',
+    naverMap: '네이버 지도',
+    kakaoMap: '카카오맵',
+    cancel: '취소',
+    myLocation: '내 위치로 이동',
   },
 } as const;
 
