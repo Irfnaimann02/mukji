@@ -1,9 +1,17 @@
+
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import type { BottomTabBarButtonProps } from 'expo-router/tabs';
 import type { ComponentProps } from 'react';
-import { Pressable, StyleSheet, View, type ColorValue } from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  View,
+  type ColorValue,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { useTranslation } from '@/hooks/use-translation';
 
 const BLUE = '#1b5fad';
 const GREY = '#8a94a3';
@@ -26,13 +34,18 @@ const icon = (on: IconName, off: IconName) =>
   );
 
 // Centre button from our sketch: a raised circle with a magnifier.
-function SearchButton({ onPress, accessibilityState }: BottomTabBarButtonProps) {
+function SearchButton({
+  onPress,
+  accessibilityState,
+  label,
+}: BottomTabBarButtonProps & { label: string }) {
   const focused = !!accessibilityState?.selected;
+
   return (
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
-      accessibilityLabel="Search map"
+      accessibilityLabel={label}
       accessibilityState={accessibilityState}
       style={styles.cell}>
       <View style={[styles.circle, !focused && styles.circleIdle]}>
@@ -44,6 +57,7 @@ function SearchButton({ onPress, accessibilityState }: BottomTabBarButtonProps) 
 
 export default function TabsLayout() {
   const { bottom } = useSafeAreaInsets();
+  const { t } = useTranslation();
 
   return (
     <Tabs
@@ -62,23 +76,49 @@ export default function TabsLayout() {
       {/* The order here is the order on screen. "index" is the Search map, so the app opens on it. */}
       <Tabs.Screen
         name="home"
-        options={{ title: 'Home', tabBarAccessibilityLabel: 'Home', tabBarIcon: icon('home', 'home-outline') }}
+        options={{
+          title: t('home'),
+          tabBarAccessibilityLabel: t('home'),
+          tabBarIcon: icon('home', 'home-outline'),
+        }}
       />
+
       <Tabs.Screen
         name="reserve"
-        options={{ title: 'Reserve', tabBarAccessibilityLabel: 'Reserve', tabBarIcon: icon('restaurant', 'restaurant-outline') }}
+        options={{
+          title: t('reserve'),
+          tabBarAccessibilityLabel: t('reserve'),
+          tabBarIcon: icon('restaurant', 'restaurant-outline'),
+        }}
       />
+
       <Tabs.Screen
         name="index"
-        options={{ title: 'Search map', tabBarButton: (props) => <SearchButton {...props} /> }}
+        options={{
+          title: t('searchMap'),
+          tabBarAccessibilityLabel: t('searchMap'),
+          tabBarButton: (props) => (
+            <SearchButton {...props} label={t('searchMap')} />
+          ),
+        }}
       />
+
       <Tabs.Screen
         name="favourites"
-        options={{ title: 'Favourites', tabBarAccessibilityLabel: 'Favourites', tabBarIcon: icon('heart', 'heart-outline') }}
+        options={{
+          title: t('favourites'),
+          tabBarAccessibilityLabel: t('favourites'),
+          tabBarIcon: icon('heart', 'heart-outline'),
+        }}
       />
+
       <Tabs.Screen
         name="profile"
-        options={{ title: 'Profile', tabBarAccessibilityLabel: 'Profile', tabBarIcon: icon('person', 'person-outline') }}
+        options={{
+          title: t('profile'),
+          tabBarAccessibilityLabel: t('profile'),
+          tabBarIcon: icon('person', 'person-outline'),
+        }}
       />
     </Tabs>
   );

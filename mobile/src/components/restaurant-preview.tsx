@@ -1,8 +1,23 @@
+
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { MapPin } from '@/logic/map-pins';
+import type { FoodType } from '@/data/types';
+import { useTranslation } from '@/hooks/use-translation';
+import type { MapPin } from '@/logic/map-pins';
+
+const FOOD_TYPE_KEYS: Record<
+  FoodType,
+  'koreanFood' | 'chicken' | 'noodles' | 'cafe' | 'halal' | 'other'
+> = {
+  korean: 'koreanFood',
+  chicken: 'chicken',
+  noodles: 'noodles',
+  cafe: 'cafe',
+  halal: 'halal',
+  other: 'other',
+};
 
 type Props = {
   pin: MapPin;
@@ -10,23 +25,40 @@ type Props = {
 };
 
 export function RestaurantPreview({ pin, onClose }: Props) {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.card}>
       <Pressable
         style={styles.info}
-        onPress={() => router.push({ pathname: '/restaurant/[id]', params: { id: pin.id } })}>
+        onPress={() =>
+          router.push({
+            pathname: '/restaurant/[id]',
+            params: { id: pin.id },
+          })
+        }>
         <Text style={styles.name}>{pin.name}</Text>
+
         <Text style={styles.detail}>
-          {pin.foodType} · {pin.badgeCount} {pin.badgeCount === 1 ? 'badge' : 'badges'}
+          {t(FOOD_TYPE_KEYS[pin.foodType])} ·{' '}
+          {t('badgeCount', { count: pin.badgeCount })}
         </Text>
-        {pin.faded && <Text style={styles.warning}>No dish here is free of your allergens</Text>}
-        <Text style={styles.more}>Tap for menu and details</Text>
+
+        {pin.faded && (
+          <Text style={styles.warning}>
+            {t('noAllergenFreeDish')}
+          </Text>
+        )}
+
+        <Text style={styles.more}>{t('tapForDetails')}</Text>
       </Pressable>
+
       <Pressable
         onPress={onClose}
         hitSlop={8}
         style={styles.closeButton}
-        accessibilityLabel="Close preview">
+        accessibilityRole="button"
+        accessibilityLabel={t('closePreview')}>
         <Ionicons name="close" size={20} color="#666" />
       </Pressable>
     </View>
@@ -48,7 +80,12 @@ const styles = StyleSheet.create({
   info: { flex: 1 },
   name: { fontSize: 17, fontWeight: 'bold', color: '#222' },
   detail: { fontSize: 14, color: '#666', marginTop: 4 },
-  warning: { fontSize: 13, color: '#c62828', fontWeight: '600', marginTop: 4 },
+  warning: {
+    fontSize: 13,
+    color: '#c62828',
+    fontWeight: '600',
+    marginTop: 4,
+  },
   closeButton: {
     width: 36,
     height: 36,

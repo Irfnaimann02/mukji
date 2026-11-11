@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import {
   Alert,
@@ -11,6 +12,7 @@ import {
 import * as Clipboard from 'expo-clipboard';
 
 import type { Restaurant } from '@/data/types';
+import { useTranslation } from '@/hooks/use-translation';
 
 interface Props {
   restaurant: Restaurant | null;
@@ -26,6 +28,7 @@ export function ReservationContactSheet({
   onContactStarted,
 }: Props) {
   const [busy, setBusy] = useState(false);
+  const { t } = useTranslation();
 
   if (!restaurant) return null;
 
@@ -38,30 +41,30 @@ export function ReservationContactSheet({
     setBusy(true);
 
     try {
-        const phoneNumber = phone.replace(/[^\d+]/g, '');
+      const phoneNumber = phone.replace(/[^\d+]/g, '');
 
-        try {
-            await Linking.openURL(`tel:${phoneNumber}`);
-        } catch {
-            Alert.alert(
-                'Unable to open phone app',
-                'Please try again or copy the phone number.'
-            );
-            return;
-        }
+      try {
+        await Linking.openURL(`tel:${phoneNumber}`);
+      } catch {
+        Alert.alert(
+          t('unableToOpenPhone'),
+          t('tryAgainOrCopy')
+        );
+        return;
+      }
 
-        try {
-            await onContactStarted();
-        } catch {
-            Alert.alert(
-                'Reservation not saved',
-                'The phone app opened, but Mukji could not save this reservation activity.'
-            );
-        }
+      try {
+        await onContactStarted();
+      } catch {
+        Alert.alert(
+          t('reservationNotSaved'),
+          t('phoneOpenedButNotSaved')
+        );
+      }
     } finally {
-        setBusy(false);
+      setBusy(false);
     }
-};
+  };
 
   const handleCopy = async () => {
     if (!hasPhone || busy) return;
@@ -69,14 +72,12 @@ export function ReservationContactSheet({
     setBusy(true);
 
     try {
-        await Clipboard.setStringAsync(phone);
-        await onContactStarted();
-        Alert.alert(
-            'Copied',
-            'The restaurant phone number has been copied.'
-        );
+      await Clipboard.setStringAsync(phone);
+      await onContactStarted();
+
+      Alert.alert(t('copied'), t('phoneCopied'));
     } catch {
-      Alert.alert('Copy failed', 'Please try again.');
+      Alert.alert(t('copyFailed'), t('pleaseTryAgain'));
     } finally {
       setBusy(false);
     }
@@ -92,17 +93,17 @@ export function ReservationContactSheet({
         <Pressable style={styles.sheet} onPress={() => {}}>
           <View style={styles.handle} />
 
-          <Text style={styles.title}>Do reservation</Text>
+          <Text style={styles.title}>{t('doReservation')}</Text>
           <Text style={styles.name}>{restaurant.nameEn}</Text>
           <Text style={styles.koreanName}>{restaurant.nameKo}</Text>
 
           <View style={styles.phoneBox}>
             <Text style={styles.phoneLabel}>
-              Restaurant phone number
+              {t('restaurantPhone')}
             </Text>
 
             <Text style={styles.phone}>
-              {hasPhone ? phone : 'Phone number unavailable'}
+              {hasPhone ? phone : t('phoneUnavailable')}
             </Text>
           </View>
 
@@ -116,7 +117,7 @@ export function ReservationContactSheet({
                 styles.callButton,
                 (!hasPhone || busy) && styles.disabled,
               ]}>
-              <Text style={styles.callText}>Call</Text>
+              <Text style={styles.callText}>{t('call')}</Text>
             </Pressable>
 
             <Pressable
@@ -128,26 +129,19 @@ export function ReservationContactSheet({
                 styles.copyButton,
                 (!hasPhone || busy) && styles.disabled,
               ]}>
-              <Text style={styles.copyText}>Copy</Text>
+              <Text style={styles.copyText}>{t('copy')}</Text>
             </Pressable>
           </View>
 
-          <Text style={styles.note}>
-            Please tell the restaurant how many people are coming.
-          </Text>
+          <Text style={styles.note}>{t('tellPartySize')}</Text>
 
           <View style={styles.phraseBox}>
-            <Text style={styles.phraseKo}>
-                예약하고 싶어요.
-            </Text>
-
-            <Text style={styles.phraseEn}>
-                I&apos;d like to make a reservation.
-            </Text>
+            <Text style={styles.phraseKo}>예약하고 싶어요.</Text>
+            <Text style={styles.phraseEn}>{t('likeToReserve')}</Text>
           </View>
 
           <Pressable onPress={onClose} style={styles.closeButton}>
-            <Text style={styles.closeText}>Close</Text>
+            <Text style={styles.closeText}>{t('close')}</Text>
           </Pressable>
         </Pressable>
       </Pressable>
