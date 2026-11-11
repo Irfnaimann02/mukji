@@ -5,8 +5,8 @@ import { useProfile } from '@/hooks/use-profile';
 import { useTranslation } from '@/hooks/use-translation';
 import { getMapPins, type MapPin } from '@/logic/map-pins';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { useFocusEffect, useRouter } from 'expo-router';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -30,7 +30,15 @@ export default function MapScreen() {
   const { profile } = useProfile();
   const { t } = useTranslation();
   const mapRef = useRef<MapView>(null);
-  const me = useLiveLocation(); // #46
+  // #46: only watch GPS while the map tab is on screen (saves battery).
+  const [focused, setFocused] = useState(true);
+  useFocusEffect(
+    useCallback(() => {
+      setFocused(true);
+      return () => setFocused(false);
+    }, [])
+  );
+  const me = useLiveLocation(focused);
 
   const goToMe = () => {
     if (!me) return;

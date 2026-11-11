@@ -26,7 +26,7 @@ type Props = {
   onClose: () => void;
 };
 
-export function RestaurantPreview({ pin, onClose }: Props) {
+export function RestaurantPreview({ pin, from, onClose }: Props) {
   const { t } = useTranslation();
   const to = { name: pin.name, lat: pin.latitude, lng: pin.longitude };
   const meters = from ? distanceInMeters(from, to) : null;

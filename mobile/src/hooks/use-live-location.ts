@@ -5,10 +5,11 @@ import type { Point } from '@/logic/nearby-service';
 
 // #46: follows the user while the map is open.
 // null = no permission yet, permission denied, or no GPS fix yet.
-export function useLiveLocation(): Point | null {
+export function useLiveLocation(active: boolean = true): Point | null {
   const [point, setPoint] = useState<Point | null>(null);
 
   useEffect(() => {
+    if (!active) return; // stop watching GPS while the map tab is hidden
     let cancelled = false;
     let subscription: Location.LocationSubscription | null = null;
 
@@ -34,7 +35,7 @@ export function useLiveLocation(): Point | null {
       cancelled = true;
       subscription?.remove();
     };
-  }, []);
+  }, [active]);
 
   return point;
 }
