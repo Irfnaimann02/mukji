@@ -43,3 +43,9 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Prompt: asked for guidance to finish the Search screen: popular searches based on the food profile, the 5 most recent searches saved on the phone, and results by restaurant or dish name.
 - Output used: search-history-store.ts, search-service.ts and search.tsx structure and code
 - Changes by the team: built the search bar and empty screen first, typed the rest by hand, tested on iPhone with Expo Go
+
+## 2026-11-12 - #63 Web version for laptop demos (Adib)
+- Tool: Claude (Claude Code)
+- Prompt: asked to get the app running in a web browser. Claude found that `expo start --web` crashed with `window is not defined` (server rendering plus Supabase's AsyncStorage) and that `react-native-maps` has no web support.
+- Output used: `"output": "single"` in `mobile/app.json`; new `mobile/src/app/(tabs)/index.web.tsx` that lists the restaurants instead of the map on web only. Claude opened the web build in a browser at phone size and checked the list, search, restaurant pages, the food profile filter and the Korean switch.
+- Changes by me: (fill in)
