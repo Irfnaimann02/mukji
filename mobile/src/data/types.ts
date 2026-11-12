@@ -29,6 +29,17 @@ export interface Dish {
   lastChecked: string | null; // '2026-10-20', or null = not verified
 }
 
+// #47 Layer 2: what a type of restaurant usually uses, shown when it has no menu yet.
+// Never makes anything Safe: the app always shows it as Ask first.
+export interface CategoryHint {
+  category: string; // licence data 업태구분명, e.g. '중국식'
+  nameEn: string; // e.g. 'Chinese-Korean'
+  contains: Ingredient[]; // usually in this type of food
+  mayContain: Ingredient[]; // often in it
+  noteKo: string;
+  noteEn: string;
+}
+
 export interface OriginLabel {
   itemKo: string;
   country: string;
@@ -54,6 +65,8 @@ export interface Restaurant {
   recommendCount: number; // #7
   rating: number; // 0 to 5, #7
   sources: string[]; // #8, e.g. ['menu', '원산지 label', 'reviews']
+  category?: string; // #47 licence data 업태구분명, e.g. '중국식'
+  categoryHint?: CategoryHint; // #47 shown when there are no dishes yet
   dishes: Dish[];
 }
 

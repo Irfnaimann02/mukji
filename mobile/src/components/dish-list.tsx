@@ -1,3 +1,4 @@
+import { CategoryHintCard } from '@/components/category-hint-card';
 import { TrustBadge } from '@/components/trust-badge';
 import { dishTrust } from '@/logic/trust-score';
 import { useState } from 'react';
@@ -48,6 +49,10 @@ export function DishList({
   const { t } = useTranslation();
 
   if (restaurant.dishes.length === 0) {
+    // #47: no menu yet, so show what this type of restaurant usually uses (always Ask first).
+    if (restaurant.categoryHint) {
+      return <CategoryHintCard hint={restaurant.categoryHint} />;
+    }
     return <Text style={styles.sub}>{t('menuNotAdded')}</Text>;
   }
 
