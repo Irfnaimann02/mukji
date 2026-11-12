@@ -11,6 +11,7 @@ const SOURCE_LABEL: Record<string, TranslationKey> = {
   menu: 'sourceMenu',
   '원산지 label': 'sourceOriginLabel',
   reviews: 'sourceReviews',
+  kakao: 'kakaoMap',
 };
 
 export function RestaurantTrustCard({ restaurant }: { restaurant: Restaurant }) {

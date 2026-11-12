@@ -36,6 +36,9 @@ const ALLERGEN_LABELS = {
   soy: 'soy',
 } as const satisfies Record<Allergen, TranslationKey>;
 
+// #47: how far to look for restaurants. 1.5 km is the default.
+const DISTANCES = [500, 1000, 1500, 3000] as const;
+
 function toggle<T>(list: T[], item: T): T[] {
   return list.includes(item)
     ? list.filter((x) => x !== item)
@@ -81,6 +84,37 @@ export function FoodProfileForm() {
                   fontWeight: '600',
                 }}>
                 {language === 'en' ? t('english') : t('korean')}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </View>
+
+      <Text style={{ fontSize: 20, fontWeight: '600', marginTop: 16 }}>
+        {t('searchDistance')}
+      </Text>
+
+      <View style={{ flexDirection: 'row', gap: 8 }}>
+        {DISTANCES.map((meters) => {
+          const active = profile.maxDistanceM === meters;
+
+          return (
+            <Pressable
+              key={meters}
+              onPress={() => setProfile({ ...profile, maxDistanceM: meters })}
+              accessibilityRole="button"
+              accessibilityState={{ selected: active }}
+              style={{
+                flex: 1,
+                paddingVertical: 10,
+                borderRadius: 10,
+                alignItems: 'center',
+                backgroundColor: active ? '#1b5fad' : '#fff',
+                borderWidth: 1,
+                borderColor: active ? '#1b5fad' : '#dbe3ec',
+              }}>
+              <Text style={{ color: active ? '#fff' : '#14213d', fontWeight: '600' }}>
+                {meters < 1000 ? `${meters} m` : `${meters / 1000} km`}
               </Text>
             </Pressable>
           );
