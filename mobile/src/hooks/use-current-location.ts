@@ -1,11 +1,9 @@
 import * as Location from 'expo-location';
 import { useEffect, useState } from 'react';
 
-import { distanceInMeters, ERICA_CENTRE, type Point } from '@/logic/nearby-service';
+import { ERICA_CENTRE, type Point } from '@/logic/nearby-service';
 
-// Mukji only covers the area around campus. Anyone further away
-// sees the list as if they stood in the middle of campus.
-const MAX_FROM_CAMPUS_M = 5000;
+// #47: works anywhere in Korea. Without permission, the list starts from campus.
 
 export type CurrentLocation = {
   point: Point;
@@ -32,10 +30,9 @@ export function useCurrentLocation(): CurrentLocation {
           accuracy: Location.Accuracy.Balanced,
         });
         const point = { lat: position.coords.latitude, lng: position.coords.longitude };
-        const nearCampus = distanceInMeters(point, ERICA_CENTRE) <= MAX_FROM_CAMPUS_M;
 
         if (!cancelled) {
-          setState({ point: nearCampus ? point : ERICA_CENTRE, isGps: nearCampus, ready: true });
+          setState({ point, isGps: true, ready: true });
         }
       } catch {
         if (!cancelled) setState({ point: ERICA_CENTRE, isGps: false, ready: true });

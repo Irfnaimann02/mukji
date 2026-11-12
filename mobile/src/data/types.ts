@@ -55,6 +55,11 @@ export interface Restaurant {
   rating: number; // 0 to 5, #7
   sources: string[]; // #8, e.g. ['menu', '원산지 label', 'reviews']
   dishes: Dish[];
+  // #47: undefined or 'mukji' = our own checked data.
+  // 'kakao' = found live with the Kakao Local API, no menu, not stored.
+  source?: 'mukji' | 'kakao';
+  kakaoPlaceId?: string;
+  kakaoUrl?: string;
 }
 
 export interface FoodProfile {
