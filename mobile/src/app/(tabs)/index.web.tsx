@@ -1,4 +1,5 @@
 import { FOOD_TYPE_ICON } from '@/components/restaurant-pin';
+import { useCurrentLocation } from '@/hooks/use-current-location';
 import { useProfile } from '@/hooks/use-profile';
 import { useTranslation } from '@/hooks/use-translation';
 import { getMapPins, type MapPin } from '@/logic/map-pins';
@@ -10,7 +11,8 @@ import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 // #63: web-only version of the Search map tab, for laptop demos.
 // react-native-maps has no web support, so in the browser this tab shows the same
 // restaurants as a list. Phones still use index.tsx with the real map.
-// Same data as the map pins: badges, and fading for the user's allergies (#14).
+// Same data as the map pins: badges, fading for the user's allergies (#14), and
+// restaurants around the user's location, including places found with Kakao (#47).
 
 const BADGE_LABEL: Record<string, 'halal' | 'noPork' | 'vegan'> = {
   halal: 'halal',
@@ -23,15 +25,17 @@ export default function MapScreenWeb() {
   const router = useRouter();
   const { profile } = useProfile();
   const { t } = useTranslation();
+  const location = useCurrentLocation(); // browser location, or campus if not allowed
 
   useEffect(() => {
-    getMapPins(profile)
+    if (!location.ready) return;
+    getMapPins(profile, location.point)
       .then(setPins)
       .catch((error) => {
         console.error('Failed to load restaurants:', error);
         setPins([]);
       });
-  }, [profile]);
+  }, [profile, location.ready, location.point]);
 
   return (
     <View style={styles.screen}>
