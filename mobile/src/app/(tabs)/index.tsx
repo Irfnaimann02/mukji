@@ -4,6 +4,7 @@ import { useLiveLocation } from '@/hooks/use-live-location';
 import { useProfile } from '@/hooks/use-profile';
 import { useTranslation } from '@/hooks/use-translation';
 import { getMapPins, type MapPin } from '@/logic/map-pins';
+import { distanceInMeters, ERICA_CENTRE, type Point } from '@/logic/nearby-service';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -39,6 +40,21 @@ export default function MapScreen() {
     }, [])
   );
   const me = useLiveLocation(focused);
+  // #47: pins load around `centre`; `mapCentre` is where the map is now.
+  const [centre, setCentre] = useState<Point>(ERICA_CENTRE);
+  const [mapCentre, setMapCentre] = useState<Point>(ERICA_CENTRE);
+  const movedToMe = useRef(false);
+
+  // The first time we know where the user is, load and show pins there.
+  useEffect(() => {
+    if (!me || movedToMe.current) return;
+    movedToMe.current = true;
+    setCentre(me);
+    mapRef.current?.animateToRegion(
+      { latitude: me.lat, longitude: me.lng, latitudeDelta: 0.01, longitudeDelta: 0.01 },
+      500
+    );
+  }, [me]);
 
   const goToMe = () => {
     if (!me) return;
@@ -54,7 +70,7 @@ export default function MapScreen() {
   };  
 
   useEffect(() => {
-    getMapPins(profile)
+    getMapPins(profile,centre)
       .then((next) => {
         setPins(next);
         setSelectedPin((previous) =>
@@ -66,7 +82,9 @@ export default function MapScreen() {
       .catch((error) => {
         console.error('Failed to load map pins:', error);
       });
-  }, [profile]);
+  }, [profile, centre]);
+
+  const showSearchHere = !selectedPin && distanceInMeters(mapCentre, centre) > 300;
 
   return (
     <View style={styles.screen}>
@@ -75,7 +93,10 @@ export default function MapScreen() {
         style={styles.map}
         initialRegion={ERICA_REGION}
         showsUserLocation
-        showsMyLocationButton={false}>
+        showsMyLocationButton={false}
+        onRegionChangeComplete={(region) =>
+          setMapCentre({ lat: region.latitude, lng: region.longitude })
+        }>
         {pins.map((pin) => (
           <Marker
             key={`${pin.id}-${pin.faded ? 'faded' : 'normal'}`}
@@ -102,6 +123,20 @@ export default function MapScreen() {
           {t('searchRestaurantsOrFood')}
         </Text>
       </Pressable>
+
+      {showSearchHere && (
+        <View
+          pointerEvents="box-none"
+          style={[styles.searchHereWrap, { top: insets.top + EDGE_GAP + SEARCH_BAR_HEIGHT + 8 }]}>
+          <Pressable
+            style={styles.searchHere}
+            onPress={() => setCentre(mapCentre)}
+            accessibilityRole="button">
+            <Ionicons name="refresh" size={16} color="#1b5fad" />
+            <Text style={styles.searchHereText}>{t('searchThisArea')}</Text>
+          </Pressable>
+        </View>
+      )}
 
       {selectedPin && (
         <View
@@ -184,4 +219,27 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     elevation: 4,
   },
+
+  searchHereWrap: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+  searchHere: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 18,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 3,
+  },
+  searchHereText: { color: '#1b5fad', fontWeight: '600' },
+
 });

@@ -204,6 +204,10 @@ export const translations = {
     cancel: 'Cancel',
     myLocation: 'Go to my location',
 
+    searchThisArea: 'Search this area',
+    searchDistance: 'Search distance',
+    seeOnKakaoMap: 'See photos and menu on Kakao Map',
+
     // #45 Login: owner-login.tsx and account-card.tsx
     ownerLoginTitle: 'Owner login',
     loginAlertTitle: 'Login',
@@ -436,6 +440,10 @@ export const translations = {
     kakaoMap: '카카오맵',
     cancel: '취소',
     myLocation: '내 위치로 이동',
+
+    searchThisArea: '이 지역 검색',
+    searchDistance: '검색 거리',
+    seeOnKakaoMap: '카카오맵에서 사진과 메뉴 보기',
 
     // #45 Login: owner-login.tsx and account-card.tsx
     ownerLoginTitle: '사장님 로그인',

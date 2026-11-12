@@ -59,6 +59,8 @@ function toRestaurant(
     category: row.category ?? undefined,
     categoryHint: row.category ? hintByCategory.get(row.category) : undefined,
     dishes: (row.dishes ?? []).map(toDish),
+    source: 'mukji',
+    kakaoPlaceId: row.kakao_place_id ?? undefined,
   };
 }
 

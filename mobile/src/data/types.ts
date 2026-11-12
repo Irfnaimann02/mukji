@@ -68,6 +68,11 @@ export interface Restaurant {
   category?: string; // #47 licence data 업태구분명, e.g. '중국식'
   categoryHint?: CategoryHint; // #47 shown when there are no dishes yet
   dishes: Dish[];
+  // #47: undefined or 'mukji' = our own checked data.
+  // 'kakao' = found live with the Kakao Local API, no menu, not stored.
+  source?: 'mukji' | 'kakao';
+  kakaoPlaceId?: string;
+  kakaoUrl?: string;
 }
 
 export interface FoodProfile {
