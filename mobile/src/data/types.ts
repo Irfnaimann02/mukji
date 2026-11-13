@@ -55,7 +55,7 @@ export interface Restaurant {
   address: string;
   phone: string;
   // Optional representative image and dish label for restaurant discovery cards.
-  // Use restaurant-provided/verified media when available; mock data uses illustrative photos.
+  // Use restaurant-provided/verified media when available;
   featuredDishNameEn?: string;
   featuredDishImageUrl?: string;
 
