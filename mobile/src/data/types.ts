@@ -54,6 +54,10 @@ export interface Restaurant {
   lng: number;
   address: string;
   phone: string;
+  // Optional representative image and dish label for restaurant discovery cards.
+  // Use restaurant-provided/verified media when available; mock data uses illustrative photos.
+  featuredDishNameEn?: string;
+  featuredDishImageUrl?: string;
 
   // Optional external online reservation page.
   // If absent, Mukji offers phone contact instead.

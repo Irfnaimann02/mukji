@@ -5,6 +5,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
   {
     id: 'mock-1', nameKo: '모의 김밥', nameEn: 'Mock Kimbap', foodType: 'korean',
     lat: 37.2985, lng: 126.837, address: 'Near ERICA (mock)', phone: '010-0000-0001',
+    featuredDishNameEn: 'Ramyeon',
+    featuredDishImageUrl: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=900&auto=format&fit=crop&q=85',
     priceLevel: 1, halalCertified: false,
     origin: [{ itemKo: '햄(돼지고기)', country: 'USA' }],
     recommendCount: 12, rating: 4.2, sources: ['menu', '원산지 label'],
@@ -23,6 +25,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
   {
     id: 'mock-2', nameKo: '모의 치킨', nameEn: 'Mock Chicken', foodType: 'chicken',
     lat: 37.295, lng: 126.833, address: 'Near ERICA (mock)', phone: '010-0000-0002',
+    featuredDishNameEn: 'Fried chicken',
+    featuredDishImageUrl: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=900&auto=format&fit=crop&q=85',
     priceLevel: 2, halalCertified: false,
     origin: [{ itemKo: '닭고기', country: 'Korea' }],
     recommendCount: 30, rating: 4.5, sources: ['menu', 'reviews'],
@@ -36,6 +40,8 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
   {
     id: 'mock-3', nameKo: '모의 할랄 케밥', nameEn: 'Mock Halal Kebab', foodType: 'halal',
     lat: 37.2995, lng: 126.8335, address: 'Near ERICA (mock)', phone: '010-0000-0003',
+    featuredDishNameEn: 'Chicken kebab',
+    featuredDishImageUrl: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=900&auto=format&fit=crop&q=85',
     priceLevel: 2, halalCertified: true,
     origin: [{ itemKo: '닭고기', country: 'Brazil' }],
     recommendCount: 8, rating: 4.0, sources: ['menu', '원산지 label', 'reviews'],
