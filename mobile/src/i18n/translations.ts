@@ -230,6 +230,11 @@ export const translations = {
     guestAccount: 'Guest account',
     ownerSignInLink: 'Restaurant owner? Sign in',
     account: 'Account',
+
+    // #47 food-type hint when a restaurant has no menu yet
+    noMenuYet: 'No menu yet',
+    typicalFor: 'Typical for {type}',
+    usuallyContains: 'Usually contains',
   },
 
   ko: {
@@ -463,6 +468,10 @@ export const translations = {
     ownerSignInLink: '사장님이신가요? 로그인',
     account: '계정',
 
+    // #47 food-type hint when a restaurant has no menu yet
+    noMenuYet: '메뉴 정보 없음',
+    typicalFor: '{type} 음식점의 일반적인 재료',
+    usuallyContains: '보통 들어감',
   },
 } as const;
 

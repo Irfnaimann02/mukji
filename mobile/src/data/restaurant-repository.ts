@@ -1,6 +1,6 @@
 import { MOCK_RESTAURANTS } from './mock-restaurants';
 import { supabase } from './supabase';
-import type { Dish, Restaurant } from './types';
+import type { CategoryHint, Dish, Restaurant } from './types';
 
 // The only file that knows where restaurants come from.
 // Supabase only returns approved restaurants (row level security).
@@ -12,17 +12,31 @@ export async function fetchRestaurants(): Promise<Restaurant[]> {
     return MOCK_RESTAURANTS;
   }
 
-  const { data, error } = await supabase
-    .from('restaurants')
-    .select('*, dishes(*)');
+  // #47: food-type hints are a small table (one row per type), loaded next to the restaurants.
+  const [restaurants, hints] = await Promise.all([
+    supabase.from('restaurants').select('*, dishes(*)'),
+    supabase.from('category_defaults').select('*'),
+  ]);
 
-  if (error) throw error;
+  if (restaurants.error) throw restaurants.error;
 
-  return data.map(toRestaurant);
+  // A missing hint never blocks the app: restaurants still load without it.
+  if (hints.error) {
+    console.warn('Could not load food-type hints:', hints.error.message);
+  }
+
+  const hintByCategory = new Map<string, CategoryHint>(
+    (hints.data ?? []).map((row) => [row.category, toCategoryHint(row)])
+  );
+
+  return restaurants.data.map((row) => toRestaurant(row, hintByCategory));
 }
 
 // Database columns are snake_case; the app uses camelCase.
-function toRestaurant(row: any): Restaurant {
+function toRestaurant(
+  row: any,
+  hintByCategory: Map<string, CategoryHint>
+): Restaurant {
   return {
     id: row.id,
     nameKo: row.name_ko,
@@ -42,6 +56,8 @@ function toRestaurant(row: any): Restaurant {
     recommendCount: row.recommend_count,
     rating: row.rating,
     sources: row.sources ?? [],
+    category: row.category ?? undefined,
+    categoryHint: row.category ? hintByCategory.get(row.category) : undefined,
     dishes: (row.dishes ?? []).map(toDish),
     source: 'mukji',
     kakaoPlaceId: row.kakao_place_id ?? undefined,
@@ -60,5 +76,16 @@ function toDish(row: any): Dish {
     leaveOutEn: row.leave_out_en ?? undefined,
     verifiedCount: row.verified_count,
     lastChecked: row.last_checked,
+  };
+}
+
+function toCategoryHint(row: any): CategoryHint {
+  return {
+    category: row.category,
+    nameEn: row.name_en,
+    contains: row.contains ?? [],
+    mayContain: row.may_contain ?? [],
+    noteKo: row.note_ko ?? '',
+    noteEn: row.note_en ?? '',
   };
 }
