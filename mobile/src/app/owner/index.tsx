@@ -14,8 +14,12 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { isValidEmail, myOwnedRestaurantIds, signOut } from '@/data/auth';
-import { setAppMode } from '@/data/app-mode';
+import {
+  isValidEmail,
+  myOwnedRestaurantIds,
+  signOutToWelcome,
+} from '@/data/auth';
+import { clearAppMode, setAppMode } from '@/data/app-mode';
 import type { Restaurant } from '@/data/types';
 import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
@@ -549,9 +553,13 @@ export default function OwnerPortalScreen() {
       router.replace('/(tabs)/profile');
       return;
     }
+
     try {
-      await signOut();
-      router.replace('/owner-login');
+      await clearAppMode();
+      await signOutToWelcome();
+      await clearAppMode();
+
+      router.replace('/');
     } catch {
       Alert.alert(
         copy('Sign out failed', '로그아웃 실패'),
