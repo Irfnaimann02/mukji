@@ -1,4 +1,5 @@
-import { Stack } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { Stack, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -14,19 +15,21 @@ import {
 import {
   isValidEmail,
   myOwnedRestaurantIds,
-  sendOwnerCode,
+  sendEmailCode,
   signOut,
-  verifyOwnerCode,
+  verifyEmailCode,
 } from '@/data/auth';
+import { setAppMode } from '@/data/app-mode';
 import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
 
-// #45: restaurant owners sign in with email + a code from the email.
-// Open it with router.push('/owner-login').
-// All text comes from translations.ts (#13), so it follows the language setting.
 export default function OwnerLoginScreen() {
   const auth = useAuth();
-  const { t } = useTranslation();
+  const router = useRouter();
+  const { t, language } = useTranslation();
+  const isKo = language === 'ko';
+  const copy = (en: string, ko: string) => (isKo ? ko : en);
+
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [codeSent, setCodeSent] = useState(false);
@@ -34,22 +37,37 @@ export default function OwnerLoginScreen() {
   const [ownedList, setOwnedList] = useState<string[]>([]);
 
   const signedInAsOwner = auth.user !== null && !auth.isAnonymous;
-  const owned = signedInAsOwner ? ownedList : [];
 
   useEffect(() => {
-    if (!signedInAsOwner) return;
+    let alive = true;
+    if (!signedInAsOwner) {
+      return () => {
+        alive = false;
+      };
+    }
+
     myOwnedRestaurantIds()
-      .then(setOwnedList)
-      .catch(() => setOwnedList([]));
+      .then((ids) => {
+        if (alive) setOwnedList(ids);
+      })
+      .catch(() => {
+        if (alive) setOwnedList([]);
+      });
+
+    return () => {
+      alive = false;
+    };
   }, [signedInAsOwner, auth.user?.id]);
 
   async function run(action: () => Promise<unknown>) {
     setBusy(true);
     try {
       await action();
-    } catch (e) {
-      // Our own messages are already translated; Supabase's messages stay as Supabase sends them.
-      Alert.alert(t('loginAlertTitle'), e instanceof Error ? e.message : t('somethingWentWrong'));
+    } catch (error) {
+      Alert.alert(
+        t('loginAlertTitle'),
+        error instanceof Error ? error.message : t('somethingWentWrong'),
+      );
     } finally {
       setBusy(false);
     }
@@ -58,16 +76,18 @@ export default function OwnerLoginScreen() {
   const onSendCode = () =>
     run(async () => {
       if (!isValidEmail(email)) throw new Error(t('enterValidEmail'));
-      await sendOwnerCode(email);
+      await sendEmailCode(email);
       setCodeSent(true);
     });
 
   const onVerify = () =>
     run(async () => {
       if (!/^\d{6,10}$/.test(code.trim())) throw new Error(t('enterEmailCode'));
-      await verifyOwnerCode(email, code);
+      await verifyEmailCode(email, code);
+      await setAppMode('business');
       setCode('');
       setCodeSent(false);
+      router.replace('/owner');
     });
 
   const onSignOut = () => run(signOut);
@@ -81,11 +101,20 @@ export default function OwnerLoginScreen() {
         ) : signedInAsOwner ? (
           <View style={styles.card}>
             <Text style={styles.title}>{t('signedInAs', { email: auth.email ?? '' })}</Text>
-            {owned.length > 0 ? (
-              <Text style={styles.sub}>{t('ownerOf', { restaurants: owned.join(', ') })}</Text>
+            {ownedList.length > 0 ? (
+              <Text style={styles.sub}>{t('ownerOf', { restaurants: ownedList.join(', ') })}</Text>
             ) : (
               <Text style={styles.sub}>{t('notLinkedToRestaurant')}</Text>
             )}
+
+            <Pressable
+              style={styles.button}
+              onPress={() => { void setAppMode('business').then(() => router.replace('/owner')); }}
+              accessibilityRole="button">
+              <Ionicons name="storefront-outline" size={19} color="#fff" />
+              <Text style={styles.buttonText}>{copy('Open Owner Portal', '사장님 포털 열기')}</Text>
+            </Pressable>
+
             <Pressable style={[styles.button, styles.secondary]} onPress={onSignOut} disabled={busy}>
               <Text style={[styles.buttonText, styles.secondaryText]}>{t('signOut')}</Text>
             </Pressable>
@@ -130,8 +159,17 @@ export default function OwnerLoginScreen() {
             )}
           </View>
         )}
-
         {auth.error && <Text style={styles.error}>{auth.error}</Text>}
+        <Pressable
+          style={styles.backToUser}
+          onPress={() => {
+            void setAppMode('user').then(() => router.replace('/(tabs)'));
+          }}
+          disabled={busy}
+          accessibilityRole="button">
+          <Ionicons name="arrow-back" size={17} color="#1b5fad" />
+          <Text style={styles.backToUserText}>{copy('Back to User Mode / Continue as guest', '일반 사용자 모드로 돌아가기 / 게스트로 계속하기')}</Text>
+        </Pressable>
       </ScrollView>
     </View>
   );
@@ -152,14 +190,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   button: {
-    backgroundColor: '#2e7d32',
+    backgroundColor: '#1b5fad',
     paddingVertical: 12,
     borderRadius: 10,
     alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    gap: 8,
   },
   buttonText: { color: 'white', fontSize: 16, fontWeight: '700' },
   secondary: { backgroundColor: 'white', borderWidth: 1, borderColor: '#c62828' },
   secondaryText: { color: '#c62828' },
   link: { color: '#1b5fad', textAlign: 'center', marginTop: 4 },
   error: { color: '#c62828' },
+  backToUser: { minHeight: 48, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7, marginTop: 8, padding: 10 },
+  backToUserText: { color: '#1b5fad', fontWeight: '700', textAlign: 'center' },
 });

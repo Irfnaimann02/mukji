@@ -1,3 +1,4 @@
+
 import { MOCK_RESTAURANTS } from './mock-restaurants';
 import { supabase } from './supabase';
 import type { CategoryHint, Dish, Restaurant } from './types';
@@ -12,7 +13,7 @@ export async function fetchRestaurants(): Promise<Restaurant[]> {
     return MOCK_RESTAURANTS;
   }
 
-  // #47: food-type hints are a small table (one row per type), loaded next to the restaurants.
+  // Load restaurants and food-type hints together.
   const [restaurants, hints] = await Promise.all([
     supabase.from('restaurants').select('*, dishes(*)'),
     supabase.from('category_defaults').select('*'),
@@ -37,6 +38,16 @@ function toRestaurant(
   row: any,
   hintByCategory: Map<string, CategoryHint>
 ): Restaurant {
+  const dishes = (row.dishes ?? []).map(toDish) as Dish[];
+
+  const highestPricedDish = dishes.reduce<Dish | undefined>(
+    (highest, dish) =>
+      !highest || dish.priceWon > highest.priceWon ? dish : highest,
+    undefined,
+  );
+
+  const savedFeaturedName = String(row.featured_dish_name_en ?? '').trim();
+
   return {
     id: row.id,
     nameKo: row.name_ko,
@@ -47,6 +58,11 @@ function toRestaurant(
     address: row.address,
     phone: row.phone,
 
+    // The most expensive listed dish represents the restaurant.
+    // A saved featured image is reused only when its saved dish label matches it.
+    featuredDishNameEn: highestPricedDish?.nameEn ?? savedFeaturedName ?? undefined,
+    featuredDishImageUrl: row.featured_dish_image_url ?? undefined,
+
     // Older database rows may not have a booking URL.
     reservationUrl: row.reservation_url ?? undefined,
 
@@ -56,9 +72,14 @@ function toRestaurant(
     recommendCount: row.recommend_count,
     rating: row.rating,
     sources: row.sources ?? [],
+
+    // Food category and its corresponding suitability hint.
     category: row.category ?? undefined,
-    categoryHint: row.category ? hintByCategory.get(row.category) : undefined,
-    dishes: (row.dishes ?? []).map(toDish),
+    categoryHint: row.category
+      ? hintByCategory.get(row.category)
+      : undefined,
+
+    dishes,
     source: 'mukji',
     kakaoPlaceId: row.kakao_place_id ?? undefined,
   };

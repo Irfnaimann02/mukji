@@ -5,6 +5,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
   {
     id: 'mock-1', nameKo: '모의 김밥', nameEn: 'Mock Kimbap', foodType: 'korean',
     lat: 37.2985, lng: 126.837, address: 'Near ERICA (mock)', phone: '010-0000-0001',
+    featuredDishNameEn: 'Ramyeon',
     priceLevel: 1, halalCertified: false,
     origin: [{ itemKo: '햄(돼지고기)', country: 'USA' }],
     recommendCount: 12, rating: 4.2, sources: ['menu', '원산지 label'],
@@ -23,6 +24,7 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
   {
     id: 'mock-2', nameKo: '모의 치킨', nameEn: 'Mock Chicken', foodType: 'chicken',
     lat: 37.295, lng: 126.833, address: 'Near ERICA (mock)', phone: '010-0000-0002',
+    featuredDishNameEn: 'Fried chicken',
     priceLevel: 2, halalCertified: false,
     origin: [{ itemKo: '닭고기', country: 'Korea' }],
     recommendCount: 30, rating: 4.5, sources: ['menu', 'reviews'],
@@ -34,9 +36,9 @@ export const MOCK_RESTAURANTS: Restaurant[] = [
     ],
   },
   {
-    id: 'mock-3', nameKo: '모의 할랄 케밥', nameEn: 'Mock Halal Kebab', foodType: 'halal',
+    id: 'mock-3', nameKo: '모의 할랄 케밥', nameEn: 'Mock Halal Kebab', foodType: 'halal', priceLevel: 2, halalCertified: false,
     lat: 37.2995, lng: 126.8335, address: 'Near ERICA (mock)', phone: '010-0000-0003',
-    priceLevel: 2, halalCertified: true,
+    featuredDishNameEn: 'Chicken kebab',
     origin: [{ itemKo: '닭고기', country: 'Brazil' }],
     recommendCount: 8, rating: 4.0, sources: ['menu', '원산지 label', 'reviews'],
     dishes: [

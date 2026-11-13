@@ -49,3 +49,23 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Prompt: asked to get the app running in a web browser. Claude found that `expo start --web` crashed with `window is not defined` (server rendering plus Supabase's AsyncStorage) and that `react-native-maps` has no web support.
 - Output used: `"output": "single"` in `mobile/app.json`; new `mobile/src/app/(tabs)/index.web.tsx` that lists the restaurants instead of the map on web only. Claude opened the web build in a browser at phone size and checked the list, search, restaurant pages, the food profile filter and the Korean switch.
 - Changes by me: joined the two versions of the web list after #62 changed getMapPins, kept the fuller list (icons, translated badges, loading/empty states), checked tsc on my laptop.
+
+## 2026-11-12 - Batch 1.1 welcome, account exit and featured dish cards
+- Tool: ChatGPT
+- Prompt: asked to improve Batch 1 by using individual featured-dish photos for restaurant cards, provide a way to return to the welcome screen, and add a logout action in the Profile account card.
+- Output used: optional featured-dish name/image fields for restaurant data; per-restaurant image selection in Home; a clear-app-mode action; a confirmed logout/back-to-welcome control in the account card.
+- Changes by the team: sample restaurant photos and featured dish labels are illustrative mock content; replace them with restaurant-approved images and verified featured dishes when real data is available.
+
+## 2026-11-12 — Batch 1.2 account sign-out and restaurant identity images
+
+- AI assistance: diagnosed the welcome-screen return issue caused by the auth hook automatically creating a new anonymous guest session immediately after a deliberate sign-out. Added a one-time sign-out suppression path so the welcome screen remains available until the user chooses an experience again.
+- Updated the account card into a structured MUKJI account panel with guest/member status, current app mode, Switch to Business Mode, and Sign Out actions. Guest sign-out now ends the guest session and returns to the welcome screen.
+- Fixed Supabase restaurant mapping so featured dish fields are not discarded. When no restaurant image is stored yet, the app chooses a dish-specific image using the first menu item and a stable restaurant-specific variation. These are illustrative menu visuals, not verified official restaurant photographs or popularity claims.
+- Files changed: `mobile/src/data/auth.ts`, `mobile/src/hooks/use-auth.ts`, `mobile/src/components/account-card.tsx`, `mobile/src/app/(tabs)/profile.tsx`, `mobile/src/data/restaurant-repository.ts`.
+
+## 2026-11-12 — Batch 1.3 sign-out, owner preview and highest-priced dish images
+- Tool: ChatGPT
+- Prompt: asked to fix Sign Out returning to Search instead of Welcome, use each restaurant's highest-priced dish as its representative image, add more dish-image choices, and add a temporary Profile button to inspect the Business Owner page while the owner-account work is unfinished.
+- Output used: shared/persisted sign-out suppression across all auth listeners; explicit guest-session start from Welcome; local-only owner portal preview using a sample restaurant and separate preview draft storage; highest-priced dish selection for restaurant card identity; expanded dish image mappings.
+- Safety/authorization notes: preview mode does not create or grant an owner account, access the owners table, change Supabase records, bypass RLS, or publish local edits. Representative photos remain illustrative unless supplied and verified by the restaurant.
+- Files changed: `mobile/src/data/auth.ts`, `mobile/src/data/app-mode.ts`, `mobile/src/hooks/use-auth.ts`, `mobile/src/app/index.tsx`, `mobile/src/app/owner/index.tsx`, `mobile/src/app/(tabs)/profile.tsx`, `mobile/src/data/restaurant-repository.ts`, `mobile/src/data/mock-restaurants.ts`.
