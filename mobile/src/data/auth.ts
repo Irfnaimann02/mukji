@@ -64,8 +64,16 @@ export async function ensureSignedIn(): Promise<User> {
   if (!pending) {
     pending = sb.auth
       .signInAnonymously()
-      .then(({ data: result, error }) => {
+      .then(async ({ data: result, error }) => {
         if (error || !result.user) throw error ?? new Error('Anonymous sign-in failed.');
+
+        // A sign-out may happen while the anonymous request is in flight.
+        // Do not let that late response silently recreate the guest session.
+        if (shouldStayOnWelcomeAfterSignOut() || await isWelcomeAfterSignOutPending()) {
+          await sb.auth.signOut();
+          throw new Error('Guest sign-in is paused until you choose an option on the Welcome screen.');
+        }
+
         return result.user;
       })
       .finally(() => {

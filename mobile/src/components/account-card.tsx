@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'expo-router';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { clearAppMode, getAppMode, setAppMode, type AppMode } from '@/data/app-mode';
-import { signOutToWelcome } from '@/data/auth';
+import { getAppMode, setAppMode, type AppMode } from '@/data/app-mode';
 import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
+import { signOutAndReturnToWelcome } from '@/logic/session-service';
 
 export function AccountCard() {
   const auth = useAuth();
   const router = useRouter();
-  const { language } = useTranslation();
+  const { t } = useTranslation();
   const [mode, setMode] = useState<AppMode>('user');
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export function AccountCard() {
     if (mode === 'business') {
       await setAppMode('user');
       setMode('user');
-      router.replace('/(tabs)');
+      router.replace('/(tabs)/map');
       return;
     }
     if (auth.user === null || auth.isAnonymous) {
@@ -48,21 +48,17 @@ export function AccountCard() {
   }
 
   const actionLabel = mode === 'business'
-    ? (language === 'ko' ? '일반 사용자 모드로 전환' : 'Switch to User Mode')
-    : (language === 'ko' ? '사장님 모드로 전환' : 'Switch to Business Mode');
+    ? t('switchToUserMode')
+    : t('switchToBusinessMode');
 
   async function leaveAccount() {
     try {
-      // Clear the preference both before and after sign-out. The second clear
-      // also removes any key created for a fresh session during auth teardown.
-      await clearAppMode();
-      await signOutToWelcome();
-      await clearAppMode();
+      await signOutAndReturnToWelcome();
       router.replace('/');
     } catch (error) {
       Alert.alert(
-        language === 'ko' ? '로그아웃할 수 없습니다' : 'Could not log out',
-        error instanceof Error ? error.message : 'Please try again.',
+        t('couldNotLogOut'),
+        error instanceof Error ? error.message : t('pleaseTryAgain'),
       );
     }
   }
@@ -70,14 +66,12 @@ export function AccountCard() {
   function confirmLeaveAccount() {
     const guest = auth.isAnonymous || auth.user === null;
     Alert.alert(
-      language === 'ko' ? '로그아웃할까요?' : 'Sign out?',
-      guest
-        ? (language === 'ko' ? '게스트 세션을 종료하고 MUKJI 시작 화면으로 이동합니다.' : 'Your guest session will end and you will return to the MUKJI welcome screen.')
-        : (language === 'ko' ? '계정에서 로그아웃하고 MUKJI 시작 화면으로 이동합니다.' : 'You will be signed out and returned to the MUKJI welcome screen.'),
+      t('signOutQuestion'),
+      guest ? t('endGuestAndReturnWelcome') : t('signOutAndReturnWelcome'),
       [
-        { text: language === 'ko' ? '취소' : 'Cancel', style: 'cancel' },
+        { text: t('cancel'), style: 'cancel' },
         {
-          text: language === 'ko' ? '로그아웃' : 'Sign Out',
+          text: t('signOut'),
           style: 'destructive',
           onPress: () => void leaveAccount(),
         },
@@ -86,8 +80,8 @@ export function AccountCard() {
   }
 
   const guest = auth.isAnonymous || auth.user === null;
-  const displayName = guest ? 'Guest account' : (auth.email ?? 'MUKJI member');
-  const modeLabel = mode === 'business' ? 'Business Mode' : 'User Mode';
+  const displayName = guest ? t('guestAccount') : (auth.email ?? t('mukjiMember'));
+  const modeLabel = mode === 'business' ? t('businessMode') : t('userMode');
 
   return (
     <View style={styles.card}>
@@ -96,7 +90,7 @@ export function AccountCard() {
           <Text style={styles.avatarText}>{guest ? 'G' : (auth.email?.[0]?.toUpperCase() ?? 'M')}</Text>
         </View>
         <View style={styles.accountInfo}>
-          <Text style={styles.eyebrow}>MY MUKJI ACCOUNT</Text>
+          <Text style={styles.eyebrow}>{t('myMukjiAccount')}</Text>
           <Text style={styles.label} numberOfLines={1}>{displayName}</Text>
           <View style={styles.modePill}>
             <View style={styles.modeDot} />
@@ -104,7 +98,7 @@ export function AccountCard() {
           </View>
         </View>
         <View style={styles.statusIcon}>
-          <Text style={styles.statusIconText}>{guest ? 'GUEST' : 'MEMBER'}</Text>
+          <Text style={styles.statusIconText}>{guest ? t('guestStatus') : t('memberStatus')}</Text>
         </View>
       </View>
 
@@ -115,7 +109,7 @@ export function AccountCard() {
         </View>
         <View style={styles.actionCopy}>
           <Text style={styles.actionTitle}>{actionLabel}</Text>
-          <Text style={styles.actionDescription}>{mode === 'business' ? 'Browse MUKJI as a customer' : 'Manage your restaurant with MUKJI Partners'}</Text>
+          <Text style={styles.actionDescription}>{mode === 'business' ? t('browseMukjiAsCustomer') : t('manageRestaurantWithMukji')}</Text>
         </View>
         <Text style={styles.chevron}>›</Text>
       </Pressable>
@@ -124,8 +118,8 @@ export function AccountCard() {
           <Text style={styles.signOutIconText}>↪</Text>
         </View>
         <View style={styles.actionCopy}>
-          <Text style={styles.signOutTitle}>Sign Out</Text>
-          <Text style={styles.actionDescription}>{guest ? 'End guest session and return to welcome' : 'Sign out of your MUKJI account'}</Text>
+          <Text style={styles.signOutTitle}>{t('signOut')}</Text>
+          <Text style={styles.actionDescription}>{guest ? t('endGuestSessionReturnWelcome') : t('signOutOfMukjiAccount')}</Text>
         </View>
         <Text style={styles.chevron}>›</Text>
       </Pressable>

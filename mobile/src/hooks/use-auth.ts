@@ -49,9 +49,17 @@ export function useAuth(): AuthState {
 
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
       if (!alive) return;
+
+      // Ignore a late SIGNED_IN event if the user deliberately signed out
+      // while an anonymous sign-in request was still pending.
+      if (shouldStayOnWelcomeAfterSignOut()) {
+        setUser(null);
+        return;
+      }
+
       setUser(session?.user ?? null);
-      // After an owner signs out, go back to a guest account.
-      if (event === 'SIGNED_OUT' && !shouldStayOnWelcomeAfterSignOut()) void signIn();
+      // Normal sign-out elsewhere in the app may restore a guest session.
+      if (event === 'SIGNED_OUT') void signIn();
     });
 
     return () => {
