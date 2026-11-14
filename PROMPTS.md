@@ -49,3 +49,23 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Prompt: asked to get the app running in a web browser. Claude found that `expo start --web` crashed with `window is not defined` (server rendering plus Supabase's AsyncStorage) and that `react-native-maps` has no web support.
 - Output used: `"output": "single"` in `mobile/app.json`; new `mobile/src/app/(tabs)/index.web.tsx` that lists the restaurants instead of the map on web only. Claude opened the web build in a browser at phone size and checked the list, search, restaurant pages, the food profile filter and the Korean switch.
 - Changes by me: joined the two versions of the web list after #62 changed getMapPins, kept the fuller list (icons, translated badges, loading/empty states), checked tsc on my laptop.
+
+## 2026-11-12 - Batch 1.1 welcome and account exit
+- Tool: ChatGPT
+- Prompt: asked to improve Batch 1 with featured-dish photos, a way to return to the Welcome screen, and a logout action in the Profile account card.
+- Output used: a clear-app-mode action and a confirmed logout/back-to-Welcome control in the account card.
+- Changes by the team: restaurant-specific photos are deferred until the team agrees on an image policy and restaurants can provide or approve their own images.
+
+## 2026-11-12 — Batch 1.2 account sign-out
+- Tool: ChatGPT
+- Prompt: asked to diagnose why the app returned to Search after sign-out and to keep the Welcome screen available until the user explicitly chooses an experience.
+- Output used: a persisted sign-out suppression flag shared by auth listeners; an explicit guest-session start after the user chooses Continue as guest; a translated account card with guest/member status, app mode, and sign-out actions.
+- Changes by the team: the sign-out flow now returns to Welcome instead of immediately creating another anonymous session. Restaurant and dish stock-photo selection is not included; see `ETHICS.md`.
+- Files changed: `mobile/src/data/auth.ts`, `mobile/src/hooks/use-auth.ts`, `mobile/src/components/account-card.tsx`, `mobile/src/app/(tabs)/profile.tsx`, `mobile/src/i18n/translations.ts`.
+
+## 2026-11-12 — Batch 1.3 owner portal and sign-out integration
+- Tool: ChatGPT
+- Prompt: asked to fix Sign Out returning to Search instead of Welcome, use highest-priced dish photos as representative restaurant images, add local-only owner portal preview, and integrate the owner portal with account and Welcome flows.
+- Output used: local-only owner portal preview with separate preview draft storage; owner authentication and restaurant-link lookup; owner sign-out back to Welcome; separation of the owner screen, logic service, and local draft repository. The proposed representative-photo feature was deferred and is not included.
+- Safety/authorization notes: preview mode does not create or grant an owner account, access or modify the Supabase owners table, bypass RLS, or publish local edits. Restaurant ownership remains controlled by the existing Supabase owner links and RLS.
+- Files changed: `mobile/src/app/index.tsx`, `mobile/src/app/user-login.tsx`, `mobile/src/app/owner-login.tsx`, `mobile/src/app/owner/index.tsx`, `mobile/src/components/account-card.tsx`, `mobile/src/data/auth.ts`, `mobile/src/data/app-mode.ts`, `mobile/src/data/owner-drafts-store.ts`, `mobile/src/hooks/use-auth.ts`, `mobile/src/i18n/translations.ts`, `mobile/src/logic/owner-portal-service.ts`, `mobile/src/logic/welcome-service.ts`, `mobile/src/logic/session-service.ts`, `mobile/src/app/(tabs)/profile.tsx`, `ETHICS.md`.

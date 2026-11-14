@@ -93,7 +93,7 @@ export default function TabsLayout() {
       />
 
       <Tabs.Screen
-        name="index"
+        name="map"
         options={{
           title: t('searchMap'),
           tabBarAccessibilityLabel: t('searchMap'),
