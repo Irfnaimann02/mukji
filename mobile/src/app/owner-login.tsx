@@ -16,19 +16,18 @@ import {
   isValidEmail,
   myOwnedRestaurantIds,
   sendEmailCode,
-  signOut,
   verifyEmailCode,
 } from '@/data/auth';
 import { setAppMode } from '@/data/app-mode';
 import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
+import { continueAsGuest } from '@/logic/welcome-service';
+import { signOutAndReturnToWelcome } from '@/logic/session-service';
 
 export default function OwnerLoginScreen() {
   const auth = useAuth();
   const router = useRouter();
-  const { t, language } = useTranslation();
-  const isKo = language === 'ko';
-  const copy = (en: string, ko: string) => (isKo ? ko : en);
+  const { t } = useTranslation();
 
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
@@ -90,7 +89,18 @@ export default function OwnerLoginScreen() {
       router.replace('/owner');
     });
 
-  const onSignOut = () => run(signOut);
+  const onSignOut = () => run(async () => {
+    await signOutAndReturnToWelcome();
+    router.replace('/');
+  });
+  const onContinueToUserMode = () => run(async () => {
+    if (signedInAsOwner) {
+      await setAppMode('user');
+    } else {
+      await continueAsGuest();
+    }
+    router.replace('/(tabs)/map');
+  });
 
   return (
     <View style={{ flex: 1 }}>
@@ -112,7 +122,7 @@ export default function OwnerLoginScreen() {
               onPress={() => { void setAppMode('business').then(() => router.replace('/owner')); }}
               accessibilityRole="button">
               <Ionicons name="storefront-outline" size={19} color="#fff" />
-              <Text style={styles.buttonText}>{copy('Open Owner Portal', '사장님 포털 열기')}</Text>
+              <Text style={styles.buttonText}>{t('openOwnerPortal')}</Text>
             </Pressable>
 
             <Pressable style={[styles.button, styles.secondary]} onPress={onSignOut} disabled={busy}>
@@ -162,13 +172,11 @@ export default function OwnerLoginScreen() {
         {auth.error && <Text style={styles.error}>{auth.error}</Text>}
         <Pressable
           style={styles.backToUser}
-          onPress={() => {
-            void setAppMode('user').then(() => router.replace('/(tabs)'));
-          }}
+          onPress={onContinueToUserMode}
           disabled={busy}
           accessibilityRole="button">
           <Ionicons name="arrow-back" size={17} color="#1b5fad" />
-          <Text style={styles.backToUserText}>{copy('Back to User Mode / Continue as guest', '일반 사용자 모드로 돌아가기 / 게스트로 계속하기')}</Text>
+          <Text style={styles.backToUserText}>{t('backToUserModeContinueGuest')}</Text>
         </Pressable>
       </ScrollView>
     </View>

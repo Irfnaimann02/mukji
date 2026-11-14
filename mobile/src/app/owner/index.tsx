@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -14,15 +13,25 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { isValidEmail, myOwnedRestaurantIds, signOut } from '@/data/auth';
-import { setAppMode } from '@/data/app-mode';
 import type { Restaurant } from '@/data/types';
 import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
-import { listRestaurants } from '@/logic/restaurant-service';
+import { continueAsGuest } from '@/logic/welcome-service';
+import { signOutAndReturnToWelcome } from '@/logic/session-service';
+import {
+  createRestaurantDraft,
+  isValidOwnerEmail,
+  loadOwnerDrafts,
+  loadOwnerPortalRestaurants,
+  saveApplicationDraft as persistApplicationDraft,
+  saveRestaurantDrafts,
+  switchToUserMode,
+  EMPTY_APPLICATION_DRAFT,
+  type ApplicationDraft,
+  type DishDraft,
+  type RestaurantDraft,
+} from '@/logic/owner-portal-service';
 
-const APPLICATION_KEY = 'mukji_owner_application_draft_v2';
-const RESTAURANT_DRAFTS_KEY = 'mukji_owner_restaurant_drafts_v2';
 
 const ALLOWED_INGREDIENTS = [
   'pork',
@@ -38,80 +47,6 @@ const ALLOWED_INGREDIENTS = [
 ] as const;
 
 type PortalTab = 'overview' | 'restaurant' | 'menu' | 'reservations' | 'settings';
-type ApplicationKind = 'existing' | 'new';
-
-type ApplicationDraft = {
-  kind: ApplicationKind;
-  existingRestaurantId: string;
-  businessNameKo: string;
-  businessName: string;
-  ownerName: string;
-  email: string;
-  address: string;
-  phone: string;
-  message: string;
-  halalClaim: 'not_claiming' | 'certified' | 'not_certified';
-};
-
-type DishDraft = {
-  id: string;
-  nameKo: string;
-  nameEn: string;
-  priceWon: string;
-  contains: string;
-  mayContain: string;
-  leaveOutKo: string;
-  leaveOutEn: string;
-};
-
-type RestaurantDraft = {
-  nameKo: string;
-  nameEn: string;
-  address: string;
-  phone: string;
-  originText: string;
-  dishes: DishDraft[];
-};
-
-const EMPTY_APPLICATION: ApplicationDraft = {
-  kind: 'existing',
-  existingRestaurantId: '',
-  businessNameKo: '',
-  businessName: '',
-  ownerName: '',
-  email: '',
-  address: '',
-  phone: '',
-  message: '',
-  halalClaim: 'not_claiming',
-};
-
-function storageKey(base: string, userId: string) {
-  return `${base}_${userId}`;
-}
-
-function makeRestaurantDraft(restaurant: Restaurant): RestaurantDraft {
-  return {
-    nameKo: restaurant.nameKo,
-    nameEn: restaurant.nameEn,
-    address: restaurant.address,
-    phone: restaurant.phone,
-    originText: restaurant.origin
-      .map((item) => `${item.itemKo}: ${item.country}`)
-      .join('\n'),
-    dishes: restaurant.dishes.map((dish) => ({
-      id: dish.id,
-      nameKo: dish.nameKo,
-      nameEn: dish.nameEn,
-      priceWon: String(dish.priceWon),
-      contains: dish.contains.join(', '),
-      mayContain: dish.mayContain.join(', '),
-      leaveOutKo: dish.leaveOutKo ?? '',
-      leaveOutEn: dish.leaveOutEn ?? '',
-    })),
-  };
-}
-
 function parseIngredientText(value: string): string[] {
   return value
     .split(',')
@@ -192,7 +127,7 @@ export default function OwnerPortalScreen() {
   const [ownedRestaurants, setOwnedRestaurants] = useState<Restaurant[]>([]);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState('');
   const [activeTab, setActiveTab] = useState<PortalTab>('overview');
-  const [application, setApplication] = useState<ApplicationDraft>(EMPTY_APPLICATION);
+  const [application, setApplication] = useState<ApplicationDraft>(EMPTY_APPLICATION_DRAFT);
   const [restaurantDrafts, setRestaurantDrafts] = useState<Record<string, RestaurantDraft>>({});
 
   const signedInAsOwner = auth.user !== null && !auth.isAnonymous;
@@ -208,7 +143,7 @@ export default function OwnerPortalScreen() {
   );
 
   const activeDraft = selectedRestaurant
-    ? restaurantDrafts[selectedRestaurant.id] ?? makeRestaurantDraft(selectedRestaurant)
+    ? restaurantDrafts[selectedRestaurant.id] ?? createRestaurantDraft(selectedRestaurant)
     : undefined;
 
   // Drafts are private to the signed-in account on this device.
@@ -225,26 +160,10 @@ export default function OwnerPortalScreen() {
       setDraftError('');
 
       try {
-        const [savedApplication, savedRestaurantDrafts] = await Promise.all([
-          AsyncStorage.getItem(storageKey(APPLICATION_KEY, draftOwnerKey)),
-          AsyncStorage.getItem(storageKey(RESTAURANT_DRAFTS_KEY, draftOwnerKey)),
-        ]);
-
+        const savedDrafts = await loadOwnerDrafts(draftOwnerKey);
         if (!alive) return;
-
-        if (savedApplication) {
-          const parsed = JSON.parse(savedApplication) as Partial<ApplicationDraft>;
-          setApplication({ ...EMPTY_APPLICATION, ...parsed });
-        } else {
-          setApplication(EMPTY_APPLICATION);
-        }
-
-        if (savedRestaurantDrafts) {
-          const parsed = JSON.parse(savedRestaurantDrafts) as Record<string, RestaurantDraft>;
-          setRestaurantDrafts(parsed);
-        } else {
-          setRestaurantDrafts({});
-        }
+        setApplication(savedDrafts.application);
+        setRestaurantDrafts(savedDrafts.restaurantDrafts);
       } catch (error) {
         if (!alive) return;
         setDraftError(
@@ -281,24 +200,11 @@ export default function OwnerPortalScreen() {
       setPortalError('');
 
       try {
-        const allRestaurants = await listRestaurants();
+        const { restaurants: allRestaurants, ownedRestaurants: linked } =
+          await loadOwnerPortalRestaurants(previewMode);
         if (!alive) return;
         setRestaurants(allRestaurants);
-
-        if (previewMode) {
-          // Preview mode uses a sample public restaurant only. It never reads
-          // or changes the Supabase owners table and grants no owner access.
-          const previewRestaurants = allRestaurants.slice(0, 1);
-          setOwnedRestaurants(previewRestaurants);
-          setSelectedRestaurantId(previewRestaurants[0]?.id ?? '');
-          return;
-        }
-
-        const ownedIds = await myOwnedRestaurantIds();
-        if (!alive) return;
-        const linked = allRestaurants.filter((restaurant) => ownedIds.includes(restaurant.id));
         setOwnedRestaurants(linked);
-
         setSelectedRestaurantId((current) =>
           linked.some((restaurant) => restaurant.id === current)
             ? current
@@ -336,7 +242,7 @@ export default function OwnerPortalScreen() {
     if (!application.ownerName.trim()) {
       return copy('Enter the owner name.', '신청자 이름을 입력해 주세요.');
     }
-    if (!isValidEmail(email)) {
+    if (!isValidOwnerEmail(email)) {
       return copy('Enter a valid contact email.', '올바른 연락 이메일을 입력해 주세요.');
     }
 
@@ -373,10 +279,7 @@ export default function OwnerPortalScreen() {
     setSaving(true);
     try {
       const valueToSave = { ...application, email: application.email.trim() || auth.email || '' };
-      await AsyncStorage.setItem(
-        storageKey(APPLICATION_KEY, draftOwnerKey),
-        JSON.stringify(valueToSave),
-      );
+      await persistApplicationDraft(draftOwnerKey, valueToSave);
       setApplication(valueToSave);
       Alert.alert(
         copy('Draft saved', '임시 저장 완료'),
@@ -400,7 +303,7 @@ export default function OwnerPortalScreen() {
     const restaurantId = selectedRestaurant.id;
 
     setRestaurantDrafts((current) => {
-      const base = current[restaurantId] ?? makeRestaurantDraft(selectedRestaurant);
+      const base = current[restaurantId] ?? createRestaurantDraft(selectedRestaurant);
       return { ...current, [restaurantId]: { ...base, [key]: value } };
     });
   }
@@ -410,7 +313,7 @@ export default function OwnerPortalScreen() {
     const restaurantId = selectedRestaurant.id;
 
     setRestaurantDrafts((current) => {
-      const base = current[restaurantId] ?? makeRestaurantDraft(selectedRestaurant);
+      const base = current[restaurantId] ?? createRestaurantDraft(selectedRestaurant);
       return {
         ...current,
         [restaurantId]: {
@@ -438,7 +341,7 @@ export default function OwnerPortalScreen() {
     };
 
     setRestaurantDrafts((current) => {
-      const base = current[restaurantId] ?? makeRestaurantDraft(selectedRestaurant);
+      const base = current[restaurantId] ?? createRestaurantDraft(selectedRestaurant);
       return {
         ...current,
         [restaurantId]: { ...base, dishes: [...base.dishes, newDish] },
@@ -459,7 +362,7 @@ export default function OwnerPortalScreen() {
           onPress: () => {
             const restaurantId = selectedRestaurant.id;
             setRestaurantDrafts((current) => {
-              const base = current[restaurantId] ?? makeRestaurantDraft(selectedRestaurant);
+              const base = current[restaurantId] ?? createRestaurantDraft(selectedRestaurant);
               return {
                 ...current,
                 [restaurantId]: {
@@ -525,10 +428,7 @@ export default function OwnerPortalScreen() {
     setSaving(true);
     try {
       const nextDrafts = { ...restaurantDrafts, [selectedRestaurant.id]: activeDraft };
-      await AsyncStorage.setItem(
-        storageKey(RESTAURANT_DRAFTS_KEY, draftOwnerKey),
-        JSON.stringify(nextDrafts),
-      );
+      await saveRestaurantDrafts(draftOwnerKey, nextDrafts);
       setRestaurantDrafts(nextDrafts);
       Alert.alert(
         copy('Draft saved', '임시 저장 완료'),
@@ -544,14 +444,22 @@ export default function OwnerPortalScreen() {
     }
   }
 
-  async function handleSignOut() {
-    if (previewMode) {
-      router.replace('/(tabs)/profile');
-      return;
-    }
+  async function handleContinueAsGuest() {
     try {
-      await signOut();
-      router.replace('/owner-login');
+      await continueAsGuest();
+      router.replace('/(tabs)/map');
+    } catch (error) {
+      Alert.alert(
+        copy('Could not continue as guest', '게스트로 계속할 수 없습니다'),
+        error instanceof Error ? error.message : copy('Please try again.', '다시 시도해 주세요.'),
+      );
+    }
+  }
+
+  async function handleSignOut() {
+    try {
+      await signOutAndReturnToWelcome();
+      router.replace('/');
     } catch {
       Alert.alert(
         copy('Sign out failed', '로그아웃 실패'),
@@ -730,7 +638,7 @@ export default function OwnerPortalScreen() {
         <Pressable
           style={[styles.signOutButton, { borderColor: '#b8cce5', backgroundColor: '#eef4fb' }]}
           onPress={() => {
-            void setAppMode('user').then(() => router.replace('/(tabs)'));
+            void switchToUserMode().then(() => router.replace('/(tabs)/map'));
           }}
           accessibilityRole="button">
           <Ionicons name="swap-horizontal-outline" size={20} color="#1b5fad" />
@@ -944,7 +852,7 @@ export default function OwnerPortalScreen() {
         <Pressable
           style={[styles.signOutButton, { borderColor: '#b8cce5', backgroundColor: '#eef4fb' }]}
           onPress={() => {
-            void setAppMode('user').then(() => router.replace('/(tabs)'));
+            void switchToUserMode().then(() => router.replace('/(tabs)/map'));
           }}
           accessibilityRole="button">
           <Ionicons name="swap-horizontal-outline" size={20} color="#1b5fad" />
@@ -995,7 +903,7 @@ export default function OwnerPortalScreen() {
             <PrimaryButton title={copy('Go to owner login', '사장님 로그인')} onPress={() => router.replace('/owner-login')} />
             <PrimaryButton
               title={copy('Back to User Mode / Continue as guest', '일반 사용자 모드로 돌아가기 / 게스트로 계속하기')}
-              onPress={() => { void setAppMode('user').then(() => router.replace('/(tabs)')); }}
+              onPress={() => void handleContinueAsGuest()}
             />
           </View>
         ) : portalError ? (
