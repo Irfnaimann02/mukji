@@ -1,33 +1,56 @@
+
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import type { BottomTabBarButtonProps } from 'expo-router/tabs';
 import type { ComponentProps } from 'react';
-import { Pressable, StyleSheet, Text, View, type ColorValue } from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  View,
+  type ColorValue,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useTranslation } from '@/hooks/use-translation';
 
-const CORAL = '#F15A3B';
-const GREY = '#A49A94';
+const BLUE = '#1b5fad';
+const GREY = '#8a94a3';
 
 type IconName = ComponentProps<typeof Ionicons>['name'];
 
+// Filled icon when the tab is active, outline when it is not.
 const icon = (on: IconName, off: IconName) =>
   Object.assign(
     ({ color, focused }: { color: ColorValue; focused: boolean }) => (
-      <Ionicons name={focused ? on : off} size={21} color={color as string} />
+      <Ionicons
+        name={focused ? on : off}
+        size={26}
+        color={color as string}
+      />
     ),
-    { displayName: `TabIcon(${on}, ${off})` },
+    {
+      displayName: `TabIcon(${on}, ${off})`,
+    }
   );
 
-function SearchButton({ onPress, accessibilityState, label }: BottomTabBarButtonProps & { label: string }) {
+// Centre button from our sketch: a raised circle with a magnifier.
+function SearchButton({
+  onPress,
+  accessibilityState,
+  label,
+}: BottomTabBarButtonProps & { label: string }) {
   const focused = !!accessibilityState?.selected;
+
   return (
-    <Pressable onPress={onPress} accessibilityRole="button" accessibilityLabel={label} accessibilityState={accessibilityState} style={styles.searchCell}>
-      <View style={[styles.searchCircle, focused && styles.searchCircleActive]}>
-        <Ionicons name="search" size={21} color="#fff" />
+    <Pressable
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      accessibilityState={accessibilityState}
+      style={styles.cell}>
+      <View style={[styles.circle, !focused && styles.circleIdle]}>
+        <Ionicons name="search" size={28} color="#fff" />
       </View>
-      <Text style={[styles.searchLabel, focused && styles.labelActive]}>{label}</Text>
     </Pressable>
   );
 }
@@ -40,36 +63,84 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: true,
-        tabBarActiveTintColor: CORAL,
+        tabBarShowLabel: false, // icons only, like the sketch
+        tabBarActiveTintColor: BLUE,
         tabBarInactiveTintColor: GREY,
-        tabBarLabelStyle: { fontSize: 10, fontWeight: '700', marginTop: 2, marginBottom: 2 },
         tabBarStyle: {
-          height: 62 + bottom,
-          paddingTop: 7,
-          paddingBottom: Math.max(bottom, 8),
+          height: 60 + bottom,
+          paddingBottom: bottom,
           backgroundColor: '#fff',
-          borderTopColor: '#F0E8E2',
-          elevation: 12,
-          shadowColor: '#49352D',
-          shadowOpacity: 0.07,
-          shadowRadius: 12,
-          shadowOffset: { width: 0, height: -4 },
+          borderTopColor: '#dbe3ec',
         },
       }}>
-      <Tabs.Screen name="home" options={{ title: t('home'), tabBarIcon: icon('home', 'home-outline') }} />
-      <Tabs.Screen name="reserve" options={{ title: t('reserve'), tabBarIcon: icon('calendar', 'calendar-outline') }} />
-      <Tabs.Screen name="index" options={{ title: t('searchMap'), tabBarLabel: () => null, tabBarButton: (props) => <SearchButton {...props} label={t('searchMap')} /> }} />
-      <Tabs.Screen name="favourites" options={{ title: t('favourites'), tabBarIcon: icon('heart', 'heart-outline') }} />
-      <Tabs.Screen name="profile" options={{ title: t('profile'), tabBarIcon: icon('person', 'person-outline') }} />
+      {/* The order here is the order on screen. "index" is the Search map, so the app opens on it. */}
+      <Tabs.Screen
+        name="home"
+        options={{
+          title: t('home'),
+          tabBarAccessibilityLabel: t('home'),
+          tabBarIcon: icon('home', 'home-outline'),
+        }}
+      />
+
+      <Tabs.Screen
+        name="reserve"
+        options={{
+          title: t('reserve'),
+          tabBarAccessibilityLabel: t('reserve'),
+          tabBarIcon: icon('restaurant', 'restaurant-outline'),
+        }}
+      />
+
+      <Tabs.Screen
+        name="map"
+        options={{
+          title: t('searchMap'),
+          tabBarAccessibilityLabel: t('searchMap'),
+          tabBarButton: (props) => (
+            <SearchButton {...props} label={t('searchMap')} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="favourites"
+        options={{
+          title: t('favourites'),
+          tabBarAccessibilityLabel: t('favourites'),
+          tabBarIcon: icon('heart', 'heart-outline'),
+        }}
+      />
+
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: t('profile'),
+          tabBarAccessibilityLabel: t('profile'),
+          tabBarIcon: icon('person', 'person-outline'),
+        }}
+      />
     </Tabs>
   );
 }
 
 const styles = StyleSheet.create({
-  searchCell: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 2 },
-  searchCircle: { width: 37, height: 37, borderRadius: 14, backgroundColor: '#F4A18D', alignItems: 'center', justifyContent: 'center', marginTop: -3 },
-  searchCircleActive: { backgroundColor: CORAL },
-  searchLabel: { color: GREY, fontSize: 9, fontWeight: '700' },
-  labelActive: { color: CORAL },
+  cell: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  circle: {
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    marginTop: -40, // lifts the circle above the bar
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: BLUE,
+    borderWidth: 4,
+    borderColor: '#f4f7fa',
+    elevation: 6,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+  },
+  circleIdle: { backgroundColor: '#6f9bd1' },
 });
