@@ -75,6 +75,33 @@ export interface Restaurant {
   kakaoUrl?: string;
 }
 
+// #52 reviews after eating. Every review comes from a proven visit.
+export type VisitKind = 'reservation' | 'check_in';
+
+export interface Review {
+  id: string;
+  restaurantId: string;
+  stars: number; // 1 to 5
+  body: string;
+  dietTags: Diet[]; // how the writer ate here, e.g. ['halal']
+  visitKind: VisitKind; // shown as "Verified visit · Booked / Checked in"
+  createdAt: string; // ISO date
+  mine: boolean; // written by the signed-in user
+}
+
+// Asked from the database: may this user write a review here?
+export interface ReviewEligibility {
+  canReview: boolean;
+  visitKind: VisitKind | null;
+  alreadyReviewed: boolean;
+  reason: 'login_required' | 'already_reviewed' | 'visit_required' | null;
+}
+
+export interface CheckInResult {
+  checkedIn: boolean; // false = too far, nothing saved
+  distanceM: number;
+}
+
 export interface FoodProfile {
   diets: Diet[];
   allergens: Allergen[];
