@@ -84,7 +84,7 @@ export interface Review {
   stars: number; // 1 to 5
   body: string;
   dietTags: Diet[]; // how the writer ate here, e.g. ['halal']
-  visitKind: VisitKind; // shown as "Verified visit · Booked / Checked in"
+  visitKind: VisitKind; // "Verified visit · Booked" or "Location check-in"
   createdAt: string; // ISO date
   mine: boolean; // written by the signed-in user
 }
@@ -102,9 +102,17 @@ export interface CheckInResult {
   distanceM: number;
 }
 
+// #48 food personality: kinds of food and places a person likes.
+// Only used to rank suggestions higher, never to hide anything.
+export type FoodTag =
+  | 'korean' | 'chinese' | 'japanese' | 'western' | 'asian-foreign' | 'noodles'
+  | 'bbq' | 'buffet' | 'snack-food' | 'raw-fish' | 'chicken' | 'fast-food'
+  | 'cafe' | 'pub' | 'halal-food' | 'cheap';
+
 export interface FoodProfile {
   diets: Diet[];
   allergens: Allergen[];
+  likes?: FoodTag[]; // #48. Optional so profiles saved before #48 still load.
   maxDistanceM: number;
   language: 'ko' | 'en';
 }
@@ -112,6 +120,7 @@ export interface FoodProfile {
 export const DEFAULT_PROFILE: FoodProfile = {
   diets: [],
   allergens: [],
+  likes: [],
   maxDistanceM: 1500,
   language: 'en',
 };

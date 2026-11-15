@@ -1,6 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import { Pressable, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AccountCard } from '@/components/account-card';
@@ -8,32 +6,27 @@ import { FoodProfileForm } from '@/components/food-profile-form';
 import { useTranslation } from '@/hooks/use-translation';
 
 export default function ProfileScreen() {
-  const router = useRouter();
   const { t } = useTranslation();
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#FFF9F5' }} edges={['top']}>
-      <View style={{ paddingHorizontal: 18, paddingTop: 16, paddingBottom: 14, gap: 4 }}>
-        <Text style={{ color: '#202124', fontSize: 27, fontWeight: '900' }}>{t('myProfile')}</Text>
-        <Text style={{ color: '#8A8581', fontSize: 12 }}>{t('accountAndFoodPreferences')}</Text>
-        <View style={{ marginTop: 12 }}><AccountCard /></View>
-        {__DEV__ && (
-          <Pressable
-            onPress={() => router.push({ pathname: '/owner', params: { preview: '1' } })}
-            accessibilityRole="button"
-            style={{ marginTop: 12, padding: 15, borderRadius: 16, backgroundColor: '#EAF2FC', borderWidth: 1, borderColor: '#D5E3F5', flexDirection: 'row', alignItems: 'center', gap: 11 }}>
-            <View style={{ width: 38, height: 38, borderRadius: 12, backgroundColor: '#DCEAFB', alignItems: 'center', justifyContent: 'center' }}>
-              <Ionicons name="storefront-outline" size={20} color="#1B5FAD" />
-            </View>
-            <View style={{ flex: 1, gap: 3 }}>
-              <Text style={{ color: '#1B4777', fontSize: 13, fontWeight: '900' }}>{t('previewBusinessOwnerPage')}</Text>
-              <Text style={{ color: '#62778F', fontSize: 10, lineHeight: 14 }}>{t('temporaryPreviewOnlyDevelopment')}</Text>
-            </View>
-            <Ionicons name="chevron-forward" size={18} color="#1B5FAD" />
-          </Pressable>
-        )}
-      </View>
-      <FoodProfileForm />
+    <SafeAreaView style={styles.screen} edges={['top']}>
+      <ScrollView contentContainerStyle={styles.content}>
+        <View style={styles.header}>
+          <Text style={styles.title}>{t('myProfile')}</Text>
+          <Text style={styles.subtitle}>{t('accountAndFoodPreferences')}</Text>
+        </View>
+        {/* Business Mode, sign out and the owner preview are on the Account settings screen. */}
+        <AccountCard />
+        <FoodProfileForm />
+      </ScrollView>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: '#FCF8F5' },
+  content: { padding: 16, paddingTop: 24, paddingBottom: 32, gap: 20 },
+  header: { gap: 4 },
+  title: { color: '#1E1E1E', fontSize: 30, lineHeight: 36, fontWeight: '900', letterSpacing: -0.4 },
+  subtitle: { color: '#6B6460', fontSize: 14 },
+});

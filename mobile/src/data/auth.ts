@@ -111,6 +111,19 @@ export async function verifyEmailCode(email: string, code: string): Promise<User
   return data.user;
 }
 
+// Dev builds only: shared test accounts made in the Supabase dashboard
+// (e.g. owner-test@example.com) cannot receive email codes, so they sign in
+// with a password. The owner login screen shows this only when __DEV__ is true.
+export async function signInTestAccount(email: string, password: string): Promise<User> {
+  await clearWelcomeAfterSignOutFlag();
+  const { data, error } = await client().auth.signInWithPassword({
+    email: cleanEmail(email),
+    password,
+  });
+  if (error || !data.user) throw error ?? new Error('Wrong email or password.');
+  return data.user;
+}
+
 // Backwards-compatible names used by the existing Issue #45 owner login.
 export const sendOwnerCode = sendEmailCode;
 export const verifyOwnerCode = verifyEmailCode;
