@@ -1,7 +1,7 @@
 import type { User } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 
-import { ensureSignedIn } from '@/data/auth';
+import { ensureSignedIn, isWelcomeAfterSignOutPending, shouldStayOnWelcomeAfterSignOut } from '@/data/auth';
 import { supabase } from '@/data/supabase';
 
 export type AuthState = {
@@ -26,19 +26,40 @@ export function useAuth(): AuthState {
 
     let alive = true;
 
-    const signIn = () =>
-      ensureSignedIn()
-        .then((u) => alive && setUser(u))
-        .catch((e) => alive && setError(e instanceof Error ? e.message : String(e)))
-        .finally(() => alive && setReady(true));
+    const signIn = async () => {
+      try {
+        // A deliberate sign-out must not be undone by an auth hook mounting
+        // again or by another SIGNED_OUT listener.
+        if (await isWelcomeAfterSignOutPending()) {
+          if (alive) setUser(null);
+          return;
+        }
+        const signedInUser = await ensureSignedIn();
+        if (alive && !shouldStayOnWelcomeAfterSignOut()) setUser(signedInUser);
+      } catch (e) {
+        if (alive && !shouldStayOnWelcomeAfterSignOut()) {
+          setError(e instanceof Error ? e.message : String(e));
+        }
+      } finally {
+        if (alive) setReady(true);
+      }
+    };
 
-    signIn();
+    void signIn();
 
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
       if (!alive) return;
+
+      // Ignore a late SIGNED_IN event if the user deliberately signed out
+      // while an anonymous sign-in request was still pending.
+      if (shouldStayOnWelcomeAfterSignOut()) {
+        setUser(null);
+        return;
+      }
+
       setUser(session?.user ?? null);
-      // After an owner signs out, go back to a guest account.
-      if (event === 'SIGNED_OUT') signIn();
+      // Normal sign-out elsewhere in the app may restore a guest session.
+      if (event === 'SIGNED_OUT') void signIn();
     });
 
     return () => {

@@ -1,17 +1,37 @@
-import { View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import { Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AccountCard } from '@/components/account-card';
 import { FoodProfileForm } from '@/components/food-profile-form';
+import { useTranslation } from '@/hooks/use-translation';
 
-// #4: the food profile for the MVP. Profile, QR and friends (#18) come later.
-// #45: the account card at the top shows "Guest account" or the owner's email,
-// and opens the owner login screen.
 export default function ProfileScreen() {
+  const router = useRouter();
+  const { t } = useTranslation();
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#f4f7fa' }} edges={['top']}>
-      <View style={{ paddingHorizontal: 16, paddingTop: 8 }}>
-        <AccountCard />
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#FFF9F5' }} edges={['top']}>
+      <View style={{ paddingHorizontal: 18, paddingTop: 16, paddingBottom: 14, gap: 4 }}>
+        <Text style={{ color: '#202124', fontSize: 27, fontWeight: '900' }}>{t('myProfile')}</Text>
+        <Text style={{ color: '#8A8581', fontSize: 12 }}>{t('accountAndFoodPreferences')}</Text>
+        <View style={{ marginTop: 12 }}><AccountCard /></View>
+        {__DEV__ && (
+          <Pressable
+            onPress={() => router.push({ pathname: '/owner', params: { preview: '1' } })}
+            accessibilityRole="button"
+            style={{ marginTop: 12, padding: 15, borderRadius: 16, backgroundColor: '#EAF2FC', borderWidth: 1, borderColor: '#D5E3F5', flexDirection: 'row', alignItems: 'center', gap: 11 }}>
+            <View style={{ width: 38, height: 38, borderRadius: 12, backgroundColor: '#DCEAFB', alignItems: 'center', justifyContent: 'center' }}>
+              <Ionicons name="storefront-outline" size={20} color="#1B5FAD" />
+            </View>
+            <View style={{ flex: 1, gap: 3 }}>
+              <Text style={{ color: '#1B4777', fontSize: 13, fontWeight: '900' }}>{t('previewBusinessOwnerPage')}</Text>
+              <Text style={{ color: '#62778F', fontSize: 10, lineHeight: 14 }}>{t('temporaryPreviewOnlyDevelopment')}</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color="#1B5FAD" />
+          </Pressable>
+        )}
       </View>
       <FoodProfileForm />
     </SafeAreaView>
