@@ -75,9 +75,17 @@ export interface Restaurant {
   kakaoUrl?: string;
 }
 
+// #48 food personality: kinds of food and places a person likes.
+// Only used to rank suggestions higher, never to hide anything.
+export type FoodTag =
+  | 'korean' | 'chinese' | 'japanese' | 'western' | 'asian-foreign' | 'noodles'
+  | 'bbq' | 'buffet' | 'snack-food' | 'raw-fish' | 'chicken' | 'fast-food'
+  | 'cafe' | 'pub' | 'halal-food' | 'cheap';
+
 export interface FoodProfile {
   diets: Diet[];
   allergens: Allergen[];
+  likes?: FoodTag[]; // #48. Optional so profiles saved before #48 still load.
   maxDistanceM: number;
   language: 'ko' | 'en';
 }
@@ -85,6 +93,7 @@ export interface FoodProfile {
 export const DEFAULT_PROFILE: FoodProfile = {
   diets: [],
   allergens: [],
+  likes: [],
   maxDistanceM: 1500,
   language: 'en',
 };
