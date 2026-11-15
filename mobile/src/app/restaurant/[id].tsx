@@ -19,6 +19,7 @@ import {
 
 import { DishList } from '@/components/dish-list';
 import { ReservationContactSheet } from '@/components/reservation-contact-sheet';
+import { ReviewSection } from '@/components/review-section';
 import {
   addFavourite,
   getFavourites,
@@ -384,6 +385,9 @@ export default function RestaurantScreen() {
             </Text>
           ))
         )}
+
+        {/* #52 reviews after eating */}
+        <ReviewSection restaurant={restaurant} />
 
         {/* Ongoing reservation */}
         {ongoing && (
