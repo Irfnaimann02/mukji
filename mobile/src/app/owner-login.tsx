@@ -16,6 +16,7 @@ import {
   isValidEmail,
   myOwnedRestaurantIds,
   sendEmailCode,
+  signInTestAccount,
   verifyEmailCode,
 } from '@/data/auth';
 import { setAppMode } from '@/data/app-mode';
@@ -34,6 +35,8 @@ export default function OwnerLoginScreen() {
   const [codeSent, setCodeSent] = useState(false);
   const [busy, setBusy] = useState(false);
   const [ownedList, setOwnedList] = useState<string[]>([]);
+  // Dev builds only: password sign-in for the shared test owner account.
+  const [testPassword, setTestPassword] = useState('');
 
   const signedInAsOwner = auth.user !== null && !auth.isAnonymous;
 
@@ -86,6 +89,15 @@ export default function OwnerLoginScreen() {
       await setAppMode('business');
       setCode('');
       setCodeSent(false);
+      router.replace('/owner');
+    });
+
+  const onTestSignIn = () =>
+    run(async () => {
+      if (!isValidEmail(email) || testPassword === '') throw new Error(t('testAccountMissing'));
+      await signInTestAccount(email, testPassword);
+      await setAppMode('business');
+      setTestPassword('');
       router.replace('/owner');
     });
 
@@ -167,6 +179,27 @@ export default function OwnerLoginScreen() {
                 </Pressable>
               </>
             )}
+
+            {/* Dev builds only: never shown in the real app. */}
+            {__DEV__ && !codeSent && (
+              <View style={styles.testBox}>
+                <Text style={styles.testTitle}>{t('testAccountTitle')}</Text>
+                <Text style={styles.sub}>{t('testAccountHint')}</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder={t('passwordPlaceholder')}
+                  secureTextEntry
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  value={testPassword}
+                  onChangeText={setTestPassword}
+                  editable={!busy}
+                />
+                <Pressable style={[styles.button, styles.testButton]} onPress={onTestSignIn} disabled={busy}>
+                  <Text style={styles.buttonText}>{busy ? t('checking') : t('signInWithPassword')}</Text>
+                </Pressable>
+              </View>
+            )}
           </View>
         )}
         {auth.error && <Text style={styles.error}>{auth.error}</Text>}
@@ -211,6 +244,9 @@ const styles = StyleSheet.create({
   secondaryText: { color: '#c62828' },
   link: { color: '#1b5fad', textAlign: 'center', marginTop: 4 },
   error: { color: '#c62828' },
+  testBox: { gap: 8, marginTop: 8, paddingTop: 12, borderTopWidth: 1, borderTopColor: '#cfd8e3', borderStyle: 'dashed' },
+  testTitle: { fontWeight: '700', color: '#a66500' },
+  testButton: { backgroundColor: '#a66500' },
   backToUser: { minHeight: 48, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7, marginTop: 8, padding: 10 },
   backToUserText: { color: '#1b5fad', fontWeight: '700', textAlign: 'center' },
 });
