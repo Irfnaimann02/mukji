@@ -60,6 +60,7 @@ function toRestaurant(place: KakaoPlace): Restaurant {
     nameKo: place.name,
     nameEn: place.name, // Kakao only has the Korean name
     foodType: foodTypeFromCategory(place.category),
+    category: place.category, // #48: lets food-tags.ts find tags like 'japanese'
     lat: place.lat,
     lng: place.lng,
     address: place.address,

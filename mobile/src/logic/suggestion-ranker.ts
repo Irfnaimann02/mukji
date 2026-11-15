@@ -1,4 +1,5 @@
-import type { Restaurant } from '@/data/types';
+import type { FoodTag, Restaurant } from '@/data/types';
+import { likeMatches } from '@/logic/food-tags';
 
 // How much each part counts (adds up to 1). Recommendations and reviews
 // matter most (issue #7), then how close it is, then price.
@@ -28,10 +29,18 @@ export function suggestionScore(item: Ranked, maxDistanceM: number): number {
   );
 }
 
-// Best first. If two places score the same, the nearer one wins.
-export function rankSuggestions<T extends Ranked>(items: T[], maxDistanceM: number): T[] {
+// Best first.
+// #48: places matching more of the user's food-personality picks come first.
+// Within the same number of matches, the #7 score decides; if that ties too, the nearer one wins.
+export function rankSuggestions<T extends Ranked>(
+  items: T[],
+  maxDistanceM: number,
+  likes: FoodTag[] = [],
+): T[] {
   return [...items].sort(
     (a, b) =>
-      suggestionScore(b, maxDistanceM) - suggestionScore(a, maxDistanceM) || a.meters - b.meters,
+      likeMatches(b.restaurant, likes) - likeMatches(a.restaurant, likes) ||
+      suggestionScore(b, maxDistanceM) - suggestionScore(a, maxDistanceM) ||
+      a.meters - b.meters,
   );
 }

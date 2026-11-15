@@ -50,5 +50,5 @@ export async function nearbyRestaurants(
         (restaurant.source === 'kakao' ? noRestrictions : restaurantFits(restaurant, profile)) &&
         (foodType === null || restaurant.foodType === foodType),
     );
-  return rankSuggestions(fitting, profile.maxDistanceM);
+  return rankSuggestions(fitting, profile.maxDistanceM, profile.likes ?? []);
 }
