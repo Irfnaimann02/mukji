@@ -47,6 +47,15 @@ function toRestaurant(
   );
 
   const savedFeaturedName = String(row.featured_dish_name_en ?? '').trim();
+  const featuredDishNameEn =
+    highestPricedDish?.nameEn?.trim() || savedFeaturedName || undefined;
+  const savedFeaturedImageUrl = String(
+    row.featured_dish_image_url ?? '',
+  ).trim();
+  const savedImageMatchesFeaturedDish =
+    Boolean(savedFeaturedName && featuredDishNameEn) &&
+    savedFeaturedName.toLocaleLowerCase() ===
+      featuredDishNameEn?.toLocaleLowerCase();
 
   return {
     id: row.id,
@@ -59,9 +68,12 @@ function toRestaurant(
     phone: row.phone,
 
     // The most expensive listed dish represents the restaurant.
-    // A saved featured image is reused only when its saved dish label matches it.
-    featuredDishNameEn: highestPricedDish?.nameEn || savedFeaturedName || undefined,
-    featuredDishImageUrl: row.featured_dish_image_url ?? undefined,
+    // Reuse a saved image only when its saved dish label matches that dish.
+    featuredDishNameEn,
+    featuredDishImageUrl:
+      savedImageMatchesFeaturedDish && savedFeaturedImageUrl
+        ? savedFeaturedImageUrl
+        : undefined,
 
     // Older database rows may not have a booking URL.
     reservationUrl: row.reservation_url ?? undefined,

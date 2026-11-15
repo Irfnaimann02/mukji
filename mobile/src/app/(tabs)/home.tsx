@@ -121,26 +121,26 @@ export default function HomeScreen() {
               />
               <View style={styles.heroShade} />
               <View style={styles.heroContent}>
-                <View style={styles.heroTag}><Ionicons name="sparkles" size={11} color="#fff" /><Text style={styles.heroTagText}>EAT WITH CONFIDENCE</Text></View>
-                <Text style={styles.heroTitle}>Your food.{ '\n' }Your choice.</Text>
-                <Text style={styles.heroSubtitle}>Find dishes that fit your dietary needs.</Text>
+                <View style={styles.heroTag}><Ionicons name="sparkles" size={11} color="#fff" /><Text style={styles.heroTagText}>{t('homeHeroEyebrow')}</Text></View>
+                <Text style={styles.heroTitle}>{t('homeHeroTitle')}</Text>
+                <Text style={styles.heroSubtitle}>{t('homeHeroSubtitle')}</Text>
                 <Pressable style={styles.heroButton} onPress={() => router.push('/search')}>
-                  <Text style={styles.heroButtonText}>Explore restaurants</Text>
+                  <Text style={styles.heroButtonText}>{t('exploreRestaurants')}</Text>
                   <Ionicons name="arrow-forward" size={15} color={COLORS.ink} />
                 </Pressable>
               </View>
             </View>
 
             <View style={styles.sectionHeader}>
-              <View><Text style={styles.sectionTitle}>Your food preferences</Text><Text style={styles.sectionSubtitle}>Choose what matters to you</Text></View>
-              <Pressable onPress={() => router.push('/(tabs)/profile')}><Text style={styles.editText}>Edit</Text></Pressable>
+              <View><Text style={styles.sectionTitle}>{t('yourFoodPreferences')}</Text><Text style={styles.sectionSubtitle}>{t('chooseWhatMatters')}</Text></View>
+              <Pressable onPress={() => router.push('/(tabs)/profile')}><Text style={styles.editText}>{t('edit')}</Text></Pressable>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.preferenceRow}>
               {[
-                { label: 'Halal', icon: 'moon-outline' as const },
-                { label: 'Vegan', icon: 'leaf-outline' as const },
-                { label: 'No pork', icon: 'ban-outline' as const },
-                { label: 'Allergies', icon: 'alert-circle-outline' as const },
+                { label: t('halal'), icon: 'moon-outline' as const },
+                { label: t('vegan'), icon: 'leaf-outline' as const },
+                { label: t('noPork'), icon: 'ban-outline' as const },
+                { label: t('allergies'), icon: 'alert-circle-outline' as const },
               ].map((preference) => (
                 <Pressable key={preference.label} style={styles.preferenceChip} onPress={() => router.push('/(tabs)/profile')}>
                   <Ionicons name={preference.icon} size={15} color={COLORS.coral} />
@@ -150,7 +150,7 @@ export default function HomeScreen() {
             </ScrollView>
 
             <View style={styles.sectionHeader}>
-              <View><Text style={styles.sectionTitle}>What are you craving?</Text><Text style={styles.sectionSubtitle}>Explore by food type</Text></View>
+              <View><Text style={styles.sectionTitle}>{t('whatAreYouCraving')}</Text><Text style={styles.sectionSubtitle}>{t('exploreByFoodType')}</Text></View>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categoryRow}>
               {FOOD_TYPES.map(({ type, label }) => {
@@ -168,10 +168,10 @@ export default function HomeScreen() {
 
             <View style={styles.sectionHeader}>
               <View>
-                <Text style={styles.sectionTitle}>Near you</Text>
+                <Text style={styles.sectionTitle}>{t('nearYou')}</Text>
                 <Text style={styles.sectionSubtitle}>{t('within')} {profile.maxDistanceM / 1000} {t('km')} · {location.isGps ? t('fromYourLocation') : t('fromCampus')}</Text>
               </View>
-              <Pressable onPress={() => router.push('/map')} style={styles.seeAll}><Text style={styles.seeAllText}>View map</Text><Ionicons name="arrow-forward" size={13} color={COLORS.coral} /></Pressable>
+              <Pressable onPress={() => router.push('/map')} style={styles.seeAll}><Text style={styles.seeAllText}>{t('viewMap')}</Text><Ionicons name="arrow-forward" size={13} color={COLORS.coral} /></Pressable>
             </View>
           </>
         }
@@ -207,7 +207,7 @@ export default function HomeScreen() {
                   <View style={styles.rating}><Ionicons name="star" size={12} color="#E6A23C" /><Text style={styles.ratingText}>{restaurant.recommendCount === 0 ? '—' : restaurant.rating.toFixed(1)}</Text></View>
                 </View>
                 <Text style={styles.restaurantKo} numberOfLines={1}>{restaurant.nameKo}</Text>
-                {restaurant.featuredDishNameEn ? <Text style={styles.featuredDish} numberOfLines={1}>Featured: {restaurant.featuredDishNameEn}</Text> : null}
+                {restaurant.featuredDishNameEn ? <Text style={styles.featuredDish} numberOfLines={1}>{t('featured')} {restaurant.featuredDishNameEn}</Text> : null}
                 <Text style={styles.restaurantMeta}>{Math.round(item.meters)} m · {t('walkTime', { minutes: walkMinutes(item.meters) })} · {'₩'.repeat(restaurant.priceLevel)}</Text>
                 <View style={styles.badges}>
                   {badgesFor(restaurant).slice(0, 3).map((badge) => <Text key={badge} style={styles.badge}>{badge}</Text>)}

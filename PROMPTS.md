@@ -69,3 +69,10 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Output used: local-only owner portal preview with separate preview draft storage; owner authentication and restaurant-link lookup; owner sign-out back to Welcome; separation of the owner screen, logic service, and local draft repository. The proposed representative-photo feature was deferred and is not included.
 - Safety/authorization notes: preview mode does not create or grant an owner account, access or modify the Supabase owners table, bypass RLS, or publish local edits. Restaurant ownership remains controlled by the existing Supabase owner links and RLS.
 - Files changed: `mobile/src/app/index.tsx`, `mobile/src/app/user-login.tsx`, `mobile/src/app/owner-login.tsx`, `mobile/src/app/owner/index.tsx`, `mobile/src/components/account-card.tsx`, `mobile/src/data/auth.ts`, `mobile/src/data/app-mode.ts`, `mobile/src/data/owner-drafts-store.ts`, `mobile/src/hooks/use-auth.ts`, `mobile/src/i18n/translations.ts`, `mobile/src/logic/owner-portal-service.ts`, `mobile/src/logic/welcome-service.ts`, `mobile/src/logic/session-service.ts`, `mobile/src/app/(tabs)/profile.tsx`, `ETHICS.md`.
+
+
+## 2026-11-15 - PR #69 review fixes (ChatGPT)
+- Tool: ChatGPT
+- Prompt: asked to address the PR review feedback about hard-coded Home screen text and featured-dish image/name matching with the missing database columns.
+- Output used: added English and Korean translation keys for Home screen copy; guarded featured-dish images so they are used only when the saved dish label matches the displayed featured dish; added a nullable SQL migration for the featured-dish name and image URL columns.
+- Changes by the team: review the translations and migration, then test the Home screen in both languages and verify matching/mismatching featured-dish labels against representative database rows.
