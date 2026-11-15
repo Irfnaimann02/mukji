@@ -2,6 +2,7 @@ import {
   addReview,
   checkInAt,
   fetchReviewEligibility,
+  fetchReviewStars,
   fetchReviews,
   ReviewError,
   type ReviewErrorCode,
@@ -30,11 +31,15 @@ export function postReview(restaurantId: string, stars: number, body: string, di
   return addReview(restaurantId, stars, body.trim().slice(0, REVIEW_BODY_MAX), dietTags);
 }
 
+export function loadReviewStars(restaurantId: string): Promise<number[]> {
+  return fetchReviewStars(restaurantId);
+}
+
 // Average stars rounded to one decimal, e.g. 4.3. 0 when there are no reviews.
-export function summarizeReviews(reviews: Review[]): { count: number; average: number } {
-  if (reviews.length === 0) return { count: 0, average: 0 };
-  const total = reviews.reduce((sum, review) => sum + review.stars, 0);
-  return { count: reviews.length, average: Math.round((total / reviews.length) * 10) / 10 };
+export function summarizeStars(stars: number[]): { count: number; average: number } {
+  if (stars.length === 0) return { count: 0, average: 0 };
+  const total = stars.reduce((sum, value) => sum + value, 0);
+  return { count: stars.length, average: Math.round((total / stars.length) * 10) / 10 };
 }
 
 // '★★★★☆' for 4 stars.

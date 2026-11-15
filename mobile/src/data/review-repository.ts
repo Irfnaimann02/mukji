@@ -71,6 +71,14 @@ export async function fetchReviews(restaurantId: string, myUserId: string | null
   }));
 }
 
+// Stars of every review here (not just the 50 shown), for the average and count.
+export async function fetchReviewStars(restaurantId: string): Promise<number[]> {
+  if (!supabase) return [];
+  const { data, error } = await supabase.from('reviews').select('stars').eq('restaurant_id', restaurantId);
+  if (error) throw toReviewError(error);
+  return (data ?? []).map((row: any) => Number(row.stars));
+}
+
 export async function fetchReviewEligibility(restaurantId: string): Promise<ReviewEligibility> {
   const { data, error } = await client().rpc('review_eligibility', { p_restaurant_id: restaurantId });
   if (error) throw toReviewError(error);

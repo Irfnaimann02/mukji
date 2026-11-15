@@ -11,7 +11,7 @@ import {
   View,
 } from 'react-native';
 
-import type { Diet, Restaurant, Review, ReviewEligibility } from '@/data/types';
+import type { Diet, Restaurant, Review, ReviewEligibility, VisitKind } from '@/data/types';
 import { useAuth } from '@/hooks/use-auth';
 import { useProfile } from '@/hooks/use-profile';
 import { useTranslation } from '@/hooks/use-translation';
@@ -26,12 +26,22 @@ import {
   REVIEW_DIETS,
   reviewErrorKey,
   starText,
-  summarizeReviews,
+  loadReviewStars,
+  summarizeStars,
 } from '@/logic/review-service';
 
 // #52 Reviews after eating. Only people who ate here can write one:
 // a completed reservation, or a check-in within 100 m in the last 7 days.
 // The database enforces this (supabase/sql/019); this screen only shows it.
+
+// Only a completed reservation counts as a verified visit. A GPS check-in can be
+// faked, so it gets a plain "Location check-in" label instead.
+function VisitBadge({ kind, t }: { kind: VisitKind | null; t: (key: TranslationKey) => string }) {
+  if (kind === 'reservation') {
+    return <Text style={styles.verified}>✓ {t('verifiedVisitBooked')}</Text>;
+  }
+  return <Text style={styles.checkIn}>📍 {t('locationCheckIn')}</Text>;
+}
 
 const DIET_LABEL: Record<Diet, TranslationKey> = {
   halal: 'halal',
@@ -46,13 +56,16 @@ export function ReviewSection({ restaurant }: { restaurant: Restaurant }) {
   const { t, language } = useTranslation();
 
   const [reviews, setReviews] = useState<Review[] | null>(null);
+  const [allStars, setAllStars] = useState<number[]>([]);
   const [loadFailed, setLoadFailed] = useState(false);
   const [eligibility, setEligibility] = useState<ReviewEligibility | null>(null);
 
   const [checkingIn, setCheckingIn] = useState(false);
   const [stars, setStars] = useState(0);
   const [body, setBody] = useState('');
-  const [dietTags, setDietTags] = useState<Diet[]>(() => defaultReviewDiets(profile.diets));
+  // null = not touched yet, so follow the food profile (which loads a moment later).
+  const [pickedDiets, setPickedDiets] = useState<Diet[] | null>(null);
+  const dietTags = pickedDiets ?? defaultReviewDiets(profile.diets);
   const [posting, setPosting] = useState(false);
 
   // Kakao places live only on Kakao: they are not in our database, so no reviews.
@@ -64,9 +77,10 @@ export function ReviewSection({ restaurant }: { restaurant: Restaurant }) {
   // Returns the data; callers decide when to put it on screen.
   const fetchAll = useCallback(async () => {
     let list: Review[] = [];
+    let stars: number[] = [];
     let failed = false;
     try {
-      list = await loadReviews(restaurant.id, userId);
+      [list, stars] = await Promise.all([loadReviews(restaurant.id, userId), loadReviewStars(restaurant.id)]);
     } catch (error) {
       console.warn('Could not load reviews:', error);
       failed = true;
@@ -80,12 +94,13 @@ export function ReviewSection({ restaurant }: { restaurant: Restaurant }) {
         console.warn('Could not check review eligibility:', error);
       }
     }
-    return { list, failed, canWrite };
+    return { list, stars, failed, canWrite };
   }, [restaurant.id, userId, loggedIn]);
 
   const refresh = async () => {
     const result = await fetchAll();
     setReviews(result.list);
+    setAllStars(result.stars);
     setLoadFailed(result.failed);
     setEligibility(result.canWrite);
   };
@@ -96,6 +111,7 @@ export function ReviewSection({ restaurant }: { restaurant: Restaurant }) {
     fetchAll().then((result) => {
       if (!active) return;
       setReviews(result.list);
+      setAllStars(result.stars);
       setLoadFailed(result.failed);
       setEligibility(result.canWrite);
     });
@@ -157,11 +173,9 @@ export function ReviewSection({ restaurant }: { restaurant: Restaurant }) {
   };
 
   const toggleDiet = (diet: Diet) =>
-    setDietTags((current) =>
-      current.includes(diet) ? current.filter((d) => d !== diet) : [...current, diet],
-    );
+    setPickedDiets(dietTags.includes(diet) ? dietTags.filter((d) => d !== diet) : [...dietTags, diet]);
 
-  const summary = summarizeReviews(reviews ?? []);
+  const summary = summarizeStars(allStars);
   const dateLocale = language === 'ko' ? 'ko-KR' : 'en-GB';
 
   return (
@@ -191,9 +205,7 @@ export function ReviewSection({ restaurant }: { restaurant: Restaurant }) {
         <View style={styles.card}>
           <View style={styles.headerRow}>
             <Text style={styles.cardTitle}>{t('writeReview')}</Text>
-            <Text style={styles.verified}>
-              ✓ {eligibility.visitKind === 'reservation' ? t('verifiedVisitBooked') : t('verifiedVisitCheckedIn')}
-            </Text>
+            <VisitBadge kind={eligibility.visitKind} t={t} />
           </View>
 
           <Text style={styles.label}>{t('yourRating')}</Text>
@@ -279,9 +291,7 @@ export function ReviewSection({ restaurant }: { restaurant: Restaurant }) {
                 {new Date(review.createdAt).toLocaleDateString(dateLocale)}
               </Text>
             </View>
-            <Text style={styles.verified}>
-              ✓ {review.visitKind === 'reservation' ? t('verifiedVisitBooked') : t('verifiedVisitCheckedIn')}
-            </Text>
+            <VisitBadge kind={review.visitKind} t={t} />
             {review.dietTags.length > 0 && (
               <View style={styles.chipRow}>
                 {review.dietTags.map((diet) => (
@@ -349,6 +359,17 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     color: '#2e7d32',
     backgroundColor: '#e8f5e9',
+    fontSize: 12,
+    fontWeight: '700',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 6,
+    overflow: 'hidden',
+  },
+  checkIn: {
+    alignSelf: 'flex-start',
+    color: '#4a5a6e',
+    backgroundColor: '#eef2f7',
     fontSize: 12,
     fontWeight: '700',
     paddingHorizontal: 8,
