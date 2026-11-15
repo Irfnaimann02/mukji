@@ -171,7 +171,7 @@ export default function HomeScreen() {
                 <Text style={styles.sectionTitle}>Near you</Text>
                 <Text style={styles.sectionSubtitle}>{t('within')} {profile.maxDistanceM / 1000} {t('km')} · {location.isGps ? t('fromYourLocation') : t('fromCampus')}</Text>
               </View>
-              <Pressable onPress={() => router.push('/(tabs)')} style={styles.seeAll}><Text style={styles.seeAllText}>View map</Text><Ionicons name="arrow-forward" size={13} color={COLORS.coral} /></Pressable>
+              <Pressable onPress={() => router.push('/map')} style={styles.seeAll}><Text style={styles.seeAllText}>View map</Text><Ionicons name="arrow-forward" size={13} color={COLORS.coral} /></Pressable>
             </View>
           </>
         }
