@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { DirectionsButton } from '@/components/directions-button';
 import { RestaurantTrustCard } from '@/components/restaurant-trust-card';
 import {
@@ -305,22 +306,32 @@ export default function RestaurantScreen() {
           style={[
             styles.favoriteButton,
             isFavourite && styles.favoriteButtonActive,
-            (isFavourite === null || favouriteBusy) &&
-              styles.disabled,
+            (isFavourite === null || favouriteBusy) && styles.disabled,
           ]}
           disabled={isFavourite === null || favouriteBusy}
-          onPress={() => void handleToggleFavourite()}>
-          <Text
-            style={[
-              styles.favoriteButtonText,
-              isFavourite && styles.favoriteButtonTextActive,
-            ]}>
-            {favouriteBusy
-              ? t('savingFavourite')
-              : isFavourite
-                ? `♥  ${t('savedToFavourites')}`
-                : `♡  ${t('addToFavourites')}`}
-          </Text>
+          onPress={() => void handleToggleFavourite()}
+          accessibilityRole="button"
+          accessibilityLabel={
+            isFavourite ? t('savedToFavourites') : t('addToFavourites')
+          }>
+          <View style={styles.favoriteButtonContent}>
+            <Ionicons
+              name={isFavourite ? 'star' : 'star-outline'}
+              size={19}
+              color="#e0a000"
+            />
+            <Text
+              style={[
+                styles.favoriteButtonText,
+                isFavourite && styles.favoriteButtonTextActive,
+              ]}>
+              {favouriteBusy
+                ? t('savingFavourite')
+                : isFavourite
+                  ? t('savedToFavourites')
+                  : t('addToFavourites')}
+            </Text>
+          </View>
         </Pressable>
 
         {isFavourite && (
@@ -478,6 +489,11 @@ export default function RestaurantScreen() {
 }
 
 const styles = StyleSheet.create({
+  favoriteButtonContent: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: 8,
+  },
   root: {
     flex: 1,
     backgroundColor: '#f4f7fa',
