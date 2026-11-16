@@ -34,7 +34,7 @@ const FOOD_TYPE_KEYS: Record<
 
 type Props = {
   pin: MapPin;
-  from: Point | null;
+  from: Point | null; // #46: the user's live location, if we have it
   onClose: () => void;
 };
 
@@ -129,21 +129,23 @@ export function RestaurantPreview({ pin, from, onClose }: Props) {
         <Text style={styles.more}>{t('tapForDetails')}</Text>
       </Pressable>
 
-      <Pressable
-        style={styles.starButton}
-        disabled={isFavourite === null || favouriteBusy}
-        onPress={() => void handleToggleFavourite()}
-        hitSlop={8}
-        accessibilityRole="button"
-        accessibilityLabel={
-          isFavourite ? t('savedToFavourites') : t('addToFavourites')
-        }>
-        <Ionicons
-          name={isFavourite ? 'star' : 'star-outline'}
-          size={22}
-          color={isFavourite ? '#e0a000' : '#6b7a8d'}
-        />
-      </Pressable>
+      {!pin.fromKakao && (
+        <Pressable
+          style={styles.starButton}
+          disabled={isFavourite === null || favouriteBusy}
+          onPress={() => void handleToggleFavourite()}
+          hitSlop={8}
+          accessibilityRole="button"
+          accessibilityLabel={
+            isFavourite ? t('savedToFavourites') : t('addToFavourites')
+          }>
+          <Ionicons
+            name={isFavourite ? 'star' : 'star-outline'}
+            size={22}
+            color={isFavourite ? '#e0a000' : '#6b7a8d'}
+          />
+        </Pressable>
+      )}
 
       <Pressable
         onPress={onClose}

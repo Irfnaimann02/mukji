@@ -490,9 +490,9 @@ export default function RestaurantScreen() {
 
 const styles = StyleSheet.create({
   favoriteButtonContent: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  gap: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
   root: {
     flex: 1,
