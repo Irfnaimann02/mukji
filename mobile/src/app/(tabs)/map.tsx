@@ -151,6 +151,7 @@ export default function MapScreen() {
             },
           ]}>
           <RestaurantPreview
+            key={selectedPin.id}
             pin={selectedPin}
             from={me}
             onClose={() => setSelectedPin(null)}
