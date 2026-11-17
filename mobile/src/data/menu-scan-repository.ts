@@ -12,10 +12,12 @@ export type ScanError = 'not_configured' | 'not_menu' | 'too_big' | 'failed';
 
 export type ScanResult = { ok: true; dishes: Dish[] } | { ok: false; error: ScanError };
 
-// The HTTP status of a failed Edge Function call, when there is one.
-function statusOf(error: unknown): number | null {
-  const context = (error as { context?: unknown } | null)?.context;
-  return context instanceof Response ? context.status : null;
+// The HTTP response of a failed Edge Function call (supabase-js puts it in error.context).
+// Checked by shape, not instanceof Response, so it works with any fetch polyfill.
+type ErrorResponse = { status: number; text: () => Promise<string> };
+function responseOf(error: unknown): ErrorResponse | null {
+  const context = (error as { context?: unknown } | null)?.context as Partial<ErrorResponse> | undefined;
+  return typeof context?.status === 'number' && typeof context.text === 'function' ? (context as ErrorResponse) : null;
 }
 
 export async function scanMenuPhoto(image: ScanImage, scanId: string): Promise<ScanResult> {
@@ -28,11 +30,14 @@ export async function scanMenuPhoto(image: ScanImage, scanId: string): Promise<S
       { body: { image: image.data, mimeType: image.mimeType } },
     );
     if (error) {
-      const status = statusOf(error);
+      const response = responseOf(error);
+      const status = response?.status ?? null;
       // 404 = scan-menu not deployed yet, 503 = deployed but no AI secrets.
       if (status === 404 || status === 503) return { ok: false, error: 'not_configured' };
       if (status === 413) return { ok: false, error: 'too_big' };
-      console.warn('Menu scan failed:', error);
+      // The status and the function's own message, so the cause shows in the Expo log.
+      const detail = response ? await response.text().catch(() => '') : '';
+      console.warn(`Menu scan failed: ${status ?? error.name} ${detail.slice(0, 300)}`);
       return { ok: false, error: 'failed' };
     }
     const dishes = toScannedDishes(data?.dishes, scanId);
