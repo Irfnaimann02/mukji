@@ -37,12 +37,14 @@ Scope: the code written this sprint for #52 (reviews after eating), the shared t
 |---|---|
 | TypeScript (`npx tsc --noEmit`) | ✅ 0 errors |
 | Lint (`npx expo lint`) | ✅ 0 problems |
-| Unit tests (`npm test`) | ✅ 16 passed (week 12 core path 3 + lamb 2 + review/photo 3 + team's booking tests 8) |
+| Unit tests (`npm test`) | ✅ 18 passed (week 12 core path 3 + lamb 2 + review/photo 3 + error messages 2 + team's booking tests 8) |
 | Web build (`npx expo export -p web`) | ✅ builds |
 | Smoke test (`npm run e2e`, Playwright) | ✅ 5 flows pass. Fails as it should when mock-1 comes back or the lamb tag is removed. |
 | Secrets in the repo | ✅ None. Only `mobile/.env.example`; the Kakao key stays in the Edge Function secret. |
 | Every SQL file in `supabase/sql/` applied in Supabase | ⚠️ `021_featured_dish_media.sql` (#69) was never run: the app shows no featured photo, but nothing breaks. `025` is new and runs with this PR. |
 | Supabase security advisor | ✅ No errors. Warnings explained in A5 to A7. |
+| No error leakage | ✅ 11 places showed the raw server error to users (e.g. "new row violates row-level security policy for table reservations"). Now `userMessage()` (`src/logic/user-error.ts`) shows a short translated message and keeps the details in the console; codes, rate limits and lost connection get their own message. 2 tests fail if a raw error leaks again. |
+| External failure | ✅ Kakao down → our own restaurants still show; Home shows "Couldn't load restaurants" + Try again; the AI "Why?" sheet (#85) falls back to the data reasons. |
 
 ### Smoke test flows (`mobile/e2e/smoke.e2e.ts`)
 
