@@ -103,3 +103,22 @@ describe('restaurants without a menu', () => {
     expect(fadedForAllergies(noMenu, profile([], ['peanut']))).toBe(false);
   });
 });
+
+// ---------- 4. Lamb (Sarai's 양고기 kebabs) ----------
+// Before lamb existed, a lamb kebab tagged only "wheat" showed Safe for vegans.
+describe('lamb', () => {
+  const lambKebab = dish('양고기 랩 케밥', ['lamb', 'wheat']);
+  const falafel = dish('팔라펠 플레이트', [], ['wheat', 'soy']);
+
+  test('vegan avoids lamb, and the falafel stays safe', () => {
+    const place = restaurant([lambKebab, falafel]);
+    expect(dishStatus(lambKebab, place, profile(['vegan']))).toBe('avoid');
+    expect(dishStatus(falafel, place, profile(['vegan']))).toBe('safe');
+  });
+
+  test('halal: lamb is ask first unless the place is certified', () => {
+    const halal = profile(['halal']);
+    expect(dishStatus(lambKebab, restaurant([lambKebab]), halal)).toBe('ask_first');
+    expect(dishStatus(lambKebab, restaurant([lambKebab], { halalCertified: true }), halal)).toBe('safe');
+  });
+});

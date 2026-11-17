@@ -13,6 +13,7 @@ const WORD: Record<Ingredient, { ko: string; rom: string; en: string }> = {
   pork: { ko: '돼지고기', rom: 'dwaeji-gogi', en: 'pork' },
   beef: { ko: '소고기', rom: 'so-gogi', en: 'beef' },
   chicken: { ko: '닭고기', rom: 'dak-gogi', en: 'chicken' },
+  lamb: { ko: '양고기', rom: 'yang-gogi', en: 'lamb' },
   seafood: { ko: '해산물', rom: 'haesanmul', en: 'seafood' },
   egg: { ko: '계란', rom: 'gyeran', en: 'egg' },
   dairy: { ko: '유제품', rom: 'yujepum', en: 'dairy' },

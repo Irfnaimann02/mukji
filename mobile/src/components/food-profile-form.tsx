@@ -37,6 +37,7 @@ const INGREDIENTS: { key: Ingredient; label: TranslationKey }[] = [
   { key: 'alcohol', label: 'avoidAlcohol' },
   { key: 'beef', label: 'avoidBeef' },
   { key: 'chicken', label: 'avoidChicken' },
+  { key: 'lamb', label: 'avoidLamb' },
   { key: 'seafood', label: 'seafood' },
   { key: 'egg', label: 'egg' },
   { key: 'dairy', label: 'dairy' },

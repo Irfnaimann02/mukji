@@ -39,6 +39,7 @@ const ALLOWED_INGREDIENTS = [
   'pork',
   'beef',
   'chicken',
+  'lamb',
   'seafood',
   'egg',
   'dairy',

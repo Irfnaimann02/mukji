@@ -15,7 +15,7 @@ export type MapPin = {
   fromKakao: boolean; // #47: found with Kakao, no menu yet
 };
 
-const VEGAN_BLOCKED: Ingredient[] = ['pork', 'beef', 'chicken', 'seafood', 'egg', 'dairy'];
+const VEGAN_BLOCKED: Ingredient[] = ['pork', 'beef', 'chicken', 'lamb', 'seafood', 'egg', 'dairy'];
 
 // "Who it fits" badges, worked out from what the restaurant serves.
 // Adib's BadgeService (#8) can replace this later.
