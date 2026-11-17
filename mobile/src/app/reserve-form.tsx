@@ -2,7 +2,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useMemo, useState } from 'react';
 import {
-  Alert,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -44,6 +43,7 @@ import {
 } from '@/logic/booking-times';
 import { dishStatus } from '@/logic/profile-filter';
 import { findRestaurant } from '@/logic/restaurant-service';
+import { showAlert } from '@/components/show-alert';
 
 const BLUE = '#1B5FAD';
 const DISHES_SHOWN_FIRST = 5;
@@ -146,7 +146,7 @@ export default function ReserveFormScreen() {
   const submit = async () => {
     if (!restaurant || !slot || sending) return;
     if (name.trim() === '' || phone.trim() === '') {
-      Alert.alert(t('bookingContactMissingTitle'), t('bookingContactMissingBody'));
+      showAlert(t('bookingContactMissingTitle'), t('bookingContactMissingBody'));
       return;
     }
     const reservedFor = combine(day, slot);
@@ -169,7 +169,7 @@ export default function ReserveFormScreen() {
         },
       });
     } catch (error) {
-      Alert.alert(t('bookingNotSentTitle'), error instanceof Error ? error.message : t('pleaseTryAgain'));
+      showAlert(t('bookingNotSentTitle'), error instanceof Error ? error.message : t('pleaseTryAgain'));
       setSending(false);
     }
   };

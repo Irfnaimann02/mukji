@@ -3,7 +3,6 @@ import { Stack, useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -15,6 +14,7 @@ import {
 import { isValidEmail, sendEmailCode, verifyEmailCode } from '@/data/auth';
 import { setAppMode } from '@/data/app-mode';
 import { useTranslation } from '@/hooks/use-translation';
+import { showAlert } from '@/components/show-alert';
 
 export default function UserLoginScreen() {
   const router = useRouter();
@@ -26,7 +26,7 @@ export default function UserLoginScreen() {
 
   async function sendCode() {
     if (!isValidEmail(email)) {
-      Alert.alert(t('checkYourEmail'), t('validEmailAddress'));
+      showAlert(t('checkYourEmail'), t('validEmailAddress'));
       return;
     }
     setBusy(true);
@@ -34,7 +34,7 @@ export default function UserLoginScreen() {
       await sendEmailCode(email);
       setCodeSent(true);
     } catch (error) {
-      Alert.alert(t('couldNotSendCode'), error instanceof Error ? error.message : t('pleaseTryAgain'));
+      showAlert(t('couldNotSendCode'), error instanceof Error ? error.message : t('pleaseTryAgain'));
     } finally {
       setBusy(false);
     }
@@ -42,7 +42,7 @@ export default function UserLoginScreen() {
 
   async function verifyCode() {
     if (!/^\d{6,10}$/.test(code.trim())) {
-      Alert.alert(t('checkYourCode'), t('enterEmailCode'));
+      showAlert(t('checkYourCode'), t('enterEmailCode'));
       return;
     }
     setBusy(true);
@@ -51,7 +51,7 @@ export default function UserLoginScreen() {
       await setAppMode('user');
       router.replace('/(tabs)/map');
     } catch (error) {
-      Alert.alert(t('couldNotSignIn'), error instanceof Error ? error.message : t('pleaseTryAgain'));
+      showAlert(t('couldNotSignIn'), error instanceof Error ? error.message : t('pleaseTryAgain'));
     } finally {
       setBusy(false);
     }

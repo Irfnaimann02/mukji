@@ -13,12 +13,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, router } from 'expo-router';
 import { useCallback, useState } from 'react';
 import {
-  Alert,
   Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+import { showAlert } from '@/components/show-alert';
 
 const FOOD_TYPE_KEYS: Record<
   FoodType,
@@ -88,7 +88,7 @@ export function RestaurantPreview({ pin, from, onClose }: Props) {
       }
     } catch (error) {
       console.error('Failed to update favourite:', error);
-      Alert.alert(t('updateFailed'), t('pleaseTryAgain'));
+      showAlert(t('updateFailed'), t('pleaseTryAgain'));
     } finally {
       setFavouriteBusy(false);
     }

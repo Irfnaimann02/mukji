@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useRef, useState, type ComponentProps, type ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import type { Allergen, Diet, FoodProfile, FoodTag, Ingredient } from '@/data/types';
+import { ALL_INGREDIENTS, type Allergen, type Diet, type FoodProfile, type FoodTag, type Ingredient } from '@/data/types';
 import { useCurrentLocation } from '@/hooks/use-current-location';
 import { useProfile } from '@/hooks/use-profile';
 import { useTranslation } from '@/hooks/use-translation';
@@ -31,20 +31,22 @@ const ALLERGENS: { key: Allergen; label: TranslationKey; emoji: string }[] = [
   { key: 'soy', label: 'soy', emoji: '🫘' },
 ];
 
-// "You avoid" list, in this order. Same rules as profile-filter.ts.
-const INGREDIENTS: { key: Ingredient; label: TranslationKey }[] = [
-  { key: 'pork', label: 'avoidPork' },
-  { key: 'alcohol', label: 'avoidAlcohol' },
-  { key: 'beef', label: 'avoidBeef' },
-  { key: 'chicken', label: 'avoidChicken' },
-  { key: 'lamb', label: 'avoidLamb' },
-  { key: 'seafood', label: 'seafood' },
-  { key: 'egg', label: 'egg' },
-  { key: 'dairy', label: 'dairy' },
-  { key: 'peanut', label: 'peanut' },
-  { key: 'wheat', label: 'wheat' },
-  { key: 'soy', label: 'soy' },
-];
+// "You avoid" list. Same rules as profile-filter.ts. A Record, so a new
+// ingredient can't be forgotten here.
+const INGREDIENT_LABEL: Record<Ingredient, TranslationKey> = {
+  pork: 'avoidPork',
+  alcohol: 'avoidAlcohol',
+  beef: 'avoidBeef',
+  chicken: 'avoidChicken',
+  lamb: 'avoidLamb',
+  seafood: 'seafood',
+  egg: 'egg',
+  dairy: 'dairy',
+  peanut: 'peanut',
+  wheat: 'wheat',
+  soy: 'soy',
+};
+const INGREDIENTS = ALL_INGREDIENTS.map((key) => ({ key, label: INGREDIENT_LABEL[key] }));
 
 // #48 food personality
 const FOOD_TAG_LABELS = {

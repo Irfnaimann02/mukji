@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import {
-  Alert,
   Linking,
   Modal,
   Pressable,
@@ -13,6 +12,7 @@ import * as Clipboard from 'expo-clipboard';
 
 import type { Restaurant } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
+import { showAlert } from '@/components/show-alert';
 
 interface Props {
   restaurant: Restaurant | null;
@@ -46,7 +46,7 @@ export function ReservationContactSheet({
       try {
         await Linking.openURL(`tel:${phoneNumber}`);
       } catch {
-        Alert.alert(
+        showAlert(
           t('unableToOpenPhone'),
           t('tryAgainOrCopy')
         );
@@ -56,7 +56,7 @@ export function ReservationContactSheet({
       try {
         await onContactStarted();
       } catch {
-        Alert.alert(
+        showAlert(
           t('reservationNotSaved'),
           t('phoneOpenedButNotSaved')
         );
@@ -75,9 +75,9 @@ export function ReservationContactSheet({
       await Clipboard.setStringAsync(phone);
       await onContactStarted();
 
-      Alert.alert(t('copied'), t('phoneCopied'));
+      showAlert(t('copied'), t('phoneCopied'));
     } catch {
-      Alert.alert(t('copyFailed'), t('pleaseTryAgain'));
+      showAlert(t('copyFailed'), t('pleaseTryAgain'));
     } finally {
       setBusy(false);
     }

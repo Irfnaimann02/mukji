@@ -3,7 +3,6 @@ import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -14,7 +13,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { OwnerReservations } from '@/components/owner-reservations';
-import type { Restaurant } from '@/data/types';
+import { ALL_INGREDIENTS, type Restaurant } from '@/data/types';
 import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
 import type { OwnerPortalTranslationKey } from '@/i18n/translations';
@@ -33,21 +32,11 @@ import {
   type DishDraft,
   type RestaurantDraft,
 } from '@/logic/owner-portal-service';
+import { showAlert } from '@/components/show-alert';
 
 
-const ALLOWED_INGREDIENTS = [
-  'pork',
-  'beef',
-  'chicken',
-  'lamb',
-  'seafood',
-  'egg',
-  'dairy',
-  'alcohol',
-  'peanut',
-  'wheat',
-  'soy',
-] as const;
+// Same list as the app's Ingredient type (src/data/types.ts).
+const ALLOWED_INGREDIENTS: readonly string[] = ALL_INGREDIENTS;
 
 type PortalTab = 'overview' | 'restaurant' | 'menu' | 'reservations' | 'settings';
 function parseIngredientText(value: string): string[] {
@@ -266,11 +255,11 @@ export default function OwnerPortalScreen() {
   async function saveApplicationDraft() {
     const validationError = validateApplication();
     if (validationError) {
-      Alert.alert(owner('ownerCheckTheApplication'), validationError);
+      showAlert(owner('ownerCheckTheApplication'), validationError);
       return;
     }
     if (!draftOwnerKey) {
-      Alert.alert(owner('ownerSignInRequired'));
+      showAlert(owner('ownerSignInRequired'));
       return;
     }
 
@@ -279,12 +268,12 @@ export default function OwnerPortalScreen() {
       const valueToSave = { ...application, email: application.email.trim() || auth.email || '' };
       await persistApplicationDraft(draftOwnerKey, valueToSave);
       setApplication(valueToSave);
-      Alert.alert(
+      showAlert(
         owner('ownerDraftSaved'),
         owner('ownerThisDraftIsSavedOnlyOnThisDeviceItHasNotBeenSubmittedToMukji'),
       );
     } catch {
-      Alert.alert(owner('ownerSaveFailed'), owner('ownerPleaseTryAgain'));
+      showAlert(owner('ownerSaveFailed'), owner('ownerPleaseTryAgain'));
     } finally {
       setSaving(false);
     }
@@ -346,7 +335,7 @@ export default function OwnerPortalScreen() {
 
   function removeDishDraft(dishId: string) {
     if (!selectedRestaurant) return;
-    Alert.alert(
+    showAlert(
       owner('ownerDeleteThisMenuItem'),
       owner('ownerItWillBeRemovedFromThisLocalDraft'),
       [
@@ -389,7 +378,7 @@ export default function OwnerPortalScreen() {
 
       const ingredients = [...parseIngredientText(dish.contains), ...parseIngredientText(dish.mayContain)];
       const invalid = ingredients.find(
-        (ingredient) => !(ALLOWED_INGREDIENTS as readonly string[]).includes(ingredient),
+        (ingredient) => !ALLOWED_INGREDIENTS.includes(ingredient),
       );
       if (invalid) {
         return owner('ownerUnknownIngredientValueUseTheSupportedEnglishIngredientNames', { invalid });
@@ -410,7 +399,7 @@ export default function OwnerPortalScreen() {
     if (!selectedRestaurant || !activeDraft || !draftOwnerKey) return;
     const validationError = validateRestaurantDraft(activeDraft);
     if (validationError) {
-      Alert.alert(owner('ownerCheckTheRestaurantDraft'), validationError);
+      showAlert(owner('ownerCheckTheRestaurantDraft'), validationError);
       return;
     }
 
@@ -419,12 +408,12 @@ export default function OwnerPortalScreen() {
       const nextDrafts = { ...restaurantDrafts, [selectedRestaurant.id]: activeDraft };
       await saveRestaurantDrafts(draftOwnerKey, nextDrafts);
       setRestaurantDrafts(nextDrafts);
-      Alert.alert(
+      showAlert(
         owner('ownerDraftSaved'),
         owner('ownerYourChangesAreSavedOnThisDeviceOnlyTheyAreNotPublishedToMukji'),
       );
     } catch {
-      Alert.alert(owner('ownerSaveFailed'), owner('ownerPleaseTryAgain'));
+      showAlert(owner('ownerSaveFailed'), owner('ownerPleaseTryAgain'));
     } finally {
       setSaving(false);
     }
@@ -435,7 +424,7 @@ export default function OwnerPortalScreen() {
       await continueAsGuest();
       router.replace('/(tabs)/map');
     } catch (error) {
-      Alert.alert(
+      showAlert(
         owner('ownerCouldNotContinueAsGuest'),
         error instanceof Error ? error.message : owner('ownerPleaseTryAgain'),
       );
@@ -447,7 +436,7 @@ export default function OwnerPortalScreen() {
       await signOutAndReturnToWelcome();
       router.replace('/');
     } catch {
-      Alert.alert(
+      showAlert(
         owner('ownerSignOutFailed'),
         owner('ownerPleaseTryAgain'),
       );

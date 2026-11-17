@@ -1,6 +1,6 @@
 import type { FoodProfile, FoodType, Ingredient, Restaurant } from '@/data/types';
 import type { Point } from '@/logic/nearby-service';
-import { fadedForAllergies } from '@/logic/profile-filter';
+import { BLOCKED_BY_DIET, fadedForAllergies } from '@/logic/profile-filter';
 import { listRestaurantsNear } from '@/logic/restaurant-service';
 
 export type MapPin = {
@@ -15,7 +15,8 @@ export type MapPin = {
   fromKakao: boolean; // #47: found with Kakao, no menu yet
 };
 
-const VEGAN_BLOCKED: Ingredient[] = ['pork', 'beef', 'chicken', 'lamb', 'seafood', 'egg', 'dairy'];
+// Same list the menu uses, so the two can never disagree.
+const VEGAN_BLOCKED: Ingredient[] = BLOCKED_BY_DIET.vegan;
 
 // "Who it fits" badges, worked out from what the restaurant serves.
 // Adib's BadgeService (#8) can replace this later.

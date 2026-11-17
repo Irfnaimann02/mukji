@@ -4,7 +4,6 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -23,6 +22,7 @@ import {
 import type { Restaurant } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
 import { listRestaurants } from '@/logic/restaurant-service';
+import { showAlert } from '@/components/show-alert';
 
 export default function FavouritesScreen() {
   const router = useRouter();
@@ -92,17 +92,17 @@ export default function FavouritesScreen() {
         [restaurantId]: note,
       }));
 
-      Alert.alert(t('noteSaved'), t('noteSavedDescription'));
+      showAlert(t('noteSaved'), t('noteSavedDescription'));
     } catch (saveError) {
       console.error('Failed to save favourite note:', saveError);
-      Alert.alert(t('saveFailed'), t('pleaseTryAgain'));
+      showAlert(t('saveFailed'), t('pleaseTryAgain'));
     } finally {
       setSavingId(null);
     }
   };
 
   const handleRemoveFavourite = (restaurantId: string) => {
-    Alert.alert(
+    showAlert(
       t('removeFavouriteTitle'),
       t('removeFavouriteDescription'),
       [
@@ -129,7 +129,7 @@ export default function FavouritesScreen() {
                   'Failed to remove favourite:',
                   removeError
                 );
-                Alert.alert(t('removeFailed'), t('pleaseTryAgain'));
+                showAlert(t('removeFailed'), t('pleaseTryAgain'));
               }
             })();
           },

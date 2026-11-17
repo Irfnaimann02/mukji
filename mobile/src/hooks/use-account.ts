@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'expo-router';
-import { Alert } from 'react-native';
+import {  } from 'react-native';
 
 import { getAppMode, setAppMode, type AppMode } from '@/data/app-mode';
 import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
 import { signOutAndReturnToWelcome } from '@/logic/session-service';
+import { showAlert } from '@/components/show-alert';
 
 // Account state and actions, shared by the compact account card on the Profile tab
 // and the Account settings screen. The logic is the same as the old account-card.tsx.
@@ -54,7 +55,7 @@ export function useAccount() {
       await signOutAndReturnToWelcome();
       router.replace('/');
     } catch (error) {
-      Alert.alert(
+      showAlert(
         t('couldNotLogOut'),
         error instanceof Error ? error.message : t('pleaseTryAgain'),
       );
@@ -64,7 +65,7 @@ export function useAccount() {
   const guest = auth.isAnonymous || auth.user === null;
 
   function confirmSignOut() {
-    Alert.alert(
+    showAlert(
       t('signOutQuestion'),
       guest ? t('endGuestAndReturnWelcome') : t('signOutAndReturnWelcome'),
       [

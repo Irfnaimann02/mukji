@@ -5,6 +5,16 @@ export type Ingredient =
   | 'pork' | 'beef' | 'chicken' | 'lamb' | 'seafood' | 'egg' | 'dairy'
   | 'alcohol' | 'peanut' | 'wheat' | 'soy';
 
+// Every ingredient, in the order lists show them. Typed so a new ingredient
+// added to the type above must be added here too.
+const INGREDIENT_ORDER = {
+  pork: 1, alcohol: 2, beef: 3, chicken: 4, lamb: 5, seafood: 6,
+  egg: 7, dairy: 8, peanut: 9, wheat: 10, soy: 11,
+} satisfies Record<Ingredient, number>;
+export const ALL_INGREDIENTS = (Object.keys(INGREDIENT_ORDER) as Ingredient[]).sort(
+  (a, b) => INGREDIENT_ORDER[a] - INGREDIENT_ORDER[b],
+);
+
 export type Allergen = Extract<
   Ingredient,
   'peanut' | 'seafood' | 'egg' | 'dairy' | 'wheat' | 'soy'

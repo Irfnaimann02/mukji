@@ -10,7 +10,6 @@ import {
 import * as WebBrowser from 'expo-web-browser';
 import { useCallback, useEffect, useState } from 'react';
 import {
-  Alert,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -30,6 +29,7 @@ import type { Restaurant } from '@/data/types';
 import { useProfile } from '@/hooks/use-profile';
 import { useTranslation } from '@/hooks/use-translation';
 import { findRestaurant } from '@/logic/restaurant-service';
+import { showAlert } from '@/components/show-alert';
 
 export default function RestaurantScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -113,7 +113,7 @@ export default function RestaurantScreen() {
     } catch (error) {
       console.error('Failed to update favourite:', error);
 
-      Alert.alert(
+      showAlert(
         t('updateFailed'),
         t('pleaseTryAgain')
       );

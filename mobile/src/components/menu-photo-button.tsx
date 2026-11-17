@@ -1,11 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
-import { ActivityIndicator, Alert, Image, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Image, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import type { Restaurant } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
 import { MENU_PHOTO_NOTE_MAX, menuPhotoErrorKey, menuPhotoPlace, submitMenuPhoto } from '@/logic/menu-photo-service';
+import { showAlert } from '@/components/show-alert';
 
 // "Send menu photo" on the restaurant page. Anyone (guests too) can snap the
 // menu board; the team checks it and turns it into dishes with the dish library.
@@ -38,7 +39,7 @@ export function MenuPhotoButton({ restaurant }: { restaurant: Restaurant }) {
   const takePhoto = async () => {
     const permission = await ImagePicker.requestCameraPermissionsAsync();
     if (!permission.granted) {
-      Alert.alert(t('menuPhotoCameraNeededTitle'), t('menuPhotoCameraNeededBody'));
+      showAlert(t('menuPhotoCameraNeededTitle'), t('menuPhotoCameraNeededBody'));
       return;
     }
     applyPicked(await ImagePicker.launchCameraAsync(PICKER_OPTIONS));
@@ -58,7 +59,7 @@ export function MenuPhotoButton({ restaurant }: { restaurant: Restaurant }) {
       setSent(true);
     } catch (error) {
       console.warn('Menu photo failed:', error);
-      Alert.alert(t('updateFailed'), t(menuPhotoErrorKey(error)));
+      showAlert(t('updateFailed'), t(menuPhotoErrorKey(error)));
     } finally {
       setSending(false);
     }

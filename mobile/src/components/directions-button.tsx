@@ -1,15 +1,16 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Alert, Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet, Text } from 'react-native';
 
 import { useTranslation } from '@/hooks/use-translation';
 import { openDirections, type Destination } from '@/logic/directions';
+import { showAlert } from '@/components/show-alert';
 
 // #46: asks which map app to use, then opens the walking route.
 export function DirectionsButton({ to }: { to: Destination }) {
   const { t } = useTranslation();
 
   const choose = () =>
-    Alert.alert(t('directions'), t('directionsMessage'), [
+    showAlert(t('directions'), t('directionsMessage'), [
       { text: t('naverMap'), onPress: () => void openDirections('naver', to) },
       { text: t('kakaoMap'), onPress: () => void openDirections('kakao', to) },
       { text: t('cancel'), style: 'cancel' },
