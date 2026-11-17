@@ -19,19 +19,12 @@ import {
 } from 'react-native';
 
 import { DishList } from '@/components/dish-list';
-import { ReservationContactSheet } from '@/components/reservation-contact-sheet';
 import { ReviewSection } from '@/components/review-section';
 import {
   addFavourite,
   getFavourites,
   removeFavourite,
 } from '@/data/favourites-store';
-import {
-  getOngoingReservation,
-  startReservation,
-  updateReservationStatus,
-  type ReservationRecord,
-} from '@/data/reservation-history-store';
 import type { Restaurant } from '@/data/types';
 import { useProfile } from '@/hooks/use-profile';
 import { useTranslation } from '@/hooks/use-translation';
@@ -44,12 +37,6 @@ export default function RestaurantScreen() {
   const [restaurant, setRestaurant] = useState<
     Restaurant | null | undefined
   >(undefined);
-
-  const [contactVisible, setContactVisible] = useState(false);
-  const [ongoing, setOngoing] = useState<
-    ReservationRecord | undefined
-  >(undefined);
-  const [reserving, setReserving] = useState(false);
 
   const [isFavourite, setIsFavourite] = useState<boolean | null>(null);
   const [favouriteBusy, setFavouriteBusy] = useState(false);
@@ -78,7 +65,7 @@ export default function RestaurantScreen() {
     };
   }, [id]);
 
-  // Refresh favourite and reservation information whenever
+  // Refresh favourite information whenever
   // the restaurant screen becomes active.
   useFocusEffect(
     useCallback(() => {
@@ -100,78 +87,11 @@ export default function RestaurantScreen() {
           }
         });
 
-      getOngoingReservation(id)
-        .then((record) => {
-          if (active) {
-            setOngoing(record);
-          }
-        })
-        .catch(() => {
-          if (active) {
-            setOngoing(undefined);
-          }
-        });
-
       return () => {
         active = false;
       };
     }, [id])
   );
-
-  // Start the reservation process.
-  const handleReservation = async () => {
-    if (!restaurant || reserving) {
-      return;
-    }
-
-    setReserving(true);
-
-    try {
-      if (restaurant.reservationUrl?.trim()) {
-        const url = restaurant.reservationUrl.trim();
-
-        if (!/^https?:\/\//i.test(url)) {
-          Alert.alert(
-            t('invalidBookingLink'),
-            t('invalidBookingDescription')
-          );
-          return;
-        }
-
-        await WebBrowser.openBrowserAsync(url);
-
-        const records = await startReservation(
-          restaurant.id,
-          'online'
-        );
-
-        setOngoing(
-          records.find(
-            (record) =>
-              record.restaurantId === restaurant.id &&
-              record.status === 'ongoing'
-          )
-        );
-      } else {
-        if (!restaurant.phone?.trim()) {
-          Alert.alert(
-            t('contactUnavailable'),
-            t('noBookingOrPhone')
-          );
-          return;
-        }
-
-        setContactVisible(true);
-      }
-    } catch {
-      Alert.alert(
-        t('reservationError'),
-        t('somethingWentWrong')
-      );
-    } finally {
-      setReserving(false);
-    }
-  };
 
   // Add or remove this restaurant from Favourites.
   const handleToggleFavourite = async () => {
@@ -201,66 +121,6 @@ export default function RestaurantScreen() {
     }
   };
 
-  // Update the status of an ongoing reservation.
-  const handleStatusUpdate = (
-    status: 'completed' | 'cancelled'
-  ) => {
-    if (!restaurant) {
-      return;
-    }
-
-    const title =
-      status === 'completed'
-        ? t('completeReservationQuestion')
-        : t('cancelReservationQuestion');
-
-    const message =
-      status === 'completed'
-        ? t('completeReservationDescription')
-        : t('cancelReservationDescription');
-
-    Alert.alert(title, message, [
-      {
-        text: t('keepOngoing'),
-        style: 'cancel',
-      },
-      {
-        text:
-          status === 'completed'
-            ? t('complete')
-            : t('cancelReservation'),
-        style:
-          status === 'cancelled'
-            ? 'destructive'
-            : 'default',
-        onPress: async () => {
-          try {
-            await updateReservationStatus(
-              restaurant.id,
-              status
-            );
-
-            setOngoing(undefined);
-
-            Alert.alert(
-              status === 'completed'
-                ? t('completed')
-                : t('cancelled'),
-              status === 'completed'
-                ? t('reservationActivityMoved')
-                : t('reservationActivityCancelled')
-            );
-          } catch {
-            Alert.alert(
-              t('updateFailed'),
-              t('pleaseTryAgain')
-            );
-          }
-        },
-      },
-    ]);
-  };
-
   // Loading state.
   if (restaurant === undefined) {
     return (
@@ -278,8 +138,6 @@ export default function RestaurantScreen() {
       </Text>
     );
   }
-
-  const isOnlineBooking = !!restaurant.reservationUrl?.trim();
 
   return (
     <View style={styles.root}>
@@ -400,90 +258,25 @@ export default function RestaurantScreen() {
         {/* #52 reviews after eating */}
         <ReviewSection restaurant={restaurant} />
 
-        {/* Ongoing reservation */}
-        {ongoing && (
-          <View style={styles.ongoingBox}>
-            <View style={styles.ongoingHeader}>
-              <Text style={styles.ongoingTitle}>
-                {t('reservationOngoing')}
-              </Text>
-
-              <Text style={styles.ongoingBadge}>
-                {t('ongoing')}
-              </Text>
-            </View>
-
-            <Text style={styles.ongoingDescription}>
-              {t('startedUsing')}{' '}
-              {ongoing.method === 'online'
-                ? t('onlineBooking')
-                : t('phoneContact')}
-              .{' '}
-              {t('updateWhenFinished')}
-            </Text>
-
-            <Pressable
-              style={styles.completeButton}
-              onPress={() =>
-                handleStatusUpdate('completed')
-              }>
-              <Text style={styles.completeText}>
-                {t('markCompleted')}
-              </Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.cancelButton}
-              onPress={() =>
-                handleStatusUpdate('cancelled')
-              }>
-              <Text style={styles.cancelText}>
-                {t('cancelReservation')}
-              </Text>
-            </Pressable>
-          </View>
-        )}
       </ScrollView>
 
-      {/* Reservation button */}
-      {!ongoing && (
+      {/* #50 the one reservation button: a booking request saved in Supabase
+          (date, time, people, dishes). Kakao places are not in our database,
+          so they have no booking button. */}
+      {restaurant.source !== 'kakao' && (
         <Pressable
-          style={[
-            styles.reserve,
-            reserving && styles.disabled,
-          ]}
-          disabled={reserving}
-          onPress={() => void handleReservation()}>
-          <Text style={styles.reserveText}>
-            {reserving
-              ? t('pleaseWait')
-              : isOnlineBooking
-                ? t('reserveOnline')
-                : t('doReserve')}
-          </Text>
+          style={styles.reserve}
+          accessibilityRole="button"
+          onPress={() =>
+            router.push({
+              pathname: '/reserve-form',
+              params: { restaurantId: restaurant.id },
+            })
+          }>
+          <Ionicons name="calendar-outline" size={18} color="#fff" />
+          <Text style={styles.reserveText}>{t('bookingRequestButton')}</Text>
         </Pressable>
       )}
-
-      {/* Phone reservation contact sheet */}
-      <ReservationContactSheet
-        restaurant={restaurant}
-        visible={contactVisible}
-        onClose={() => setContactVisible(false)}
-        onContactStarted={async () => {
-          const records = await startReservation(
-            restaurant.id,
-            'phone'
-          );
-
-          setOngoing(
-            records.find(
-              (record) =>
-                record.restaurantId === restaurant.id &&
-                record.status === 'ongoing'
-            )
-          );
-        }}
-      />
     </View>
   );
 }
@@ -533,7 +326,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#1b5fad',
     padding: 16,
     borderRadius: 12,
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
   },
   reserveText: {
     color: '#fff',
@@ -542,58 +338,6 @@ const styles = StyleSheet.create({
   },
   disabled: {
     opacity: 0.5,
-  },
-  ongoingBox: {
-    backgroundColor: '#fff',
-    borderRadius: 14,
-    padding: 16,
-    marginTop: 20,
-    gap: 10,
-  },
-  ongoingHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  ongoingTitle: {
-    fontSize: 17,
-    fontWeight: '700',
-    color: '#14213d',
-  },
-  ongoingBadge: {
-    backgroundColor: '#fff3d9',
-    color: '#a66500',
-    fontSize: 12,
-    fontWeight: '700',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 8,
-    overflow: 'hidden',
-  },
-  ongoingDescription: {
-    color: '#6b7a8d',
-    lineHeight: 20,
-  },
-  completeButton: {
-    backgroundColor: '#1b5fad',
-    padding: 13,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  completeText: {
-    color: '#fff',
-    fontWeight: '700',
-  },
-  cancelButton: {
-    padding: 12,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#c62828',
-    alignItems: 'center',
-  },
-  cancelText: {
-    color: '#c62828',
-    fontWeight: '700',
   },
   favoriteButton: {
     alignSelf: 'flex-start',
@@ -621,5 +365,4 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   kakaoLink: { color: '#1b5fad', fontWeight: '600', marginTop: 12 },
-
 });
