@@ -204,6 +204,11 @@ export const translations = {
     bookingConfirm: 'Confirm',
     bookingDecline: 'Decline',
     bookingMarkCompleted: 'Mark as completed',
+    bookingOwnerCancel: 'Cancel booking',
+    bookingOwnerCancelTitle: 'Cancel this booking?',
+    bookingOwnerCancelBody: "Use this when the customer asked you to cancel, e.g. by phone. They will see it as cancelled by the restaurant. This can't be undone.",
+    bookingCancelledByYou: 'Cancelled by your restaurant',
+    bookingCancelledByRestaurant: 'Cancelled by the restaurant',
 
     safe: 'Safe',
     askFirst: 'Ask first',
@@ -732,6 +737,11 @@ export const translations = {
     bookingConfirm: '확정',
     bookingDecline: '거절',
     bookingMarkCompleted: '방문 완료로 표시',
+    bookingOwnerCancel: '예약 취소',
+    bookingOwnerCancelTitle: '이 예약을 취소할까요?',
+    bookingOwnerCancelBody: '고객이 전화 등으로 취소를 요청했을 때 사용하세요. 고객 앱에는 음식점이 취소한 예약으로 보여요. 되돌릴 수 없어요.',
+    bookingCancelledByYou: '우리 음식점에서 취소함',
+    bookingCancelledByRestaurant: '음식점에서 취소한 예약이에요',
 
     safe: '안전',
     askFirst: '직원에게 확인',

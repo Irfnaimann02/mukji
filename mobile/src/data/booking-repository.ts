@@ -4,9 +4,12 @@ import { supabase } from './supabase';
 // #50 The only file that talks to Supabase about booking requests
 // (table public.reservations, made in supabase/sql/011 and 012).
 // The rules live in the database: a customer creates and cancels their own,
-// the restaurant's owner confirms, declines or completes.
+// the restaurant's owner confirms, declines, completes or cancels (026).
 
 export type BookingStatus = 'requested' | 'confirmed' | 'declined' | 'cancelled' | 'completed';
+
+// Who cancelled a booking. Set by the database (026), never by the app.
+export type CancelledBy = 'customer' | 'restaurant';
 
 export interface Booking {
   id: string;
@@ -16,6 +19,7 @@ export interface Booking {
   dishIds: string[]; // pre-ordered dishes
   note: string;
   status: BookingStatus;
+  cancelledBy: CancelledBy | null; // null when not cancelled (or before 026 was run)
   createdAt: string;
 }
 
@@ -35,10 +39,27 @@ type Row = {
   dish_ids: string[] | null;
   note: string | null;
   status: BookingStatus;
+  cancelled_by?: CancelledBy | null;
   created_at: string;
 };
 
-const COLUMNS = 'id, restaurant_id, reserved_for, people, dish_ids, note, status, created_at';
+const BASE_COLUMNS = 'id, restaurant_id, reserved_for, people, dish_ids, note, status, created_at';
+
+// cancelled_by only exists once supabase/sql/026 has been run. Until then, every
+// request falls back to the old columns, so bookings keep loading either way.
+let hasCancelledBy = true;
+const UNDEFINED_COLUMN = '42703';
+
+type Result = { data: unknown; error: { code?: string; message: string } | null };
+
+async function withColumns(run: (columns: string) => PromiseLike<Result>): Promise<Result> {
+  if (hasCancelledBy) {
+    const result = await run(`${BASE_COLUMNS}, cancelled_by`);
+    if (result.error?.code !== UNDEFINED_COLUMN) return result;
+    hasCancelledBy = false;
+  }
+  return run(BASE_COLUMNS);
+}
 
 function client() {
   if (!supabase) throw new Error('Supabase is not set up (mobile/.env is missing).');
@@ -54,6 +75,7 @@ function toBooking(row: Row): Booking {
     dishIds: row.dish_ids ?? [],
     note: row.note ?? '',
     status: row.status,
+    cancelledBy: row.status === 'cancelled' ? (row.cancelled_by ?? null) : null,
     createdAt: row.created_at,
   };
 }
@@ -61,17 +83,19 @@ function toBooking(row: Row): Booking {
 // Customer: send a booking request. It starts as 'requested'.
 export async function createBooking(input: NewBooking): Promise<Booking> {
   await ensureSignedIn();
-  const { data, error } = await client()
-    .from('reservations')
-    .insert({
-      restaurant_id: input.restaurantId,
-      reserved_for: input.reservedFor.toISOString(),
-      people: input.people,
-      dish_ids: input.dishIds,
-      note: input.note.trim(),
-    })
-    .select(COLUMNS)
-    .single();
+  const { data, error } = await withColumns((columns) =>
+    client()
+      .from('reservations')
+      .insert({
+        restaurant_id: input.restaurantId,
+        reserved_for: input.reservedFor.toISOString(),
+        people: input.people,
+        dish_ids: input.dishIds,
+        note: input.note.trim(),
+      })
+      .select(columns)
+      .single(),
+  );
   if (error || !data) throw error ?? new Error('The booking was not saved.');
   return toBooking(data as unknown as Row);
 }
@@ -79,11 +103,9 @@ export async function createBooking(input: NewBooking): Promise<Booking> {
 // Customer: my own requests, soonest first.
 export async function listMyBookings(): Promise<Booking[]> {
   const user = await ensureSignedIn();
-  const { data, error } = await client()
-    .from('reservations')
-    .select(COLUMNS)
-    .eq('user_id', user.id)
-    .order('reserved_for', { ascending: true });
+  const { data, error } = await withColumns((columns) =>
+    client().from('reservations').select(columns).eq('user_id', user.id).order('reserved_for', { ascending: true }),
+  );
   if (error) throw error;
   return ((data ?? []) as unknown as Row[]).map(toBooking);
 }
@@ -92,22 +114,21 @@ export async function listMyBookings(): Promise<Booking[]> {
 // rows for restaurants linked to the signed-in owner.
 export async function listBookingsForRestaurants(restaurantIds: string[]): Promise<Booking[]> {
   if (restaurantIds.length === 0) return [];
-  const { data, error } = await client()
-    .from('reservations')
-    .select(COLUMNS)
-    .in('restaurant_id', restaurantIds)
-    .order('reserved_for', { ascending: true });
+  const { data, error } = await withColumns((columns) =>
+    client()
+      .from('reservations')
+      .select(columns)
+      .in('restaurant_id', restaurantIds)
+      .order('reserved_for', { ascending: true }),
+  );
   if (error) throw error;
   return ((data ?? []) as unknown as Row[]).map(toBooking);
 }
 
 async function setStatus(id: string, status: BookingStatus): Promise<Booking> {
-  const { data, error } = await client()
-    .from('reservations')
-    .update({ status })
-    .eq('id', id)
-    .select(COLUMNS)
-    .single();
+  const { data, error } = await withColumns((columns) =>
+    client().from('reservations').update({ status }).eq('id', id).select(columns).single(),
+  );
   if (error || !data) throw error ?? new Error('The booking was not updated.');
   return toBooking(data as unknown as Row);
 }
@@ -118,6 +139,10 @@ export function cancelBooking(id: string): Promise<Booking> {
 }
 
 // Owner: answer a request, or mark a confirmed one as completed after the visit.
-export function respondToBooking(id: string, status: 'confirmed' | 'declined' | 'completed'): Promise<Booking> {
+// 'cancelled' (026): the restaurant cancels a waiting or confirmed booking, e.g. the
+// customer phoned to cancel. The database records it as cancelled by the restaurant.
+export type OwnerAction = 'confirmed' | 'declined' | 'completed' | 'cancelled';
+
+export function respondToBooking(id: string, status: OwnerAction): Promise<Booking> {
   return setStatus(id, status);
 }
