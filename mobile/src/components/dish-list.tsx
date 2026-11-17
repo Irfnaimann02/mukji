@@ -1,4 +1,5 @@
 import { CategoryHintCard } from '@/components/category-hint-card';
+import { DishWhySheet } from '@/components/dish-why-sheet';
 import { TrustBadge } from '@/components/trust-badge';
 import { dishTrust } from '@/logic/trust-score';
 import { useState } from 'react';
@@ -46,6 +47,7 @@ export function DishList({
   onDishPress,
 }: Props) {
   const [showHidden, setShowHidden] = useState(false);
+  const [whyDish, setWhyDish] = useState<Dish | null>(null); // #10
   const { t } = useTranslation();
 
   if (restaurant.dishes.length === 0) {
@@ -96,8 +98,12 @@ export function DishList({
           dish={dish}
           status={dishStatus(dish, restaurant, profile)}
           onPress={() => onDishPress(dish)}
+          onWhy={() => setWhyDish(dish)}
         />
       ))}
+
+      {/* #10 "Why?" for Ask first and Avoid dishes */}
+      <DishWhySheet dish={whyDish} restaurant={restaurant} profile={profile} onClose={() => setWhyDish(null)} />
     </View>
   );
 }
@@ -106,10 +112,12 @@ function DishRow({
   dish,
   status,
   onPress,
+  onWhy,
 }: {
   dish: Dish;
   status: DishStatus;
   onPress: () => void;
+  onWhy: () => void;
 }) {
   const { t } = useTranslation();
   const statusInfo = STATUS[status];
@@ -132,6 +140,12 @@ function DishRow({
           {t(statusInfo.label)}
         </Text>
       </View>
+
+      {status !== 'safe' && (
+        <Pressable onPress={onWhy} hitSlop={8} accessibilityRole="button" style={styles.why}>
+          <Text style={styles.whyText}>{t('whyButton')}</Text>
+        </Pressable>
+      )}
 
       <Text style={styles.sub}>{dish.nameEn}</Text>
 
@@ -229,6 +243,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 6,
+  },
+  why: {
+    alignSelf: 'flex-end',
+    paddingVertical: 2,
+  },
+  whyText: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#1b5fad',
   },
   trustRow: {
     flexDirection: 'row',
