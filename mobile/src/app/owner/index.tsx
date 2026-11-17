@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { OwnerReservations } from '@/components/owner-reservations';
 import type { Restaurant } from '@/data/types';
 import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
@@ -769,16 +770,8 @@ export default function OwnerPortalScreen() {
   function renderReservations() {
     return (
       <View style={styles.content}>
-        <View style={styles.emptyCard}>
-          <Ionicons name="calendar-outline" size={48} color="#1b5fad" />
-          <Text style={styles.cardTitle}>{owner('ownerReservationManagementIsWaitingFor50')}</Text>
-          <Text style={styles.bodyText}>
-            {owner('ownerTheOwnerReservationListCustomerDetailsConfirmationDeclia7da8572')}
-          </Text>
-          <View style={styles.pendingBadge}>
-            <Text style={styles.pendingBadgeText}>{owner('ownerWaitingFor50Integration')}</Text>
-          </View>
-        </View>
+        {/* #50 booking requests from Supabase; a customer's cancellation shows as an alert */}
+        <OwnerReservations restaurants={ownedRestaurants} />
       </View>
     );
   }
