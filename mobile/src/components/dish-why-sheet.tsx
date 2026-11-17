@@ -17,6 +17,7 @@ const INGREDIENT_LABEL: Record<Ingredient, TranslationKey> = {
   alcohol: 'avoidAlcohol',
   beef: 'avoidBeef',
   chicken: 'avoidChicken',
+  lamb: 'avoidLamb',
   seafood: 'seafood',
   egg: 'egg',
   dairy: 'dairy',

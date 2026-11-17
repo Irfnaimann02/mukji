@@ -14,7 +14,7 @@ const CORS = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const INGREDIENTS = ['pork', 'beef', 'chicken', 'seafood', 'egg', 'dairy', 'alcohol', 'peanut', 'wheat', 'soy'];
+const INGREDIENTS = ['pork', 'beef', 'chicken', 'lamb', 'seafood', 'egg', 'dairy', 'alcohol', 'peanut', 'wheat', 'soy'];
 const DIETS = ['halal', 'vegan', 'no_pork'];
 const ALLERGENS = ['peanut', 'seafood', 'egg', 'dairy', 'wheat', 'soy'];
 const STATUSES = ['safe', 'ask_first', 'avoid'];

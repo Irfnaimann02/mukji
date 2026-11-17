@@ -2,7 +2,7 @@ import type { Diet, Dish, DishStatus, FoodProfile, Ingredient, OriginLabel, Rest
 
 import type { OrderPhrase } from './order-phrases';
 import { WORD } from './order-phrases';
-import { blockedIngredients, dishStatus } from './profile-filter';
+import { HALAL_MEAT, blockedIngredients, dishStatus } from './profile-filter';
 
 // #10 Why is a dish "Ask first" or "Avoid"?
 // Worked out from the dish data only, so it is always shown, with or without AI.
@@ -29,7 +29,6 @@ export interface DishExplanation {
 }
 
 const DIETS: Diet[] = ['halal', 'vegan', 'no_pork'];
-const MEAT: Ingredient[] = ['beef', 'chicken'];
 
 const HALAL_QUESTION: OrderPhrase = {
   ko: '할랄 고기인가요?',
@@ -43,6 +42,7 @@ const ORIGIN_WORDS: Record<Ingredient, string[]> = {
   pork: ['돼지', '돈육', '삼겹', '목살', '햄', '베이컨', '소시지'],
   beef: ['소고기', '쇠고기', '한우', '우육'],
   chicken: ['닭', '치킨', '계육'],
+  lamb: ['양고기', '양갈비', '양꼬치'],
   seafood: ['해산물', '새우', '오징어', '생선', '고등어', '연어', '장어', '도미', '광어', '전복', '조개', '낙지', '문어', '쭈꾸미', '참치', '어묵', '명태', '굴'],
   egg: ['계란', '달걀'],
   dairy: ['우유', '치즈', '버터'],
@@ -61,8 +61,10 @@ export function relevantOrigin(dish: Dish, origin: OriginLabel[]): OriginLabel[]
   const ingredients = [...dish.contains, ...dish.mayContain];
   return origin.filter(({ itemKo }) => {
     if (ingredients.some((i) => ORIGIN_WORDS[i].some((word) => itemKo.includes(word)))) return true;
+    // 케밥 (kebab) contains 밥 but is not a rice dish.
+    const name = dish.nameKo.split('케밥').join('');
     return SHARED_WORDS.some(
-      (group) => group.some((w) => itemKo.includes(w)) && group.some((w) => dish.nameKo.includes(w)),
+      (group) => group.some((w) => itemKo.includes(w)) && group.some((w) => name.includes(w)),
     );
   });
 }
@@ -99,10 +101,10 @@ export function explainDish(dish: Dish, restaurant: Restaurant, profile: FoodPro
     });
   }
 
-  // Same rule as dishStatus: with halal on, beef or chicken at a place that is not
+  // Same rule as dishStatus: with halal on, beef, chicken or lamb at a place that is not
   // halal-certified is "ask first" even if nothing else is wrong.
   if (profile.diets.includes('halal') && !restaurant.halalCertified) {
-    const meat = [...dish.contains, ...dish.mayContain].find((i) => MEAT.includes(i) && !blocked.has(i));
+    const meat = [...dish.contains, ...dish.mayContain].find((i) => HALAL_MEAT.includes(i) && !blocked.has(i));
     if (meat) {
       reasons.push({ kind: 'halal_meat', ingredient: meat });
       questions.push(HALAL_QUESTION);

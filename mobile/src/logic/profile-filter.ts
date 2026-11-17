@@ -6,7 +6,7 @@ const BLOCKED_BY_DIET: Record<Diet, Ingredient[]> = {
   vegan: ['pork', 'beef', 'chicken', 'lamb', 'seafood', 'egg', 'dairy'],
 };
 
-const HALAL_MEAT: Ingredient[] = ['beef', 'chicken', 'lamb'];
+export const HALAL_MEAT: Ingredient[] = ['beef', 'chicken', 'lamb'];
 
 export function blockedIngredients(profile: FoodProfile): Set<Ingredient> {
   const blocked = new Set<Ingredient>(profile.allergens);

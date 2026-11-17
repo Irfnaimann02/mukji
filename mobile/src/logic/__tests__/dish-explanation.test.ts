@@ -81,4 +81,12 @@ describe('dish-explanation', () => {
     expect(items(dish(['wheat'], ['seafood'], { nameKo: '국물떡볶이' }))).toEqual(['밀떡', '새우']);
     expect(items(dish(['pork', 'egg'], [], { nameKo: '김밥' }))).toEqual(['햄(돼지고기)', '쌀']);
   });
+
+  it('treats lamb like beef and chicken for halal', () => {
+    const result = explainDish(dish(['lamb', 'wheat'], [], { nameKo: '양고기 케밥' }), restaurant(false), halal);
+    expect(result.status).toBe('ask_first');
+    expect(result.reasons).toEqual([{ kind: 'halal_meat', ingredient: 'lamb' }]);
+    const origin = [{ itemKo: '양고기', country: '호주산' }, { itemKo: '쌀', country: '국내산' }];
+    expect(relevantOrigin(dish(['lamb'], [], { nameKo: '양고기 케밥' }), origin).map((o) => o.itemKo)).toEqual(['양고기']);
+  });
 });
