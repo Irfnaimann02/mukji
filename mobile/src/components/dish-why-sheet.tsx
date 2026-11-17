@@ -9,6 +9,7 @@ import type { Dish, FoodProfile, Ingredient, Restaurant } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
 import type { TranslationKey } from '@/i18n/translations';
 import { explainDish, type Reason, type Rule } from '@/logic/dish-explanation';
+import { SCAN_SOURCE } from '@/logic/menu-scan';
 
 const BLUE = '#1B5FAD';
 
@@ -38,6 +39,7 @@ const SOURCE_LABEL: Record<string, TranslationKey> = {
   menu: 'whySourceMenu',
   '원산지 label': 'whySourceOrigin',
   reviews: 'whySourceReviews',
+  [SCAN_SOURCE]: 'whySourceScan', // #10 part 2: dishes from the Menu Scanner
 };
 
 type Props = {
