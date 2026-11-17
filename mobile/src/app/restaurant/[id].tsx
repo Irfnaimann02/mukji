@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 
 import { DishList } from '@/components/dish-list';
+import { MenuPhotoButton } from '@/components/menu-photo-button';
 import { ReviewSection } from '@/components/review-section';
 import {
   addFavourite,
@@ -237,6 +238,9 @@ export default function RestaurantScreen() {
             })
           }
         />
+
+        {/* Send menu photo: anyone can help fill in the menu */}
+        <MenuPhotoButton restaurant={restaurant} />
 
         {/* Ingredient origins */}
         <Text style={styles.heading}>
