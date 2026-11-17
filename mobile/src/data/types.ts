@@ -2,7 +2,7 @@ export type Diet = 'halal' | 'vegan' | 'no_pork';
 
 // What can be in a dish. Diets and allergies both check against this list.
 export type Ingredient =
-  | 'pork' | 'beef' | 'chicken' | 'seafood' | 'egg' | 'dairy'
+  | 'pork' | 'beef' | 'chicken' | 'lamb' | 'seafood' | 'egg' | 'dairy'
   | 'alcohol' | 'peanut' | 'wheat' | 'soy';
 
 export type Allergen = Extract<

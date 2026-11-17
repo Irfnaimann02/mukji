@@ -3,8 +3,10 @@ import type { Diet, Dish, DishStatus, FoodProfile, Ingredient, Restaurant } from
 const BLOCKED_BY_DIET: Record<Diet, Ingredient[]> = {
   halal: ['pork', 'alcohol'],
   no_pork: ['pork'],
-  vegan: ['pork', 'beef', 'chicken', 'seafood', 'egg', 'dairy'],
+  vegan: ['pork', 'beef', 'chicken', 'lamb', 'seafood', 'egg', 'dairy'],
 };
+
+const HALAL_MEAT: Ingredient[] = ['beef', 'chicken', 'lamb'];
 
 export function blockedIngredients(profile: FoodProfile): Set<Ingredient> {
   const blocked = new Set<Ingredient>(profile.allergens);
@@ -16,7 +18,8 @@ export function dishStatus(dish: Dish, restaurant: Restaurant, profile: FoodProf
   const blocked = blockedIngredients(profile);
   if (dish.contains.some((i) => blocked.has(i))) return 'avoid';
   if (dish.mayContain.some((i) => blocked.has(i))) return 'ask_first';
-  const hasMeat = [...dish.contains, ...dish.mayContain].some((i) => i === 'beef' || i === 'chicken');
+  // Meat that is fine for halal only when slaughtered the halal way.
+  const hasMeat = [...dish.contains, ...dish.mayContain].some((i) => HALAL_MEAT.includes(i));
   if (profile.diets.includes('halal') && hasMeat && !restaurant.halalCertified) return 'ask_first';
   return 'safe';
 }
