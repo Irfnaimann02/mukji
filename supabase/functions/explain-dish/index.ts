@@ -1,0 +1,216 @@
+// #10: explains why one dish is "Ask first" or "Avoid" for this user, and suggests
+// Korean questions for the staff that fit this exact dish and situation.
+// The AI key stays on the server, never in the app. Secrets:
+//   AI_PROVIDER = anthropic | openai | gemini   (team choice: anthropic)
+//   AI_API_KEY  = the key for that provider
+//   AI_MODEL    = the model name, e.g. claude-haiku-5-5 (cheapest and fastest Claude model)
+// The app only sends the dish facts it already shows. The prompt is built here,
+// so this function cannot be used as a general chatbot. Sources are not written
+// by the AI: the app shows the real data sources next to the answer.
+// Returns { reason, questions: [{ ko, rom, en }] }.
+
+const CORS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
+
+const INGREDIENTS = ['pork', 'beef', 'chicken', 'seafood', 'egg', 'dairy', 'alcohol', 'peanut', 'wheat', 'soy'];
+const DIETS = ['halal', 'vegan', 'no_pork'];
+const ALLERGENS = ['peanut', 'seafood', 'egg', 'dairy', 'wheat', 'soy'];
+const STATUSES = ['safe', 'ask_first', 'avoid'];
+
+function json(body: unknown, status = 200): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...CORS, 'Content-Type': 'application/json' },
+  });
+}
+
+// Keep only short text and known values, so the prompt stays small and predictable.
+const text = (value: unknown, max = 80): string => (typeof value === 'string' ? value.slice(0, max) : '');
+const pick = (value: unknown, allowed: string[]): string[] =>
+  Array.isArray(value) ? [...new Set(value.filter((v): v is string => allowed.includes(v)))] : [];
+const texts = (value: unknown, maxItems = 10): string[] =>
+  Array.isArray(value) ? value.slice(0, maxItems).map((v) => text(v)).filter(Boolean) : [];
+
+type Facts = {
+  language: 'en' | 'ko';
+  status: string;
+  dish: { nameKo: string; nameEn: string; contains: string[]; mayContain: string[] };
+  restaurant: {
+    nameKo: string;
+    nameEn: string;
+    category: string; // licence type, e.g. 중국식, 호프/통닭
+    foodType: string;
+    halalCertified: boolean;
+    origin: string[];
+    sources: string[];
+  };
+  profile: { diets: string[]; allergens: string[] };
+};
+
+function readFacts(body: Record<string, unknown>): Facts | null {
+  const dish = (body.dish ?? {}) as Record<string, unknown>;
+  const restaurant = (body.restaurant ?? {}) as Record<string, unknown>;
+  const profile = (body.profile ?? {}) as Record<string, unknown>;
+  const status = text(body.status, 20);
+  if (!STATUSES.includes(status) || !text(dish.nameKo)) return null;
+  return {
+    language: body.language === 'ko' ? 'ko' : 'en',
+    status,
+    dish: {
+      nameKo: text(dish.nameKo),
+      nameEn: text(dish.nameEn),
+      contains: pick(dish.contains, INGREDIENTS),
+      mayContain: pick(dish.mayContain, INGREDIENTS),
+    },
+    restaurant: {
+      nameKo: text(restaurant.nameKo),
+      nameEn: text(restaurant.nameEn),
+      category: text(restaurant.category, 40),
+      foodType: text(restaurant.foodType, 20),
+      halalCertified: restaurant.halalCertified === true,
+      origin: texts(restaurant.origin),
+      sources: texts(restaurant.sources),
+    },
+    profile: { diets: pick(profile.diets, DIETS), allergens: pick(profile.allergens, ALLERGENS) },
+  };
+}
+
+function systemPrompt(language: 'en' | 'ko'): string {
+  return [
+    'You help a diner in Korea who has food restrictions (halal, vegan, no pork, allergies) decide about ONE dish in a restaurant app.',
+    'The app has already labelled the dish "safe", "ask_first" or "avoid" from its data. Do not change the label.',
+    '',
+    'Facts you get: the dish name and its ingredients ("contains" = known to be in it, "mayContain" = might be, e.g. in the broth or sauce),',
+    'the restaurant type, whether it is halal-certified, its 원산지 (origin) lines for this dish, and the user diets and allergies.',
+    '',
+    'Write two things:',
+    '1. "reason": say exactly what is uncertain or wrong for THIS dish and THIS user, and why it matters for their restriction.',
+    '   Be specific to the dish and the restaurant type. For halal this usually means: whether the meat comes from halal slaughter;',
+    '   whether pork, lard or pork broth is used; whether alcohol is in a sauce or marinade (맛술, 미림, 청주, 소주, wine);',
+    '   whether frying oil or grills are shared with pork. For allergies: hidden sources (sauces, batter, broth, garnish).',
+    '   You may use common knowledge about Korean cooking, but say it as a possibility ("often", "can"), never as a fact about this dish.',
+    '   Only state as fact what is in the given data. 2 to 4 short sentences, speaking to the user as "you".',
+    `   Write the reason in ${language === 'ko' ? 'Korean' : 'English'}.`,
+    '2. "questions": 2 to 4 short, polite questions the user can show or read to the staff to clear up exactly these doubts.',
+    '   Specific to this dish (name the dish or its parts), not generic. Do not ask about things the data already answers.',
+    '   Each question: "ko" in natural polite Korean (해요체), "rom" = how to read it in romanised Korean, "en" = English meaning.',
+    '',
+    'Never say a dish is guaranteed safe or certainly halal: the data only covers what is written.',
+    'Reply with JSON only, in exactly this shape:',
+    '{"reason": "...", "questions": [{"ko": "...", "rom": "...", "en": "..."}]}',
+  ].join('\n');
+}
+
+async function askAi(provider: string, key: string, model: string, system: string, user: string): Promise<string> {
+  if (provider === 'anthropic') {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+      // Claude 5.5 models think before answering, and thinking counts toward max_tokens,
+      // so leave room for it. Low effort is enough for a 2-3 sentence answer.
+      // Do not send temperature, top_p or top_k: newer Claude models reject them.
+      body: JSON.stringify({
+        model,
+        max_tokens: 2000,
+        output_config: { effort: 'low' },
+        system,
+        messages: [{ role: 'user', content: user }],
+      }),
+    });
+    if (!res.ok) throw new Error(`Anthropic answered ${res.status}: ${await res.text()}`);
+    const data = await res.json();
+    // Only the text blocks are the answer; thinking blocks are skipped.
+    return (data.content ?? [])
+      .filter((b: { type: string }) => b.type === 'text')
+      .map((b: { text: string }) => b.text)
+      .join('');
+  }
+  if (provider === 'openai') {
+    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
+      body: JSON.stringify({
+        model,
+        messages: [
+          { role: 'system', content: system },
+          { role: 'user', content: user },
+        ],
+        response_format: { type: 'json_object' },
+      }),
+    });
+    if (!res.ok) throw new Error(`OpenAI answered ${res.status}: ${await res.text()}`);
+    const data = await res.json();
+    return data.choices?.[0]?.message?.content ?? '';
+  }
+  if (provider === 'gemini') {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
+      {
+        method: 'POST',
+        headers: { 'x-goog-api-key': key, 'content-type': 'application/json' },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: system }] },
+          contents: [{ role: 'user', parts: [{ text: user }] }],
+          generationConfig: { responseMimeType: 'application/json' },
+        }),
+      },
+    );
+    if (!res.ok) throw new Error(`Gemini answered ${res.status}: ${await res.text()}`);
+    const data = await res.json();
+    return data.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text ?? '').join('') ?? '';
+  }
+  throw new Error(`Unknown AI_PROVIDER "${provider}" (use anthropic, openai or gemini)`);
+}
+
+type Question = { ko: string; rom: string; en: string };
+
+// The model is asked for {"reason": "...", "questions": [...]}.
+// If it ignores that, the plain text becomes the reason and the app keeps its own questions.
+function readAnswer(raw: string): { reason: string; questions: Question[] } {
+  const trimmed = raw.trim().replace(/^```(?:json)?\s*|\s*```$/g, '');
+  try {
+    const parsed = JSON.parse(trimmed);
+    const reason = typeof parsed?.reason === 'string' ? parsed.reason.trim() : '';
+    const questions: Question[] = Array.isArray(parsed?.questions)
+      ? parsed.questions
+          .filter((q: unknown): q is Record<string, unknown> => typeof q === 'object' && q !== null)
+          .map((q: Record<string, unknown>) => ({ ko: text(q.ko, 120), rom: text(q.rom, 160), en: text(q.en, 160) }))
+          .filter((q: Question) => q.ko !== '')
+          .slice(0, 4)
+      : [];
+    return { reason, questions }; // valid JSON without a reason counts as an empty answer
+  } catch {
+    // not JSON: use the plain text as the reason
+    return { reason: trimmed, questions: [] };
+  }
+}
+
+Deno.serve(async (req) => {
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+
+  const provider = Deno.env.get('AI_PROVIDER') ?? '';
+  const key = Deno.env.get('AI_API_KEY') ?? '';
+  const model = Deno.env.get('AI_MODEL') ?? '';
+  // The app shows the data-based explanation when this happens.
+  if (!provider || !key || !model) return json({ error: 'not_configured' }, 503);
+
+  let body: Record<string, unknown>;
+  try {
+    body = await req.json();
+  } catch {
+    return json({ error: 'Send JSON with language, status, dish, restaurant and profile' }, 400);
+  }
+  const facts = readFacts(body);
+  if (!facts) return json({ error: 'status and dish.nameKo are required' }, 400);
+
+  try {
+    const raw = await askAi(provider, key, model, systemPrompt(facts.language), JSON.stringify(facts));
+    const { reason, questions } = readAnswer(raw);
+    if (!reason) return json({ error: 'empty_answer' }, 502);
+    return json({ reason: reason.slice(0, 1000), questions, provider, model });
+  } catch (error) {
+    return json({ error: error instanceof Error ? error.message : 'ai_failed' }, 502);
+  }
+});

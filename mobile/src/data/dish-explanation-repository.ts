@@ -1,19 +1,26 @@
 import type { Dish, DishStatus, FoodProfile, Restaurant } from './types';
 import { relevantOrigin } from '@/logic/dish-explanation';
+import type { OrderPhrase } from '@/logic/order-phrases';
 import { ensureSignedIn } from './auth';
 import { supabase } from './supabase';
 
-// #10 Asks the Edge Function explain-dish for a plain-language "Why?".
+// #10 Asks the Edge Function explain-dish why a dish is unsure for this user,
+// and for Korean questions that fit this exact dish.
 // Returns null when AI is not set up or fails: the app then shows the data-based reasons only.
 
-const cache = new Map<string, string>();
+export interface AiExplanation {
+  reason: string;
+  questions: OrderPhrase[]; // can be empty: the app then keeps its own questions
+}
 
-export async function fetchAiReason(
+const cache = new Map<string, AiExplanation>();
+
+export async function fetchAiExplanation(
   dish: Dish,
   restaurant: Restaurant,
   profile: FoodProfile,
   status: DishStatus,
-): Promise<string | null> {
+): Promise<AiExplanation | null> {
   if (!supabase) return null; // no mobile/.env
 
   const key = [
@@ -29,7 +36,10 @@ export async function fetchAiReason(
 
   try {
     await ensureSignedIn(); // Edge Functions only answer signed-in users (guests count)
-    const { data, error } = await supabase.functions.invoke<{ reason?: string }>('explain-dish', {
+    const { data, error } = await supabase.functions.invoke<{
+      reason?: string;
+      questions?: { ko?: string; rom?: string; en?: string }[];
+    }>('explain-dish', {
       body: {
         language: profile.language,
         status,
@@ -42,6 +52,8 @@ export async function fetchAiReason(
         restaurant: {
           nameKo: restaurant.nameKo,
           nameEn: restaurant.nameEn,
+          category: restaurant.category ?? '',
+          foodType: restaurant.foodType,
           halalCertified: restaurant.halalCertified,
           origin: relevantOrigin(dish, restaurant.origin).map((o) => `${o.itemKo}: ${o.country}`),
           sources: restaurant.sources,
@@ -50,8 +62,14 @@ export async function fetchAiReason(
       },
     });
     if (error || !data?.reason) return null;
-    cache.set(key, data.reason);
-    return data.reason;
+    const answer: AiExplanation = {
+      reason: data.reason,
+      questions: (data.questions ?? [])
+        .filter((q) => typeof q.ko === 'string' && q.ko.trim() !== '')
+        .map((q) => ({ ko: q.ko!.trim(), rom: q.rom?.trim() || undefined, en: q.en?.trim() ?? '' })),
+    };
+    cache.set(key, answer);
+    return answer;
   } catch {
     return null;
   }

@@ -48,6 +48,7 @@ const ORIGIN_WORDS: Record<Ingredient, string[]> = {
   dairy: ['우유', '치즈', '버터'],
   wheat: ['밀가루'], // not '밀': 밀떡 is about tteok, matched below
   soy: ['대두', '두부'],
+  peanut: ['땅콩'],
   alcohol: [],
 };
 
