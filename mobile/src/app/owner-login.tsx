@@ -11,6 +11,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import {
   isValidEmail,
@@ -24,6 +25,10 @@ import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
 import { continueAsGuest } from '@/logic/welcome-service';
 import { signOutAndReturnToWelcome } from '@/logic/session-service';
+
+const BLUE = '#1B5FAD';
+const NAVY = '#14213D';
+const MUTED = '#64748B';
 
 export default function OwnerLoginScreen() {
   const auth = useAuth();
@@ -101,80 +106,182 @@ export default function OwnerLoginScreen() {
       router.replace('/owner');
     });
 
-  const onSignOut = () => run(async () => {
-    await signOutAndReturnToWelcome();
-    router.replace('/');
-  });
-  const onContinueToUserMode = () => run(async () => {
-    if (signedInAsOwner) {
-      await setAppMode('user');
-    } else {
-      await continueAsGuest();
-    }
-    router.replace('/(tabs)/map');
-  });
+  const onSignOut = () =>
+    run(async () => {
+      await signOutAndReturnToWelcome();
+      router.replace('/');
+    });
+
+  const onContinueToUserMode = () =>
+    run(async () => {
+      if (signedInAsOwner) {
+        await setAppMode('user');
+      } else {
+        await continueAsGuest();
+      }
+      router.replace('/(tabs)/map');
+    });
 
   return (
-    <View style={{ flex: 1 }}>
-      <Stack.Screen options={{ headerShown: true, title: t('ownerLoginTitle') }} />
-      <ScrollView contentContainerStyle={styles.page} keyboardShouldPersistTaps="handled">
+    <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          title: t('ownerLoginTitle'),
+          headerTintColor: NAVY,
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor: '#F5F8FC' },
+        }}
+      />
+
+      <ScrollView
+        contentContainerStyle={styles.page}
+        keyboardShouldPersistTaps="handled">
+        <View style={styles.brandHeader}>
+          <View style={styles.brandIcon}>
+            <Ionicons name="storefront" size={29} color="#FFFFFF" />
+          </View>
+          <Text style={styles.brandName}>MUKJI</Text>
+          <Text style={styles.brandEyebrow}>RESTAURANT PARTNER</Text>
+          <Text style={styles.heroTitle}>{t('restaurantOwnerQuestion')}</Text>
+          <Text style={styles.heroDescription}>{t('ownerLoginDescription')}</Text>
+        </View>
+
         {!auth.ready ? (
-          <ActivityIndicator />
+          <View style={styles.loadingCard}>
+            <ActivityIndicator size="large" color={BLUE} />
+          </View>
         ) : signedInAsOwner ? (
           <View style={styles.card}>
-            <Text style={styles.title}>{t('signedInAs', { email: auth.email ?? '' })}</Text>
+            <View style={styles.statusIcon}>
+              <Ionicons name="checkmark-circle" size={27} color="#16845B" />
+            </View>
+            <Text style={styles.cardTitle}>
+              {t('signedInAs', { email: auth.email ?? '' })}
+            </Text>
             {ownedList.length > 0 ? (
-              <Text style={styles.sub}>{t('ownerOf', { restaurants: ownedList.join(', ') })}</Text>
+              <Text style={styles.description}>
+                {t('ownerOf', { restaurants: ownedList.join(', ') })}
+              </Text>
             ) : (
-              <Text style={styles.sub}>{t('notLinkedToRestaurant')}</Text>
+              <View style={styles.infoBox}>
+                <Ionicons name="information-circle-outline" size={19} color={BLUE} />
+                <Text style={styles.infoText}>{t('notLinkedToRestaurant')}</Text>
+              </View>
             )}
 
             <Pressable
-              style={styles.button}
-              onPress={() => { void setAppMode('business').then(() => router.replace('/owner')); }}
+              style={({ pressed }) => [styles.primaryButton, pressed && styles.pressed]}
+              onPress={() => {
+                void setAppMode('business').then(() => router.replace('/owner'));
+              }}
               accessibilityRole="button">
-              <Ionicons name="storefront-outline" size={19} color="#fff" />
-              <Text style={styles.buttonText}>{t('openOwnerPortal')}</Text>
+              <Ionicons name="grid-outline" size={19} color="#FFFFFF" />
+              <Text style={styles.primaryButtonText}>{t('openOwnerPortal')}</Text>
+              <Ionicons name="arrow-forward" size={17} color="#FFFFFF" />
             </Pressable>
 
-            <Pressable style={[styles.button, styles.secondary]} onPress={onSignOut} disabled={busy}>
-              <Text style={[styles.buttonText, styles.secondaryText]}>{t('signOut')}</Text>
+            <Pressable
+              style={({ pressed }) => [styles.secondaryButton, pressed && styles.pressed]}
+              onPress={onSignOut}
+              disabled={busy}
+              accessibilityRole="button">
+              <Text style={styles.secondaryButtonText}>
+                {busy ? t('checking') : t('signOut')}
+              </Text>
             </Pressable>
           </View>
         ) : (
           <View style={styles.card}>
-            <Text style={styles.title}>{t('restaurantOwnerQuestion')}</Text>
-            <Text style={styles.sub}>{t('ownerLoginDescription')}</Text>
+            <View style={styles.cardHeadingRow}>
+              <View style={styles.cardHeadingIcon}>
+                <Ionicons name="lock-closed-outline" size={20} color={BLUE} />
+              </View>
+              <View style={styles.cardHeadingCopy}>
+                <Text style={styles.cardTitle}>{t('ownerLoginTitle')}</Text>
+                <Text style={styles.cardHint}>
+                  {codeSent ? t('codePlaceholder') : t('ownerLoginDescription')}
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.progressRow}>
+              <View style={[styles.progressSegment, styles.progressActive]} />
+              <View style={[styles.progressSegment, codeSent && styles.progressActive]} />
+            </View>
 
             <TextInput
-              style={styles.input}
+              style={[styles.input, codeSent && styles.inputDisabled]}
               placeholder="owner@example.com"
+              placeholderTextColor="#94A3B8"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="email-address"
+              textContentType="emailAddress"
               value={email}
               onChangeText={setEmail}
               editable={!busy && !codeSent}
+              accessibilityLabel="Email address"
             />
 
             {!codeSent ? (
-              <Pressable style={styles.button} onPress={onSendCode} disabled={busy}>
-                <Text style={styles.buttonText}>{busy ? t('sending') : t('sendCode')}</Text>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.primaryButton,
+                  (busy || !email.trim()) && styles.buttonDisabled,
+                  pressed && !busy && styles.pressed,
+                ]}
+                onPress={onSendCode}
+                disabled={busy || !email.trim()}
+                accessibilityRole="button">
+                {busy ? (
+                  <ActivityIndicator color="#FFFFFF" />
+                ) : (
+                  <>
+                    <Text style={styles.primaryButtonText}>{t('sendCode')}</Text>
+                    <Ionicons name="arrow-forward" size={17} color="#FFFFFF" />
+                  </>
+                )}
               </Pressable>
             ) : (
               <>
                 <TextInput
                   style={styles.input}
                   placeholder={t('codePlaceholder')}
+                  placeholderTextColor="#94A3B8"
                   keyboardType="number-pad"
+                  textContentType="oneTimeCode"
                   value={code}
                   onChangeText={setCode}
                   editable={!busy}
+                  accessibilityLabel="Email verification code"
                 />
-                <Pressable style={styles.button} onPress={onVerify} disabled={busy}>
-                  <Text style={styles.buttonText}>{busy ? t('checking') : t('signIn')}</Text>
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.primaryButton,
+                    (busy || !code.trim()) && styles.buttonDisabled,
+                    pressed && !busy && styles.pressed,
+                  ]}
+                  onPress={onVerify}
+                  disabled={busy || !code.trim()}
+                  accessibilityRole="button">
+                  {busy ? (
+                    <ActivityIndicator color="#FFFFFF" />
+                  ) : (
+                    <>
+                      <Text style={styles.primaryButtonText}>{t('signIn')}</Text>
+                      <Ionicons name="arrow-forward" size={17} color="#FFFFFF" />
+                    </>
+                  )}
                 </Pressable>
-                <Pressable onPress={() => setCodeSent(false)} disabled={busy} hitSlop={8}>
+                <Pressable
+                  onPress={() => {
+                    setCodeSent(false);
+                    setCode('');
+                  }}
+                  disabled={busy}
+                  hitSlop={8}
+                  accessibilityRole="button">
                   <Text style={styles.link}>{t('useDifferentEmail')}</Text>
                 </Pressable>
               </>
@@ -183,11 +290,15 @@ export default function OwnerLoginScreen() {
             {/* Dev builds only: never shown in the real app. */}
             {__DEV__ && !codeSent && (
               <View style={styles.testBox}>
-                <Text style={styles.testTitle}>{t('testAccountTitle')}</Text>
-                <Text style={styles.sub}>{t('testAccountHint')}</Text>
+                <View style={styles.testHeading}>
+                  <Ionicons name="flask-outline" size={17} color="#A66500" />
+                  <Text style={styles.testTitle}>{t('testAccountTitle')}</Text>
+                </View>
+                <Text style={styles.testHint}>{t('testAccountHint')}</Text>
                 <TextInput
                   style={styles.input}
                   placeholder={t('passwordPlaceholder')}
+                  placeholderTextColor="#94A3B8"
                   secureTextEntry
                   autoCapitalize="none"
                   autoCorrect={false}
@@ -195,58 +306,210 @@ export default function OwnerLoginScreen() {
                   onChangeText={setTestPassword}
                   editable={!busy}
                 />
-                <Pressable style={[styles.button, styles.testButton]} onPress={onTestSignIn} disabled={busy}>
-                  <Text style={styles.buttonText}>{busy ? t('checking') : t('signInWithPassword')}</Text>
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.testButton,
+                    busy && styles.buttonDisabled,
+                    pressed && !busy && styles.pressed,
+                  ]}
+                  onPress={onTestSignIn}
+                  disabled={busy}
+                  accessibilityRole="button">
+                  <Text style={styles.testButtonText}>{t('signInWithPassword')}</Text>
                 </Pressable>
               </View>
             )}
           </View>
         )}
-        {auth.error && <Text style={styles.error}>{auth.error}</Text>}
+
+        {auth.error ? (
+          <View style={styles.errorBox}>
+            <Ionicons name="alert-circle-outline" size={18} color="#B42318" />
+            <Text style={styles.error}>{auth.error}</Text>
+          </View>
+        ) : null}
+
         <Pressable
-          style={styles.backToUser}
+          style={({ pressed }) => [styles.backToUser, pressed && styles.backToUserPressed]}
           onPress={onContinueToUserMode}
           disabled={busy}
           accessibilityRole="button">
-          <Ionicons name="arrow-back" size={17} color="#1b5fad" />
+          <Ionicons name="arrow-back" size={17} color={BLUE} />
           <Text style={styles.backToUserText}>{t('backToUserModeContinueGuest')}</Text>
         </Pressable>
+
+        <Text style={styles.footerNote}>
+          MUKJI · Restaurant information made clearer
+        </Text>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  page: { padding: 16, gap: 12 },
-  card: { padding: 16, gap: 10, borderRadius: 12, backgroundColor: '#f4f7fa' },
-  title: { fontSize: 18, fontWeight: '700', color: '#14213d' },
-  sub: { color: '#666' },
-  input: {
-    borderWidth: 1,
-    borderColor: '#cfd8e3',
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    fontSize: 16,
-    backgroundColor: 'white',
+  safeArea: { flex: 1, backgroundColor: '#F5F8FC' },
+  page: {
+    flexGrow: 1,
+    paddingHorizontal: 20,
+    paddingTop: 24,
+    paddingBottom: 28,
+    gap: 20,
   },
-  button: {
-    backgroundColor: '#1b5fad',
+  brandHeader: { alignItems: 'center', paddingHorizontal: 10, gap: 7 },
+  brandIcon: {
+    width: 62,
+    height: 62,
+    borderRadius: 19,
+    backgroundColor: BLUE,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 5,
+  },
+  brandName: { color: NAVY, fontSize: 21, fontWeight: '900', letterSpacing: 2.2 },
+  brandEyebrow: { color: BLUE, fontSize: 10, fontWeight: '800', letterSpacing: 1.8 },
+  heroTitle: {
+    color: NAVY,
+    fontSize: 23,
+    lineHeight: 30,
+    fontWeight: '800',
+    textAlign: 'center',
+    marginTop: 13,
+  },
+  heroDescription: {
+    color: MUTED,
+    fontSize: 14,
+    lineHeight: 21,
+    textAlign: 'center',
+    maxWidth: 320,
+  },
+  loadingCard: {
+    minHeight: 190,
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  card: {
+    padding: 20,
+    gap: 15,
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#E6ECF3',
+    shadowColor: '#19324D',
+    shadowOpacity: 0.06,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 7 },
+    elevation: 2,
+  },
+  cardHeadingRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  cardHeadingIcon: {
+    width: 42,
+    height: 42,
+    borderRadius: 13,
+    backgroundColor: '#EAF2FC',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cardHeadingCopy: { flex: 1, gap: 3 },
+  cardTitle: { color: NAVY, fontSize: 17, fontWeight: '800' },
+  cardHint: { color: MUTED, fontSize: 12, lineHeight: 18 },
+  description: { color: MUTED, fontSize: 13, lineHeight: 20 },
+  progressRow: { flexDirection: 'row', gap: 6 },
+  progressSegment: { flex: 1, height: 4, borderRadius: 4, backgroundColor: '#E8EDF3' },
+  progressActive: { backgroundColor: BLUE },
+  input: {
+    minHeight: 52,
+    borderWidth: 1,
+    borderColor: '#D8E1EC',
+    borderRadius: 12,
+    paddingHorizontal: 15,
     paddingVertical: 12,
-    borderRadius: 10,
+    fontSize: 15,
+    color: NAVY,
+    backgroundColor: '#FFFFFF',
+  },
+  inputDisabled: { backgroundColor: '#F3F6FA', color: MUTED },
+  primaryButton: {
+    minHeight: 52,
+    paddingHorizontal: 17,
+    borderRadius: 12,
+    backgroundColor: BLUE,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    gap: 8,
+    gap: 9,
   },
-  buttonText: { color: 'white', fontSize: 16, fontWeight: '700' },
-  secondary: { backgroundColor: 'white', borderWidth: 1, borderColor: '#c62828' },
-  secondaryText: { color: '#c62828' },
-  link: { color: '#1b5fad', textAlign: 'center', marginTop: 4 },
-  error: { color: '#c62828' },
-  testBox: { gap: 8, marginTop: 8, paddingTop: 12, borderTopWidth: 1, borderTopColor: '#cfd8e3', borderStyle: 'dashed' },
-  testTitle: { fontWeight: '700', color: '#a66500' },
-  testButton: { backgroundColor: '#a66500' },
-  backToUser: { minHeight: 48, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7, marginTop: 8, padding: 10 },
-  backToUserText: { color: '#1b5fad', fontWeight: '700', textAlign: 'center' },
+  primaryButtonText: { color: '#FFFFFF', fontSize: 15, fontWeight: '800' },
+  buttonDisabled: { opacity: 0.48 },
+  pressed: { opacity: 0.82, transform: [{ scale: 0.99 }] },
+  secondaryButton: {
+    minHeight: 48,
+    borderWidth: 1,
+    borderColor: '#D8E1EC',
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+  secondaryButtonText: { color: NAVY, fontSize: 14, fontWeight: '700' },
+  link: { color: BLUE, textAlign: 'center', fontSize: 13, fontWeight: '700', padding: 5 },
+  statusIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 15,
+    backgroundColor: '#E9F7F0',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  infoBox: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 9,
+    padding: 12,
+    borderRadius: 12,
+    backgroundColor: '#EFF6FF',
+  },
+  infoText: { flex: 1, color: '#31577E', fontSize: 13, lineHeight: 19 },
+  testBox: {
+    gap: 9,
+    marginTop: 3,
+    paddingTop: 15,
+    borderTopWidth: 1,
+    borderTopColor: '#E7ECF2',
+  },
+  testHeading: { flexDirection: 'row', alignItems: 'center', gap: 7 },
+  testTitle: { color: '#8A5700', fontWeight: '800', fontSize: 13 },
+  testHint: { color: MUTED, fontSize: 12, lineHeight: 18 },
+  testButton: {
+    minHeight: 46,
+    paddingHorizontal: 14,
+    borderRadius: 11,
+    backgroundColor: '#FFF7E8',
+    borderWidth: 1,
+    borderColor: '#F1D7A8',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  testButtonText: { color: '#8A5700', fontWeight: '800', fontSize: 13 },
+  errorBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    padding: 12,
+    borderRadius: 12,
+    backgroundColor: '#FEF3F2',
+  },
+  error: { flex: 1, color: '#B42318', fontSize: 13, lineHeight: 19 },
+  backToUser: {
+    minHeight: 48,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    padding: 10,
+  },
+  backToUserPressed: { opacity: 0.7 },
+  backToUserText: { color: BLUE, fontSize: 13, fontWeight: '700', textAlign: 'center' },
+  footerNote: { color: '#94A3B8', fontSize: 11, textAlign: 'center', letterSpacing: 0.3 },
 });
