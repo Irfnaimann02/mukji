@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useRef, useState } from 'react';
-import { ActivityIndicator, Alert, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { DateBlock, PreorderLines, usePeopleLabel } from '@/components/booking-parts';
@@ -13,6 +13,7 @@ import { preorderSummary, won } from '@/logic/booking-details';
 import { formatTime } from '@/logic/booking-times';
 import { openDirections } from '@/logic/directions';
 import { listRestaurants } from '@/logic/restaurant-service';
+import { showAlert } from '@/components/show-alert';
 
 const BLUE = '#1B5FAD';
 const GREEN = '#2E8A55';
@@ -92,13 +93,13 @@ export default function ReserveScreen() {
 
   const call = (phone: string) => {
     Linking.openURL(`tel:${phone.replace(/[^\d+]/g, '')}`).catch(() =>
-      Alert.alert(t('unableToOpenPhone'), t('tryAgainOrCopy')),
+      showAlert(t('unableToOpenPhone'), t('tryAgainOrCopy')),
     );
   };
 
   const directions = (restaurant: Restaurant) => {
     const to = { name: restaurant.nameKo, lat: restaurant.lat, lng: restaurant.lng };
-    Alert.alert(t('directions'), t('directionsMessage'), [
+    showAlert(t('directions'), t('directionsMessage'), [
       { text: t('naverMap'), onPress: () => void openDirections('naver', to) },
       { text: t('kakaoMap'), onPress: () => void openDirections('kakao', to) },
       { text: t('cancel'), style: 'cancel' },

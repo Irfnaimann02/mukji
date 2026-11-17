@@ -3,7 +3,6 @@ import { Stack, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -24,6 +23,7 @@ import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
 import { continueAsGuest } from '@/logic/welcome-service';
 import { signOutAndReturnToWelcome } from '@/logic/session-service';
+import { showAlert } from '@/components/show-alert';
 
 export default function OwnerLoginScreen() {
   const auth = useAuth();
@@ -66,7 +66,7 @@ export default function OwnerLoginScreen() {
     try {
       await action();
     } catch (error) {
-      Alert.alert(
+      showAlert(
         t('loginAlertTitle'),
         error instanceof Error ? error.message : t('somethingWentWrong'),
       );

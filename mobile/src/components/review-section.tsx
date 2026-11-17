@@ -3,7 +3,6 @@ import { useRouter } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Pressable,
   StyleSheet,
   Text,
@@ -29,6 +28,7 @@ import {
   loadReviewStars,
   summarizeStars,
 } from '@/logic/review-service';
+import { showAlert } from '@/components/show-alert';
 
 // #52 Reviews after eating. Only people who ate here can write one:
 // a completed reservation, or a check-in within 100 m in the last 7 days.
@@ -128,7 +128,7 @@ export function ReviewSection({ restaurant }: { restaurant: Restaurant }) {
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        Alert.alert(t('locationNeededTitle'), t('locationNeededBody'));
+        showAlert(t('locationNeededTitle'), t('locationNeededBody'));
         return;
       }
       const position = await Location.getCurrentPositionAsync({
@@ -139,13 +139,13 @@ export function ReviewSection({ restaurant }: { restaurant: Restaurant }) {
         lng: position.coords.longitude,
       });
       if (!result.checkedIn) {
-        Alert.alert(t('tooFarTitle'), t('tooFarBody', { meters: result.distanceM }));
+        showAlert(t('tooFarTitle'), t('tooFarBody', { meters: result.distanceM }));
         return;
       }
-      Alert.alert(t('checkedInTitle'), t('checkedInBody'));
+      showAlert(t('checkedInTitle'), t('checkedInBody'));
       await refresh();
     } catch (error) {
-      Alert.alert(t('updateFailed'), t(reviewErrorKey(error)));
+      showAlert(t('updateFailed'), t(reviewErrorKey(error)));
     } finally {
       setCheckingIn(false);
     }
@@ -154,7 +154,7 @@ export function ReviewSection({ restaurant }: { restaurant: Restaurant }) {
   const handlePost = async () => {
     if (posting) return;
     if (stars < 1) {
-      Alert.alert(t('writeReview'), t('pickStarsFirst'));
+      showAlert(t('writeReview'), t('pickStarsFirst'));
       return;
     }
     setPosting(true);
@@ -162,10 +162,10 @@ export function ReviewSection({ restaurant }: { restaurant: Restaurant }) {
       await postReview(restaurant.id, stars, body, dietTags);
       setStars(0);
       setBody('');
-      Alert.alert(t('reviewPostedTitle'), t('reviewPostedBody'));
+      showAlert(t('reviewPostedTitle'), t('reviewPostedBody'));
       await refresh();
     } catch (error) {
-      Alert.alert(t('updateFailed'), t(reviewErrorKey(error)));
+      showAlert(t('updateFailed'), t(reviewErrorKey(error)));
       await refresh();
     } finally {
       setPosting(false);

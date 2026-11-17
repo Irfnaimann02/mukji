@@ -1,6 +1,6 @@
 import type { Diet, Dish, DishStatus, FoodProfile, Ingredient, Restaurant } from '@/data/types';
 
-const BLOCKED_BY_DIET: Record<Diet, Ingredient[]> = {
+export const BLOCKED_BY_DIET: Record<Diet, Ingredient[]> = {
   halal: ['pork', 'alcohol'],
   no_pork: ['pork'],
   vegan: ['pork', 'beef', 'chicken', 'lamb', 'seafood', 'egg', 'dairy'],

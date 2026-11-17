@@ -4,7 +4,6 @@ import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
   Image,
   Pressable,
   ScrollView,
@@ -16,6 +15,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { continueAsGuest as startGuestExperience, getWelcomeDestination } from '@/logic/welcome-service';
 import { useTranslation } from '@/hooks/use-translation';
+import { showAlert } from '@/components/show-alert';
 
 const COLORS = {
   ink: '#202124',
@@ -63,7 +63,7 @@ export default function WelcomeScreen() {
       await startGuestExperience();
       router.replace('/(tabs)/map');
     } catch (error) {
-      Alert.alert(
+      showAlert(
         t('couldNotContinue'),
         error instanceof Error ? error.message : t('pleaseTryAgain'),
       );

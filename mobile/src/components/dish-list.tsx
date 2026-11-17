@@ -115,13 +115,14 @@ function DishRow({
   const statusInfo = STATUS[status];
 
   return (
-    <Pressable style={styles.dish} onPress={onPress}>
+    <Pressable style={styles.dish} onPress={onPress} testID="dish-row">
       <View style={styles.dishTop}>
         <Text style={styles.dishName}>
           {dish.nameKo} · ₩{dish.priceWon.toLocaleString()}
         </Text>
 
         <Text
+          testID="dish-status"
           style={[
             styles.status,
             {

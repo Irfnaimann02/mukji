@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { PreorderLines, usePeopleLabel } from '@/components/booking-parts';
 import { BookingStatusPill } from '@/components/booking-status-pill';
@@ -14,6 +14,7 @@ import type { Restaurant } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
 import { decodeNote, preorderSummary, won } from '@/logic/booking-details';
 import { formatBookingTime, isInFuture } from '@/logic/booking-times';
+import { showAlert } from '@/components/show-alert';
 
 const BLUE = '#1b5fad';
 
@@ -68,7 +69,7 @@ export function OwnerReservations({ restaurants }: { restaurants: Restaurant[] }
       const updated = await respondToBooking(booking.id, status);
       setBookings((current) => current.map((b) => (b.id === updated.id ? updated : b)));
     } catch (e) {
-      Alert.alert(t('updateFailed'), e instanceof Error ? e.message : t('pleaseTryAgain'));
+      showAlert(t('updateFailed'), e instanceof Error ? e.message : t('pleaseTryAgain'));
     } finally {
       setBusyId(null);
     }
