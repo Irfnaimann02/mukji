@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { PreorderLines, usePeopleLabel } from '@/components/booking-parts';
@@ -32,21 +32,35 @@ export function OwnerReservations({ restaurants }: { restaurants: Restaurant[] }
 
   const idsKey = restaurants.map((r) => r.id).join(',');
 
-  const refresh = useCallback(async () => {
+  // Bumped by the Refresh button to load the list again.
+  const [reloadKey, setReloadKey] = useState(0);
+
+  // State is only set when the request finishes (not straight away in the effect),
+  // so React does not render twice in a row.
+  useEffect(() => {
+    let active = true;
+    listBookingsForRestaurants(idsKey === '' ? [] : idsKey.split(','))
+      .then((list) => {
+        if (!active) return;
+        setBookings(list);
+        setError(false);
+      })
+      .catch(() => {
+        if (active) setError(true);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [idsKey, reloadKey]);
+
+  const refresh = () => {
     setLoading(true);
     setError(false);
-    try {
-      setBookings(await listBookingsForRestaurants(idsKey === '' ? [] : idsKey.split(',')));
-    } catch {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  }, [idsKey]);
-
-  useEffect(() => {
-    void refresh();
-  }, [refresh]);
+    setReloadKey((key) => key + 1);
+  };
 
   const respond = async (booking: Booking, status: 'confirmed' | 'declined' | 'completed') => {
     setBusyId(booking.id);
@@ -70,7 +84,7 @@ export function OwnerReservations({ restaurants }: { restaurants: Restaurant[] }
     <View style={styles.root}>
       <View style={styles.headerRow}>
         <Text style={styles.title}>{t('bookingOwnerTitle')}</Text>
-        <Pressable onPress={() => void refresh()} accessibilityRole="button" hitSlop={8} style={styles.refresh}>
+        <Pressable onPress={refresh} accessibilityRole="button" hitSlop={8} style={styles.refresh}>
           <Ionicons name="refresh" size={16} color={BLUE} />
           <Text style={styles.refreshText}>{t('bookingRefresh')}</Text>
         </Pressable>
