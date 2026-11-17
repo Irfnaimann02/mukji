@@ -26,6 +26,14 @@
     "plugins": [
       "expo-router",
       [
+        "expo-image-picker",
+        {
+          "photosPermission": "Mukji lets you choose a photo of a restaurant menu to send to the team.",
+          "cameraPermission": "Mukji uses the camera to take a photo of a restaurant menu.",
+          "microphonePermission": false
+        }
+      ],
+      [
         "expo-location",
         {
           "locationWhenInUsePermission": "Mukji uses your location to show restaurants near you."
