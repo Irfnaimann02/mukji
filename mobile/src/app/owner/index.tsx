@@ -33,6 +33,7 @@ import {
   type RestaurantDraft,
 } from '@/logic/owner-portal-service';
 import { showAlert } from '@/components/show-alert';
+import { userMessage } from '@/logic/user-error';
 
 
 // Same list as the app's Ingredient type (src/data/types.ts).
@@ -156,11 +157,7 @@ export default function OwnerPortalScreen() {
         setRestaurantDrafts(savedDrafts.restaurantDrafts);
       } catch (error) {
         if (!alive) return;
-        setDraftError(
-          error instanceof Error
-            ? error.message
-            : owner('ownerSavedDraftsCouldNotBeRead'),
-        );
+        setDraftError(userMessage(error, owner('ownerSavedDraftsCouldNotBeRead')));
       } finally {
         if (alive) setDraftsLoading(false);
       }
@@ -202,11 +199,7 @@ export default function OwnerPortalScreen() {
         );
       } catch (error) {
         if (!alive) return;
-        setPortalError(
-          error instanceof Error
-            ? error.message
-            : owner('ownerCouldNotLoadYourOwnerInformation'),
-        );
+        setPortalError(userMessage(error, owner('ownerCouldNotLoadYourOwnerInformation')));
       } finally {
         if (alive) setLoading(false);
       }
@@ -426,7 +419,7 @@ export default function OwnerPortalScreen() {
     } catch (error) {
       showAlert(
         owner('ownerCouldNotContinueAsGuest'),
-        error instanceof Error ? error.message : owner('ownerPleaseTryAgain'),
+        userMessage(error, owner('ownerPleaseTryAgain')),
       );
     }
   }

@@ -11,7 +11,7 @@ import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 // #63: web-only version of the Search map tab, for laptop demos.
 // react-native-maps has no web support, so in the browser this tab shows the same
 // restaurants as a list. Phones still use index.tsx with the real map.
-// Same data as the map pins: badges, fading for the user's allergies (#14), and
+// Same data as the map pins: badges, fading for the user's diet (#4) and allergies (#14), and
 // restaurants around the user's location, including places found with Kakao (#47).
 
 const BADGE_LABEL: Record<string, 'halal' | 'noPork' | 'vegan'> = {
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: '#fff',
   },
-  // #14: nothing here is free of the user's allergens
+  // #4 / #14: no dish here fits the user's diet, or every dish has one of their allergens
   faded: {
     opacity: 0.4,
   },

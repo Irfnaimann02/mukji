@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
 import { signOutAndReturnToWelcome } from '@/logic/session-service';
 import { showAlert } from '@/components/show-alert';
+import { userMessage } from '@/logic/user-error';
 
 // Account state and actions, shared by the compact account card on the Profile tab
 // and the Account settings screen. The logic is the same as the old account-card.tsx.
@@ -57,7 +58,7 @@ export function useAccount() {
     } catch (error) {
       showAlert(
         t('couldNotLogOut'),
-        error instanceof Error ? error.message : t('pleaseTryAgain'),
+        userMessage(error, t('pleaseTryAgain'), t),
       );
     }
   }

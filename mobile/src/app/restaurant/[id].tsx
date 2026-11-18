@@ -19,6 +19,7 @@ import {
 
 import { DishList } from '@/components/dish-list';
 import { MenuPhotoButton } from '@/components/menu-photo-button';
+import { ScanMenuCard } from '@/components/scan-menu-card';
 import { ReviewSection } from '@/components/review-section';
 import {
   addFavourite,
@@ -237,6 +238,13 @@ export default function RestaurantScreen() {
               },
             })
           }
+        />
+
+        {/* #10 Menu Scanner: check the menu in front of you, dish by dish */}
+        <ScanMenuCard
+          title={t('scanMenuHereTitle')}
+          sub={t('scanMenuHereSub')}
+          onPress={() => router.push({ pathname: '/scan-menu', params: { restaurantId: restaurant.id } })}
         />
 
         {/* Send menu photo: anyone can help fill in the menu */}
