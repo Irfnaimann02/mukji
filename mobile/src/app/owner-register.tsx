@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { isValidEmail, saveOwnerApplicantProfile, sendEmailCode, verifyEmailCode } from '@/data/auth';
 import { showAlert } from '@/components/show-alert';
+import { isValidEmail, saveOwnerApplicantProfile, sendEmailCode, verifyEmailCode } from '@/data/auth';
 import { useTranslation } from '@/hooks/use-translation';
 import {
   normalizeOwnerPhone,
@@ -22,13 +22,15 @@ import {
   type OwnerRegistrationValidationError,
 } from '@/logic/owner-registration';
 
+import { userMessage } from '@/logic/user-error';
+
 const BLUE = '#1B5FAD';
 const NAVY = '#14213D';
 const MUTED = '#64748B';
 
 export default function OwnerRegisterScreen() {
   const router = useRouter();
-  const { owner } = useTranslation();
+  const { t, owner } = useTranslation();
 
   const [applicantType, setApplicantType] = useState<OwnerApplicantType | null>(null);
   const [fullName, setFullName] = useState('');
@@ -59,7 +61,7 @@ export default function OwnerRegisterScreen() {
     } catch (error) {
       showAlert(
         owner('ownerRegistrationError'),
-        error instanceof Error ? error.message : owner('ownerPleaseTryAgain'),
+        userMessage(error, owner('ownerPleaseTryAgain'), t),
       );
     } finally {
       setBusy(false);
