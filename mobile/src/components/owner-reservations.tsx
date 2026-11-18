@@ -16,6 +16,7 @@ import { useTranslation } from '@/hooks/use-translation';
 import { decodeNote, preorderSummary, won } from '@/logic/booking-details';
 import { formatBookingTime, isInFuture } from '@/logic/booking-times';
 import { showAlert } from '@/components/show-alert';
+import { userMessage } from '@/logic/user-error';
 
 const BLUE = '#1b5fad';
 
@@ -71,7 +72,7 @@ export function OwnerReservations({ restaurants }: { restaurants: Restaurant[] }
       const updated = await respondToBooking(booking.id, status);
       setBookings((current) => current.map((b) => (b.id === updated.id ? updated : b)));
     } catch (e) {
-      showAlert(t('updateFailed'), e instanceof Error ? e.message : t('pleaseTryAgain'));
+      showAlert(t('updateFailed'), userMessage(e, t('pleaseTryAgain'), t));
     } finally {
       setBusyId(null);
     }

@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, Alert, Image, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { DishFitPill } from '@/components/booking-parts';
@@ -20,6 +20,7 @@ import {
   type ScanImageProblem,
 } from '@/logic/menu-scan';
 import { findRestaurant } from '@/logic/restaurant-service';
+import { showAlert } from '@/components/show-alert';
 
 const BLUE = '#1B5FAD';
 
@@ -108,7 +109,7 @@ export default function ScanMenuScreen() {
   const takePhoto = async () => {
     const permission = await ImagePicker.requestCameraPermissionsAsync();
     if (!permission.granted) {
-      Alert.alert(t('menuPhotoCameraNeededTitle'), t('menuPhotoCameraNeededBody'));
+      showAlert(t('menuPhotoCameraNeededTitle'), t('menuPhotoCameraNeededBody'));
       return;
     }
     await read(await ImagePicker.launchCameraAsync(PICKER_OPTIONS));
