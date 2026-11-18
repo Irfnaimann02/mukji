@@ -1,4 +1,4 @@
--- 026_restaurant_categories.sql
+-- 028_restaurant_categories.sql
 -- Fills restaurants.category (the licence 업태구분명) for our 12 restaurants that
 -- didn't have one, so food personality (#48) can tag them: e.g. 에비수 -> 일식 -> Japanese,
 -- 김밥천국 -> 분식 -> Snack food. Dishes, tags and Safe / Ask first / Avoid don't change.
