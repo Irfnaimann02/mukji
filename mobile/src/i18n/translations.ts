@@ -291,6 +291,7 @@ export const translations = {
     previousPhrase: 'Previous phrase',
     nextPhrase: 'Next phrase',
     noAllergenFreeDish: 'No dish here is free of your allergens',
+    noDishFitsDiet: 'No dish here is Safe for your diet',
 
     // #48 food personality
     foodPersonality: 'Food personality',
@@ -827,6 +828,7 @@ export const translations = {
     previousPhrase: '이전 문장',
     nextPhrase: '다음 문장',
     noAllergenFreeDish: '알레르기 유발 성분이 없는 메뉴가 없습니다',
+    noDishFitsDiet: '식단에 맞는 안전한 메뉴가 없습니다',
 
     // #48 food personality
     foodPersonality: '음식 취향',

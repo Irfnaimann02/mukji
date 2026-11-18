@@ -70,3 +70,20 @@ export function fadedForAllergies(restaurant: Restaurant, profile: FoodProfile):
   if (restaurant.dishes.length === 0) return false;
   return splitMenu(restaurant, profile).shown.length === 0;
 }
+
+// ---------- #4 Map fade for diets ----------
+
+export type FadeReason = 'allergy' | 'diet';
+
+// Why a restaurant is faded on the map, or null when it is not.
+// 'allergy': every dish is tagged with one of the user's allergens (#14, fadedForAllergies).
+// 'diet': no dish here is Safe for the profile, e.g. halal at a place where every dish has
+//   pork or meat that may not be halal. Same rule as Home ("Near you") and Search (restaurantFits),
+//   so the map no longer shows a place as normal that the rest of the app says doesn't fit.
+// No menu yet: we can't tell, so it is not faded (the page says "ask staff").
+export function fadeReason(restaurant: Restaurant, profile: FoodProfile): FadeReason | null {
+  if (restaurant.dishes.length === 0) return null;
+  if (fadedForAllergies(restaurant, profile)) return 'allergy';
+  if (profile.diets.length > 0 && !restaurantFits(restaurant, profile)) return 'diet';
+  return null;
+}

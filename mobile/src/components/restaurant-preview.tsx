@@ -111,9 +111,9 @@ export function RestaurantPreview({ pin, from, onClose }: Props) {
           {t('badgeCount', { count: pin.badgeCount })}
         </Text>
 
-        {pin.faded && (
+        {pin.fadedFor && (
           <Text style={styles.warning}>
-            {t('noAllergenFreeDish')}
+            {t(pin.fadedFor === 'allergy' ? 'noAllergenFreeDish' : 'noDishFitsDiet')}
           </Text>
         )}
 

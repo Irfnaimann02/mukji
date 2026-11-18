@@ -3,6 +3,7 @@ import { describe, expect, test } from '@jest/globals';
 import type { Dish, FoodProfile, Restaurant } from '@/data/types';
 import {
   dishStatus,
+  fadeReason,
   fadedForAllergies,
   restaurantFits,
   splitMenu,
@@ -120,5 +121,45 @@ describe('lamb', () => {
     const halal = profile(['halal']);
     expect(dishStatus(lambKebab, restaurant([lambKebab]), halal)).toBe('ask_first');
     expect(dishStatus(lambKebab, restaurant([lambKebab], { halalCertified: true }), halal)).toBe('safe');
+  });
+});
+
+// ---------- 5. Map fade for diets (#4) ----------
+// Before #4 the map only faded for allergies, so with halal on a place where every dish
+// has pork still had a normal pin, while Home and Search said it didn't fit.
+describe('map fade', () => {
+  const porkRice = dish('제육덮밥', ['pork', 'soy']);
+  const chicken = dish('닭갈비', ['chicken', 'soy']);
+  const rice = dish('공기밥', []);
+  const halal = profile(['halal']);
+
+  test('halal: no Safe dish -> faded for diet; one Safe dish -> not faded', () => {
+    expect(fadeReason(restaurant([porkRice, chicken]), halal)).toBe('diet');
+    expect(fadeReason(restaurant([porkRice, chicken, rice]), halal)).toBeNull();
+  });
+
+  test('halal-certified place: its chicken is Safe, so it is not faded', () => {
+    expect(fadeReason(restaurant([porkRice, chicken], { halalCertified: true }), halal)).toBeNull();
+  });
+
+  test('vegan: a place with only meat and egg dishes is faded for diet', () => {
+    expect(fadeReason(restaurant([chicken, dish('계란말이', ['egg'])]), profile(['vegan']))).toBe('diet');
+  });
+
+  test('allergy comes first: every dish has the allergen -> faded for allergy', () => {
+    const padThai = dish('팟타이', ['seafood', 'egg'], ['peanut']);
+    expect(fadeReason(restaurant([padThai]), profile(['halal'], ['peanut']))).toBe('allergy');
+  });
+
+  test('diet and allergy together: the only diet-safe dish has the allergen -> faded for diet', () => {
+    const eggRice = dish('계란밥', ['egg']);
+    // not every dish has egg (no allergy fade), but nothing is Safe for halal + egg allergy
+    expect(fadeReason(restaurant([eggRice, porkRice]), profile(['halal'], ['egg']))).toBe('diet');
+  });
+
+  test('no profile, or no menu yet -> never faded', () => {
+    expect(fadeReason(restaurant([porkRice]), profile([]))).toBeNull();
+    expect(fadeReason(restaurant([]), halal)).toBeNull();
+    expect(fadeReason(restaurant([], { source: 'kakao', kakaoPlaceId: '1' }), halal)).toBeNull();
   });
 });
