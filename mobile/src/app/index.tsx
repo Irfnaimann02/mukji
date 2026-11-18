@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { continueAsGuest as startGuestExperience, getWelcomeDestination } from '@/logic/welcome-service';
 import { useTranslation } from '@/hooks/use-translation';
 import { showAlert } from '@/components/show-alert';
+import { userMessage } from '@/logic/user-error';
 
 const COLORS = {
   ink: '#202124',
@@ -65,7 +66,7 @@ export default function WelcomeScreen() {
     } catch (error) {
       showAlert(
         t('couldNotContinue'),
-        error instanceof Error ? error.message : t('pleaseTryAgain'),
+        userMessage(error, t('pleaseTryAgain'), t),
       );
     } finally {
       setBusy(false);

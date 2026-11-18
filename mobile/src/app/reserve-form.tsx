@@ -44,6 +44,7 @@ import {
 import { dishStatus } from '@/logic/profile-filter';
 import { findRestaurant } from '@/logic/restaurant-service';
 import { showAlert } from '@/components/show-alert';
+import { userMessage } from '@/logic/user-error';
 
 const BLUE = '#1B5FAD';
 const DISHES_SHOWN_FIRST = 5;
@@ -169,7 +170,7 @@ export default function ReserveFormScreen() {
         },
       });
     } catch (error) {
-      showAlert(t('bookingNotSentTitle'), error instanceof Error ? error.message : t('pleaseTryAgain'));
+      showAlert(t('bookingNotSentTitle'), userMessage(error, t('pleaseTryAgain'), t));
       setSending(false);
     }
   };
