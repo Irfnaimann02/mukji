@@ -25,6 +25,7 @@ import { useTranslation } from '@/hooks/use-translation';
 import { continueAsGuest } from '@/logic/welcome-service';
 import { signOutAndReturnToWelcome } from '@/logic/session-service';
 import { showAlert } from '@/components/show-alert';
+import { UserFacingError, userMessage } from '@/logic/user-error';
 
 const BLUE = '#1B5FAD';
 const NAVY = '#14213D';
@@ -73,7 +74,7 @@ export default function OwnerLoginScreen() {
     } catch (error) {
       showAlert(
         t('loginAlertTitle'),
-        error instanceof Error ? error.message : t('somethingWentWrong'),
+        userMessage(error, t('somethingWentWrong'), t),
       );
     } finally {
       setBusy(false);
@@ -82,14 +83,14 @@ export default function OwnerLoginScreen() {
 
   const onSendCode = () =>
     run(async () => {
-      if (!isValidEmail(email)) throw new Error(t('enterValidEmail'));
+      if (!isValidEmail(email)) throw new UserFacingError(t('enterValidEmail'));
       await sendEmailCode(email);
       setCodeSent(true);
     });
 
   const onVerify = () =>
     run(async () => {
-      if (!/^\d{6,10}$/.test(code.trim())) throw new Error(t('enterEmailCode'));
+      if (!/^\d{6,10}$/.test(code.trim())) throw new UserFacingError(t('enterEmailCode'));
       await verifyEmailCode(email, code);
       await setAppMode('business');
       setCode('');
@@ -99,7 +100,7 @@ export default function OwnerLoginScreen() {
 
   const onTestSignIn = () =>
     run(async () => {
-      if (!isValidEmail(email) || testPassword === '') throw new Error(t('testAccountMissing'));
+      if (!isValidEmail(email) || testPassword === '') throw new UserFacingError(t('testAccountMissing'));
       await signInTestAccount(email, testPassword);
       await setAppMode('business');
       setTestPassword('');
@@ -325,7 +326,7 @@ export default function OwnerLoginScreen() {
         {auth.error ? (
           <View style={styles.errorBox}>
             <Ionicons name="alert-circle-outline" size={18} color="#B42318" />
-            <Text style={styles.error}>{auth.error}</Text>
+            <Text style={styles.error}>{t('somethingWentWrong')}</Text>
           </View>
         ) : null}
 
