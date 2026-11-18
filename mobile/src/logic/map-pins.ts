@@ -1,6 +1,6 @@
 import type { FoodProfile, FoodType, Ingredient, Restaurant } from '@/data/types';
 import type { Point } from '@/logic/nearby-service';
-import { BLOCKED_BY_DIET, fadedForAllergies } from '@/logic/profile-filter';
+import { BLOCKED_BY_DIET, fadeReason, type FadeReason } from '@/logic/profile-filter';
 import { listRestaurantsNear } from '@/logic/restaurant-service';
 
 export type MapPin = {
@@ -11,7 +11,8 @@ export type MapPin = {
   foodType: FoodType;
   badges: string[];
   badgeCount: number;
-  faded: boolean; // #14: no dish here is free of the user's allergens
+  faded: boolean; // #14 + #4: nothing here fits the user (see fadedFor)
+  fadedFor: FadeReason | null; // 'allergy' = every dish has an allergen, 'diet' = no dish is Safe
   fromKakao: boolean; // #47: found with Kakao, no menu yet
 };
 
@@ -37,6 +38,7 @@ export async function getMapPins(profile: FoodProfile, centre: Point): Promise<M
   const restaurants = await listRestaurantsNear(centre.lat, centre.lng, profile.maxDistanceM);
   return restaurants.map((r) => {
     const badges = badgesFor(r);
+    const fadedFor = fadeReason(r, profile);
     return {
       id: r.id,
       name: r.nameEn,
@@ -45,7 +47,8 @@ export async function getMapPins(profile: FoodProfile, centre: Point): Promise<M
       foodType: r.foodType,
       badges,
       badgeCount: badges.length,
-      faded: fadedForAllergies(r, profile),
+      faded: fadedFor !== null,
+      fadedFor,
       fromKakao: r.source === 'kakao',
     };
   });
