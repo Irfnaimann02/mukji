@@ -17,7 +17,8 @@ update public.reservations
 set cancelled_by = 'customer'
 where status = 'cancelled' and cancelled_by is null;
 
--- Set by the database, never by the app: the app can only update "status" (012).
+-- Set by the database, never by the app: the app can only update "status" (012),
+-- and the trigger runs on every update, so cancelled_by can't be changed either way.
 -- Only waiting or confirmed bookings can be cancelled.
 create or replace function public.reservations_set_cancelled_by()
 returns trigger
@@ -41,7 +42,7 @@ $$;
 
 drop trigger if exists reservations_cancelled_by on public.reservations;
 create trigger reservations_cancelled_by
-  before update of status on public.reservations
+  before update on public.reservations
   for each row execute function public.reservations_set_cancelled_by();
 
 -- ---------- 2. The owner may also cancel ----------
