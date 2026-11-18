@@ -8,6 +8,9 @@
 -- The whole-app limit matters because a guest login is free: someone could
 -- make new guest accounts to get around the per-person limit, but not the
 -- daily total. "Day" is a Korean calendar day.
+-- Calls for the same function on the same day wait for each other (an advisory
+-- lock), so two people calling at the same moment can't both slip past the
+-- app-wide limit (found by Aqil in the review of #89).
 -- Also set a monthly spend limit in the Claude console as a second net.
 -- Safe to re-run.
 
@@ -47,6 +50,10 @@ begin
     when 'scan-menu' then v_user_limit := 10; v_app_limit := 200;
     else return 'unknown_function';
   end case;
+
+  -- One caller at a time per function per day, until this call's transaction
+  -- ends. The check below and the update after it then can't interleave.
+  perform pg_advisory_xact_lock(hashtext('ai_quota:' || p_fn || ':' || v_day::text));
 
   if (select coalesce(sum(calls), 0) from public.ai_usage where day = v_day and fn = p_fn) >= v_app_limit then
     return 'app_limit';
