@@ -187,6 +187,32 @@ function readAnswer(raw: string): { reason: string; questions: Question[] } {
   }
 }
 
+// 027: counts this call against the daily AI limits (30 per person, 1000 for
+// the whole app). It runs with the caller's own login, so the database knows
+// who is asking. Returns 'ok', or why not ('user_limit', 'app_limit', ...).
+// If the check itself fails we do NOT call the AI: no limit, no spending.
+async function useQuota(req: Request): Promise<string> {
+  const url = Deno.env.get('SUPABASE_URL');
+  const anonKey = Deno.env.get('SUPABASE_ANON_KEY');
+  const auth = req.headers.get('Authorization');
+  if (!url || !anonKey || !auth) return 'login_required';
+  try {
+    const res = await fetch(`${url}/rest/v1/rpc/use_ai_quota`, {
+      method: 'POST',
+      headers: { apikey: anonKey, Authorization: auth, 'content-type': 'application/json' },
+      body: JSON.stringify({ p_fn: 'explain-dish' }),
+    });
+    if (!res.ok) {
+      console.error('use_ai_quota failed', res.status, await res.text());
+      return 'quota_check_failed';
+    }
+    return String(await res.json());
+  } catch (error) {
+    console.error('use_ai_quota failed', error);
+    return 'quota_check_failed';
+  }
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
 
@@ -205,12 +231,20 @@ Deno.serve(async (req) => {
   const facts = readFacts(body);
   if (!facts) return json({ error: 'status and dish.nameKo are required' }, 400);
 
+  // Only a valid request counts against the limit.
+  const quota = await useQuota(req);
+  if (quota === 'user_limit' || quota === 'app_limit') return json({ error: 'daily_limit' }, 429);
+  if (quota === 'login_required') return json({ error: 'login_required' }, 401);
+  if (quota !== 'ok') return json({ error: 'not_available' }, 503);
+
   try {
     const raw = await askAi(provider, key, model, systemPrompt(facts.language), JSON.stringify(facts));
     const { reason, questions } = readAnswer(raw);
     if (!reason) return json({ error: 'empty_answer' }, 502);
     return json({ reason: reason.slice(0, 1000), questions, provider, model });
   } catch (error) {
-    return json({ error: error instanceof Error ? error.message : 'ai_failed' }, 502);
+    // Week 12 "no error leakage": the provider's message stays in the function log.
+    console.error('AI call failed', error);
+    return json({ error: 'ai_failed' }, 502);
   }
 });
