@@ -34,7 +34,7 @@ const MUTED = '#64748B';
 export default function OwnerLoginScreen() {
   const auth = useAuth();
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, owner } = useTranslation();
 
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
@@ -321,6 +321,16 @@ export default function OwnerLoginScreen() {
               </View>
             )}
           </View>
+        )}
+
+        {!signedInAsOwner && (
+          <Pressable
+            style={({ pressed }) => [pressed && styles.pressed]}
+            onPress={() => router.push('/owner-register')}
+            disabled={busy}
+            accessibilityRole="button">
+            <Text style={styles.link}>{owner('ownerCreateAccount')}</Text>
+          </Pressable>
         )}
 
         {auth.error ? (

@@ -111,6 +111,38 @@ export async function verifyEmailCode(email: string, code: string): Promise<User
   return data.user;
 }
 
+/**
+ * Save the verified applicant's self-reported partner profile in Supabase Auth
+ * user metadata. This metadata is user-editable and MUST NOT be used as proof
+ * of restaurant ownership or as an authorization decision.
+ */
+export async function saveOwnerApplicantProfile(profile: {
+  applicantType: 'business_owner' | 'authorized_representative';
+  fullName: string;
+  phone: string;
+}): Promise<void> {
+  const sb = client();
+  const { data, error: userError } = await sb.auth.getUser();
+
+  if (userError) throw userError;
+  if (!data.user || data.user.is_anonymous) {
+    throw new Error('Verify your email before saving your partner profile.');
+  }
+
+  const { error } = await sb.auth.updateUser({
+    data: {
+      owner_applicant_type: profile.applicantType,
+      owner_applicant_full_name: profile.fullName.trim(),
+      owner_applicant_phone: profile.phone.trim(),
+      owner_applicant_email: cleanEmail(data.user.email ?? ''),
+      owner_applicant_terms_acknowledged_at: new Date().toISOString(),
+      owner_applicant_profile_updated_at: new Date().toISOString(),
+    },
+  });
+
+  if (error) throw error;
+}
+
 // Dev builds only: shared test accounts made in the Supabase dashboard
 // (e.g. owner-test@example.com) cannot receive email codes, so they sign in
 // with a password. The owner login screen shows this only when __DEV__ is true.
