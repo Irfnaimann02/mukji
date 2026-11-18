@@ -9,7 +9,7 @@ export interface OrderPhrase {
 }
 
 // Korean word, pronunciation and English for each ingredient in types.ts.
-const WORD: Record<Ingredient, { ko: string; rom: string; en: string }> = {
+export const WORD: Record<Ingredient, { ko: string; rom: string; en: string }> = {
   pork: { ko: '돼지고기', rom: 'dwaeji-gogi', en: 'pork' },
   beef: { ko: '소고기', rom: 'so-gogi', en: 'beef' },
   chicken: { ko: '닭고기', rom: 'dak-gogi', en: 'chicken' },
