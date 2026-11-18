@@ -38,7 +38,9 @@ export function useAuth(): AuthState {
         if (alive && !shouldStayOnWelcomeAfterSignOut()) setUser(signedInUser);
       } catch (e) {
         if (alive && !shouldStayOnWelcomeAfterSignOut()) {
-          setError(e instanceof Error ? e.message : String(e));
+          // The details go to the console only; screens show a translated message.
+          console.warn('[Mukji] sign-in failed:', e);
+          setError('sign_in_failed');
         }
       } finally {
         if (alive) setReady(true);
