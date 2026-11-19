@@ -123,3 +123,10 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Output used: `fadeReason` in `logic/profile-filter.ts` ('allergy' when every dish has one of the user's allergens, the #14 rule; 'diet' when no dish is Safe for the profile, the same `restaurantFits` rule Home and Search use; never faded with no menu yet); `fadedFor` on MapPin in `logic/map-pins.ts`; the map preview shows "No dish here is Safe for your diet" for the diet case; Jest tests for both cases, certified places, diet + allergy together, and no menu.
 - Changes by me: rebuilt on current main instead of using the old 15 Nov patch, because #84 changed `map-pins.ts` and `restaurant-preview.tsx`; the allergy message wins when both apply.
 - Files changed: `mobile/src/logic/profile-filter.ts`, `mobile/src/logic/map-pins.ts`, `mobile/src/components/restaurant-preview.tsx`, `mobile/src/components/restaurant-pin.tsx` (comment), `mobile/src/i18n/translations.ts`, `mobile/src/logic/__tests__/profile-filter.test.ts`, `PROMPTS.md`.
+
+## 2026-11-19 — #4 two small race fixes: map pins and food profile loading (Nik Ammar)
+- Tool: Claude
+- Prompt: asked to fix two open concerns from #4: map pins could go stale when the profile is toggled quickly, and a profile tap right after the app starts could be overwritten by the saved profile.
+- Output used: an `active` guard in the pins effect of `map.tsx` and `map.web.tsx`, so only the latest request sets the pins; in `use-profile.tsx` a `changedByUser` ref, so the saved profile is ignored if the user already changed it, plus logged errors instead of unhandled ones when the phone storage can't be read or written.
+- Changes by me: kept it to the map and the profile hook; no behaviour change apart from the two races.
+- Files changed: `mobile/src/app/(tabs)/map.tsx`, `mobile/src/app/(tabs)/map.web.tsx`, `mobile/src/hooks/use-profile.tsx`, `PROMPTS.md`.
