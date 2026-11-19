@@ -50,6 +50,10 @@ function systemPrompt(): string {
     '  batter and noodles (wheat), egg garnish, fish sauce in kimchi (seafood).',
     '  When you are unsure whether something is in a dish, put it in "mayContain". Leaving it out could hurt the user.',
     '- "seafood" covers fish, shellfish, shrimp, squid and anchovy. "dairy" covers milk, cheese, butter, cream.',
+    '- Short names: menus often shorten meats in combo names. 삼 or 삼겹 = 삼겹살 (pork belly), so 닭·삼 and 쭈·삼',
+    '  contain pork; 쭈 = 쭈꾸미 (seafood); 닭 = chicken; 돼지 / 돈 / 제육 / 목살 / 항정 = pork; 소 / 우 / 차돌 = beef.',
+    '  Write "nameEn" in full words (e.g. "Chicken and pork belly"), never leave Korean words in it.',
+    '  If a short name could be a meat and you are not sure which, put the likely meats in "mayContain".',
     '',
     'Rules:',
     '- Only list dishes you can actually read in the photo. Do not invent dishes or prices.',
@@ -64,6 +68,22 @@ function systemPrompt(): string {
 
 const USER_TEXT = 'Read this menu photo and list its dishes as described.';
 
+// Each AI call gives up after 45 s (3 tries stay under Supabase's 150 s limit), so the app gets a clear 'ai_failed' instead of hanging.
+const AI_TIMEOUT_MS = 45_000;
+// When the provider is busy (Gemini 503, Claude 529) it usually clears in a second or two,
+// so try again up to 2 more times before giving up. Other errors are not retried.
+const RETRY_WAITS_MS = [1000, 2500];
+
+async function postWithRetry(url: string, init: RequestInit): Promise<Response> {
+  for (let attempt = 0; ; attempt++) {
+    const res = await fetch(url, { ...init, signal: AbortSignal.timeout(AI_TIMEOUT_MS) });
+    if ((res.status !== 503 && res.status !== 529) || attempt >= RETRY_WAITS_MS.length) return res;
+    console.warn(`AI provider busy (${res.status}), retry ${attempt + 1}`);
+    await res.body?.cancel();
+    await new Promise((resolve) => setTimeout(resolve, RETRY_WAITS_MS[attempt]));
+  }
+}
+
 async function askAi(
   provider: string,
   key: string,
@@ -72,7 +92,7 @@ async function askAi(
   image: { data: string; mimeType: string },
 ): Promise<string> {
   if (provider === 'anthropic') {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await postWithRetry('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
       // Same settings as explain-dish, with more room: a full menu is a long answer,
@@ -101,7 +121,7 @@ async function askAi(
       .join('');
   }
   if (provider === 'openai') {
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+    const res = await postWithRetry('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
       body: JSON.stringify({
@@ -124,13 +144,11 @@ async function askAi(
     return data.choices?.[0]?.message?.content ?? '';
   }
   if (provider === 'gemini') {
-    const res = await fetch(
+    const res = await postWithRetry(
       `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
       {
         method: 'POST',
         headers: { 'x-goog-api-key': key, 'content-type': 'application/json' },
-        // Give up after 60 s so the app gets a clear 'ai_failed' instead of hanging.
-        signal: AbortSignal.timeout(60_000),
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: system }] },
           contents: [

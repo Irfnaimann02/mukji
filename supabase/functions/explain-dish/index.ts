@@ -92,6 +92,7 @@ function systemPrompt(language: 'en' | 'ko'): string {
     '   whether frying oil or grills are shared with pork. For allergies: hidden sources (sauces, batter, broth, garnish).',
     '   You may use common knowledge about Korean cooking, but say it as a possibility ("often", "can"), never as a fact about this dish.',
     '   Only state as fact what is in the given data. 2 to 4 short sentences, speaking to the user as "you".',
+    '   Write for a normal diner: never mention field names like "contains", "mayContain" or "data fields"; say "may contain" in plain words.',
     `   Write the reason in ${language === 'ko' ? 'Korean' : 'English'}.`,
     '2. "questions": 2 to 4 short, polite questions the user can show or read to the staff to clear up exactly these doubts.',
     '   Specific to this dish (name the dish or its parts), not generic. Do not ask about things the data already answers.',
@@ -103,9 +104,25 @@ function systemPrompt(language: 'en' | 'ko'): string {
   ].join('\n');
 }
 
+// Each AI call gives up after 25 s, so the app gets a clear 'ai_failed' instead of hanging.
+const AI_TIMEOUT_MS = 25_000;
+// When the provider is busy (Gemini 503, Claude 529) it usually clears in a second or two,
+// so try again up to 2 more times before giving up. Other errors are not retried.
+const RETRY_WAITS_MS = [1000, 2500];
+
+async function postWithRetry(url: string, init: RequestInit): Promise<Response> {
+  for (let attempt = 0; ; attempt++) {
+    const res = await fetch(url, { ...init, signal: AbortSignal.timeout(AI_TIMEOUT_MS) });
+    if ((res.status !== 503 && res.status !== 529) || attempt >= RETRY_WAITS_MS.length) return res;
+    console.warn(`AI provider busy (${res.status}), retry ${attempt + 1}`);
+    await res.body?.cancel();
+    await new Promise((resolve) => setTimeout(resolve, RETRY_WAITS_MS[attempt]));
+  }
+}
+
 async function askAi(provider: string, key: string, model: string, system: string, user: string): Promise<string> {
   if (provider === 'anthropic') {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await postWithRetry('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
       // Claude 5.5 models think before answering, and thinking counts toward max_tokens,
@@ -128,7 +145,7 @@ async function askAi(provider: string, key: string, model: string, system: strin
       .join('');
   }
   if (provider === 'openai') {
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+    const res = await postWithRetry('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
       body: JSON.stringify({
@@ -145,13 +162,11 @@ async function askAi(provider: string, key: string, model: string, system: strin
     return data.choices?.[0]?.message?.content ?? '';
   }
   if (provider === 'gemini') {
-    const res = await fetch(
+    const res = await postWithRetry(
       `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
       {
         method: 'POST',
         headers: { 'x-goog-api-key': key, 'content-type': 'application/json' },
-        // Give up after 25 s so the app gets a clear 'ai_failed' instead of hanging.
-        signal: AbortSignal.timeout(25_000),
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: system }] },
           contents: [{ role: 'user', parts: [{ text: user }] }],
