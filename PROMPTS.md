@@ -124,6 +124,12 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Changes by me: rebuilt on current main instead of using the old 15 Nov patch, because #84 changed `map-pins.ts` and `restaurant-preview.tsx`; the allergy message wins when both apply.
 - Files changed: `mobile/src/logic/profile-filter.ts`, `mobile/src/logic/map-pins.ts`, `mobile/src/components/restaurant-preview.tsx`, `mobile/src/components/restaurant-pin.tsx` (comment), `mobile/src/i18n/translations.ts`, `mobile/src/logic/__tests__/profile-filter.test.ts`, `PROMPTS.md`.
 
+## 2026-11-19 — #10 AI goes live: time limit, retry when busy, clearer prompts (Adib)
+- Tool: Claude
+- Prompt: asked to deploy the `explain-dish` and `scan-menu` Edge Functions and switch the AI to Gemini's free tier to avoid costs; when "Why?" showed "AI explanation isn't available", asked to find the cause in the function logs and fix it; then asked to check a real menu scan (일미닭갈비) against the photo.
+- Output used: both functions deployed; in both, a time limit per AI call (25 s for "Why?", 45 s for a scan, so 3 tries stay under Supabase's 150 s limit), up to 2 retries when the provider answers busy (Gemini 503, Claude 529), and Gemini's thinking level set to low; a scanner prompt rule for short meat names in combo names (닭·삼 / 쭈·삼 = 삼겹살 pork belly, 쭈 = 쭈꾸미, 제육 / 목살 = pork, 차돌 = beef) with English names written in full; an explain prompt rule not to mention field names such as "mayContain".
+- Changes by me: the logs showed Gemini's free tier hanging until Supabase stopped the call and answering 503 "high demand" (gemini-4-hydrogen and gemini-3.8-flash; gemini-3.6-flash is paid only), so I switched to Claude Haiku (the team's first choice) on $5 prepaid credit with auto-reload off, so spending stops when the credit runs out; the 027 daily limits stay on. I set the API key in the Supabase dashboard myself; it was never shared in chat. In the real scan, 30 items and their prices matched the photo, but 닭·삼 came out as "Chicken and 삼" and only Ask first; I confirmed 삼 means 삼겹살 at a 닭갈비 place and approved the prompt fix.
+- Files changed: `supabase/functions/explain-dish/index.ts`, `supabase/functions/scan-menu/index.ts`, `PROMPTS.md`.
 ## 2026-11-19 — #4 two small race fixes: map pins and food profile loading (Nik Ammar)
 - Tool: Claude
 - Prompt: asked to fix two open concerns from #4: map pins could go stale when the profile is toggled quickly, and a profile tap right after the app starts could be overwritten by the saved profile.
