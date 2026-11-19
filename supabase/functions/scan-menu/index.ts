@@ -129,6 +129,8 @@ async function askAi(
       {
         method: 'POST',
         headers: { 'x-goog-api-key': key, 'content-type': 'application/json' },
+        // Give up after 60 s so the app gets a clear 'ai_failed' instead of hanging.
+        signal: AbortSignal.timeout(60_000),
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: system }] },
           contents: [
@@ -137,7 +139,9 @@ async function askAi(
               parts: [{ inlineData: { mimeType: image.mimeType, data: image.data } }, { text: USER_TEXT }],
             },
           ],
-          generationConfig: { responseMimeType: 'application/json' },
+          // Gemini 4 models think at "high" by default, which made a call run until the
+          // function was stopped (150 s). "low" is plenty for this job.
+          generationConfig: { responseMimeType: 'application/json', thinkingConfig: { thinkingLevel: 'low' } },
         }),
       },
     );
