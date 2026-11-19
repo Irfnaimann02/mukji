@@ -27,14 +27,22 @@ export default function MapScreenWeb() {
   const { t } = useTranslation();
   const location = useCurrentLocation(); // browser location, or campus if not allowed
 
+  // #4: only the latest request may set the list (same as the phone map).
   useEffect(() => {
     if (!location.ready) return;
+    let active = true;
     getMapPins(profile, location.point)
-      .then(setPins)
+      .then((next) => {
+        if (active) setPins(next);
+      })
       .catch((error) => {
+        if (!active) return;
         console.error('Failed to load restaurants:', error);
         setPins([]);
       });
+    return () => {
+      active = false;
+    };
   }, [profile, location.ready, location.point]);
 
   return (
