@@ -137,6 +137,12 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Changes by me: kept it to the map and the profile hook; no behaviour change apart from the two races.
 - Files changed: `mobile/src/app/(tabs)/map.tsx`, `mobile/src/app/(tabs)/map.web.tsx`, `mobile/src/hooks/use-profile.tsx`, `PROMPTS.md`.
 
+## 2026-11-18 — #47 team menu review screen (Adib)
+- Tool: Claude
+- Prompt: people can send menu photos (#82), but nobody could turn them into dishes without editing the database by hand; asked for a screen in the app where only our team reviews the photos and approves the dishes.
+- Output used: `supabase/sql/029_menu_review_team.sql` (a `team_members` table nobody can read from the app, `is_team_member()`, a storage policy so only the team can open the private photos, and team-only functions to list pending photos, save a draft, approve and reject); `data/menu-review-repository.ts`; `logic/menu-review.ts` with Jest tests (draft rows, tag and price parsing, row checks); the review screen `app/team-menu-review.tsx` (photo, "Read with AI" using the Menu Scanner, editable dish rows, Save, Approve with a confirm, Reject with a reason); a team-only card on the Profile tab (`components/team-menu-link.tsx`).
+- Changes by me: approval reuses 016's `approve_menu_submission` instead of a second way to write dishes, and adds 'menu photo' to the restaurant's sources; Kakao-found places are refused until the restaurant is in our list, so dishes never point at a missing restaurant; the AI only fills the draft and a person must approve, matching the rule that menus are never invented. 029 was tested rolled back first, then run in Supabase; the screen was tested in the browser with sample data (51 tests, tsc and lint clean).
+- Files changed: `supabase/sql/029_menu_review_team.sql` (new), `mobile/src/data/menu-review-repository.ts` (new), `mobile/src/logic/menu-review.ts` (new), `mobile/src/logic/__tests__/menu-review.test.ts` (new), `mobile/src/app/team-menu-review.tsx` (new), `mobile/src/components/team-menu-link.tsx` (new), `mobile/src/app/(tabs)/profile.tsx`, `mobile/src/i18n/translations.ts`, `PROMPTS.md`.
 ## 2026-11-18 — #48 restaurant categories from licence data (Adib)
 - Tool: Claude
 - Prompt: food personality (#48) needs each restaurant's type, but 12 of our restaurants had no category; I gave the 행정안전부 식품_일반음식점 licence file (the same source as 004) and asked to fill the category from it.
