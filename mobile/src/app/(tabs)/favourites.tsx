@@ -21,7 +21,7 @@ import {
 } from '@/data/favourites-store';
 import type { Restaurant } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
-import { listRestaurants } from '@/logic/restaurant-service';
+import { listRestaurantsByIds } from '@/logic/restaurant-service';
 import { showAlert } from '@/components/show-alert';
 
 export default function FavouritesScreen() {
@@ -53,8 +53,10 @@ export default function FavouritesScreen() {
       // Keep saved favourites and notes available even if restaurant
       // details cannot be loaded.
       try {
-        const allRestaurants = await listRestaurants();
-        setRestaurants(allRestaurants);
+        const saved = await listRestaurantsByIds(
+          savedFavourites.map((item) => item.restaurantId)
+        );
+        setRestaurants(saved);
       } catch (restaurantError) {
         console.error(
           'Failed to load restaurant details:',

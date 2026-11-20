@@ -12,7 +12,7 @@ import {
   type RestaurantDraft,
 } from '@/data/owner-drafts-store';
 import type { Restaurant } from '@/data/types';
-import { listRestaurants } from '@/logic/restaurant-service';
+import { listListedRestaurants } from '@/logic/restaurant-service';
 
 export const EMPTY_APPLICATION_DRAFT: ApplicationDraft = {
   kind: 'existing',
@@ -88,7 +88,7 @@ export async function loadOwnerPortalRestaurants(previewMode: boolean): Promise<
   restaurants: Restaurant[];
   ownedRestaurants: Restaurant[];
 }> {
-  const restaurants = await listRestaurants();
+  const restaurants = await listListedRestaurants();
   if (previewMode) {
     return { restaurants, ownedRestaurants: restaurants.slice(0, 1) };
   }
