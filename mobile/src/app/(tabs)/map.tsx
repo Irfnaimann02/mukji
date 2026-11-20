@@ -69,9 +69,13 @@ export default function MapScreen() {
     );
   };  
 
+  // #4: an older, slower request must not overwrite newer pins
+  // (e.g. Halal toggled on and off quickly), so only the latest request may set state.
   useEffect(() => {
-    getMapPins(profile,centre)
+    let active = true;
+    getMapPins(profile, centre)
       .then((next) => {
+        if (!active) return;
         setPins(next);
         setSelectedPin((previous) =>
           previous
@@ -80,8 +84,11 @@ export default function MapScreen() {
         );
       })
       .catch((error) => {
-        console.error('Failed to load map pins:', error);
+        if (active) console.error('Failed to load map pins:', error);
       });
+    return () => {
+      active = false;
+    };
   }, [profile, centre]);
 
   const showSearchHere = !selectedPin && distanceInMeters(mapCentre, centre) > 300;

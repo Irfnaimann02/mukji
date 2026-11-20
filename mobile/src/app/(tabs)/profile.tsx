@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AccountCard } from '@/components/account-card';
 import { FoodProfileForm } from '@/components/food-profile-form';
+import { TeamMenuLink } from '@/components/team-menu-link';
 import { useTranslation } from '@/hooks/use-translation';
 
 export default function ProfileScreen() {
@@ -17,6 +18,8 @@ export default function ProfileScreen() {
         </View>
         {/* Business Mode, sign out and the owner preview are on the Account settings screen. */}
         <AccountCard />
+        {/* Team only (029): menu photos waiting for review. Hidden for everyone else. */}
+        <TeamMenuLink />
         <FoodProfileForm />
       </ScrollView>
     </SafeAreaView>
