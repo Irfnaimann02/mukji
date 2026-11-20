@@ -35,6 +35,7 @@ import {
   type DraftItem,
   type DraftProblem,
 } from '@/logic/menu-review';
+import { userMessage } from '@/logic/user-error';
 
 // Team only (029): review the menu photos people sent with "Send menu photo" (#82).
 // Pick a photo -> type the dishes or read them with AI -> Approve (dishes go live,
@@ -160,13 +161,21 @@ function PhotoReview({ photo, onDone }: { photo: PendingMenuPhoto; onDone: (mess
 
   const readAi = async () => {
     setBusy('ai');
-    const result = await readMenuWithAi(photo);
-    setBusy(null);
-    if (result.ok) {
-      setItems(result.items.length > 0 ? result.items : [emptyDraftItem()]);
-      setProblems([]);
-    } else {
-      showAlert(t('menuReviewReadAi'), t(result.reason));
+    try {
+      const result = await readMenuWithAi(photo);
+      if (result.ok) {
+        setItems(result.items.length > 0 ? result.items : [emptyDraftItem()]);
+        setProblems([]);
+      } else {
+        showAlert(t('menuReviewReadAi'), t(result.reason));
+      }
+    } catch (error) {
+      // e.g. the photo download or the network fails: tell the reviewer instead of
+      // leaving every button disabled
+      console.warn('Menu review AI read failed:', error);
+      showAlert(t('menuReviewReadAi'), userMessage(error, t('pleaseTryAgain'), t));
+    } finally {
+      setBusy(null);
     }
   };
 
