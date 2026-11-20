@@ -9,12 +9,14 @@ import {
   respondToBooking,
   type Booking,
   type BookingStatus,
+  type OwnerAction,
 } from '@/data/booking-repository';
 import type { Restaurant } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
 import { decodeNote, preorderSummary, won } from '@/logic/booking-details';
 import { formatBookingTime, isInFuture } from '@/logic/booking-times';
 import { showAlert } from '@/components/show-alert';
+import { userMessage } from '@/logic/user-error';
 
 const BLUE = '#1b5fad';
 
@@ -23,6 +25,7 @@ const ORDER: BookingStatus[] = ['requested', 'confirmed', 'cancelled', 'declined
 
 // #50 Owner portal: booking requests for the owner's restaurants.
 // A booking the customer cancelled is shown as an alert at the top.
+// The owner can also cancel a waiting or confirmed booking (e.g. the customer phoned to cancel).
 export function OwnerReservations({ restaurants }: { restaurants: Restaurant[] }) {
   const { t, language } = useTranslation();
   const peopleLabel = usePeopleLabel();
@@ -63,20 +66,31 @@ export function OwnerReservations({ restaurants }: { restaurants: Restaurant[] }
     setReloadKey((key) => key + 1);
   };
 
-  const respond = async (booking: Booking, status: 'confirmed' | 'declined' | 'completed') => {
+  const respond = async (booking: Booking, status: OwnerAction) => {
     setBusyId(booking.id);
     try {
       const updated = await respondToBooking(booking.id, status);
       setBookings((current) => current.map((b) => (b.id === updated.id ? updated : b)));
     } catch (e) {
-      showAlert(t('updateFailed'), e instanceof Error ? e.message : t('pleaseTryAgain'));
+      showAlert(t('updateFailed'), userMessage(e, t('pleaseTryAgain'), t));
     } finally {
       setBusyId(null);
     }
   };
 
+  // Asks first: cancelling can't be undone, and the customer sees it in the app.
+  const confirmCancel = (booking: Booking) => {
+    showAlert(t('bookingOwnerCancelTitle'), t('bookingOwnerCancelBody'), [
+      { text: t('bookingKeep'), style: 'cancel' },
+      { text: t('bookingOwnerCancel'), style: 'destructive', onPress: () => void respond(booking, 'cancelled') },
+    ]);
+  };
+
   const now = new Date();
-  const cancelledUpcoming = bookings.filter((b) => b.status === 'cancelled' && isInFuture(b.reservedFor, now));
+  // Only cancellations by the customer: the owner already knows about their own.
+  const cancelledUpcoming = bookings.filter(
+    (b) => b.status === 'cancelled' && b.cancelledBy !== 'restaurant' && isInFuture(b.reservedFor, now),
+  );
   const sorted = [...bookings].sort(
     (a, b) => ORDER.indexOf(a.status) - ORDER.indexOf(b.status) || a.reservedFor.localeCompare(b.reservedFor),
   );
@@ -123,6 +137,9 @@ export function OwnerReservations({ restaurants }: { restaurants: Restaurant[] }
                 <Text style={styles.time}>{formatBookingTime(booking.reservedFor, language)}</Text>
                 <BookingStatusPill status={booking.status} />
               </View>
+              {booking.cancelledBy === 'restaurant' && (
+                <Text style={styles.muted}>{t('bookingCancelledByYou')}</Text>
+              )}
               <Text style={styles.line}>
                 {peopleLabel(booking.people)}
                 {restaurants.length > 1 && restaurant ? ` · ${restaurant.nameKo}` : ''}
@@ -174,6 +191,16 @@ export function OwnerReservations({ restaurants }: { restaurants: Restaurant[] }
                   </Pressable>
                 </View>
               )}
+              {(booking.status === 'requested' || booking.status === 'confirmed') && (
+                <Pressable
+                  onPress={() => confirmCancel(booking)}
+                  disabled={busy}
+                  accessibilityRole="button"
+                  hitSlop={8}
+                  style={[styles.cancelLink, busy && styles.busy]}>
+                  <Text style={styles.cancelLinkText}>{t('bookingOwnerCancel')}</Text>
+                </Pressable>
+              )}
             </View>
           );
         })
@@ -222,4 +249,6 @@ const styles = StyleSheet.create({
   decline: { borderWidth: 1, borderColor: '#F2D9D2', backgroundColor: '#FFFFFF' },
   declineText: { color: '#B3402A', fontWeight: '700' },
   busy: { opacity: 0.5 },
+  cancelLink: { alignSelf: 'center', paddingVertical: 6 },
+  cancelLinkText: { color: '#B3402A', fontWeight: '600', textDecorationLine: 'underline' },
 });

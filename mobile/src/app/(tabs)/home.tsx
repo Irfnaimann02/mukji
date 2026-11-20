@@ -14,6 +14,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { FOOD_TYPE_ICON } from '@/components/restaurant-pin';
+import { ScanMenuCard } from '@/components/scan-menu-card';
 import type { FoodType } from '@/data/types';
 import { useCurrentLocation } from '@/hooks/use-current-location';
 import { useProfile } from '@/hooks/use-profile';
@@ -131,6 +132,14 @@ export default function HomeScreen() {
               </View>
             </View>
 
+            {/* #10 Menu Scanner, for places that are not in the app */}
+            <ScanMenuCard
+              title={t('scanMenuHomeTitle')}
+              sub={t('scanMenuHomeSub')}
+              onPress={() => router.push('/scan-menu')}
+              style={styles.scanCard}
+            />
+
             <View style={styles.sectionHeader}>
               <View><Text style={styles.sectionTitle}>{t('yourFoodPreferences')}</Text><Text style={styles.sectionSubtitle}>{t('chooseWhatMatters')}</Text></View>
               <Pressable onPress={() => router.push('/(tabs)/profile')}><Text style={styles.editText}>{t('edit')}</Text></Pressable>
@@ -244,6 +253,7 @@ const styles = StyleSheet.create({
   heroSubtitle: { color: '#F8F3EF', fontSize: 11, marginTop: 6 },
   heroButton: { marginTop: 12, borderRadius: 11, backgroundColor: '#fff', paddingHorizontal: 12, paddingVertical: 9, flexDirection: 'row', alignItems: 'center', gap: 8 },
   heroButtonText: { color: COLORS.ink, fontSize: 11, fontWeight: '900' },
+  scanCard: { marginHorizontal: 20, marginTop: 18 },
   sectionHeader: { paddingHorizontal: 20, marginTop: 24, marginBottom: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   sectionTitle: { color: COLORS.ink, fontSize: 17, fontWeight: '900', letterSpacing: -0.3 },
   sectionSubtitle: { color: COLORS.muted, fontSize: 11, marginTop: 3 },

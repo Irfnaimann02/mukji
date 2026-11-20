@@ -7,7 +7,7 @@ import { reviewErrorKey, starText, summarizeStars } from '@/logic/review-service
 
 // The logic files import the Supabase client, which needs phone storage.
 jest.mock('@react-native-async-storage/async-storage', () =>
-  require('@react-native-async-storage/async-storage/jest/async-storage-mock'),
+  jest.requireActual('@react-native-async-storage/async-storage/jest/async-storage-mock'),
 );
 
 // Week 12: found by the code-quality review: the review and menu-photo logic

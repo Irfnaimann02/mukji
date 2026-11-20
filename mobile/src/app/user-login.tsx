@@ -15,6 +15,7 @@ import { isValidEmail, sendEmailCode, verifyEmailCode } from '@/data/auth';
 import { setAppMode } from '@/data/app-mode';
 import { useTranslation } from '@/hooks/use-translation';
 import { showAlert } from '@/components/show-alert';
+import { userMessage } from '@/logic/user-error';
 
 export default function UserLoginScreen() {
   const router = useRouter();
@@ -34,7 +35,7 @@ export default function UserLoginScreen() {
       await sendEmailCode(email);
       setCodeSent(true);
     } catch (error) {
-      showAlert(t('couldNotSendCode'), error instanceof Error ? error.message : t('pleaseTryAgain'));
+      showAlert(t('couldNotSendCode'), userMessage(error, t('pleaseTryAgain'), t));
     } finally {
       setBusy(false);
     }
@@ -51,7 +52,7 @@ export default function UserLoginScreen() {
       await setAppMode('user');
       router.replace('/(tabs)/map');
     } catch (error) {
-      showAlert(t('couldNotSignIn'), error instanceof Error ? error.message : t('pleaseTryAgain'));
+      showAlert(t('couldNotSignIn'), userMessage(error, t('pleaseTryAgain'), t));
     } finally {
       setBusy(false);
     }

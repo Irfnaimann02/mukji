@@ -237,6 +237,9 @@ export default function ReserveScreen() {
           <Text style={styles.muted}>
             {formatTime(booking.reservedFor)} · {peopleLabel(booking.people)}
           </Text>
+          {booking.cancelledBy === 'restaurant' && (
+            <Text style={styles.muted}>{t('bookingCancelledByRestaurant')}</Text>
+          )}
           {booking.status === 'completed' && (
             <Pressable
               onPress={() => router.push({ pathname: '/restaurant/[id]', params: { id: booking.restaurantId } })}

@@ -92,6 +92,7 @@ function systemPrompt(language: 'en' | 'ko'): string {
     '   whether frying oil or grills are shared with pork. For allergies: hidden sources (sauces, batter, broth, garnish).',
     '   You may use common knowledge about Korean cooking, but say it as a possibility ("often", "can"), never as a fact about this dish.',
     '   Only state as fact what is in the given data. 2 to 4 short sentences, speaking to the user as "you".',
+    '   Write for a normal diner: never mention field names like "contains", "mayContain" or "data fields"; say "may contain" in plain words.',
     `   Write the reason in ${language === 'ko' ? 'Korean' : 'English'}.`,
     '2. "questions": 2 to 4 short, polite questions the user can show or read to the staff to clear up exactly these doubts.',
     '   Specific to this dish (name the dish or its parts), not generic. Do not ask about things the data already answers.',
@@ -103,9 +104,25 @@ function systemPrompt(language: 'en' | 'ko'): string {
   ].join('\n');
 }
 
+// Each AI call gives up after 25 s, so the app gets a clear 'ai_failed' instead of hanging.
+const AI_TIMEOUT_MS = 25_000;
+// When the provider is busy (Gemini 503, Claude 529) it usually clears in a second or two,
+// so try again up to 2 more times before giving up. Other errors are not retried.
+const RETRY_WAITS_MS = [1000, 2500];
+
+async function postWithRetry(url: string, init: RequestInit): Promise<Response> {
+  for (let attempt = 0; ; attempt++) {
+    const res = await fetch(url, { ...init, signal: AbortSignal.timeout(AI_TIMEOUT_MS) });
+    if ((res.status !== 503 && res.status !== 529) || attempt >= RETRY_WAITS_MS.length) return res;
+    console.warn(`AI provider busy (${res.status}), retry ${attempt + 1}`);
+    await res.body?.cancel();
+    await new Promise((resolve) => setTimeout(resolve, RETRY_WAITS_MS[attempt]));
+  }
+}
+
 async function askAi(provider: string, key: string, model: string, system: string, user: string): Promise<string> {
   if (provider === 'anthropic') {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await postWithRetry('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
       // Claude 5.5 models think before answering, and thinking counts toward max_tokens,
@@ -128,7 +145,7 @@ async function askAi(provider: string, key: string, model: string, system: strin
       .join('');
   }
   if (provider === 'openai') {
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+    const res = await postWithRetry('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: { Authorization: `Bearer ${key}`, 'content-type': 'application/json' },
       body: JSON.stringify({
@@ -145,7 +162,7 @@ async function askAi(provider: string, key: string, model: string, system: strin
     return data.choices?.[0]?.message?.content ?? '';
   }
   if (provider === 'gemini') {
-    const res = await fetch(
+    const res = await postWithRetry(
       `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
       {
         method: 'POST',
@@ -153,7 +170,9 @@ async function askAi(provider: string, key: string, model: string, system: strin
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: system }] },
           contents: [{ role: 'user', parts: [{ text: user }] }],
-          generationConfig: { responseMimeType: 'application/json' },
+          // Gemini 4 models think at "high" by default, which made a call run until the
+          // function was stopped (150 s). "low" is plenty for this job.
+          generationConfig: { responseMimeType: 'application/json', thinkingConfig: { thinkingLevel: 'low' } },
         }),
       },
     );
@@ -187,6 +206,32 @@ function readAnswer(raw: string): { reason: string; questions: Question[] } {
   }
 }
 
+// 027: counts this call against the daily AI limits (30 per person, 1000 for
+// the whole app). It runs with the caller's own login, so the database knows
+// who is asking. Returns 'ok', or why not ('user_limit', 'app_limit', ...).
+// If the check itself fails we do NOT call the AI: no limit, no spending.
+async function useQuota(req: Request): Promise<string> {
+  const url = Deno.env.get('SUPABASE_URL');
+  const anonKey = Deno.env.get('SUPABASE_ANON_KEY');
+  const auth = req.headers.get('Authorization');
+  if (!url || !anonKey || !auth) return 'login_required';
+  try {
+    const res = await fetch(`${url}/rest/v1/rpc/use_ai_quota`, {
+      method: 'POST',
+      headers: { apikey: anonKey, Authorization: auth, 'content-type': 'application/json' },
+      body: JSON.stringify({ p_fn: 'explain-dish' }),
+    });
+    if (!res.ok) {
+      console.error('use_ai_quota failed', res.status, await res.text());
+      return 'quota_check_failed';
+    }
+    return String(await res.json());
+  } catch (error) {
+    console.error('use_ai_quota failed', error);
+    return 'quota_check_failed';
+  }
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
 
@@ -205,12 +250,20 @@ Deno.serve(async (req) => {
   const facts = readFacts(body);
   if (!facts) return json({ error: 'status and dish.nameKo are required' }, 400);
 
+  // Only a valid request counts against the limit.
+  const quota = await useQuota(req);
+  if (quota === 'user_limit' || quota === 'app_limit') return json({ error: 'daily_limit' }, 429);
+  if (quota === 'login_required') return json({ error: 'login_required' }, 401);
+  if (quota !== 'ok') return json({ error: 'not_available' }, 503);
+
   try {
     const raw = await askAi(provider, key, model, systemPrompt(facts.language), JSON.stringify(facts));
     const { reason, questions } = readAnswer(raw);
     if (!reason) return json({ error: 'empty_answer' }, 502);
     return json({ reason: reason.slice(0, 1000), questions, provider, model });
   } catch (error) {
-    return json({ error: error instanceof Error ? error.message : 'ai_failed' }, 502);
+    // Week 12 "no error leakage": the provider's message stays in the function log.
+    console.error('AI call failed', error);
+    return json({ error: 'ai_failed' }, 502);
   }
 });

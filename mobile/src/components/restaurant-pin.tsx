@@ -43,7 +43,7 @@ export function RestaurantPin({ pin, selected }: Props) {
   const color = FOOD_TYPE_COLOR[pin.foodType];
 
   return (
-    // #14: faded = nothing here is free of the user's allergens.
+    // #14 + #4: faded = nothing here fits the user (allergies, or no dish Safe for their diet).
     <View style={[styles.wrapper, pin.faded && styles.faded]}>
       <View
         style={[
