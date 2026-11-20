@@ -136,3 +136,10 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Output used: an `active` guard in the pins effect of `map.tsx` and `map.web.tsx`, so only the latest request sets the pins; in `use-profile.tsx` a `changedByUser` ref, so the saved profile is ignored if the user already changed it, plus logged errors instead of unhandled ones when the phone storage can't be read or written.
 - Changes by me: kept it to the map and the profile hook; no behaviour change apart from the two races.
 - Files changed: `mobile/src/app/(tabs)/map.tsx`, `mobile/src/app/(tabs)/map.web.tsx`, `mobile/src/hooks/use-profile.tsx`, `PROMPTS.md`.
+
+## 2026-11-18 — #48 restaurant categories from licence data (Adib)
+- Tool: Claude
+- Prompt: food personality (#48) needs each restaurant's type, but 12 of our restaurants had no category; I gave the 행정안전부 식품_일반음식점 licence file (the same source as 004) and asked to fill the category from it.
+- Output used: `supabase/sql/028_restaurant_categories.sql`, which sets `category` to the licence's 업태구분명 for r01–r08, r10–r12 and r15 (e.g. 에비수 → 일식, 김밥천국 → 분식). Dishes, tags and Safe / Ask first / Avoid don't change.
+- Changes by me: each row must match both our id and the licence number (`public_data_id`), so a wrong id can't get the wrong category; r16 TriBoTea stays '까페' because its licence only says 기타 (other); renumbered from 026 to 028 because #91 took 026. Tested rolled back first, then run in Supabase and checked: 12 rows updated, all 13 licences still 영업/정상.
+- Files changed: `supabase/sql/028_restaurant_categories.sql` (new), `PROMPTS.md`.
