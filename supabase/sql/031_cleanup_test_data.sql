@@ -1,4 +1,4 @@
--- 030_cleanup_test_data.sql
+﻿-- 031_cleanup_test_data.sql
 -- Removes test data from the sprint so the app starts clean for the demo and real users.
 -- Restaurants, dishes, menus and reviews are NOT touched.
 --
