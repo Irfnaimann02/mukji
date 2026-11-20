@@ -1,15 +1,20 @@
-# Generates supabase/sql/033_ansan_restaurants_import.sql from the licence CSV (#48).
-# Usage: pip install pyproj && python supabase/tools/ansan_import.py <licence.csv> supabase/sql/033_ansan_restaurants_import.sql
-# The CSV is 행정안전부 식품_일반음식점 for 안산시 (cp949). It is not in the repo (10 MB).
+# Generates the Ansan licence imports (#48) from 행정안전부 licence CSVs for 안산시 (cp949, not in the repo).
+# pip install pyproj
+# python supabase/tools/ansan_import.py <일반음식점.csv> supabase/sql/033_ansan_restaurants_import.sql general
+# python supabase/tools/ansan_import.py <휴게음식점.csv> supabase/sql/034_ansan_rest_restaurants_import.sql rest
 import csv, io, sys, re, math, collections
 from pyproj import Transformer
 src, out = sys.argv[1], sys.argv[2]
+KIND = sys.argv[3] if len(sys.argv) > 3 else 'general'  # general = 일반음식점 (033), rest = 휴게음식점 (034)
 rows = list(csv.DictReader(io.StringIO(open(src,'rb').read().decode('cp949'))))
 t = Transformer.from_crs('EPSG:5174','EPSG:4326',always_xy=True)
-SKIP = {'출장조리','푸드트럭'}
+SKIP = {'출장조리','푸드트럭'} if KIND == 'general' else {
+    '편의점','푸드트럭','키즈카페','백화점','철도역구내','극장','유원지'}
 FOOD = {'호프/통닭':'chicken','통닭(치킨)':'chicken','까페':'cafe','라이브카페':'cafe','냉면집':'noodles',
         '한식':'korean','식육(숯불구이)':'korean','분식':'korean','김밥(도시락)':'korean','탕류(보신용)':'korean',
-        '횟집':'korean','정종/대포집/소주방':'korean','복어취급':'korean'}
+        '횟집':'korean','정종/대포집/소주방':'korean','복어취급':'korean',
+        # 휴게음식점 (034)
+        '커피숍':'cafe','다방':'cafe','아이스크림':'cafe','떡카페':'cafe','전통찻집':'cafe','과자점':'cafe'}
 def q(s): return "'" + s.replace("'", "''") + "'"
 def phone(p):
     d = re.sub(r'\D','',p or '')
@@ -24,7 +29,7 @@ def addr(r):
 seen=set(); vals=[]; skipped=collections.Counter()
 for r in rows:
     if not r['영업상태명'].startswith('영업'): continue
-    if r['업태구분명'] in SKIP: skipped['no fixed place']+=1; continue
+    if r['업태구분명'] in SKIP: skipped['not a restaurant or no fixed place ('+r['업태구분명']+')' if KIND=='rest' else 'no fixed place']+=1; continue
     try: x=float(r['좌표정보(X)']); y=float(r['좌표정보(Y)'])
     except: skipped['no coordinates']+=1; continue
     lng,lat = t.transform(x,y)
@@ -38,10 +43,19 @@ for r in rows:
     vals.append(f"({q('lic-'+lic)},{q(name)},{q(name)},{q(FOOD.get(cat,'other'))},{lat:.7f},{lng:.7f},{q(addr(r))},{q(phone(r['전화번호']))},{q(lic)},{q(cat) if cat else 'null'})")
 CH=500
 with open(out,'w',encoding='utf-8') as f:
-    f.write(f"""-- 033_ansan_restaurants_import.sql
+    if KIND == 'general':
+        title = '033_ansan_restaurants_import.sql'
+        what = '(행정안전부 식품_일반음식점, the same file as 028, 영업/정상 only)'
+        needs = 'Needs 032 first (bulk_import column).'
+    else:
+        title = '034_ansan_rest_restaurants_import.sql'
+        what = ('(행정안전부 식품_휴게음식점: cafés, burger chains, toast and snack shops, 영업/정상 only;\n'
+                '-- convenience stores, food trucks, kids cafés and stalls in stations, cinemas and department stores are left out)')
+        needs = 'Needs 032 first (bulk_import column). Independent of 033: run either first.'
+    f.write(f"""-- {title}
 -- Part of #48. Every open licensed restaurant in 안산시 from public licence data
--- (행정안전부 식품_일반음식점, the same file as 028, 영업/정상 only): {len(vals)} restaurants.
--- Needs 032 first (bulk_import column).
+-- {what}: {len(vals)} {'restaurants' if KIND == 'general' else 'places'}.
+-- {needs}
 --
 -- What is stored: licence name (also used as the English name until we have one), food type
 -- from 업태구분명, address, the business phone from the licence, licence number and map position
