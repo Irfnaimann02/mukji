@@ -137,15 +137,8 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Changes by me: kept it to the map and the profile hook; no behaviour change apart from the two races.
 - Files changed: `mobile/src/app/(tabs)/map.tsx`, `mobile/src/app/(tabs)/map.web.tsx`, `mobile/src/hooks/use-profile.tsx`, `PROMPTS.md`.
 
-## 2026-11-18 — #47 team menu review screen (Adib)
-- Tool: Claude
-- Prompt: people can send menu photos (#82), but nobody could turn them into dishes without editing the database by hand; asked for a screen in the app where only our team reviews the photos and approves the dishes.
-- Output used: `supabase/sql/029_menu_review_team.sql` (a `team_members` table nobody can read from the app, `is_team_member()`, a storage policy so only the team can open the private photos, and team-only functions to list pending photos, save a draft, approve and reject); `data/menu-review-repository.ts`; `logic/menu-review.ts` with Jest tests (draft rows, tag and price parsing, row checks); the review screen `app/team-menu-review.tsx` (photo, "Read with AI" using the Menu Scanner, editable dish rows, Save, Approve with a confirm, Reject with a reason); a team-only card on the Profile tab (`components/team-menu-link.tsx`).
-- Changes by me: approval reuses 016's `approve_menu_submission` instead of a second way to write dishes, and adds 'menu photo' to the restaurant's sources; Kakao-found places are refused until the restaurant is in our list, so dishes never point at a missing restaurant; the AI only fills the draft and a person must approve, matching the rule that menus are never invented. 029 was tested rolled back first, then run in Supabase; the screen was tested in the browser with sample data (51 tests, tsc and lint clean).
-- Files changed: `supabase/sql/029_menu_review_team.sql` (new), `mobile/src/data/menu-review-repository.ts` (new), `mobile/src/logic/menu-review.ts` (new), `mobile/src/logic/__tests__/menu-review.test.ts` (new), `mobile/src/app/team-menu-review.tsx` (new), `mobile/src/components/team-menu-link.tsx` (new), `mobile/src/app/(tabs)/profile.tsx`, `mobile/src/i18n/translations.ts`, `PROMPTS.md`.
-## 2026-11-18 — #48 restaurant categories from licence data (Adib)
-- Tool: Claude
-- Prompt: food personality (#48) needs each restaurant's type, but 12 of our restaurants had no category; I gave the 행정안전부 식품_일반음식점 licence file (the same source as 004) and asked to fill the category from it.
-- Output used: `supabase/sql/028_restaurant_categories.sql`, which sets `category` to the licence's 업태구분명 for r01–r08, r10–r12 and r15 (e.g. 에비수 → 일식, 김밥천국 → 분식). Dishes, tags and Safe / Ask first / Avoid don't change.
-- Changes by me: each row must match both our id and the licence number (`public_data_id`), so a wrong id can't get the wrong category; r16 TriBoTea stays '까페' because its licence only says 기타 (other); renumbered from 026 to 028 because #91 took 026. Tested rolled back first, then run in Supabase and checked: 12 rows updated, all 13 licences still 영업/정상.
-- Files changed: `supabase/sql/028_restaurant_categories.sql` (new), `PROMPTS.md`.
+## 2026-11-20 — PR #97 business-onboarding review fixes (ChatGPT)
+- Tool: ChatGPT
+- Prompt: asked to address the PR review blocker and improvements for business onboarding: explain collection purpose and retention, let applicants delete a draft and its private files, add the personal-data handling note, move Supabase calls into the data layer, document AI assistance, use a correctly prefixed commit message, and test web document uploads.
+- Output used: a privacy and retention notice in English and Korean; a draft-deletion flow with a draft-only RLS policy and cleanup of associated private Storage objects; a data repository behind the logic service; a web-specific file reader using the selected browser URI; and documentation updates in `ETHICS.md` and this log.
+- Changes by the team: review the interim retention rule (drafts remain until applicants delete them; no automatic expiry exists), approve a production retention schedule before launch, and run the browser upload/deletion tests against the configured Supabase project.
