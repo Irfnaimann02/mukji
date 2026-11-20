@@ -19,6 +19,7 @@ import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
 import {
   createOwnerBusinessDocumentUrl,
+  deleteOwnerBusinessDraft,
   emptyOwnerBusinessDetails,
   listOwnerBusinessDocuments,
   loadOwnerBusinessDraft,
@@ -108,6 +109,9 @@ export default function OwnerBusinessOnboardingScreen() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [privacyNoticeAccepted, setPrivacyNoticeAccepted] = useState(false);
+  const [privacyNoticePersisted, setPrivacyNoticePersisted] = useState(false);
   const [draftId, setDraftId] = useState<string | null>(null);
   const [draftStatus, setDraftStatus] = useState<OwnerBusinessDraft['status'] | null>(null);
   const [details, setDetails] = useState<OwnerBusinessDetails>(() =>
@@ -150,6 +154,8 @@ export default function OwnerBusinessOnboardingScreen() {
         setDetails(result.initialDetails);
         setDraftId(result.draft?.id ?? null);
         setDraftStatus(result.draft?.status ?? null);
+        setPrivacyNoticeAccepted(Boolean(result.draft?.privacyNoticeAcknowledgedAt));
+        setPrivacyNoticePersisted(Boolean(result.draft?.privacyNoticeAcknowledgedAt));
         if (result.draft) {
           const savedDocuments = await listOwnerBusinessDocuments(result.draft.id);
           if (!active) return;
@@ -176,6 +182,11 @@ export default function OwnerBusinessOnboardingScreen() {
   }
 
   async function handleSave() {
+    if (!privacyNoticeAccepted) {
+      showAlert(owner('ownerBusinessPrivacyConsentRequired'), owner('ownerBusinessPrivacyNotice'));
+      return;
+    }
+
     const validationError = validateOwnerBusinessDetails(details);
     if (validationError) {
       const messages: Record<typeof validationError, string> = {
@@ -198,6 +209,7 @@ export default function OwnerBusinessOnboardingScreen() {
       const saved = await saveOwnerBusinessDraft(details, draftId);
       setDraftId(saved.id);
       setDraftStatus(saved.status);
+      setPrivacyNoticePersisted(true);
       setDetails({
         applicantType: saved.applicantType,
         applicantFullName: saved.applicantFullName,
@@ -219,6 +231,10 @@ export default function OwnerBusinessOnboardingScreen() {
   }
 
   async function handleUpload() {
+    if (!privacyNoticeAccepted || !privacyNoticePersisted) {
+      showAlert(owner('ownerBusinessPrivacyConsentRequired'), owner('ownerBusinessPrivacyNotice'));
+      return;
+    }
     if (!draftId || draftStatus !== 'draft') {
       showAlert(owner('ownerBusinessSaveFirst'), owner('ownerBusinessSaveFirstMessage'));
       return;
@@ -291,6 +307,37 @@ export default function OwnerBusinessOnboardingScreen() {
     ]);
   }
 
+  function handleDeleteDraft() {
+    if (!draftId || draftStatus !== 'draft' || saving || uploading || deleting) return;
+
+    showAlert(owner('ownerDeleteBusinessDraft'), owner('ownerDeleteBusinessDraftConfirm'), [
+      { text: owner('ownerKeep'), style: 'cancel' },
+      {
+        text: owner('ownerDeleteBusinessDraft'),
+        style: 'destructive',
+        onPress: () => {
+          void (async () => {
+            setDeleting(true);
+            try {
+              await deleteOwnerBusinessDraft(draftId);
+              setDraftId(null);
+              setDraftStatus(null);
+              setDocuments([]);
+              setPrivacyNoticeAccepted(false);
+              setPrivacyNoticePersisted(false);
+              if (auth.user) setDetails(emptyOwnerBusinessDetails(auth.user));
+              showAlert(owner('ownerBusinessDraftDeleted'), owner('ownerBusinessDraftDeletedMessage'));
+            } catch (error) {
+              showAlert(owner('ownerBusinessDraftDeleteFailed'), userMessage(error, owner('ownerPleaseTryAgain')));
+            } finally {
+              setDeleting(false);
+            }
+          })();
+        },
+      },
+    ]);
+  }
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <Stack.Screen
@@ -322,8 +369,23 @@ export default function OwnerBusinessOnboardingScreen() {
           <>
             <View style={styles.notice}>
               <Ionicons name="lock-closed-outline" size={20} color="#1B5FAD" />
-              <Text style={styles.noticeText}>{owner('ownerBusinessDraftPrivateNotice')}</Text>
+              <Text style={styles.noticeText}>{owner('ownerBusinessPrivacyNotice')}</Text>
             </View>
+            <Pressable
+              onPress={() => {
+                setPrivacyNoticeAccepted((current) => !current);
+                setPrivacyNoticePersisted(false);
+              }}
+              accessibilityRole="checkbox"
+              accessibilityState={{ checked: privacyNoticeAccepted }}
+              style={styles.consentRow}>
+              <Ionicons
+                name={privacyNoticeAccepted ? 'checkbox' : 'square-outline'}
+                size={22}
+                color="#1B5FAD"
+              />
+              <Text style={styles.consentText}>{owner('ownerBusinessPrivacyConsent')}</Text>
+            </Pressable>
 
             <View style={styles.card}>
               <Text style={styles.sectionTitle}>{owner('ownerBusinessApplicantSection')}</Text>
@@ -469,6 +531,14 @@ export default function OwnerBusinessOnboardingScreen() {
               onPress={() => void handleSave()}
               disabled={saving || uploading}
             />
+            {draftId && draftStatus === 'draft' ? (
+              <ActionButton
+                title={deleting ? owner('ownerDeletingBusinessDraft') : owner('ownerDeleteBusinessDraft')}
+                onPress={handleDeleteDraft}
+                disabled={saving || uploading || deleting}
+                secondary
+              />
+            ) : null}
           </>
         )}
       </ScrollView>
@@ -486,6 +556,8 @@ const styles = StyleSheet.create({
   loading: { padding: 30 },
   notice: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, padding: 14, borderRadius: 12, backgroundColor: '#EAF2FC' },
   noticeText: { flex: 1, color: '#31577E', fontSize: 12, lineHeight: 19 },
+  consentRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, paddingHorizontal: 4, paddingVertical: 6 },
+  consentText: { flex: 1, color: '#344256', fontSize: 12, lineHeight: 19 },
   card: { backgroundColor: '#FFFFFF', borderRadius: 15, padding: 16, gap: 12, borderWidth: 1, borderColor: '#E5EAF0' },
   sectionTitle: { color: '#14213D', fontSize: 16, fontWeight: '800' },
   label: { color: '#344256', fontSize: 13, fontWeight: '700' },

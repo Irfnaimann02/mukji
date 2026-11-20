@@ -401,6 +401,7 @@ export const translations = {
     searchThisArea: 'Search this area',
     searchDistance: 'Search distance',
     seeOnKakaoMap: 'See photos and menu on Kakao Map',
+
     // Team: menu review (029)
     menuReviewLink: 'Menu photos to review',
     menuReviewLinkSub: 'Team only · {count} waiting',
@@ -978,6 +979,7 @@ export const translations = {
     searchThisArea: '이 지역 검색',
     searchDistance: '검색 거리',
     seeOnKakaoMap: '카카오맵에서 사진과 메뉴 보기',
+
     // Team: menu review (029)
     menuReviewLink: '검토할 메뉴 사진',
     menuReviewLinkSub: '팀 전용 · {count}개 대기 중',
@@ -1018,6 +1020,7 @@ export const translations = {
     menuReviewAlreadyDone: '이미 다른 사람이 검토한 사진이에요.',
     menuReviewKakaoFirst: '카카오 장소예요. 먼저 식당을 목록에 추가해 주세요.',
     menuReviewNoRows: '먼저 메뉴를 하나 이상 추가해 주세요.',
+
     // Send menu photo (restaurant page)
     menuPhotoTitle: '메뉴가 없거나 틀렸나요?',
     menuPhotoHint: '메뉴판 사진을 보내 주세요. 팀이 확인하고 재료와 함께 메뉴를 추가해요.',
@@ -1193,6 +1196,15 @@ export const ownerPortalTranslations = {
     ownerBusinessOnboardingTitle: "Business onboarding",
     ownerBusinessOnboardingIntro: "Add the registered business details for the restaurant partner application. You can save a private draft and continue later.",
     ownerBusinessDraftPrivateNotice: "This is a private draft and has not been submitted to MUKJI. Uploaded files are private to your account at this stage; staff review access and submission will be added in a later step.",
+    ownerBusinessPrivacyNotice: "Purpose: MUKJI collects these details and documents to prepare and verify a restaurant partner application. They are stored privately and are not currently available to MUKJI staff for review. You can delete this draft and its files at any time before submission. Retention: the draft remains stored until you delete it; no automatic expiry is currently configured.",
+    ownerBusinessPrivacyConsent: "I have read this notice and agree to MUKJI collecting and storing these details and documents to prepare my restaurant partner application.",
+    ownerBusinessPrivacyConsentRequired: "Please read the privacy notice and confirm your agreement before saving or uploading documents.",
+    ownerDeleteBusinessDraft: "Delete draft",
+    ownerDeletingBusinessDraft: "Deleting draft…",
+    ownerDeleteBusinessDraftConfirm: "Permanently delete this business draft and all uploaded documents? This cannot be undone.",
+    ownerBusinessDraftDeleted: "Draft deleted",
+    ownerBusinessDraftDeletedMessage: "Your business draft and its uploaded documents have been deleted.",
+    ownerBusinessDraftDeleteFailed: "Could not delete the business draft.",
     ownerBusinessApplicantSection: "Applicant information",
     ownerBusinessApplicantRelationship: "Your relationship with the business",
     ownerBusinessOwnerRole: "I am the business owner",
@@ -1402,6 +1414,15 @@ export const ownerPortalTranslations = {
     ownerBusinessOnboardingTitle: "사업자 등록 정보",
     ownerBusinessOnboardingIntro: "음식점 파트너 신청에 필요한 사업자 정보를 입력하세요. 비공개 임시 저장 후 나중에 이어서 작성할 수 있습니다.",
     ownerBusinessDraftPrivateNotice: "현재 정보는 비공개 임시 저장 상태이며 MUKJI에 제출되지 않았습니다. 업로드한 파일은 현재 본인 계정에서만 확인할 수 있으며, 직원 검토 및 신청 제출 기능은 다음 단계에서 연결됩니다.",
+    ownerBusinessPrivacyNotice: "수집 목적: MUKJI는 음식점 파트너 신청을 준비하고 추후 확인하기 위해 이 정보와 서류를 수집합니다. 정보와 파일은 비공개로 저장되며 현재 MUKJI 직원은 검토할 수 없습니다. 제출 전에는 언제든지 초안과 업로드 파일을 삭제할 수 있습니다. 보관 기간: 초안은 신청자가 삭제할 때까지 보관되며 현재 자동 만료 기능은 설정되어 있지 않습니다.",
+    ownerBusinessPrivacyConsent: "안내 내용을 읽었으며 음식점 파트너 신청 준비를 위한 정보 및 서류의 수집과 저장에 동의합니다.",
+    ownerBusinessPrivacyConsentRequired: "저장하거나 서류를 업로드하기 전에 개인정보 안내를 읽고 동의해 주세요.",
+    ownerDeleteBusinessDraft: "초안 삭제",
+    ownerDeletingBusinessDraft: "초안 삭제 중…",
+    ownerDeleteBusinessDraftConfirm: "이 사업자 초안과 업로드한 모든 서류를 영구 삭제할까요? 삭제 후에는 복구할 수 없습니다.",
+    ownerBusinessDraftDeleted: "초안 삭제 완료",
+    ownerBusinessDraftDeletedMessage: "사업자 초안과 업로드한 서류가 삭제되었습니다.",
+    ownerBusinessDraftDeleteFailed: "사업자 초안을 삭제하지 못했습니다.",
     ownerBusinessApplicantSection: "신청자 정보",
     ownerBusinessApplicantRelationship: "사업자와의 관계",
     ownerBusinessOwnerRole: "사업자 대표자입니다",
