@@ -129,14 +129,34 @@ export async function saveOwnerBusinessDraft(
     registered_address: details.registeredAddress.trim(),
   };
 
+
   if (existingId) {
+    // Read the original acknowledgement timestamp before updating the draft.
+    const { data: existingDraft, error: fetchError } = await sb
+      .from('owner_business_applications')
+      .select('privacy_notice_acknowledged_at')
+      .eq('id', existingId)
+      .eq('user_id', user.id)
+      .eq('status', 'draft')
+      .maybeSingle();
+
+    if (fetchError) throw fetchError;
+    if (!existingDraft) {
+      throw new Error('The draft was not found or is no longer editable.');
+    }
+
+    const updatePayload = {
+      ...detailsPayload,
+      updated_at: new Date().toISOString(),
+      // Only record acknowledgement if it has never been recorded.
+      ...(existingDraft.privacy_notice_acknowledged_at == null
+        ? { privacy_notice_acknowledged_at: new Date().toISOString() }
+        : {}),
+    };
+
     const { data, error } = await sb
       .from('owner_business_applications')
-      .update({
-        ...detailsPayload,
-        privacy_notice_acknowledged_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      })
+      .update(updatePayload)
       .eq('id', existingId)
       .eq('user_id', user.id)
       .eq('status', 'draft')
@@ -145,8 +165,10 @@ export async function saveOwnerBusinessDraft(
 
     if (error) throw error;
     if (!data) throw new Error('The draft was not found or is no longer editable.');
+
     return fromRow(data as unknown as Record<string, unknown>);
   }
+
 
   const { data, error } = await sb
     .from('owner_business_applications')
