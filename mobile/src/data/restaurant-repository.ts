@@ -218,6 +218,12 @@ function toDish(row: any): Dish {
     verifiedCount: row.verified_count,
     lastChecked: row.last_checked,
     typical: row.typical === true, // #103
+    ingredientsVerified: row.ingredients_verified !== false,
+    menuCategory: row.menu_category ?? 'other',
+    isAvailable: row.is_available !== false,
+    photoUrl: row.photo_path && supabase
+      ? supabase.storage.from('menu-item-photos').getPublicUrl(String(row.photo_path)).data.publicUrl
+      : undefined,
   };
 }
 

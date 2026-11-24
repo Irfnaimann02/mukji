@@ -14,7 +14,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { showAlert } from '@/components/show-alert';
-import { MenuReviewError, type PendingMenuPhoto } from '@/data/menu-review-repository';
+import { MenuReviewError, type PendingMenuPhoto, type PendingOwnerIngredientChange } from '@/data/menu-review-repository';
 import { ALL_INGREDIENTS } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
 import type { TranslationKey } from '@/i18n/translations';
@@ -25,10 +25,12 @@ import {
   filledRows,
   isTeamMember,
   loadPendingMenuPhotos,
+  loadPendingOwnerIngredientChanges,
   menuPhotoUrl,
   photoTitle,
   readMenuWithAi,
   rejectPhoto,
+  reviewOwnerIngredientChangeRequest,
   reviewErrorKey,
   rowProblem,
   saveDraft,
@@ -54,13 +56,23 @@ export default function TeamMenuReviewScreen() {
   const [allowed, setAllowed] = useState<boolean | null>(null);
   const [photos, setPhotos] = useState<PendingMenuPhoto[] | null>(null);
   const [selected, setSelected] = useState<PendingMenuPhoto | null>(null);
+  const [ingredientChanges, setIngredientChanges] = useState<PendingOwnerIngredientChange[] | null>(null);
+  const [selectedIngredientChange, setSelectedIngredientChange] = useState<PendingOwnerIngredientChange | null>(null);
 
   const reload = useCallback(async () => {
-    try {
-      setPhotos(await loadPendingMenuPhotos());
-    } catch (error) {
-      console.warn('Could not load menu photos:', error);
+    const [photoResult, ingredientResult] = await Promise.allSettled([
+      loadPendingMenuPhotos(),
+      loadPendingOwnerIngredientChanges(),
+    ]);
+    if (photoResult.status === 'fulfilled') setPhotos(photoResult.value);
+    else {
+      console.warn('Could not load menu photos:', photoResult.reason);
       setPhotos([]);
+    }
+    if (ingredientResult.status === 'fulfilled') setIngredientChanges(ingredientResult.value);
+    else {
+      console.warn('Could not load owner ingredient changes:', ingredientResult.reason);
+      setIngredientChanges([]);
     }
   }, []);
 
@@ -78,6 +90,7 @@ export default function TeamMenuReviewScreen() {
 
   const done = async (message: string) => {
     setSelected(null);
+    setSelectedIngredientChange(null);
     await reload();
     showAlert(t('menuReviewTitle'), message);
   };
@@ -86,14 +99,18 @@ export default function TeamMenuReviewScreen() {
     <SafeAreaView style={styles.screen} edges={['top']}>
       <View style={styles.header}>
         <Pressable
-          onPress={() => (selected ? setSelected(null) : router.back())}
+          onPress={() => {
+            if (selected) setSelected(null);
+            else if (selectedIngredientChange) setSelectedIngredientChange(null);
+            else router.back();
+          }}
           hitSlop={10}
           accessibilityRole="button"
           accessibilityLabel={t('back')}>
           <Ionicons name="chevron-back" size={26} color="#1E1E1E" />
         </Pressable>
         <Text style={styles.title} numberOfLines={1}>
-          {selected ? photoTitle(selected, language) : t('menuReviewTitle')}
+          {selected ? photoTitle(selected, language) : selectedIngredientChange ? selectedIngredientChange.dishNameKo : t('menuReviewTitle')}
         </Text>
       </View>
 
@@ -103,37 +120,97 @@ export default function TeamMenuReviewScreen() {
         <Text style={styles.muted}>{t('menuReviewTeamOnly')}</Text>
       ) : selected ? (
         <PhotoReview key={selected.id} photo={selected} onDone={done} />
+      ) : selectedIngredientChange ? (
+        <OwnerIngredientChangeReview change={selectedIngredientChange} onDone={done} />
       ) : (
         <ScrollView contentContainerStyle={styles.content}>
+          <Text style={styles.section}>{t('ownerIngredientReviewQueueTitle')}</Text>
+          <Text style={styles.intro}>{t('ownerIngredientReviewQueueIntro')}</Text>
+          {ingredientChanges === null ? (
+            <ActivityIndicator style={styles.loading} color="#D9472B" />
+          ) : ingredientChanges.length === 0 ? (
+            <Text style={styles.muted}>{t('ownerIngredientReviewQueueEmpty')}</Text>
+          ) : ingredientChanges.map((change) => (
+            <Pressable key={change.id} onPress={() => setSelectedIngredientChange(change)} style={({ pressed }) => [styles.card, pressed && styles.pressed]}>
+              <View style={styles.info}>
+                <Text style={styles.cardTitle}>{change.dishNameKo}</Text>
+                <Text style={styles.sub}>{language === 'ko' ? change.restaurantNameKo : change.restaurantNameEn}</Text>
+                <Text style={styles.sub}>{t('ownerIngredientReviewSubmittedAt', { date: new Date(change.createdAt).toLocaleString(language === 'ko' ? 'ko-KR' : 'en-GB') })}</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={18} color="#857C76" />
+            </Pressable>
+          ))}
+          <Text style={styles.section}>{t('menuReviewTitle')}</Text>
           <Text style={styles.intro}>{t('menuReviewIntro')}</Text>
           {photos === null ? (
             <ActivityIndicator style={styles.loading} color="#D9472B" />
           ) : photos.length === 0 ? (
             <Text style={styles.muted}>{t('menuReviewEmpty')}</Text>
-          ) : (
-            photos.map((photo) => (
-              <Pressable
-                key={photo.id}
-                testID="menu-photo-row"
-                onPress={() => setSelected(photo)}
-                style={({ pressed }) => [styles.card, pressed && styles.pressed]}>
-                <View style={styles.rowIcon}>
-                  <Ionicons name={photo.restaurantId ? 'restaurant-outline' : 'map-outline'} size={18} color="#4A4440" />
-                </View>
-                <View style={styles.info}>
-                  <Text style={styles.cardTitle}>{photoTitle(photo, language)}</Text>
-                  <Text style={styles.sub}>
-                    {t('menuReviewSentAt', { date: new Date(photo.createdAt).toLocaleString(language === 'ko' ? 'ko-KR' : 'en-GB') })}
-                  </Text>
-                  {photo.note !== '' && <Text style={styles.sub}>{t('menuReviewNote', { note: photo.note })}</Text>}
-                </View>
-                <Ionicons name="chevron-forward" size={18} color="#857C76" />
-              </Pressable>
-            ))
-          )}
+          ) : photos.map((photo) => (
+            <Pressable
+              key={photo.id}
+              testID="menu-photo-row"
+              onPress={() => setSelected(photo)}
+              style={({ pressed }) => [styles.card, pressed && styles.pressed]}>
+              <View style={styles.rowIcon}>
+                <Ionicons name={photo.restaurantId ? 'restaurant-outline' : 'map-outline'} size={18} color="#4A4440" />
+              </View>
+              <View style={styles.info}>
+                <Text style={styles.cardTitle}>{photoTitle(photo, language)}</Text>
+                <Text style={styles.sub}>
+                  {t('menuReviewSentAt', { date: new Date(photo.createdAt).toLocaleString(language === 'ko' ? 'ko-KR' : 'en-GB') })}
+                </Text>
+                {photo.note !== '' && <Text style={styles.sub}>{t('menuReviewNote', { note: photo.note })}</Text>}
+              </View>
+              <Ionicons name="chevron-forward" size={18} color="#857C76" />
+            </Pressable>
+          ))}
         </ScrollView>
       )}
     </SafeAreaView>
+  );
+}
+
+function OwnerIngredientChangeReview({
+  change,
+  onDone,
+}: {
+  change: PendingOwnerIngredientChange;
+  onDone: (message: string) => void;
+}) {
+  const { t, language } = useTranslation();
+  const [note, setNote] = useState('');
+  const [busy, setBusy] = useState(false);
+
+  const decide = async (approve: boolean) => {
+    setBusy(true);
+    try {
+      await reviewOwnerIngredientChangeRequest(change.id, approve, note);
+      onDone(approve ? t('ownerIngredientReviewApproved') : t('ownerIngredientReviewRejected'));
+    } catch (error) {
+      showAlert(t('updateFailed'), userMessage(error, t('pleaseTryAgain'), t));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
+      <Text style={styles.cardTitle}>{language === 'ko' ? change.restaurantNameKo : change.restaurantNameEn}</Text>
+      <Text style={styles.section}>{change.dishNameKo}</Text>
+      <Text style={styles.sub}>{t('ownerIngredientReviewCurrent')}: {change.currentContains.join(', ') || '—'}; {t('mayContain')}: {change.currentMayContain.join(', ') || '—'}</Text>
+      <Text style={styles.section}>{t('ownerIngredientReviewProposed')}</Text>
+      <Text style={styles.body}>{t('contains')}: {change.proposedContains.join(', ') || '—'}</Text>
+      <Text style={styles.body}>{t('mayContain')}: {change.proposedMayContain.join(', ') || '—'}</Text>
+      {change.note ? <Text style={styles.sub}>{t('menuReviewNote', { note: change.note })}</Text> : null}
+      <TextInput value={note} onChangeText={setNote} placeholder={t('ownerIngredientReviewNotePlaceholder')} style={styles.input} multiline />
+      <Pressable style={[styles.secondary, busy && styles.disabled]} disabled={busy} onPress={() => void decide(true)}>
+        <Text style={styles.secondaryText}>{t('ownerIngredientReviewApprove')}</Text>
+      </Pressable>
+      <Pressable style={[styles.reject, busy && styles.disabled]} disabled={busy} onPress={() => void decide(false)}>
+        <Text style={styles.rejectText}>{t('ownerIngredientReviewReject')}</Text>
+      </Pressable>
+    </ScrollView>
   );
 }
 
@@ -372,7 +449,10 @@ const styles = StyleSheet.create({
   header: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 12, paddingVertical: 10 },
   title: { flex: 1, color: '#1E1E1E', fontSize: 22, fontWeight: '900' },
   content: { padding: 16, paddingBottom: 48, gap: 12 },
+  reject: { borderWidth: 1, borderColor: '#b3261e', borderRadius: 10, padding: 12, alignItems: 'center' },
+  rejectText: { color: '#b3261e', fontWeight: '700' },
   intro: { color: '#4A4440', lineHeight: 20 },
+  body: { color: '#4A4440', fontSize: 14, lineHeight: 21 },
   muted: { color: '#857C76', padding: 16 },
   loading: { marginTop: 24 },
   card: {

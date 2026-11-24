@@ -4,6 +4,8 @@ import {
   fetchMenuPhotoDataUrl,
   fetchMenuPhotoUrl,
   fetchPendingMenuPhotos,
+  fetchPendingOwnerIngredientChanges,
+  reviewOwnerIngredientChange,
   MenuReviewError,
   rejectMenuPhoto,
   saveMenuDraft,
@@ -141,6 +143,8 @@ export function reviewErrorKey(error: unknown): TranslationKey {
 
 export const isTeamMember = fetchIsTeamMember;
 export const loadPendingMenuPhotos = fetchPendingMenuPhotos;
+export const loadPendingOwnerIngredientChanges = fetchPendingOwnerIngredientChanges;
+export const reviewOwnerIngredientChangeRequest = reviewOwnerIngredientChange;
 export const menuPhotoUrl = fetchMenuPhotoUrl;
 
 export function saveDraft(photo: PendingMenuPhoto, items: DraftItem[]): Promise<void> {

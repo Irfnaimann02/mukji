@@ -3,7 +3,7 @@ import { DishWhySheet } from '@/components/dish-why-sheet';
 import { TrustBadge } from '@/components/trust-badge';
 import { dishTrust } from '@/logic/trust-score';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type {
   Dish,
@@ -50,6 +50,8 @@ export function DishList({
   const [whyDish, setWhyDish] = useState<Dish | null>(null); // #10
   const { t, language } = useTranslation();
 
+  const availableDishes = restaurant.dishes.filter((dish) => dish.isAvailable !== false);
+
   if (restaurant.dishes.length === 0) {
     // #47: no menu yet, so show what this type of restaurant usually uses (always Ask first).
     if (restaurant.categoryHint) {
@@ -58,12 +60,14 @@ export function DishList({
     return <Text style={styles.sub}>{t('menuNotAdded')}</Text>;
   }
 
-  const { shown, hidden, hiddenBecause } = splitMenu(
-    restaurant,
-    profile
-  );
+  if (availableDishes.length === 0) {
+    return <Text style={styles.sub}>{t('menuAllUnavailable')}</Text>;
+  }
 
-  const dishes = showHidden ? restaurant.dishes : shown;
+  const menuRestaurant = { ...restaurant, dishes: availableDishes };
+  const { shown, hidden, hiddenBecause } = splitMenu(menuRestaurant, profile);
+
+  const dishes = showHidden ? availableDishes : shown;
   // #103: say plainly when the whole menu is a generated typical menu
   const typicalType =
     language === 'ko'
@@ -135,47 +139,51 @@ function DishRow({
 
   return (
     <Pressable style={styles.dish} onPress={onPress} testID="dish-row">
-      <View style={styles.dishTop}>
-        <Text style={styles.dishName}>
-          {dish.nameKo}
-          {/* 0 = no price on the source (e.g. a chain's official site): show none, never ₩0 */}
-          {dish.priceWon > 0 ? ` · ₩${dish.priceWon.toLocaleString()}` : ''}
-        </Text>
+      {dish.photoUrl ? <Image source={{ uri: dish.photoUrl }} style={styles.dishPhoto} resizeMode="cover" /> : null}
+      <View style={styles.dishInfo}>
+        <View style={styles.dishTop}>
+          <Text style={styles.dishName}>
+            {dish.nameKo}
+            {/* 0 = no price on the source (e.g. a chain's official site): show none, never ₩0 */}
+            {dish.priceWon > 0 ? ` · ₩${dish.priceWon.toLocaleString()}` : ''}
+          </Text>
+          <Text
+            testID="dish-status"
+            style={[
+              styles.status,
+              {
+                color: statusInfo.color,
+                borderColor: statusInfo.color,
+              },
+            ]}>
+            {t(statusInfo.label)}
+          </Text>
+        </View>
 
-        <Text
-          testID="dish-status"
-          style={[
-            styles.status,
-            {
-              color: statusInfo.color,
-              borderColor: statusInfo.color,
-            },
-          ]}>
-          {t(statusInfo.label)}
-        </Text>
-      </View>
+        {status !== 'safe' && (
+          <Pressable onPress={onWhy} hitSlop={8} accessibilityRole="button" style={styles.why}>
+            <Text style={styles.whyText}>{t('whyButton')}</Text>
+          </Pressable>
+        )}
 
-      {status !== 'safe' && (
-        <Pressable onPress={onWhy} hitSlop={8} accessibilityRole="button" style={styles.why}>
-          <Text style={styles.whyText}>{t('whyButton')}</Text>
-        </Pressable>
-      )}
-
-      <Text style={styles.sub}>{dish.nameEn}</Text>
-
-      <Text style={styles.small}>
-        {t('contains')}: {dish.contains.join(', ') || t('nothingListed')}
-        {dish.mayContain.length > 0
-          ? ` · ${t('mayContain')}: ${dish.mayContain.join(', ')}`
-          : ''}
-      </Text>
-
-      {status !== 'safe' && dish.leaveOutEn && (
+        <Text style={styles.sub}>{dish.nameEn}</Text>
         <Text style={styles.small}>
-          {t('ask')}: {dish.leaveOutEn}
+          {t('contains')}: {dish.contains.join(', ') || t('nothingListed')}
+          {dish.mayContain.length > 0
+            ? ` · ${t('mayContain')}: ${dish.mayContain.join(', ')}`
+            : ''}
         </Text>
-      )}
-    <DishTrustLine dish={dish} />
+        {dish.ingredientsVerified === false && (
+          <Text style={styles.small}>{t('ingredientsAwaitingReview')}</Text>
+        )}
+
+        {status !== 'safe' && dish.leaveOutEn && (
+          <Text style={styles.small}>
+            {t('ask')}: {dish.leaveOutEn}
+          </Text>
+        )}
+        <DishTrustLine dish={dish} />
+      </View>
     </Pressable>
   );
 }
@@ -183,6 +191,7 @@ function DishRow({
 // #8: confidence pill, how many people checked the dish, and when.
 function DishTrustLine({ dish }: { dish: Dish }) {
   const { t, language } = useTranslation();
+  if (dish.ingredientsVerified === false) return null;
   const trust = dishTrust(dish);
 
   return (
@@ -244,11 +253,15 @@ const styles = StyleSheet.create({
     color: '#1b5fad',
   },
   dish: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 10,
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
-    gap: 2,
   },
+  dishPhoto: { width: 84, height: 84, borderRadius: 10, backgroundColor: '#eef2f6' },
+  dishInfo: { flex: 1, gap: 2 },
   dishTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',

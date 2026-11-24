@@ -14,8 +14,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { OwnerReservations } from '@/components/owner-reservations';
 import { OwnerDashboard } from '@/components/owner-dashboard';
+import { OwnerMenuManagement } from '@/components/owner-menu-management';
 import { OwnerRestaurantManagement } from '@/components/owner-restaurant-management';
-import { ALL_INGREDIENTS, type Restaurant } from '@/data/types';
+import type { Restaurant } from '@/data/types';
 import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
 import type { OwnerPortalTranslationKey } from '@/i18n/translations';
@@ -27,24 +28,13 @@ import {
   loadOwnerPortalRestaurants,
   saveRestaurantDrafts,
   switchToUserMode,
-  type DishDraft,
   type RestaurantDraft,
 } from '@/logic/owner-portal-service';
 import { showAlert } from '@/components/show-alert';
 import { userMessage } from '@/logic/user-error';
 
 
-// Same list as the app's Ingredient type (src/data/types.ts).
-const ALLOWED_INGREDIENTS: readonly string[] = ALL_INGREDIENTS;
-
 type PortalTab = 'overview' | 'restaurant' | 'menu' | 'reservations' | 'settings';
-function parseIngredientText(value: string): string[] {
-  return value
-    .split(',')
-    .map((item) => item.trim().toLowerCase())
-    .filter(Boolean);
-}
-
 function Field({
   label,
   value,
@@ -215,117 +205,8 @@ export default function OwnerPortalScreen() {
     });
   }
 
-  function updateDishField(dishId: string, key: keyof Omit<DishDraft, 'id'>, value: string) {
-    if (!selectedRestaurant) return;
-    const restaurantId = selectedRestaurant.id;
-
-    setRestaurantDrafts((current) => {
-      const base = current[restaurantId] ?? createRestaurantDraft(selectedRestaurant);
-      return {
-        ...current,
-        [restaurantId]: {
-          ...base,
-          dishes: base.dishes.map((dish) =>
-            dish.id === dishId ? { ...dish, [key]: value } : dish,
-          ),
-        },
-      };
-    });
-  }
-
-  function addDishDraft() {
-    if (!selectedRestaurant) return;
-    const restaurantId = selectedRestaurant.id;
-    const newDish: DishDraft = {
-      id: `local-draft-${Date.now()}`,
-      nameKo: '',
-      nameEn: '',
-      priceWon: '0',
-      contains: '',
-      mayContain: '',
-      leaveOutKo: '',
-      leaveOutEn: '',
-    };
-
-    setRestaurantDrafts((current) => {
-      const base = current[restaurantId] ?? createRestaurantDraft(selectedRestaurant);
-      return {
-        ...current,
-        [restaurantId]: { ...base, dishes: [...base.dishes, newDish] },
-      };
-    });
-  }
-
-  function removeDishDraft(dishId: string) {
-    if (!selectedRestaurant) return;
-    showAlert(
-      owner('ownerDeleteThisMenuItem'),
-      owner('ownerItWillBeRemovedFromThisLocalDraft'),
-      [
-        { text: owner('ownerKeep'), style: 'cancel' },
-        {
-          text: owner('ownerDelete'),
-          style: 'destructive',
-          onPress: () => {
-            const restaurantId = selectedRestaurant.id;
-            setRestaurantDrafts((current) => {
-              const base = current[restaurantId] ?? createRestaurantDraft(selectedRestaurant);
-              return {
-                ...current,
-                [restaurantId]: {
-                  ...base,
-                  dishes: base.dishes.filter((dish) => dish.id !== dishId),
-                },
-              };
-            });
-          },
-        },
-      ],
-    );
-  }
-
-  function validateRestaurantDraft(draft: RestaurantDraft): string | null {
-    if (!draft.nameKo.trim() || !draft.nameEn.trim() || !draft.address.trim()) {
-      return owner('ownerRestaurantNamesAndAddressAreRequired');
-    }
-
-    for (const dish of draft.dishes) {
-      if (!dish.nameKo.trim() || !dish.nameEn.trim()) {
-        return owner('ownerEveryMenuItemNeedsKoreanAndEnglishNames');
-      }
-
-      const price = Number(dish.priceWon);
-      if (!Number.isInteger(price) || price < 0) {
-        return owner('ownerMenuPricesMustBeZeroOrAPositiveWholeNumber');
-      }
-
-      const ingredients = [...parseIngredientText(dish.contains), ...parseIngredientText(dish.mayContain)];
-      const invalid = ingredients.find(
-        (ingredient) => !ALLOWED_INGREDIENTS.includes(ingredient),
-      );
-      if (invalid) {
-        return owner('ownerUnknownIngredientValueUseTheSupportedEnglishIngredientNames', { invalid });
-      }
-
-      const contains = parseIngredientText(dish.contains);
-      const mayContain = parseIngredientText(dish.mayContain);
-      const duplicateAcrossFields = contains.find((ingredient) => mayContain.includes(ingredient));
-      if (duplicateAcrossFields) {
-        return owner('ownerValueCannotBeInBothContainsAndMayContain', { duplicateAcrossFields });
-      }
-    }
-
-    return null;
-  }
-
   async function saveRestaurantDraft() {
     if (!selectedRestaurant || !activeDraft || !draftOwnerKey) return;
-    const validationError = validateRestaurantDraft(activeDraft);
-    if (validationError) {
-      showAlert(owner('ownerCheckTheRestaurantDraft'), validationError);
-      return;
-    }
-
     setSaving(true);
     try {
       const nextDrafts = { ...restaurantDrafts, [selectedRestaurant.id]: activeDraft };
@@ -454,55 +335,8 @@ export default function OwnerPortalScreen() {
   }
 
   function renderMenuEditor() {
-    if (!selectedRestaurant || !activeDraft) return null;
-    return (
-      <View style={styles.content}>
-        <View style={styles.noticeCard}>
-          <Ionicons name="restaurant-outline" size={22} color="#1b5fad" />
-          <View style={styles.flex}>
-            <Text style={styles.cardTitle}>{owner('ownerMenuDraftEditor')}</Text>
-            <Text style={styles.bodyText}>
-              {owner('ownerUseTheseIngredientNamesPorkBeefChickenSeafoodEggDairyAlfd029abb')}
-            </Text>
-          </View>
-        </View>
-
-        {activeDraft.dishes.map((dish, index) => (
-          <View key={dish.id} style={styles.card}>
-            <View style={styles.menuHeader}>
-              <Text style={styles.cardTitle}>{owner('ownerMenuItem')} {index + 1}</Text>
-              <Pressable onPress={() => removeDishDraft(dish.id)} hitSlop={10} accessibilityRole="button">
-                <Ionicons name="trash-outline" size={21} color="#b3261e" />
-              </Pressable>
-            </View>
-            <Field label={owner('ownerNameKorean')} value={dish.nameKo} onChangeText={(value) => updateDishField(dish.id, 'nameKo', value)} />
-            <Field label={owner('ownerNameEnglish')} value={dish.nameEn} onChangeText={(value) => updateDishField(dish.id, 'nameEn', value)} />
-            <Field label={owner('ownerPriceKRW')} value={dish.priceWon} onChangeText={(value) => updateDishField(dish.id, 'priceWon', value.replace(/[^0-9]/g, ''))} keyboardType="numeric" />
-            <Field label={owner('ownerContains')} value={dish.contains} onChangeText={(value) => updateDishField(dish.id, 'contains', value)} placeholder={owner('ownerExampleChickenWheat')} autoCapitalize="none" />
-            <Field label={owner('ownerMayContainAskFirst')} value={dish.mayContain} onChangeText={(value) => updateDishField(dish.id, 'mayContain', value)} placeholder={owner('ownerExampleDairySoy')} autoCapitalize="none" />
-            <Field label={owner('ownerOrderingConditionKorean')} value={dish.leaveOutKo} onChangeText={(value) => updateDishField(dish.id, 'leaveOutKo', value)} placeholder={owner('ownerExampleRemoveSauceKorean')} />
-            <Field label={owner('ownerOrderingConditionEnglish')} value={dish.leaveOutEn} onChangeText={(value) => updateDishField(dish.id, 'leaveOutEn', value)} placeholder={owner('ownerExampleNoSaucePlease')} />
-          </View>
-        ))}
-
-        <Pressable style={styles.secondaryButton} onPress={addDishDraft} accessibilityRole="button">
-          <Ionicons name="add-circle-outline" size={20} color="#1b5fad" />
-          <Text style={styles.secondaryButtonText}>{owner('ownerAddMenuItemToDraft')}</Text>
-        </Pressable>
-
-        <View style={styles.warningCard}>
-          <Text style={styles.warningTitle}>{owner('ownerDoNotGuessIngredients')}</Text>
-          <Text style={styles.bodyText}>
-            {owner('ownerOnlyEnterIngredientsTheRestaurantCanConfirmIfSomethingI47adfbc3')}
-          </Text>
-        </View>
-        <PrimaryButton
-          title={saving ? owner('ownerSaving') : owner('ownerSaveMenuDraft')}
-          onPress={() => void saveRestaurantDraft()}
-          disabled={saving || draftsLoading}
-        />
-      </View>
-    );
+    if (!selectedRestaurant) return null;
+    return <OwnerMenuManagement restaurant={selectedRestaurant} previewMode={previewMode} />;
   }
 
   function renderReservations() {
