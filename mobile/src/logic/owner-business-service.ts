@@ -7,6 +7,7 @@ import {
   createOwnerBusinessDocumentUrl as createDocumentUrl,
   listOwnerBusinessDocuments as listDocuments,
   loadOwnerBusinessDraft as loadDraftRecord,
+  loadLatestOwnerBusinessApplication as loadLatestApplicationRecord,
   removeOwnerBusinessDocument as removeDocumentRecord,
   saveOwnerBusinessDraft as saveDraftRecord,
   uploadOwnerBusinessDocument as uploadDocumentRecord,
@@ -14,6 +15,7 @@ import {
   type OwnerBusinessDraft,
   type OwnerBusinessDraftInput,
   type OwnerDocumentType,
+  OWNER_BUSINESS_PRIVACY_NOTICE_VERSION,
 } from '@/data/owner-business-repository';
 import { readWebOwnerBusinessFile } from '@/logic/owner-business-file';
 import {
@@ -24,6 +26,7 @@ import {
 } from '@/logic/owner-business-onboarding';
 
 export type { OwnerBusinessDocument, OwnerBusinessDraft };
+export { OWNER_BUSINESS_PRIVACY_NOTICE_VERSION };
 
 export function emptyOwnerBusinessDetails(
   user: Pick<User, 'email' | 'user_metadata'>,
@@ -54,6 +57,17 @@ export async function loadOwnerBusinessDraft(): Promise<{
   return {
     draft: result.draft,
     initialDetails: result.draft ?? emptyOwnerBusinessDetails(result.user),
+  };
+}
+
+export async function loadLatestOwnerBusinessApplication(): Promise<{
+  application: OwnerBusinessDraft | null;
+  initialDetails: OwnerBusinessDetails;
+}> {
+  const result = await loadLatestApplicationRecord();
+  return {
+    application: result.application,
+    initialDetails: result.application ?? emptyOwnerBusinessDetails(result.user),
   };
 }
 

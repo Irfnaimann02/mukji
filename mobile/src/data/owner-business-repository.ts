@@ -7,12 +7,14 @@ export type OwnerDocumentType =
   | 'other';
 
 const DOCUMENT_BUCKET = 'owner-business-documents';
+export const OWNER_BUSINESS_PRIVACY_NOTICE_VERSION = '2026-11-24-v2';
 
 export type OwnerBusinessDraft = OwnerBusinessDraftInput & {
   id: string;
   status: 'draft' | 'submitted' | 'under_review' | 'needs_information' | 'approved' | 'rejected';
   updatedAt: string;
   privacyNoticeAcknowledgedAt: string | null;
+  privacyNoticeVersion: string | null;
 };
 
 export type OwnerBusinessDocument = {
@@ -74,6 +76,9 @@ function fromRow(row: Record<string, unknown>): OwnerBusinessDraft {
     privacyNoticeAcknowledgedAt: typeof row.privacy_notice_acknowledged_at === 'string'
       ? row.privacy_notice_acknowledged_at
       : null,
+    privacyNoticeVersion: typeof row.privacy_notice_version === 'string'
+      ? row.privacy_notice_version
+      : null,
   };
 }
 
@@ -110,6 +115,26 @@ export async function loadOwnerBusinessDraft(): Promise<{
   return { draft, user };
 }
 
+export async function loadLatestOwnerBusinessApplication(): Promise<{
+  application: OwnerBusinessDraft | null;
+  user: Awaited<ReturnType<typeof requireOwnerUser>>;
+}> {
+  const sb = client();
+  const user = await requireOwnerUser();
+  const { data, error } = await sb
+    .from('owner_business_applications')
+    .select('*')
+    .eq('user_id', user.id)
+    .order('updated_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (error) throw error;
+  return {
+    application: data ? fromRow(data as unknown as Record<string, unknown>) : null,
+    user,
+  };
+}
+
 export async function saveOwnerBusinessDraft(
   details: OwnerBusinessDraftInput,
   existingId: string | null,
@@ -134,7 +159,7 @@ export async function saveOwnerBusinessDraft(
     // Read the original acknowledgement timestamp before updating the draft.
     const { data: existingDraft, error: fetchError } = await sb
       .from('owner_business_applications')
-      .select('privacy_notice_acknowledged_at')
+      .select('privacy_notice_acknowledged_at,privacy_notice_version')
       .eq('id', existingId)
       .eq('user_id', user.id)
       .eq('status', 'draft')
@@ -148,9 +173,13 @@ export async function saveOwnerBusinessDraft(
     const updatePayload = {
       ...detailsPayload,
       updated_at: new Date().toISOString(),
-      // Only record acknowledgement if it has never been recorded.
-      ...(existingDraft.privacy_notice_acknowledged_at == null
-        ? { privacy_notice_acknowledged_at: new Date().toISOString() }
+      // Preserve the timestamp for this notice version; re-acknowledgement gets a new timestamp.
+      ...(existingDraft.privacy_notice_acknowledged_at == null ||
+          existingDraft.privacy_notice_version !== OWNER_BUSINESS_PRIVACY_NOTICE_VERSION
+        ? {
+            privacy_notice_acknowledged_at: new Date().toISOString(),
+            privacy_notice_version: OWNER_BUSINESS_PRIVACY_NOTICE_VERSION,
+          }
         : {}),
     };
 
@@ -176,6 +205,7 @@ export async function saveOwnerBusinessDraft(
       user_id: user.id,
       ...detailsPayload,
       privacy_notice_acknowledged_at: new Date().toISOString(),
+      privacy_notice_version: OWNER_BUSINESS_PRIVACY_NOTICE_VERSION,
     })
     .select('*')
     .single();
@@ -318,6 +348,19 @@ export async function deleteOwnerBusinessDraft(applicationId: string): Promise<v
 
   if (applicationError) throw applicationError;
   if (!application) throw new Error('The draft was not found or is no longer deletable.');
+
+  const { data: submittedApplication, error: submittedError } = await sb
+    .from('owner_restaurant_applications')
+    .select('id')
+    .eq('business_application_id', applicationId)
+    .eq('user_id', user.id)
+    .neq('status', 'draft')
+    .limit(1)
+    .maybeSingle();
+  if (submittedError) throw submittedError;
+  if (submittedApplication) {
+    throw new Error('This business draft is linked to a submitted restaurant application and can no longer be deleted.');
+  }
 
   const { data: documents, error: documentsError } = await sb
     .from('owner_application_documents')
