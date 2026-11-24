@@ -3,6 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import type { ComponentProps } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { useTranslation } from '@/hooks/use-translation';
 import { MapPin } from '@/logic/map-pins';
 
 type IconName = ComponentProps<typeof Ionicons>['name'];
@@ -37,10 +38,19 @@ const FOOD_TYPE_COLOR: Record<MapPin['foodType'], string> = {
 type Props = {
   pin: MapPin;
   selected: boolean;
+  showName?: boolean; // the name under the pin, so people know the place before tapping
 };
 
-export function RestaurantPin({ pin, selected }: Props) {
+// Pin layout, top to bottom: 6 padding, 40 circle, 20 name slot = 66.
+// The map puts the circle's centre (y = 26) on the restaurant's spot.
+const PIN_NAME_HEIGHT = 20;
+export const PIN_HEIGHT = 6 + 40 + PIN_NAME_HEIGHT;
+export const PIN_POINT_Y = 6 + 20;
+
+export function RestaurantPin({ pin, selected, showName = false }: Props) {
   const color = FOOD_TYPE_COLOR[pin.foodType];
+  const { language } = useTranslation();
+  const name = language === 'ko' ? pin.nameKo || pin.name : pin.name || pin.nameKo;
 
   return (
     // #14 + #4: faded = nothing here fits the user (allergies, or no dish Safe for their diet).
@@ -62,12 +72,21 @@ export function RestaurantPin({ pin, selected }: Props) {
       <View style={styles.badge}>
         <Text style={styles.badgeText}>{pin.badgeCount}</Text>
       </View>
+
+      {/* always the same height, so the map's anchor point never moves */}
+      <View style={styles.nameSlot}>
+        {(showName || selected) && name ? (
+          <Text style={[styles.name, selected && styles.nameSelected]} numberOfLines={1}>
+            {name}
+          </Text>
+        ) : null}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  wrapper: { padding: 6 },
+  wrapper: { paddingTop: 6, paddingHorizontal: 6, alignItems: 'center' },
   faded: { opacity: 0.35 },
   circle: {
     width: 40,
@@ -93,4 +112,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   badgeText: { color: 'white', fontSize: 11, fontWeight: 'bold' },
+  nameSlot: { height: PIN_NAME_HEIGHT, justifyContent: 'center' },
+  name: {
+    maxWidth: 96,
+    paddingHorizontal: 5,
+    paddingVertical: 1,
+    borderRadius: 6,
+    overflow: 'hidden',
+    backgroundColor: 'rgba(255,255,255,0.92)',
+    color: '#14213d',
+    fontSize: 11,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  nameSelected: { color: '#d84315' },
 });
