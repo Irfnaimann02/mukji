@@ -130,9 +130,15 @@ export default function ReserveFormScreen() {
       return next;
     });
 
-  // #103: typical (generated) dishes are not this restaurant's menu, so they can't be pre-ordered.
-  const dishes = (restaurant?.dishes ?? []).filter((dish) => !dish.typical);
-  const dishIds = expandDishIds(quantities);
+  // Typical (generated) dishes cannot be pre-ordered.
+  // Unavailable dishes cannot be pre-ordered either.
+  const dishes = (restaurant?.dishes ?? []).filter(
+    (dish) => !dish.typical && dish.isAvailable !== false
+  );
+  const availableDishIds = new Set(dishes.map((dish) => dish.id));
+  const dishIds = expandDishIds(quantities).filter((id) =>
+    availableDishIds.has(id)
+  );
   const preorder = preorderSummary(dishIds, dishes);
   // Show the first few dishes; a dish the user already added always stays visible.
   const visibleDishes = dishes.filter(
@@ -320,7 +326,7 @@ export default function ReserveFormScreen() {
               <Text style={styles.hint}>{t('bookingDishesHint')}</Text>
             </View>
             {dishes.length === 0 ? (
-              <Text style={styles.hint}>{t('menuNotAdded')}</Text>
+              <Text style={styles.hint}>{restaurant?.dishes.length ? t('menuAllUnavailable') : t('menuNotAdded')}</Text>
             ) : (
               <View style={styles.dishCard}>
                 {visibleDishes.map((dish, index) => {

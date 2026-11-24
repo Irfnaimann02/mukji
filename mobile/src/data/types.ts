@@ -40,6 +40,11 @@ export interface Dish {
   // #103: generated "typical menu" dish (SQL 038), not this restaurant's real menu.
   // Never shown as Safe to anyone with a diet or allergy.
   typical?: boolean;
+  // Owner-submitted ingredient information remains Ask first until reviewed.
+  ingredientsVerified?: boolean;
+  menuCategory?: 'main' | 'side' | 'drink' | 'other';
+  isAvailable?: boolean;
+  photoUrl?: string;
 }
 
 // #47 Layer 2: what a type of restaurant usually uses, shown when it has no menu yet.
