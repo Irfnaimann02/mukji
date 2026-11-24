@@ -1,13 +1,14 @@
-import { RestaurantPin } from '@/components/restaurant-pin';
+import { pinLayout, RestaurantPin } from '@/components/restaurant-pin';
 import { RestaurantPreview } from '@/components/restaurant-preview';
 import { useLiveLocation } from '@/hooks/use-live-location';
 import { useProfile } from '@/hooks/use-profile';
 import { useTranslation } from '@/hooks/use-translation';
 import { getMapPins, type MapPin } from '@/logic/map-pins';
+import { pinSizeFor, pinsInView, zoomedInEnough, type MapRegion } from '@/logic/map-zoom';
 import { distanceInMeters, ERICA_CENTRE, type Point } from '@/logic/nearby-service';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -43,6 +44,16 @@ export default function MapScreen() {
   // #47: pins load around `centre`; `mapCentre` is where the map is now.
   const [centre, setCentre] = useState<Point>(ERICA_CENTRE);
   const [mapCentre, setMapCentre] = useState<Point>(ERICA_CENTRE);
+  // Zoomed out too far, the pins pile on top of each other, so we draw none (see map-zoom.ts).
+  const [region, setRegion] = useState<MapRegion>(ERICA_REGION);
+  const zoomedIn = zoomedInEnough(region);
+  const zoomSize = pinSizeFor(region) ?? 'dot'; // smaller pins the further out you zoom
+  const visiblePins = useMemo(() => {
+    const shown = pinsInView(pins, region);
+    // keep the selected pin even if it just left the view
+    if (selectedPin && !shown.some((pin) => pin.id === selectedPin.id)) shown.push(selectedPin);
+    return shown;
+  }, [pins, region, selectedPin]);
   const movedToMe = useRef(false);
 
   // The first time we know where the user is, load and show pins there.
@@ -91,7 +102,7 @@ export default function MapScreen() {
     };
   }, [profile, centre]);
 
-  const showSearchHere = !selectedPin && distanceInMeters(mapCentre, centre) > 300;
+  const showSearchHere = zoomedIn && !selectedPin && distanceInMeters(mapCentre, centre) > 300;
 
   return (
     <View style={styles.screen}>
@@ -101,23 +112,30 @@ export default function MapScreen() {
         initialRegion={ERICA_REGION}
         showsUserLocation
         showsMyLocationButton={false}
-        onRegionChangeComplete={(region) =>
-          setMapCentre({ lat: region.latitude, lng: region.longitude })
-        }>
-        {pins.map((pin) => (
-          <Marker
-            key={`${pin.id}-${pin.faded ? 'faded' : 'normal'}`}
-            coordinate={{
-              latitude: pin.latitude,
-              longitude: pin.longitude,
-            }}
-            onPress={() => setSelectedPin(pin)}>
-            <RestaurantPin
-              pin={pin}
-              selected={selectedPin?.id === pin.id}
-            />
-          </Marker>
-        ))}
+        onRegionChangeComplete={(next) => {
+          setRegion(next);
+          setMapCentre({ lat: next.latitude, lng: next.longitude });
+        }}>
+        {visiblePins.map((pin) => {
+          const selected = selectedPin?.id === pin.id;
+          const size = selected ? 'large' : zoomSize; // the tapped pin is always full size, with its name
+          const layout = pinLayout(size);
+          return (
+            <Marker
+              // Android only redraws a custom marker when its key changes
+              key={`${pin.id}-${pin.faded ? 'faded' : 'normal'}-${size}-${selected ? 'sel' : ''}`}
+              coordinate={{
+                latitude: pin.latitude,
+                longitude: pin.longitude,
+              }}
+              // put the circle's centre (not the whole view) on the spot, so pins don't jump between sizes
+              anchor={{ x: 0.5, y: layout.pointY / layout.height }} // Android
+              centerOffset={{ x: 0, y: layout.height / 2 - layout.pointY }} // iOS
+              onPress={() => setSelectedPin(pin)}>
+              <RestaurantPin pin={pin} selected={selected} size={size} />
+            </Marker>
+          );
+        })}
       </MapView>
 
       <Pressable
@@ -130,6 +148,17 @@ export default function MapScreen() {
           {t('searchRestaurantsOrFood')}
         </Text>
       </Pressable>
+
+      {!zoomedIn && !selectedPin && (
+        <View
+          pointerEvents="none"
+          style={[styles.searchHereWrap, { top: insets.top + EDGE_GAP + SEARCH_BAR_HEIGHT + 8 }]}>
+          <View style={styles.searchHere}>
+            <Ionicons name="search-outline" size={16} color="#1b5fad" />
+            <Text style={styles.searchHereText}>{t('zoomInToSeeRestaurants')}</Text>
+          </View>
+        </View>
+      )}
 
       {showSearchHere && (
         <View

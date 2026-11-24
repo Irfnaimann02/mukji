@@ -400,6 +400,7 @@ export const translations = {
     myLocation: 'Go to my location',
 
     searchThisArea: 'Search this area',
+    zoomInToSeeRestaurants: 'Zoom in to see restaurants',
     searchDistance: 'Search distance',
     seeOnKakaoMap: 'See photos and menu on Kakao Map',
 
@@ -979,6 +980,7 @@ export const translations = {
     myLocation: '내 위치로 이동',
 
     searchThisArea: '이 지역 검색',
+    zoomInToSeeRestaurants: '확대하면 음식점이 보여요',
     searchDistance: '검색 거리',
     seeOnKakaoMap: '카카오맵에서 사진과 메뉴 보기',
 
