@@ -449,6 +449,11 @@ export default function OwnerPortalScreen() {
           </View>
         </View>
 
+        <PrimaryButton
+          title={owner('ownerBusinessOnboarding')}
+          onPress={() => router.push('/owner-business')}
+          disabled={saving || draftsLoading}
+        />
         <Text style={styles.sectionTitle}>{owner('ownerWhatWouldYouLikeToDo')}</Text>
         <View style={styles.choiceRow}>
           {(['existing', 'new'] as const).map((kind) => (
