@@ -15,10 +15,13 @@ export function blockedIngredients(profile: FoodProfile): Set<Ingredient> {
 }
 
 export function dishStatus(dish: Dish, restaurant: Restaurant, profile: FoodProfile): DishStatus {
-  // Owner-submitted ingredient claims are never treated as confirmed before team review.
-  if (dish.ingredientsVerified === false) return 'ask_first';
   const blocked = blockedIngredients(profile);
+
+  // Known blocked ingredients must remain Avoid, even while other information is unverified.
   if (dish.contains.some((i) => blocked.has(i))) return 'avoid';
+
+  // Other owner-submitted ingredient claims remain Ask first until team review.
+  if (dish.ingredientsVerified === false) return 'ask_first';
   if (dish.mayContain.some((i) => blocked.has(i))) return 'ask_first';
   // Meat that is fine for halal only when slaughtered the halal way.
   const hasMeat = [...dish.contains, ...dish.mayContain].some((i) => HALAL_MEAT.includes(i));

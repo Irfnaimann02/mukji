@@ -74,6 +74,17 @@ describe('dish status', () => {
     // "may contain" pork is not proof, so it is Ask first, not Avoid
     expect(dishStatus(dish('김치찌개', ['soy'], ['pork']), notCertified, halal)).toBe('ask_first');
   });
+
+  test('an unverified dish containing pork remains Avoid for halal users', () => {
+  const unverifiedPork = {
+    ...dish('제육덮밥', ['pork', 'soy']),
+    ingredientsVerified: false,
+  };
+
+    expect(
+      dishStatus(unverifiedPork, restaurant([]), profile(['halal']))
+    ).toBe('avoid');
+  });
 });
 
 // ---------- 2. Allergy filter (#14) ----------
