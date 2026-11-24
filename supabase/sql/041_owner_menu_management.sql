@@ -64,7 +64,7 @@ drop policy if exists "linked owners update ordinary menu fields" on public.dish
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values (
   'menu-item-photos', 'menu-item-photos', true, 8388608,
-  array['image/jpeg', 'image/png', 'image/webp', 'image/heic']
+  array['image/jpeg', 'image/png', 'image/webp']
 )
 on conflict (id) do update set
   public = true,

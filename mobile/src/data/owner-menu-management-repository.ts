@@ -169,10 +169,12 @@ async function readMenuPhoto(uri: string): Promise<ArrayBuffer> {
 }
 
 function menuPhotoDetails(mimeType: string | undefined, filename: string | null | undefined) {
-  const supported = ['image/jpeg', 'image/png', 'image/webp', 'image/heic'];
+  const supported = ['image/jpeg', 'image/png', 'image/webp'];
   const lowerName = filename?.toLowerCase() ?? '';
   const inferred = mimeType || (lowerName.endsWith('.png') ? 'image/png' : lowerName.endsWith('.webp') ? 'image/webp' : lowerName.endsWith('.heic') ? 'image/heic' : 'image/jpeg');
-  if (!supported.includes(inferred)) throw new Error('Choose a JPG, PNG, WebP or HEIC image.');
+  if (!supported.includes(inferred)) {
+    throw new Error('Choose a JPG, PNG or WebP image.');
+  }
   return { mimeType: inferred, extension: inferred === 'image/jpeg' ? 'jpg' : inferred.split('/')[1] };
 }
 
