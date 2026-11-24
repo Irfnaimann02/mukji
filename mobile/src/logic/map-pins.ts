@@ -1,11 +1,12 @@
 import type { FoodProfile, FoodType, Ingredient, Restaurant } from '@/data/types';
 import type { Point } from '@/logic/nearby-service';
-import { BLOCKED_BY_DIET, fadeReason, type FadeReason } from '@/logic/profile-filter';
+import { BLOCKED_BY_DIET, fadeReason, isTypicalMenu, type FadeReason } from '@/logic/profile-filter';
 import { listRestaurantsNear } from '@/logic/restaurant-service';
 
 export type MapPin = {
   id: string;
   name: string;
+  nameKo: string; // shown under the pin when the app is in Korean
   latitude: number;
   longitude: number;
   foodType: FoodType;
@@ -25,6 +26,8 @@ export function badgesFor(r: Restaurant): string[] {
   const badges: string[] = [];
   // No menu yet: we can't say who it fits, so show no badges.
   if (r.dishes.length === 0) return badges;
+  // #103: a typical menu is a guess, so it earns no "who it fits" badges either.
+  if (isTypicalMenu(r)) return badges;
   const all = (d: Restaurant['dishes'][number]) => [...d.contains, ...d.mayContain];
   if (r.halalCertified) badges.push('halal');
   if (r.dishes.every((d) => !all(d).includes('pork'))) badges.push('no-pork');
@@ -42,6 +45,7 @@ export async function getMapPins(profile: FoodProfile, centre: Point): Promise<M
     return {
       id: r.id,
       name: r.nameEn,
+      nameKo: r.nameKo,
       latitude: r.lat,
       longitude: r.lng,
       foodType: r.foodType,
