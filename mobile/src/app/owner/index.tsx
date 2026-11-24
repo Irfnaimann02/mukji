@@ -13,6 +13,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { OwnerReservations } from '@/components/owner-reservations';
+import { OwnerDashboard } from '@/components/owner-dashboard';
 import { ALL_INGREDIENTS, type Restaurant } from '@/data/types';
 import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
@@ -370,6 +371,7 @@ export default function OwnerPortalScreen() {
   function renderApplicationForm() {
     return (
       <View style={styles.content}>
+        <OwnerDashboard restaurants={[]} previewMode={previewMode} />
         <View style={styles.noticeCard}>
           <Ionicons name="information-circle-outline" size={24} color="#1b5fad" />
           <View style={styles.flex}>
@@ -408,48 +410,12 @@ export default function OwnerPortalScreen() {
   }
 
   function renderOverview() {
-    if (!selectedRestaurant || !activeDraft) return null;
     return (
-      <View style={styles.content}>
-        <View style={styles.heroCard}>
-          <Text style={styles.eyebrow}>{owner('ownerOWNERDASHBOARD')}</Text>
-          <Text style={styles.heroTitle}>{activeDraft.nameEn || selectedRestaurant.nameEn}</Text>
-          <Text style={styles.heroSubtitle}>{activeDraft.nameKo || selectedRestaurant.nameKo}</Text>
-          <Text style={styles.heroAddress}>{activeDraft.address || selectedRestaurant.address}</Text>
-        </View>
-        <View style={styles.statsRow}>
-          <View style={styles.statCard}>
-            <Text style={styles.statNumber}>{activeDraft.dishes.length}</Text>
-            <Text style={styles.statLabel}>{owner('ownerMenuItems')}</Text>
-          </View>
-          <View style={styles.statCard}>
-            <Text style={styles.statNumber}>{selectedRestaurant.recommendCount}</Text>
-            <Text style={styles.statLabel}>{owner('ownerRecommendations')}</Text>
-          </View>
-        </View>
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>{owner('ownerRestaurantInformation')}</Text>
-          <Text style={styles.bodyText}>{owner('ownerPhone')} {activeDraft.phone || '-'}</Text>
-          <Text style={styles.bodyText}>{owner('ownerAddress')} {activeDraft.address}</Text>
-          <Text style={styles.bodyText}>
-            {owner('ownerHalalCertification')} {selectedRestaurant.halalCertified
-              ? owner('ownerMarkedAsCertified')
-              : owner('ownerNotMarkedAsCertified')}
-          </Text>
-          <Text style={styles.mutedText}>
-            {owner('ownerCertificationStatusIsControlledByMukjiVerificationAndCaca872849')}
-          </Text>
-        </View>
-        <View style={styles.noticeCard}>
-          <Ionicons name="cloud-offline-outline" size={23} color="#1b5fad" />
-          <View style={styles.flex}>
-            <Text style={styles.cardTitle}>{owner('ownerLocalPreviewMode')}</Text>
-            <Text style={styles.bodyText}>
-              {owner('ownerEditsAreSavedOnThisDeviceOnlyTheyAreNotPublishedToThePu55e749e4')}
-            </Text>
-          </View>
-        </View>
-      </View>
+      <OwnerDashboard
+        restaurants={ownedRestaurants}
+        selectedRestaurant={selectedRestaurant}
+        previewMode={previewMode}
+      />
     );
   }
 
