@@ -45,20 +45,6 @@ export default function AccountScreen() {
           {account.guest && <Text style={styles.explainer}>{t('guestProfileThisPhone')}</Text>}
         </View>
 
-        {account.guest && (
-          // #19: Kakao / Google login is not built yet.
-          <View style={styles.card}>
-            <Row
-              icon="log-in-outline"
-              iconBg="#EAF4EC"
-              iconColor="#2F6B3F"
-              title={t('signInKakaoGoogle')}
-              sub={t('keepProfileOnAnyPhone')}
-              badge={t('comingSoon')}
-            />
-          </View>
-        )}
-
         <View style={styles.card}>
           <Row
             icon="swap-horizontal-outline"
@@ -109,7 +95,6 @@ function Row({
   title,
   titleColor = '#1E1E1E',
   sub,
-  badge,
   onPress,
 }: {
   icon: IconName;
@@ -118,7 +103,6 @@ function Row({
   title: string;
   titleColor?: string;
   sub: string;
-  badge?: string;
   onPress?: () => void;
 }) {
   return (
@@ -135,11 +119,7 @@ function Row({
         <Text style={[styles.rowTitle, { color: titleColor }]}>{title}</Text>
         <Text style={styles.rowSub}>{sub}</Text>
       </View>
-      {badge ? (
-        <Text style={styles.badge}>{badge}</Text>
-      ) : onPress ? (
-        <Ionicons name="chevron-forward" size={18} color="#857C76" />
-      ) : null}
+      {onPress ? <Ionicons name="chevron-forward" size={18} color="#857C76" /> : null}
     </Pressable>
   );
 }
@@ -201,14 +181,4 @@ const styles = StyleSheet.create({
   rowText: { flex: 1, gap: 2 },
   rowTitle: { fontSize: 15, fontWeight: '700' },
   rowSub: { color: '#6B6460', fontSize: 12 },
-  badge: {
-    color: '#5E5752',
-    backgroundColor: '#F3EEEA',
-    fontSize: 11,
-    fontWeight: '700',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 999,
-    overflow: 'hidden',
-  },
 });
