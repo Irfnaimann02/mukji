@@ -16,6 +16,22 @@ export interface PendingMenuPhoto {
   createdAt: string;
 }
 
+
+export interface PendingOwnerIngredientChange {
+  id: string;
+  restaurantId: string;
+  restaurantNameKo: string;
+  restaurantNameEn: string;
+  dishId: string;
+  dishNameKo: string;
+  currentContains: string[];
+  currentMayContain: string[];
+  proposedContains: string[];
+  proposedMayContain: string[];
+  note: string;
+  createdAt: string;
+}
+
 export type ReviewErrorCode =
   | 'team_only'
   | 'not_pending'
@@ -115,5 +131,38 @@ export async function approveMenuPhoto(id: string, draft: object[]): Promise<{ a
 
 export async function rejectMenuPhoto(id: string, reason: string): Promise<void> {
   const { error } = await client().rpc('team_reject_menu_photo', { p_id: id, p_reason: reason });
+  if (error) throw toError(error);
+}
+
+
+export async function fetchPendingOwnerIngredientChanges(): Promise<PendingOwnerIngredientChange[]> {
+  const { data, error } = await client().rpc('team_pending_owner_ingredient_changes');
+  if (error) throw toError(error);
+  return (data ?? []).map((row: any) => ({
+    id: String(row.id),
+    restaurantId: String(row.restaurant_id),
+    restaurantNameKo: String(row.restaurant_name_ko ?? ''),
+    restaurantNameEn: String(row.restaurant_name_en ?? ''),
+    dishId: String(row.dish_id),
+    dishNameKo: String(row.dish_name_ko ?? ''),
+    currentContains: row.current_contains ?? [],
+    currentMayContain: row.current_may_contain ?? [],
+    proposedContains: row.proposed_contains ?? [],
+    proposedMayContain: row.proposed_may_contain ?? [],
+    note: String(row.note ?? ''),
+    createdAt: String(row.created_at),
+  }));
+}
+
+export async function reviewOwnerIngredientChange(
+  id: string,
+  approve: boolean,
+  reviewNote: string,
+): Promise<void> {
+  const { error } = await client().rpc('team_review_owner_ingredient_change', {
+    p_id: id,
+    p_approve: approve,
+    p_review_note: reviewNote.trim().slice(0, 500),
+  });
   if (error) throw toError(error);
 }
