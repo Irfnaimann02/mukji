@@ -9,9 +9,12 @@
 --    made later is never touched).
 -- 3. Guest logins from testing that have not been used for 2 days. A guest whose session
 --    was refreshed in the last 2 days is kept, so nobody is logged out mid-test.
---    Guests who sent a menu photo are kept too, so their photo stays linked.
---    Their bookings, AI counters and check-ins go with them (on delete cascade).
--- 4. Today's AI usage counters (027), so everyone's daily limit starts fresh.
+--    Guests who left anything behind are kept too: a booking, a review, a check-in or a
+--    menu photo. Deleting a login deletes its bookings, reviews and check-ins (on delete
+--    cascade), so a real guest with an upcoming booking must never be removed here.
+--    (Review of #98, Soy05 and Irfan.)
+-- 4. Today's AI usage counters (027, Korean date), so everyone's limit for today starts
+--    fresh. Earlier days are kept, so a re-run doesn't wipe the history.
 -- Safe to re-run.
 
 begin;
@@ -41,12 +44,14 @@ where u.is_anonymous
     where s.user_id = u.id
       and coalesce(s.refreshed_at, s.updated_at, s.created_at) > now() - interval '2 days'
   )
-  and not exists (
-    select 1 from public.menu_submissions as m where m.submitted_by = u.id
-  );
+  and not exists (select 1 from public.reservations as r where r.user_id = u.id)
+  and not exists (select 1 from public.reviews as v where v.user_id = u.id)
+  and not exists (select 1 from public.check_ins as c where c.user_id = u.id)
+  and not exists (select 1 from public.menu_submissions as m where m.submitted_by = u.id);
 
--- 4. AI usage counters
-delete from public.ai_usage;
+-- 4. today's AI usage counters
+delete from public.ai_usage
+where day = (now() at time zone 'Asia/Seoul')::date;
 
 commit;
 
@@ -54,5 +59,5 @@ commit;
 -- select count(*) filter (where is_anonymous) as guests,
 --        count(*) filter (where not is_anonymous) as email_accounts
 -- from auth.users;
--- select count(*) from public.reservations;   -- 0
--- select count(*) from public.owners;         -- 0
+-- select count(*) from public.reservations;   -- only real bookings left (the 13 test ones are gone)
+-- select count(*) from public.owners;         -- only real owners left (owner-test is gone)
