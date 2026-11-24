@@ -155,7 +155,7 @@ export function OwnerRestaurantManagement({
     }
     void load();
     return () => { active = false; };
-  }, [restaurant?.id, previewMode, owner]);
+  }, [restaurant, previewMode, owner]);
 
   const validationError = useMemo(
     () => profile ? validateRestaurantManagementProfile({ ...profile, facilities: splitFacilityText(facilityText) }) : null,
@@ -391,6 +391,7 @@ const styles = StyleSheet.create({
   root: { padding: 16, gap: 14 },
   flex: { flex: 1 },
   loading: { padding: 36, alignItems: 'center', gap: 10 },
+  muted: { color: '#718096', fontSize: 12 },
   notice: { backgroundColor: '#e8f0fb', borderRadius: 13, padding: 14, flexDirection: 'row', alignItems: 'center', gap: 10 },
   card: { backgroundColor: '#fff', borderRadius: 14, borderWidth: 1, borderColor: '#e4eaf1', padding: 15, gap: 13 },
   sectionTitle: { color: '#14213d', fontSize: 16, fontWeight: '800' },
