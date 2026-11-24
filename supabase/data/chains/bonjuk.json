@@ -9,7 +9,7 @@
     "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
   ],
   "checked_on": "2026-11-24",
-  "notes": "Text table '본죽 메뉴별 알레르기 유발물질 정보 (2026년 10월 업데이트)' under the '알레르기 정보' tab of any 본죽 menu page. '직접 유발물질' (direct) -> contains; '간접 유발물질' (indirect, i.e. possible cross-contact in the store) -> may_contain. Almost every porridge lists nearly all other allergens as indirect, so may_contain is long for most items. Covers 본죽 only (not 본죽&비빔밥 or 본도시락, which are separate brands on bonif.co.kr - branch names containing '본죽&비빔밥' will still match %본죽%). Prices vary by store and are not in the table (null). Includes the '추가 및 반찬' section (add-ons and side dishes).",
+  "notes": "Text table '본죽 메뉴별 알레르기 유발물질 정보 (2026년 10월 업데이트)' under the '알레르기 정보' tab of any 본죽 menu page. '직접 유발물질' (direct) -> contains; '간접 유발물질' (indirect, i.e. possible cross-contact in the store) -> may_contain. Almost every porridge lists nearly all other allergens as indirect, so may_contain is long for most items. Covers 본죽 only (not 본죽&비빔밥 or 본도시락, which are separate brands on bonif.co.kr - branch names containing '본죽&비빔밥' will still match %본죽%). Prices vary by store and are not in the table (null). Includes the '추가 및 반찬' section (add-ons and side dishes). Review of #105: fish is not on Korea's allergen list, so dishes that are fish by name got 'seafood' added to 'contains' by hand: 추어죽, 불고기낙지죽, 참치야채죽.",
   "dishes": [
     {
       "name_ko": "추어죽",
@@ -17,6 +17,7 @@
       "price_won": null,
       "contains": [
         "beef",
+        "seafood",
         "dairy",
         "wheat",
         "soy"
@@ -24,7 +25,6 @@
       "may_contain": [
         "pork",
         "chicken",
-        "seafood",
         "egg",
         "peanut"
       ],
@@ -97,6 +97,7 @@
       "price_won": null,
       "contains": [
         "beef",
+        "seafood",
         "dairy",
         "wheat",
         "soy"
@@ -104,7 +105,6 @@
       "may_contain": [
         "pork",
         "chicken",
-        "seafood",
         "egg",
         "peanut"
       ],
@@ -497,6 +497,7 @@
       "price_won": null,
       "contains": [
         "beef",
+        "seafood",
         "dairy",
         "wheat",
         "soy"
@@ -504,7 +505,6 @@
       "may_contain": [
         "pork",
         "chicken",
-        "seafood",
         "egg",
         "peanut"
       ],

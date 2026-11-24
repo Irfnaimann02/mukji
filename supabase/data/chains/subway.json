@@ -13,7 +13,7 @@
     "https://www.subway.co.kr/sandwichCountry"
   ],
   "checked_on": "2026-11-24",
-  "notes": "Allergen chart is one image (subway_allergen.png); ● = contains, ★ = may contain (mapped to may_contain). Values are for the base sandwich only: wheat bread + lettuce, tomato, pepper, onion, cucumber; NO cheese or sauce (except 스테이크&치즈 and breakfast items, which include American cheese) - bread, cheese and sauce choices add their own allergens (the chart lists them separately). Site warns of cross-contact during preparation. (F)/(S) variants of 안창 비프&머쉬룸 and 머쉬룸 appear as separate rows in the chart with different values; both are kept. (J)/(JC) store-variant rows were skipped. 램 = lamb: lamb is not an allergen column, but the two 램 sandwiches are lamb by name, so 'lamb' was added to their 'contains' by hand (review of PR #104). Prices are not shown on the site (null). Read by eye from the image - spot-check.",
+  "notes": "Allergen chart is one image (subway_allergen.png); ● = contains, ★ = may contain (mapped to may_contain). Values are for the base sandwich only: wheat bread + lettuce, tomato, pepper, onion, cucumber; NO cheese or sauce (except 스테이크&치즈 and breakfast items, which include American cheese) - bread, cheese and sauce choices add their own allergens (the chart lists them separately). Site warns of cross-contact during preparation. (F)/(S) variants of 안창 비프&머쉬룸 and 머쉬룸 appear as separate rows in the chart with different values; both are kept. (J)/(JC) store-variant rows were skipped. 램 = lamb: lamb is not an allergen column, but the two 램 sandwiches are lamb by name, so 'lamb' was added to their 'contains' by hand (review of PR #104). Prices are not shown on the site (null). Read by eye from the image - spot-check. Review of #105: fish is not on Korea's allergen list, so dishes that are fish by name got 'seafood' added to 'contains' by hand: 참치. Review of #105: alcohol is not an allergen and never listed; 치킨 데리야끼 got 'alcohol' in 'may_contain' by name (bourbon / teriyaki sauce often contain it).",
   "dishes": [
     {
       "name_ko": "이탈리안 비엠티",
@@ -100,6 +100,7 @@
       "name_en": "Tuna",
       "price_won": null,
       "contains": [
+        "seafood",
         "egg",
         "wheat",
         "soy"
@@ -154,7 +155,8 @@
       ],
       "may_contain": [
         "egg",
-        "dairy"
+        "dairy",
+        "alcohol"
       ],
       "allergens_as_written": "대두, 밀, 토마토, 닭고기 (★ 포함 가능성: 난류, 우유)",
       "source_url": "https://www.subway.co.kr/sandwichAllergy"

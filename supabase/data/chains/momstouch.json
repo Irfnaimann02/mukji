@@ -12,7 +12,7 @@
     "https://www.momstouch.co.kr/upload_file/delv_guide/1795396732-FYSGH.png"
   ],
   "checked_on": "2026-11-24",
-  "notes": "Allergen table (알레르기 유발식품 표시, dated 2026-11-19) is a single image linked from every menu page (saved as momstouch_allergen.png); per-dish allergens were read from it by eye, so spot-check. Chicken '(순살)' items use the table's '빅싸이순살' rows; the '와우순살' variant additionally lists 우유 (dairy). Origin board (momstouch_origin.png): chicken is domestic or Brazil/Thailand depending on item; bulgogi patty beef from Australia plus domestic pork/chicken; smash/beef patty beef from Australia; bacon is imported pork. No shared-frying-oil statement found. Prices shown only on some item pages; items showing 0원 are null. 치킨무 is not in the allergen table.",
+  "notes": "Allergen table (알레르기 유발식품 표시, dated 2026-11-19) is a single image linked from every menu page (saved as momstouch_allergen.png); per-dish allergens were read from it by eye, so spot-check. Chicken '(순살)' items use the table's '빅싸이순살' rows; the '와우순살' variant additionally lists 우유 (dairy). Origin board (momstouch_origin.png): chicken is domestic or Brazil/Thailand depending on item; bulgogi patty beef from Australia plus domestic pork/chicken; smash/beef patty beef from Australia; bacon is imported pork. No shared-frying-oil statement found. Prices shown only on some item pages; items showing 0원 are null. 치킨무 is not in the allergen table. Review of #105: alcohol is not an allergen and never listed; 셰프스 버번치킨(뼈), 셰프스 버번치킨(순살) got 'alcohol' in 'may_contain' by name (bourbon / teriyaki sauce often contain it).",
   "dishes": [
     {
       "name_ko": "싸이버거",
@@ -565,7 +565,9 @@
         "wheat",
         "soy"
       ],
-      "may_contain": [],
+      "may_contain": [
+        "alcohol"
+      ],
       "allergens_as_written": "땅콩, 대두, 밀, 아황산류, 닭고기",
       "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=208"
     },
@@ -579,7 +581,9 @@
         "wheat",
         "soy"
       ],
-      "may_contain": [],
+      "may_contain": [
+        "alcohol"
+      ],
       "allergens_as_written": "땅콩, 대두, 밀, 아황산류, 닭고기",
       "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=205"
     },

@@ -12,7 +12,7 @@
     "https://www.bhc.co.kr/api/v1/web/products/143000"
   ],
   "checked_on": "2026-11-24",
-  "notes": "Data comes from the '원산지 / 영양 / 알레르기 정보' popup on bhc.co.kr menu pages; the popup is filled from the site's own product API (source_url per dish). Allergens are listed per component (meat, batter, sauce, boneless version...); 'contains' is the union of all listed components, including parts marked '순살메뉴만 해당' (boneless only), so bone-in orders may contain less. '알류(가금류만 해당)' and '계란' mapped to egg, '소고기' to beef, '조개류(굴/홍합/가리비...)' to seafood. Chicken: 국내산 where stated. Sauces/dips, 혼치 combo sets, burger sets, dessert and 제주한정 items were left out. Prices are the site's listed prices (0 shown as null). One pizza lists '이황산류' (typo for 아황산류).",
+  "notes": "Data comes from the '원산지 / 영양 / 알레르기 정보' popup on bhc.co.kr menu pages; the popup is filled from the site's own product API (source_url per dish). Allergens are listed per component (meat, batter, sauce, boneless version...); 'contains' is the union of all listed components, including parts marked '순살메뉴만 해당' (boneless only), so bone-in orders may contain less. '알류(가금류만 해당)' and '계란' mapped to egg, '소고기' to beef, '조개류(굴/홍합/가리비...)' to seafood. Chicken: 국내산 where stated. Sauces/dips, 혼치 combo sets, burger sets, dessert and 제주한정 items were left out. Prices are the site's listed prices (0 shown as null). One pizza lists '이황산류' (typo for 아황산류). Review of #105: fish is not on Korea's allergen list, so dishes that are fish by name got 'seafood' added to 'contains' by hand: 빠삭 먹태구이.",
   "dishes": [
     {
       "name_ko": "뿌링클",
@@ -396,6 +396,7 @@
       "name_en": "빠삭 먹태구이",
       "price_won": 13000,
       "contains": [
+        "seafood",
         "wheat",
         "soy"
       ],
