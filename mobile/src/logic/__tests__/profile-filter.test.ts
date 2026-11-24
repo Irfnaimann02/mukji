@@ -56,6 +56,12 @@ function profile(diets: FoodProfile['diets'], allergens: FoodProfile['allergens'
 // ---------- 1. Safe / Ask first / Avoid ----------
 
 describe('dish status', () => {
+  test('owner-submitted ingredient claims stay Ask first until the team reviews them', () => {
+    const unreviewed = { ...dish('사장님 추천 메뉴', []), ingredientsVerified: false };
+    expect(dishStatus(unreviewed, restaurant([]), profile([]))).toBe('ask_first');
+    expect(dishStatus(unreviewed, restaurant([]), profile(['halal']))).toBe('ask_first');
+  });
+
   test('halal: pork is Avoid, chicken at a place without certification is Ask first, plain rice is Safe', () => {
     const halal = profile(['halal']);
     const notCertified = restaurant([]);
@@ -71,6 +77,15 @@ describe('dish status', () => {
 });
 
 // ---------- 2. Allergy filter (#14) ----------
+
+describe('menu availability', () => {
+  test('a temporarily unavailable dish does not make a restaurant fit the profile', () => {
+    const unavailable = { ...dish('오늘 품절', []), isAvailable: false };
+    expect(restaurantFits(restaurant([unavailable]), profile([]))).toBe(false);
+    expect(fadeReason(restaurant([unavailable]), profile(['halal']))).toBe(null);
+    expect(restaurantFits(restaurant([unavailable, dish('판매 중', [])]), profile([]))).toBe(true);
+  });
+});
 
 describe('allergy filter', () => {
   test('a peanut allergy hides every dish tagged peanut, even "may contain", and fades a place with nothing left', () => {

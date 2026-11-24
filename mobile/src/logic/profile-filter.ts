@@ -15,6 +15,8 @@ export function blockedIngredients(profile: FoodProfile): Set<Ingredient> {
 }
 
 export function dishStatus(dish: Dish, restaurant: Restaurant, profile: FoodProfile): DishStatus {
+  // Owner-submitted ingredient claims are never treated as confirmed before team review.
+  if (dish.ingredientsVerified === false) return 'ask_first';
   const blocked = blockedIngredients(profile);
   if (dish.contains.some((i) => blocked.has(i))) return 'avoid';
   if (dish.mayContain.some((i) => blocked.has(i))) return 'ask_first';
@@ -33,7 +35,7 @@ export function isTypicalMenu(restaurant: Restaurant): boolean {
 }
 
 export function restaurantFits(restaurant: Restaurant, profile: FoodProfile): boolean {
-  return restaurant.dishes.some((d) => dishStatus(d, restaurant, profile) === 'safe');
+  return restaurant.dishes.some((d) => d.isAvailable !== false && dishStatus(d, restaurant, profile) === 'safe');
 }
 
 // ---------- #14 Allergy filter ----------
@@ -75,8 +77,9 @@ export function splitMenu(restaurant: Restaurant, profile: FoodProfile): MenuSpl
 // No menu yet: we can't tell, so it is not faded (the page says "ask staff").
 export function fadedForAllergies(restaurant: Restaurant, profile: FoodProfile): boolean {
   if (profile.allergens.length === 0) return false;
-  if (restaurant.dishes.length === 0) return false;
-  return splitMenu(restaurant, profile).shown.length === 0;
+  const availableDishes = restaurant.dishes.filter((dish) => dish.isAvailable !== false);
+  if (availableDishes.length === 0) return false;
+  return splitMenu({ ...restaurant, dishes: availableDishes }, profile).shown.length === 0;
 }
 
 // ---------- #4 Map fade for diets ----------
@@ -92,10 +95,25 @@ export type FadeReason = 'allergy' | 'diet' | 'typical';
 //   allergy, so it is faded for allergy-only profiles too (Home already hides these places).
 // No menu yet: we can't tell, so it is not faded (the page says "ask staff").
 export function fadeReason(restaurant: Restaurant, profile: FoodProfile): FadeReason | null {
-  if (restaurant.dishes.length === 0) return null;
-  if (fadedForAllergies(restaurant, profile)) return 'allergy';
+  const availableDishes = restaurant.dishes.filter(
+    (dish) => dish.isAvailable !== false
+  );
+
+  if (availableDishes.length === 0) return null;
+
+  const activeRestaurant = { ...restaurant, dishes: availableDishes };
+
+  if (fadedForAllergies(activeRestaurant, profile)) return 'allergy';
+
   const restricted = profile.diets.length > 0 || profile.allergens.length > 0;
-  if (restricted && isTypicalMenu(restaurant)) return 'typical';
-  if (profile.diets.length > 0 && !restaurantFits(restaurant, profile)) return 'diet';
+
+  if (restricted && isTypicalMenu(activeRestaurant)) return 'typical';
+
+  if (
+    profile.diets.length > 0 &&
+    !restaurantFits(activeRestaurant, profile)
+  ) {
+    return 'diet';
+  }
   return null;
 }
