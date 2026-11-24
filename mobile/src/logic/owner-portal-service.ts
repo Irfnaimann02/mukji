@@ -12,7 +12,7 @@ import {
   type RestaurantDraft,
 } from '@/data/owner-drafts-store';
 import type { Restaurant } from '@/data/types';
-import { listListedRestaurants } from '@/logic/restaurant-service';
+import { listListedRestaurants, listRestaurantsByIds } from '@/logic/restaurant-service';
 
 export const EMPTY_APPLICATION_DRAFT: ApplicationDraft = {
   kind: 'existing',
@@ -88,16 +88,17 @@ export async function loadOwnerPortalRestaurants(previewMode: boolean): Promise<
   restaurants: Restaurant[];
   ownedRestaurants: Restaurant[];
 }> {
-  const restaurants = await listListedRestaurants();
   if (previewMode) {
+    const restaurants = await listListedRestaurants();
     return { restaurants, ownedRestaurants: restaurants.slice(0, 1) };
   }
 
+  // Load the exact restaurants linked in public.owners. This also supports
+  // approved bulk-import listings; filtering the short hand-curated list
+  // would silently hide any owned restaurant outside that list.
   const ownedIds = await myOwnedRestaurantIds();
-  return {
-    restaurants,
-    ownedRestaurants: restaurants.filter((restaurant) => ownedIds.includes(restaurant.id)),
-  };
+  const ownedRestaurants = await listRestaurantsByIds(ownedIds);
+  return { restaurants: ownedRestaurants, ownedRestaurants };
 }
 
 export function switchToUserMode(): Promise<void> {

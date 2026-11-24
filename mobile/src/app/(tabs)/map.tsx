@@ -1,10 +1,10 @@
-import { PIN_HEIGHT, PIN_POINT_Y, RestaurantPin } from '@/components/restaurant-pin';
+import { pinLayout, RestaurantPin } from '@/components/restaurant-pin';
 import { RestaurantPreview } from '@/components/restaurant-preview';
 import { useLiveLocation } from '@/hooks/use-live-location';
 import { useProfile } from '@/hooks/use-profile';
 import { useTranslation } from '@/hooks/use-translation';
 import { getMapPins, type MapPin } from '@/logic/map-pins';
-import { pinsInView, showPinNames, zoomedInEnough, type MapRegion } from '@/logic/map-zoom';
+import { pinSizeFor, pinsInView, zoomedInEnough, type MapRegion } from '@/logic/map-zoom';
 import { distanceInMeters, ERICA_CENTRE, type Point } from '@/logic/nearby-service';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
@@ -47,7 +47,7 @@ export default function MapScreen() {
   // Zoomed out too far, the pins pile on top of each other, so we draw none (see map-zoom.ts).
   const [region, setRegion] = useState<MapRegion>(ERICA_REGION);
   const zoomedIn = zoomedInEnough(region);
-  const showNames = showPinNames(region);
+  const zoomSize = pinSizeFor(region) ?? 'dot'; // smaller pins the further out you zoom
   const visiblePins = useMemo(() => {
     const shown = pinsInView(pins, region);
     // keep the selected pin even if it just left the view
@@ -116,25 +116,26 @@ export default function MapScreen() {
           setRegion(next);
           setMapCentre({ lat: next.latitude, lng: next.longitude });
         }}>
-        {visiblePins.map((pin) => (
-          <Marker
-            // Android only redraws a custom marker when its key changes
-            key={`${pin.id}-${pin.faded ? 'faded' : 'normal'}-${showNames ? 'named' : 'plain'}-${selectedPin?.id === pin.id ? 'sel' : ''}`}
-            coordinate={{
-              latitude: pin.latitude,
-              longitude: pin.longitude,
-            }}
-            // the name sits under the icon, so pin the icon's centre (not the whole view) on the spot
-            anchor={{ x: 0.5, y: PIN_POINT_Y / PIN_HEIGHT }} // Android
-            centerOffset={{ x: 0, y: PIN_HEIGHT / 2 - PIN_POINT_Y }} // iOS
-            onPress={() => setSelectedPin(pin)}>
-            <RestaurantPin
-              pin={pin}
-              selected={selectedPin?.id === pin.id}
-              showName={showNames}
-            />
-          </Marker>
-        ))}
+        {visiblePins.map((pin) => {
+          const selected = selectedPin?.id === pin.id;
+          const size = selected ? 'large' : zoomSize; // the tapped pin is always full size, with its name
+          const layout = pinLayout(size);
+          return (
+            <Marker
+              // Android only redraws a custom marker when its key changes
+              key={`${pin.id}-${pin.faded ? 'faded' : 'normal'}-${size}-${selected ? 'sel' : ''}`}
+              coordinate={{
+                latitude: pin.latitude,
+                longitude: pin.longitude,
+              }}
+              // put the circle's centre (not the whole view) on the spot, so pins don't jump between sizes
+              anchor={{ x: 0.5, y: layout.pointY / layout.height }} // Android
+              centerOffset={{ x: 0, y: layout.height / 2 - layout.pointY }} // iOS
+              onPress={() => setSelectedPin(pin)}>
+              <RestaurantPin pin={pin} selected={selected} size={size} />
+            </Marker>
+          );
+        })}
       </MapView>
 
       <Pressable

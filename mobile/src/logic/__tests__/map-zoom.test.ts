@@ -1,10 +1,11 @@
 import { describe, expect, test } from '@jest/globals';
 
 import {
-  MAX_NAME_LATITUDE_DELTA,
+  MAX_LARGE_LATITUDE_DELTA,
+  MAX_MEDIUM_LATITUDE_DELTA,
   MAX_PIN_LATITUDE_DELTA,
+  pinSizeFor,
   pinsInView,
-  showPinNames,
   zoomedInEnough,
 } from '@/logic/map-zoom';
 
@@ -24,6 +25,15 @@ describe('search map zoom', () => {
     pin('far', 37.31, 126.836), // well off screen
   ];
 
+  test('pins get smaller as you zoom out, then disappear', () => {
+    expect(pinSizeFor(region(MAX_LARGE_LATITUDE_DELTA))).toBe('large');
+    expect(pinSizeFor(region(0.01))).toBe('medium'); // the opening zoom
+    expect(pinSizeFor(region(MAX_MEDIUM_LATITUDE_DELTA))).toBe('medium');
+    expect(pinSizeFor(region(0.02))).toBe('dot');
+    expect(pinSizeFor(region(MAX_PIN_LATITUDE_DELTA))).toBe('dot');
+    expect(pinSizeFor(region(MAX_PIN_LATITUDE_DELTA * 2))).toBeNull();
+  });
+
   test('zoomed out too far: no pins at all', () => {
     expect(zoomedInEnough(region(MAX_PIN_LATITUDE_DELTA * 2))).toBe(false);
     expect(pinsInView(pins, region(MAX_PIN_LATITUDE_DELTA * 2))).toEqual([]);
@@ -31,15 +41,5 @@ describe('search map zoom', () => {
 
   test('zoomed in: only pins on screen (plus a small margin)', () => {
     expect(pinsInView(pins, region(0.01)).map((p) => p.id)).toEqual(['centre', 'edge']);
-  });
-
-  test('the limit itself still shows pins', () => {
-    expect(zoomedInEnough(region(MAX_PIN_LATITUDE_DELTA))).toBe(true);
-  });
-
-  test('names show from the opening zoom inward, not further out', () => {
-    expect(showPinNames(region(MAX_NAME_LATITUDE_DELTA))).toBe(true);
-    expect(showPinNames(region(0.015))).toBe(false); // pins yes, names no
-    expect(zoomedInEnough(region(0.015))).toBe(true);
   });
 });
