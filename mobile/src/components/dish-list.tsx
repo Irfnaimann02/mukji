@@ -12,7 +12,7 @@ import type {
   Restaurant,
 } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
-import { dishStatus, splitMenu } from '@/logic/profile-filter';
+import { dishStatus, isTypicalMenu, splitMenu } from '@/logic/profile-filter';
 
 const STATUS: Record<
   DishStatus,
@@ -48,7 +48,7 @@ export function DishList({
 }: Props) {
   const [showHidden, setShowHidden] = useState(false);
   const [whyDish, setWhyDish] = useState<Dish | null>(null); // #10
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   if (restaurant.dishes.length === 0) {
     // #47: no menu yet, so show what this type of restaurant usually uses (always Ask first).
@@ -64,9 +64,20 @@ export function DishList({
   );
 
   const dishes = showHidden ? restaurant.dishes : shown;
+  // #103: say plainly when the whole menu is a generated typical menu
+  const typicalType =
+    language === 'ko'
+      ? restaurant.category ?? ''
+      : restaurant.categoryHint?.nameEn ?? restaurant.category ?? '';
 
   return (
     <View>
+      {isTypicalMenu(restaurant) && (
+        <View style={[styles.notice, styles.typicalBanner]} testID="typical-menu-banner">
+          <Text style={styles.typicalText}>{t('typicalMenuBanner', { type: typicalType })}</Text>
+        </View>
+      )}
+
       {hidden.length > 0 && (
         <View style={styles.notice}>
           <Text style={styles.noticeText}>
@@ -218,6 +229,14 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 13,
     color: '#c62828',
+  },
+  typicalBanner: {
+    backgroundColor: '#fff8ef',
+  },
+  typicalText: {
+    flex: 1,
+    fontSize: 13,
+    color: '#14213d',
   },
   noticeLink: {
     fontSize: 13,

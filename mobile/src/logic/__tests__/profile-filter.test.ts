@@ -5,6 +5,7 @@ import {
   dishStatus,
   fadeReason,
   fadedForAllergies,
+  isTypicalMenu,
   restaurantFits,
   splitMenu,
 } from '@/logic/profile-filter';
@@ -161,5 +162,36 @@ describe('map fade', () => {
     expect(fadeReason(restaurant([porkRice]), profile([]))).toBeNull();
     expect(fadeReason(restaurant([]), halal)).toBeNull();
     expect(fadeReason(restaurant([], { source: 'kakao', kakaoPlaceId: '1' }), halal)).toBeNull();
+  });
+});
+
+// ---------- #103 typical (generated) menus ----------
+
+describe('typical menu dishes', () => {
+  const typical = (nameKo: string, contains: Dish['contains']): Dish => ({
+    ...dish(nameKo, contains),
+    typical: true,
+  });
+
+  test('a typical dish with no matching tag is never Safe for someone with a diet or allergy', () => {
+    const place = restaurant([]);
+    expect(dishStatus(typical('공기밥', []), place, profile(['halal']))).toBe('ask_first');
+    expect(dishStatus(typical('공기밥', []), place, profile([], ['peanut']))).toBe('ask_first');
+    // the same dish from a real menu is still Safe
+    expect(dishStatus(dish('공기밥', []), place, profile(['halal']))).toBe('safe');
+  });
+
+  test('Avoid still wins on a typical dish', () => {
+    expect(dishStatus(typical('삼겹살', ['pork']), restaurant([]), profile(['halal']))).toBe('avoid');
+  });
+
+  test('with no diet and no allergy a typical dish is not forced to Ask first', () => {
+    expect(dishStatus(typical('공기밥', []), restaurant([]), profile([]))).toBe('safe');
+  });
+
+  test('isTypicalMenu is true only when every dish is typical', () => {
+    expect(isTypicalMenu(restaurant([typical('a', []), typical('b', [])]))).toBe(true);
+    expect(isTypicalMenu(restaurant([typical('a', []), dish('b', [])]))).toBe(false);
+    expect(isTypicalMenu(restaurant([]))).toBe(false);
   });
 });

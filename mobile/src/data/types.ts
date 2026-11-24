@@ -37,6 +37,9 @@ export interface Dish {
   leaveOutEn?: string;
   verifiedCount: number; // #8
   lastChecked: string | null; // '2026-10-20', or null = not verified
+  // #103: generated "typical menu" dish (SQL 038), not this restaurant's real menu.
+  // Never shown as Safe to anyone with a diet or allergy.
+  typical?: boolean;
 }
 
 // #47 Layer 2: what a type of restaurant usually uses, shown when it has no menu yet.
