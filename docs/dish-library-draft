@@ -1,0 +1,11 @@
+# Dish library draft (#56)
+
+## Base dishes
+| base | contains | may_contain | note |
+|---|---|---|---|
+| 라면 | wheat | beef, pork, soy, egg, seafood | soup base differs by shop |
+
+## Add-ons
+| word in name | contains | may_contain |
+|---|---|---|
+| 치즈 | dairy | |

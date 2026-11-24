@@ -217,6 +217,7 @@ function toDish(row: any): Dish {
     leaveOutEn: row.leave_out_en ?? undefined,
     verifiedCount: row.verified_count,
     lastChecked: row.last_checked,
+    typical: row.typical === true, // #103
   };
 }
 

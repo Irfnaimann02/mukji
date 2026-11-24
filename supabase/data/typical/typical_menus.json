@@ -1,0 +1,115 @@
+{
+  "_about": "Typical menus (#103). GENERATED, not from any restaurant: the dishes a restaurant of this type usually serves and the ingredients those dishes usually have. 'contains' = almost always in it; 'may_contain' = often hidden in it (sauces, broth, batter, garnish, shared oil). No prices. Never shown as Safe to anyone with a diet or allergy. A real menu (chain, photo, owner) replaces it.",
+  "menus": [
+    {"id": "korean", "name_ko": "한식", "name_en": "Korean", "categories": ["한식"], "dishes": [
+      ["김치찌개", "Kimchi stew", ["pork"], ["seafood", "soy", "wheat"]],
+      ["된장찌개", "Soybean paste stew", ["soy"], ["seafood", "pork", "beef", "wheat"]],
+      ["제육볶음", "Spicy stir-fried pork", ["pork", "soy", "wheat"], ["alcohol"]],
+      ["비빔밥", "Bibimbap", ["egg", "soy", "wheat"], ["beef", "seafood"]],
+      ["뚝배기 불고기", "Bulgogi hot pot", ["beef", "soy", "wheat"], ["alcohol", "egg"]],
+      ["순두부찌개", "Soft tofu stew", ["soy", "egg"], ["seafood", "pork", "beef"]],
+      ["김치볶음밥", "Kimchi fried rice", ["egg"], ["pork", "seafood", "soy", "wheat"]]
+    ]},
+    {"id": "bbq", "name_ko": "고깃집", "name_en": "Korean BBQ", "categories": ["식육(숯불구이)"], "dishes": [
+      ["삼겹살", "Pork belly", ["pork"], []],
+      ["목살", "Pork neck", ["pork"], []],
+      ["양념 돼지갈비", "Marinated pork ribs", ["pork", "soy", "wheat"], ["alcohol"]],
+      ["소갈비살", "Beef rib meat", ["beef"], ["soy", "wheat", "alcohol"]],
+      ["냉면", "Cold buckwheat noodles", ["wheat", "egg"], ["beef"]],
+      ["된장찌개", "Soybean paste stew", ["soy"], ["seafood", "pork", "beef", "wheat"]]
+    ]},
+    {"id": "chicken-pub", "name_ko": "치킨·호프", "name_en": "Fried chicken & pub", "categories": ["호프/통닭", "통닭(치킨)"], "dishes": [
+      ["후라이드치킨", "Fried chicken", ["chicken", "wheat"], ["egg", "dairy", "soy"]],
+      ["양념치킨", "Sweet spicy chicken", ["chicken", "wheat", "soy"], ["egg", "dairy", "peanut"]],
+      ["간장치킨", "Soy garlic chicken", ["chicken", "wheat", "soy"], ["alcohol", "egg"]],
+      ["감자튀김", "French fries", [], ["wheat", "chicken", "seafood"]],
+      ["소시지 야채볶음", "Sausage stir-fry", ["pork", "wheat", "soy"], ["egg", "beef", "chicken"]],
+      ["골뱅이무침", "Spicy sea snail salad", ["seafood", "wheat", "soy"], []],
+      ["생맥주", "Draft beer", ["alcohol", "wheat"], []]
+    ]},
+    {"id": "chinese", "name_ko": "중국식", "name_en": "Chinese-Korean", "categories": ["중국식"], "dishes": [
+      ["짜장면", "Black bean noodles", ["pork", "wheat", "soy"], ["seafood"]],
+      ["짬뽕", "Spicy seafood noodles", ["seafood", "wheat"], ["pork", "soy"]],
+      ["탕수육", "Sweet and sour pork", ["pork", "wheat", "egg"], ["soy"]],
+      ["볶음밥", "Fried rice", ["egg"], ["pork", "seafood", "soy"]],
+      ["군만두", "Fried dumplings", ["pork", "wheat"], ["soy", "beef"]],
+      ["깐풍기", "Spicy garlic fried chicken", ["chicken", "wheat", "soy"], ["egg", "alcohol"]],
+      ["짬뽕밥", "Spicy seafood soup with rice", ["seafood"], ["pork", "wheat", "soy"]]
+    ]},
+    {"id": "snack", "name_ko": "분식", "name_en": "Snack food", "categories": ["분식", "김밥(도시락)"], "dishes": [
+      ["떡볶이", "Spicy rice cakes", ["wheat", "soy"], ["seafood"]],
+      ["김밥", "Gimbap", ["egg"], ["pork", "beef", "seafood", "soy", "wheat"]],
+      ["라면", "Ramyeon", ["wheat", "soy"], ["egg", "beef", "seafood"]],
+      ["순대", "Korean blood sausage", ["pork"], ["wheat", "soy"]],
+      ["모둠튀김", "Assorted fritters", ["wheat"], ["egg", "seafood", "pork"]],
+      ["어묵", "Fish cake skewers", ["seafood", "wheat"], ["soy"]],
+      ["쫄면", "Spicy chewy noodles", ["wheat", "soy", "egg"], []]
+    ]},
+    {"id": "bar", "name_ko": "술집", "name_en": "Bar", "categories": ["정종/대포집/소주방", "감성주점"], "dishes": [
+      ["소주", "Soju", ["alcohol"], []],
+      ["맥주", "Beer", ["alcohol", "wheat"], []],
+      ["계란말이", "Rolled omelette", ["egg"], ["pork", "seafood"]],
+      ["어묵탕", "Fish cake soup", ["seafood", "wheat"], ["soy"]],
+      ["두부김치", "Tofu with stir-fried kimchi", ["soy", "pork"], ["seafood"]],
+      ["해물파전", "Seafood pancake", ["seafood", "wheat", "egg"], ["soy"]],
+      ["닭똥집볶음", "Stir-fried chicken gizzards", ["chicken"], ["soy", "wheat"]]
+    ]},
+    {"id": "western", "name_ko": "경양식", "name_en": "Western-style", "categories": ["경양식", "패밀리레스트랑"], "dishes": [
+      ["돈까스", "Pork cutlet", ["pork", "wheat", "egg"], ["dairy", "soy"]],
+      ["함박스테이크", "Hamburg steak", ["beef", "wheat", "egg"], ["pork", "dairy", "soy"]],
+      ["오므라이스", "Omelette rice", ["egg"], ["pork", "chicken", "dairy", "wheat", "soy"]],
+      ["크림 파스타", "Cream pasta", ["wheat", "dairy"], ["pork", "seafood", "egg"]],
+      ["토마토 파스타", "Tomato pasta", ["wheat"], ["pork", "beef", "seafood", "dairy"]]
+    ]},
+    {"id": "japanese", "name_ko": "일식", "name_en": "Japanese", "categories": ["일식"], "dishes": [
+      ["모둠초밥", "Assorted sushi", ["seafood"], ["egg", "soy", "wheat"]],
+      ["우동", "Udon", ["wheat", "seafood", "soy"], ["egg"]],
+      ["돈카츠", "Pork cutlet", ["pork", "wheat", "egg"], ["dairy", "soy"]],
+      ["라멘", "Ramen", ["wheat", "pork", "soy"], ["egg", "seafood", "chicken", "alcohol"]],
+      ["연어덮밥", "Salmon rice bowl", ["seafood"], ["soy", "wheat", "egg"]]
+    ]},
+    {"id": "raw-fish", "name_ko": "횟집", "name_en": "Raw fish", "categories": ["횟집", "복어취급"], "dishes": [
+      ["모둠회", "Assorted raw fish", ["seafood"], ["soy", "wheat"]],
+      ["매운탕", "Spicy fish stew", ["seafood"], ["soy", "wheat"]],
+      ["물회", "Cold raw fish soup", ["seafood"], ["wheat", "soy"]],
+      ["회덮밥", "Raw fish rice bowl", ["seafood"], ["egg", "soy", "wheat"]]
+    ]},
+    {"id": "fast-food", "name_ko": "패스트푸드", "name_en": "Fast food", "categories": ["패스트푸드"], "dishes": [
+      ["불고기버거", "Bulgogi burger", ["wheat", "egg", "soy"], ["pork", "beef", "dairy"]],
+      ["치킨버거", "Chicken burger", ["chicken", "wheat", "egg", "soy"], ["dairy"]],
+      ["치즈버거", "Cheeseburger", ["beef", "dairy", "wheat"], ["egg", "soy", "pork"]],
+      ["감자튀김", "French fries", [], ["wheat", "chicken", "seafood"]],
+      ["치킨너겟", "Chicken nuggets", ["chicken", "wheat"], ["egg", "soy", "dairy"]]
+    ]},
+    {"id": "soup", "name_ko": "탕류", "name_en": "Soup / stew", "categories": ["탕류(보신용)"], "dishes": [
+      ["삼계탕", "Ginseng chicken soup", ["chicken"], []],
+      ["감자탕", "Pork bone stew", ["pork"], ["soy", "wheat"]],
+      ["갈비탕", "Beef rib soup", ["beef"], ["soy", "egg", "wheat"]],
+      ["설렁탕", "Ox bone soup", ["beef"], ["wheat"]],
+      ["추어탕", "Loach soup", ["seafood"], ["soy", "wheat"]]
+    ]},
+    {"id": "naengmyeon", "name_ko": "냉면집", "name_en": "Naengmyeon", "categories": ["냉면집"], "dishes": [
+      ["물냉면", "Cold noodles in broth", ["wheat", "egg"], ["beef"]],
+      ["비빔냉면", "Spicy cold noodles", ["wheat", "egg", "soy"], ["beef"]],
+      ["갈비탕", "Beef rib soup", ["beef"], ["soy", "egg", "wheat"]],
+      ["만두", "Dumplings", ["pork", "wheat"], ["soy", "beef"]]
+    ]},
+    {"id": "cafe", "name_ko": "카페", "name_en": "Café", "categories": ["커피숍", "까페", "다방", "라이브카페", "전통찻집"], "dishes": [
+      ["아메리카노", "Americano", [], []],
+      ["카페라떼", "Café latte", ["dairy"], ["soy"]],
+      ["바닐라라떼", "Vanilla latte", ["dairy"], ["soy"]],
+      ["과일 스무디", "Fruit smoothie", [], ["dairy"]],
+      ["케이크", "Cake", ["wheat", "egg", "dairy"], ["peanut", "soy"]],
+      ["쿠키", "Cookie", ["wheat", "dairy", "egg"], ["peanut", "soy"]]
+    ]},
+    {"id": "ice-cream", "name_ko": "아이스크림", "name_en": "Ice cream", "categories": ["아이스크림"], "dishes": [
+      ["바닐라 아이스크림", "Vanilla ice cream", ["dairy"], ["egg", "soy", "peanut", "wheat"]],
+      ["초콜릿 아이스크림", "Chocolate ice cream", ["dairy"], ["peanut", "wheat", "egg", "soy"]]
+    ]},
+    {"id": "rice-cake-cafe", "name_ko": "떡카페", "name_en": "Rice cake café", "categories": ["떡카페"], "dishes": [
+      ["모둠떡", "Assorted rice cakes", [], ["soy", "peanut", "wheat"]],
+      ["팥빙수", "Red bean shaved ice", ["dairy"], ["peanut", "wheat", "soy"]]
+    ]}
+  ],
+  "_not_covered": "기타, 기타 휴게음식점, 일반조리판매, 외국음식전문점(인도,태국등), 뷔페식, 과자점: too mixed for one honest typical menu (e.g. Indian curry and Vietnamese pho share one category). They keep only the food-type hint."
+}

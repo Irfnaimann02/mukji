@@ -21,7 +21,15 @@ export function dishStatus(dish: Dish, restaurant: Restaurant, profile: FoodProf
   // Meat that is fine for halal only when slaughtered the halal way.
   const hasMeat = [...dish.contains, ...dish.mayContain].some((i) => HALAL_MEAT.includes(i));
   if (profile.diets.includes('halal') && hasMeat && !restaurant.halalCertified) return 'ask_first';
+  // #103: a typical menu is generated, not this restaurant's menu, so for anyone with a
+  // diet or allergy it is never Safe. (With none, there is nothing to avoid.)
+  if (dish.typical && (blocked.size > 0 || profile.diets.length > 0)) return 'ask_first';
   return 'safe';
+}
+
+// #103: true when everything shown comes from a generated typical menu.
+export function isTypicalMenu(restaurant: Restaurant): boolean {
+  return restaurant.dishes.length > 0 && restaurant.dishes.every((dish) => dish.typical === true);
 }
 
 export function restaurantFits(restaurant: Restaurant, profile: FoodProfile): boolean {
