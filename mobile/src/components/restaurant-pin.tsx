@@ -45,7 +45,10 @@ const SIZES = {
 
 export function pinLayout(size: PinSize): { height: number; pointY: number } {
   const s = SIZES[size];
-  return { height: s.padding + s.circle + s.nameSlot + (s.nameSlot ? 0 : s.padding), pointY: s.padding + s.circle / 2 };
+  return {
+    height: s.padding + s.circle + s.nameSlot + (s.nameSlot ? 0 : s.padding),
+    pointY: s.padding + s.circle / 2,
+  };
 }
 
 type Props = {
@@ -65,33 +68,42 @@ export function RestaurantPin({ pin, selected, size = 'large' }: Props) {
     <View
       style={[
         styles.wrapper,
-        { paddingTop: s.padding, paddingHorizontal: s.padding, paddingBottom: s.nameSlot ? 0 : s.padding },
+        {
+          paddingTop: s.padding,
+          paddingHorizontal: s.padding,
+          paddingBottom: s.nameSlot ? 0 : s.padding,
+        },
         pin.faded && styles.faded,
-      ]}>
-      <View
-        style={[
-          styles.circle,
-          {
-            width: s.circle,
-            height: s.circle,
-            borderRadius: s.circle / 2,
-            borderWidth: s.border,
-            borderColor: size === 'dot' ? 'white' : color,
-            backgroundColor: size === 'dot' ? color : 'white',
-          },
-          pin.faded && (size === 'dot' ? styles.dotFaded : styles.circleFaded),
-          selected && styles.circleSelected,
-        ]}>
-        {s.icon > 0 && (
-          <Ionicons name={FOOD_TYPE_VECTOR_ICON[pin.foodType]} size={s.icon} color={color} />
+      ]}
+    >
+      {/* circle + count together, so the count sits on the circle even when the name makes the pin wider */}
+      <View>
+        <View
+          style={[
+            styles.circle,
+            {
+              width: s.circle,
+              height: s.circle,
+              borderRadius: s.circle / 2,
+              borderWidth: s.border,
+              borderColor: size === 'dot' ? 'white' : color,
+              backgroundColor: size === 'dot' ? color : 'white',
+            },
+            pin.faded && (size === 'dot' ? styles.dotFaded : styles.circleFaded),
+            selected && styles.circleSelected,
+          ]}
+        >
+          {s.icon > 0 && (
+            <Ionicons name={FOOD_TYPE_VECTOR_ICON[pin.foodType]} size={s.icon} color={color} />
+          )}
+        </View>
+
+        {size === 'large' && (
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>{pin.badgeCount}</Text>
+          </View>
         )}
       </View>
-
-      {size === 'large' && (
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>{pin.badgeCount}</Text>
-        </View>
-      )}
 
       {size === 'large' && (
         // always the same height, so the map's anchor point never moves
@@ -119,8 +131,8 @@ const styles = StyleSheet.create({
   circleSelected: { borderColor: '#d84315', borderWidth: 3 },
   badge: {
     position: 'absolute',
-    top: 0,
-    right: 0,
+    top: -6,
+    right: -6,
     minWidth: 18,
     height: 18,
     borderRadius: 9,
