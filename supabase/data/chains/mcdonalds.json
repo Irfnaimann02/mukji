@@ -1,0 +1,696 @@
+{
+  "chain_ko": "맥도날드",
+  "chain_en": "McDonald's",
+  "name_patterns": [
+    "%맥도날드%"
+  ],
+  "source_urls": [
+    "https://www.mcdonalds.co.kr/kor/menu/information/allergens",
+    "https://www.mcdonalds.co.kr/kor/menu/information/origin",
+    "https://www.mcdonalds.co.kr/kor/menu/burger"
+  ],
+  "checked_on": "2026-11-24",
+  "notes": "Allergen table (text, dated 2026.11.24 on the page) sections 버거, 스낵 & 사이드 and 단품 (breakfast). '굴' and '조개' are mapped to seafood. Where an item comes with dips/ketchup, allergens_as_written keeps the full official line but 'contains' uses only the item's own group (e.g. 맥너겟: 대두, 밀, 닭고기; the cajun dip adds 난류, 대두, 굴). Origin: beef patties Australia; bulgogi patty domestic pork; McSpicy Shanghai chicken domestic; McCrispy chicken Thailand/Brazil by region; shrimp patty Thailand; bacon imported pork. Breakfast sauce contains pickles (site note). Prices are not shown on the site (null). 홍천 우리쌀 칩 has an empty row on the site (not shown).",
+  "dishes": [
+    {
+      "name_ko": "빅맥®",
+      "name_en": "Big Mac",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 쇠고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "맥스파이시® 상하이버거",
+      "name_en": "McSpicy Shanghai Burger",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 대두, 밀, 토마토, 닭고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "1955® 버거",
+      "name_en": "1955 Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 돼지고기, 토마토, 쇠고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "맥치킨® 모짜렐라",
+      "name_en": "McChicken Mozzarella",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 토마토, 닭고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "맥치킨®",
+      "name_en": "McChicken",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 대두, 밀, 닭고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "더블 불고기버거",
+      "name_en": "Double Bulgogi Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 돼지고기, 조개, 굴",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "불고기버거",
+      "name_en": "Bulgogi Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 대두, 밀, 돼지고기, 조개, 굴",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "슈슈버거",
+      "name_en": "Shrimp Burger (Shu Shu)",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 토마토, 새우, 쇠고기, 굴",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "슈비버거",
+      "name_en": "Shrimp Beef Burger (Shu Bi)",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 토마토, 새우, 쇠고기, 굴",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "더블 쿼터파운더® 치즈",
+      "name_en": "Double Quarter Pounder with Cheese",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 토마토, 쇠고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "베이컨 토마토 디럭스",
+      "name_en": "Bacon Tomato Deluxe",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 돼지고기, 토마토, 쇠고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "쿼터파운더®치즈",
+      "name_en": "Quarter Pounder with Cheese",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 토마토, 쇠고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "치즈버거",
+      "name_en": "Cheeseburger",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 토마토, 쇠고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "더블 치즈버거",
+      "name_en": "Double Cheeseburger",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 토마토, 쇠고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "햄버거",
+      "name_en": "Hamburger",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 토마토, 쇠고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "트리플 치즈버거",
+      "name_en": "Triple Cheeseburger",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 토마토, 쇠고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "토마토 치즈 비프 버거",
+      "name_en": "Tomato Cheese Beef Burger",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "쇠고기, 난류, 우유, 대두, 토마토, 밀",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "더블 맥스파이시® 상하이 버거",
+      "name_en": "Double McSpicy Shanghai Burger",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 난류, 대두, 토마토, 밀",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "맥크리스피™ 치킨 디럭스",
+      "name_en": "McCrispy Chicken Deluxe",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "쇠고기, 닭고기, 난류, 우유, 대두, 토마토, 밀",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "맥크리스피™ 치킨 클래식",
+      "name_en": "McCrispy Chicken Classic",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "쇠고기, 닭고기, 난류, 우유, 대두, 토마토, 밀",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "맥스파이시® 고추장 버터",
+      "name_en": "McSpicy Gochujang Butter",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 난류, 우유, 대두, 토마토, 밀",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "맥크리스피™ 고추장 버터",
+      "name_en": "McCrispy Gochujang Butter",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "쇠고기, 닭고기, 난류, 우유, 대두, 토마토, 밀",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "해쉬 브라운",
+      "name_en": "Hash Brown",
+      "price_won": null,
+      "contains": [
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "상하이 치킨 스낵랩",
+      "name_en": "Shanghai Chicken Snack Wrap",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 대두, 밀, 돼지고기, 닭고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "골든 모짜렐라 치즈스틱 2조각",
+      "name_en": "Golden Mozzarella Cheese Sticks (2 pcs)",
+      "price_won": null,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "골든 모짜렐라 치즈스틱 4조각",
+      "name_en": "Golden Mozzarella Cheese Sticks (4 pcs)",
+      "price_won": null,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "맥너겟® 4조각",
+      "name_en": "Chicken McNuggets (4 pcs)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "맥너겟® 4조각 (대두, 밀, 닭고기), 스위트칠리 소스 (토마토), 스위트 앤 사워 소스 (대두, 밀, 아황산류), 케이준 소스 (난류, 대두, 굴)",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "맥너겟® 6조각",
+      "name_en": "Chicken McNuggets (6 pcs)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "맥너겟® 6조각 (대두, 밀, 닭고기), 스위트칠리 소스 (토마토), 스위트 앤 사워 소스 (대두, 밀, 아황산류), 케이준 소스 (난류, 대두, 굴)",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "맥스파이시® 치킨텐더 2조각",
+      "name_en": "McSpicy Chicken Tenders (2 pcs)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "맥스파이시® 치킨텐더 2조각 (대두, 밀, 닭고기), 스위트칠리 소스 (토마토), 스위트 앤 사워 소스 (대두, 밀, 아황산류), 케이준 소스 (난류, 대두, 굴)",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "후렌치 후라이 스몰",
+      "name_en": "French Fries (S)",
+      "price_won": null,
+      "contains": [
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "후렌치 후라이 스몰 (대두), 케첩 (대두, 토마토)",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "후렌치 후라이 미디엄",
+      "name_en": "French Fries (M)",
+      "price_won": null,
+      "contains": [
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "후렌치 후라이 미디엄 (대두), 케첩 (대두, 토마토)",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "후렌치 후라이 라지",
+      "name_en": "French Fries (L)",
+      "price_won": null,
+      "contains": [
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "후렌치 후라이 라지 (대두), 케첩 (대두, 토마토)",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "코울슬로",
+      "name_en": "Coleslaw",
+      "price_won": null,
+      "contains": [
+        "seafood",
+        "egg",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 대두, 조개, 굴",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "맥윙 2조각",
+      "name_en": "McWings (2 pcs)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "맥윙(닭고기, 난류, 대두, 밀), 스위트칠리 소스 (토마토), 스위트 앤 사워 소스 (대두, 밀, 아황산류), 케이준 소스 (난류, 대두, 굴)",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "맥윙 4조각",
+      "name_en": "McWings (4 pcs)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "맥윙(닭고기, 난류, 대두, 밀), 스위트칠리 소스 (토마토), 스위트 앤 사워 소스 (대두, 밀, 아황산류), 케이준 소스 (난류, 대두, 굴)",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "맥윙 8조각",
+      "name_en": "McWings (8 pcs)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "맥윙(닭고기, 난류, 대두, 밀), 스위트칠리 소스 (토마토), 스위트 앤 사워 소스 (대두, 밀, 아황산류), 케이준 소스 (난류, 대두, 굴)",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "홍천 우리쌀 칩",
+      "name_en": "Hongcheon Rice Chips",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "치킨 모짜렐라 스낵랩",
+      "name_en": "Chicken Mozzarella Snack Wrap",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 난류, 우유, 대두, 토마토, 밀",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "에그 맥머핀",
+      "name_en": "Egg McMuffin",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 돼지고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "베이컨 에그 맥머핀",
+      "name_en": "Bacon Egg McMuffin",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 돼지고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "베이컨 토마토 에그 머핀",
+      "name_en": "Bacon Tomato Egg Muffin",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 대두, 밀, 돼지고기, 토마토",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "소시지 에그 맥머핀",
+      "name_en": "Sausage Egg McMuffin",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 돼지고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "디럭스 브렉퍼스트",
+      "name_en": "Deluxe Breakfast",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 돼지고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "핫케익 2조각",
+      "name_en": "Hotcakes (2 pcs)",
+      "price_won": null,
+      "contains": [
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "핫케익 3조각",
+      "name_en": "Hotcakes (3 pcs)",
+      "price_won": null,
+      "contains": [
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "치킨 치즈 머핀",
+      "name_en": "Chicken Cheese Muffin",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 닭고기",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "그릴드 치킨 모닝 버거",
+      "name_en": "Grilled Chicken Morning Burger",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "쇠고기, 닭고기, 난류, 우유, 대두, 토마토, 밀",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    },
+    {
+      "name_ko": "더블 그릴드 치킨 모닝 버거",
+      "name_en": "Double Grilled Chicken Morning Burger",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "쇠고기, 닭고기, 난류, 우유, 대두, 토마토, 밀",
+      "source_url": "https://www.mcdonalds.co.kr/kor/menu/information/allergens"
+    }
+  ]
+}

@@ -1,0 +1,482 @@
+{
+  "chain_ko": "롯데리아",
+  "chain_en": "Lotteria",
+  "name_patterns": [
+    "%롯데리아%"
+  ],
+  "source_urls": [
+    "https://www.lotteeatz.com/brand/ria"
+  ],
+  "checked_on": "2026-11-24",
+  "notes": "MENU ONLY - the official site publishes no allergen information, so every dish has empty lists and allergens_as_written = 'not shown'. Show these as 'ask staff'. Menu and prices from LOTTE EATZ (lotteeatz.com, Lotte GRS's official ordering site). Its product page template has allergen/origin sections but they are commented out, so nothing is shown. Categories: 버거, 디저트 (sides), 치킨; packs, drinks and ice desserts left out. Prices are LOTTE EATZ online prices.",
+  "dishes": [
+    {
+      "name_ko": "무신사 무진장 스모키 더블비프",
+      "name_en": "무신사 무진장 스모키 더블비프",
+      "price_won": 7900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_001063?brandCode=RIA"
+    },
+    {
+      "name_ko": "무신사무진장 스모키치킨비프",
+      "name_en": "무신사무진장 스모키치킨비프",
+      "price_won": 9700,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_001064?brandCode=RIA"
+    },
+    {
+      "name_ko": "리아 불고기 레드",
+      "name_en": "리아 불고기 레드",
+      "price_won": 6200,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_001018?brandCode=RIA"
+    },
+    {
+      "name_ko": "리아 불고기 더블 레드",
+      "name_en": "리아 불고기 더블 레드",
+      "price_won": 8000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_001019?brandCode=RIA"
+    },
+    {
+      "name_ko": "리아 두툼새우",
+      "name_en": "리아 두툼새우",
+      "price_won": 7900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000998?brandCode=RIA"
+    },
+    {
+      "name_ko": "리아 두툼새우 스파이시토마토",
+      "name_en": "리아 두툼새우 스파이시토마토",
+      "price_won": 7900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000999?brandCode=RIA"
+    },
+    {
+      "name_ko": "하와이안 모짜렐라버거",
+      "name_en": "하와이안 모짜렐라버거",
+      "price_won": 8800,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000979?brandCode=RIA"
+    },
+    {
+      "name_ko": "통다리 크리스피치킨버거(파이어핫)",
+      "name_en": "통다리 크리스피치킨버거(파이어핫)",
+      "price_won": 6900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000816?brandCode=RIA"
+    },
+    {
+      "name_ko": "통다리 크리스피치킨버거(그릭랜치)",
+      "name_en": "통다리 크리스피치킨버거(그릭랜치)",
+      "price_won": 6900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000815?brandCode=RIA"
+    },
+    {
+      "name_ko": "나폴리 모짜렐라버거 발사믹바질",
+      "name_en": "나폴리 모짜렐라버거 발사믹바질",
+      "price_won": 9300,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000582?brandCode=RIA"
+    },
+    {
+      "name_ko": "나폴리 모짜렐라버거 토마토바질",
+      "name_en": "나폴리 모짜렐라버거 토마토바질",
+      "price_won": 9300,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000581?brandCode=RIA"
+    },
+    {
+      "name_ko": "전주 비빔라이스 버거",
+      "name_en": "전주 비빔라이스 버거",
+      "price_won": 7500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000282?brandCode=RIA"
+    },
+    {
+      "name_ko": "리아 새우 베이컨",
+      "name_en": "리아 새우 베이컨",
+      "price_won": 6200,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000368?brandCode=RIA"
+    },
+    {
+      "name_ko": "리아 불고기 베이컨",
+      "name_en": "리아 불고기 베이컨",
+      "price_won": 6200,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000360?brandCode=RIA"
+    },
+    {
+      "name_ko": "더블 한우불고기버거",
+      "name_en": "더블 한우불고기버거",
+      "price_won": 13200,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000071?brandCode=RIA"
+    },
+    {
+      "name_ko": "한우불고기버거",
+      "name_en": "한우불고기버거",
+      "price_won": 9200,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000073?brandCode=RIA"
+    },
+    {
+      "name_ko": "더블 클래식치즈버거(버터번)",
+      "name_en": "더블 클래식치즈버거(버터번)",
+      "price_won": 7400,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000315?brandCode=RIA"
+    },
+    {
+      "name_ko": "더블 치킨버거",
+      "name_en": "더블 치킨버거",
+      "price_won": 6000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000801?brandCode=RIA"
+    },
+    {
+      "name_ko": "더블 데리버거",
+      "name_en": "더블 데리버거",
+      "price_won": 5200,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000313?brandCode=RIA"
+    },
+    {
+      "name_ko": "더블엑스투버거",
+      "name_en": "더블엑스투버거",
+      "price_won": 7400,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000078?brandCode=RIA"
+    },
+    {
+      "name_ko": "리아 불고기 더블(빅불)",
+      "name_en": "리아 불고기 더블(빅불)",
+      "price_won": 7700,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000077?brandCode=RIA"
+    },
+    {
+      "name_ko": "미라클버거",
+      "name_en": "미라클버거",
+      "price_won": 5900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000778?brandCode=RIA"
+    },
+    {
+      "name_ko": "더블 미라클버거",
+      "name_en": "더블 미라클버거",
+      "price_won": 7400,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000779?brandCode=RIA"
+    },
+    {
+      "name_ko": "모짜렐라 인 더 버거 베이컨",
+      "name_en": "모짜렐라 인 더 버거 베이컨",
+      "price_won": 8200,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000080?brandCode=RIA"
+    },
+    {
+      "name_ko": "핫크리스피치킨버거",
+      "name_en": "핫크리스피치킨버거",
+      "price_won": 6400,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000083?brandCode=RIA"
+    },
+    {
+      "name_ko": "리아 사각새우 더블",
+      "name_en": "리아 사각새우 더블",
+      "price_won": 6200,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000079?brandCode=RIA"
+    },
+    {
+      "name_ko": "클래식치즈버거(버터번)",
+      "name_en": "클래식치즈버거(버터번)",
+      "price_won": 5700,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000081?brandCode=RIA"
+    },
+    {
+      "name_ko": "리아 불고기",
+      "name_en": "리아 불고기",
+      "price_won": 5100,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000075?brandCode=RIA"
+    },
+    {
+      "name_ko": "리아 새우",
+      "name_en": "리아 새우",
+      "price_won": 5100,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000082?brandCode=RIA"
+    },
+    {
+      "name_ko": "치킨버거",
+      "name_en": "치킨버거",
+      "price_won": 4500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000800?brandCode=RIA"
+    },
+    {
+      "name_ko": "데리버거",
+      "name_en": "데리버거",
+      "price_won": 3800,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000086?brandCode=RIA"
+    },
+    {
+      "name_ko": "디지게 매운 돈까스(디진다맛)",
+      "name_en": "디지게 매운 돈까스(디진다맛)",
+      "price_won": 3500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000915?brandCode=RIA"
+    },
+    {
+      "name_ko": "디지게 매운 돈까스(양념맛)",
+      "name_en": "디지게 매운 돈까스(양념맛)",
+      "price_won": 3500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000916?brandCode=RIA"
+    },
+    {
+      "name_ko": "양념너겟",
+      "name_en": "양념너겟",
+      "price_won": 3500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000571?brandCode=RIA"
+    },
+    {
+      "name_ko": "치킨너겟",
+      "name_en": "치킨너겟",
+      "price_won": 3300,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000570?brandCode=RIA"
+    },
+    {
+      "name_ko": "포테이토",
+      "name_en": "포테이토",
+      "price_won": 2100,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000087?brandCode=RIA"
+    },
+    {
+      "name_ko": "포테이토(L)",
+      "name_en": "포테이토(L)",
+      "price_won": 2600,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000088?brandCode=RIA"
+    },
+    {
+      "name_ko": "양념감자",
+      "name_en": "양념감자",
+      "price_won": 2700,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000091?brandCode=RIA"
+    },
+    {
+      "name_ko": "치즈스틱",
+      "name_en": "치즈스틱",
+      "price_won": 2900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000097?brandCode=RIA"
+    },
+    {
+      "name_ko": "롱치즈스틱",
+      "name_en": "롱치즈스틱",
+      "price_won": 2500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000098?brandCode=RIA"
+    },
+    {
+      "name_ko": "통오징어링",
+      "name_en": "통오징어링",
+      "price_won": 2900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000092?brandCode=RIA"
+    },
+    {
+      "name_ko": "지파이 하바네로(L)",
+      "name_en": "지파이 하바네로(L)",
+      "price_won": 5800,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000789?brandCode=RIA"
+    },
+    {
+      "name_ko": "지파이 고소한맛(S)",
+      "name_en": "지파이 고소한맛(S)",
+      "price_won": 4700,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000102?brandCode=RIA"
+    },
+    {
+      "name_ko": "코울슬로",
+      "name_en": "코울슬로",
+      "price_won": 2000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000591?brandCode=RIA"
+    },
+    {
+      "name_ko": "화이어윙",
+      "name_en": "화이어윙",
+      "price_won": 3400,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000117?brandCode=RIA"
+    },
+    {
+      "name_ko": "치킨휠레",
+      "name_en": "치킨휠레",
+      "price_won": 3300,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000119?brandCode=RIA"
+    },
+    {
+      "name_ko": "치킨다리 1조각",
+      "name_en": "치킨다리 1조각",
+      "price_won": 3100,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000116?brandCode=RIA"
+    },
+    {
+      "name_ko": "후라이드 순살치킨 (R)",
+      "name_en": "후라이드 순살치킨 (R)",
+      "price_won": 11300,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000920?brandCode=RIA"
+    },
+    {
+      "name_ko": "후라이드순살치킨N (R)",
+      "name_en": "후라이드순살치킨N (R)",
+      "price_won": 11300,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000970?brandCode=RIA"
+    },
+    {
+      "name_ko": "후라이드 순살치킨 (L)",
+      "name_en": "후라이드 순살치킨 (L)",
+      "price_won": 18600,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000921?brandCode=RIA"
+    },
+    {
+      "name_ko": "후라이드순살치킨N (L)",
+      "name_en": "후라이드순살치킨N (L)",
+      "price_won": 18600,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000969?brandCode=RIA"
+    },
+    {
+      "name_ko": "치킨다리 하프팩(4조각)",
+      "name_en": "치킨다리 하프팩(4조각)",
+      "price_won": 11100,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.lotteeatz.com/products/introductions/REP_000546?brandCode=RIA"
+    }
+  ]
+}

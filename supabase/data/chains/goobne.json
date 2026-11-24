@@ -1,0 +1,428 @@
+{
+  "chain_ko": "굽네치킨",
+  "chain_en": "Goobne Chicken",
+  "name_patterns": [
+    "%굽네%"
+  ],
+  "source_urls": [
+    "https://www.goobne.co.kr/menu/menu_list_p"
+  ],
+  "checked_on": "2026-11-24",
+  "notes": "MENU ONLY - the official site publishes no allergen information, so every dish has empty lists and allergens_as_written = 'not shown'. Show these as 'ask staff'. Menu and prices from goobne.co.kr '메뉴보기' (전체). No allergen, origin or nutrition page found on the site. Sauces, seasonings, toppings and egg tarts left out; pizzas, pastas and rice dishes kept as they are main menu items.",
+  "dishes": [
+    {
+      "name_ko": "(New) 서울엄마 파기름떡볶이 치킨",
+      "name_en": "(New) 서울엄마 파기름떡볶이 치킨",
+      "price_won": 21000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "New 오리지널",
+      "name_en": "New 오리지널",
+      "price_won": 17900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "고추 바사삭 가슴살 순살",
+      "name_en": "고추 바사삭 가슴살 순살",
+      "price_won": 20900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "(New) 서울엄마 파기름떡볶이 치킨 윙봉",
+      "name_en": "(New) 서울엄마 파기름떡볶이 치킨 윙봉",
+      "price_won": 24000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "굽네 순살 시카고 피자 시리즈",
+      "name_en": "굽네 순살 시카고 피자 시리즈",
+      "price_won": 18900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "볼케이노",
+      "name_en": "볼케이노",
+      "price_won": 19900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "갈비천왕",
+      "name_en": "갈비천왕",
+      "price_won": 19900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "고추 바사삭",
+      "name_en": "고추 바사삭",
+      "price_won": 19900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "시카고 딥디쉬 피자",
+      "name_en": "시카고 딥디쉬 피자",
+      "price_won": 17500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "양념 히어로",
+      "name_en": "양념 히어로",
+      "price_won": 19900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "오븐 바사삭",
+      "name_en": "오븐 바사삭",
+      "price_won": 18900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "남해마늘 바사삭",
+      "name_en": "남해마늘 바사삭",
+      "price_won": 20900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "굽네 장각구이",
+      "name_en": "굽네 장각구이",
+      "price_won": 23900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "콤비네이션 시카고 피자",
+      "name_en": "콤비네이션 시카고 피자",
+      "price_won": 18900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "치킨 베이크",
+      "name_en": "치킨 베이크",
+      "price_won": 8000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "웨지감자(국내산)",
+      "name_en": "웨지감자(국내산)",
+      "price_won": 4000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "바비큐 시카고 피자",
+      "name_en": "바비큐 시카고 피자",
+      "price_won": 18900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "고추 바사삭 곱빼기(1.5마리)",
+      "name_en": "고추 바사삭 곱빼기(1.5마리)",
+      "price_won": 28900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "페퍼로니 시카고 피자",
+      "name_en": "페퍼로니 시카고 피자",
+      "price_won": 18900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "New 오리지널 곱빼기(1.5마리)",
+      "name_en": "New 오리지널 곱빼기(1.5마리)",
+      "price_won": 25900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "갈릭버터 웨지감자",
+      "name_en": "갈릭버터 웨지감자",
+      "price_won": 5000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "New 오리지널 반 + 볼케이노 반",
+      "name_en": "New 오리지널 반 + 볼케이노 반",
+      "price_won": 19900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "콰트로 치즈 웨지감자",
+      "name_en": "콰트로 치즈 웨지감자",
+      "price_won": 5000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "추추 치킨 스테이크 (1.5 SET)",
+      "name_en": "추추 치킨 스테이크 (1.5 SET)",
+      "price_won": 17000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "New 오리지널 반 + 갈비천왕 반",
+      "name_en": "New 오리지널 반 + 갈비천왕 반",
+      "price_won": 19900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "폭립",
+      "name_en": "폭립",
+      "price_won": 22500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "추추 치킨 스테이크 (2 SET)",
+      "name_en": "추추 치킨 스테이크 (2 SET)",
+      "price_won": 22000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "모짜치즈볼(5pcs)",
+      "name_en": "모짜치즈볼(5pcs)",
+      "price_won": 5000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "콰트로 모짜치즈볼(5pcs)",
+      "name_en": "콰트로 모짜치즈볼(5pcs)",
+      "price_won": 6000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "맵달떡볶이",
+      "name_en": "맵달떡볶이",
+      "price_won": 8500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "케이준감자",
+      "name_en": "케이준감자",
+      "price_won": 4500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "갈릭버터 케이준감자",
+      "name_en": "갈릭버터 케이준감자",
+      "price_won": 5500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "콰트로 치즈 케이준감자",
+      "name_en": "콰트로 치즈 케이준감자",
+      "price_won": 5500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "New 오리지널+치트킹(매콤)",
+      "name_en": "New 오리지널+치트킹(매콤)",
+      "price_won": 18900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "찍먹커리(치킨마크니)",
+      "name_en": "찍먹커리(치킨마크니)",
+      "price_won": 2900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "볼로네제 파스타",
+      "name_en": "볼로네제 파스타",
+      "price_won": 7000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "바질&토마토 피자(S)",
+      "name_en": "바질&토마토 피자(S)",
+      "price_won": 9000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "까르보나라 파스타",
+      "name_en": "까르보나라 파스타",
+      "price_won": 7200,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "갈릭크림 바게트볼",
+      "name_en": "갈릭크림 바게트볼",
+      "price_won": 3300,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "바게트볼 2ea",
+      "name_en": "바게트볼 2ea",
+      "price_won": 6000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "트리플 포테이토 피자(M)",
+      "name_en": "트리플 포테이토 피자(M)",
+      "price_won": 14900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "갈비천왕 치즈치밥",
+      "name_en": "갈비천왕 치즈치밥",
+      "price_won": 6300,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "볼케이노 치즈치밥",
+      "name_en": "볼케이노 치즈치밥",
+      "price_won": 6300,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "매콤치즈 소떡소떡",
+      "name_en": "매콤치즈 소떡소떡",
+      "price_won": 3000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "불닭발",
+      "name_en": "불닭발",
+      "price_won": 23000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    },
+    {
+      "name_ko": "양념 반반",
+      "name_en": "양념 반반",
+      "price_won": 19900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.goobne.co.kr/menu/menu_list_p"
+    }
+  ]
+}

@@ -1,0 +1,928 @@
+{
+  "chain_ko": "맘스터치",
+  "chain_en": "Mom's Touch",
+  "name_patterns": [
+    "%맘스터치%"
+  ],
+  "source_urls": [
+    "https://www.momstouch.co.kr/menu/new.php?s_sect1=CG0005",
+    "https://www.momstouch.co.kr/menu/new.php?s_sect1=CG0004",
+    "https://www.momstouch.co.kr/menu/new.php?s_sect1=CG0002",
+    "https://www.momstouch.co.kr/upload_file/delv_guide/1795048763-BRSSH.png",
+    "https://www.momstouch.co.kr/upload_file/delv_guide/1795396732-FYSGH.png"
+  ],
+  "checked_on": "2026-11-24",
+  "notes": "Allergen table (알레르기 유발식품 표시, dated 2026-11-19) is a single image linked from every menu page (saved as momstouch_allergen.png); per-dish allergens were read from it by eye, so spot-check. Chicken '(순살)' items use the table's '빅싸이순살' rows; the '와우순살' variant additionally lists 우유 (dairy). Origin board (momstouch_origin.png): chicken is domestic or Brazil/Thailand depending on item; bulgogi patty beef from Australia plus domestic pork/chicken; smash/beef patty beef from Australia; bacon is imported pork. No shared-frying-oil statement found. Prices shown only on some item pages; items showing 0원 are null. 치킨무 is not in the allergen table.",
+  "dishes": [
+    {
+      "name_ko": "싸이버거",
+      "name_en": "Thigh Burger",
+      "price_won": 3800,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=80"
+    },
+    {
+      "name_ko": "불싸이버거",
+      "name_en": "Spicy Thigh Burger",
+      "price_won": 3900,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 닭고기, 쇠고기, 오징어, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=82"
+    },
+    {
+      "name_ko": "싸이플렉스버거",
+      "name_en": "Thigh Flex Burger",
+      "price_won": 6600,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 토마토, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=102"
+    },
+    {
+      "name_ko": "쉬림프싸이플렉스버거",
+      "name_en": "Shrimp Thigh Flex Burger",
+      "price_won": 6200,
+      "contains": [
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 새우, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=123"
+    },
+    {
+      "name_ko": "딥치즈싸이버거",
+      "name_en": "Deep Cheese Thigh Burger",
+      "price_won": 4600,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=122"
+    },
+    {
+      "name_ko": "화이트갈릭싸이버거",
+      "name_en": "White Garlic Thigh Burger",
+      "price_won": 4700,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 닭고기, 쇠고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=121"
+    },
+    {
+      "name_ko": "베이컨치폴레싸이버거",
+      "name_en": "Bacon Chipotle Thigh Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=316"
+    },
+    {
+      "name_ko": "아라비아따치즈버거",
+      "name_en": "Arrabbiata Cheese Burger",
+      "price_won": 6800,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=152"
+    },
+    {
+      "name_ko": "딥치즈버거",
+      "name_en": "Deep Cheese Burger",
+      "price_won": 4000,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=83"
+    },
+    {
+      "name_ko": "휠렛버거",
+      "name_en": "Fillet Burger",
+      "price_won": 3600,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 토마토, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=95"
+    },
+    {
+      "name_ko": "햄치즈휠렛버거",
+      "name_en": "Ham Cheese Fillet Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=317"
+    },
+    {
+      "name_ko": "언빌리버블버거",
+      "name_en": "Unbelievable Burger",
+      "price_won": 5100,
+      "contains": [
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 새우, 닭고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=89"
+    },
+    {
+      "name_ko": "화이트갈릭버거",
+      "name_en": "White Garlic Burger",
+      "price_won": 4100,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 닭고기, 쇠고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=92"
+    },
+    {
+      "name_ko": "통새우버거",
+      "name_en": "Whole Shrimp Burger",
+      "price_won": 4100,
+      "contains": [
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 새우",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=91"
+    },
+    {
+      "name_ko": "새우불고기버거",
+      "name_en": "Shrimp Bulgogi Burger",
+      "price_won": 4500,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 새우, 돼지고기, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=76"
+    },
+    {
+      "name_ko": "불고기버거",
+      "name_en": "Bulgogi Burger",
+      "price_won": 3000,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=90"
+    },
+    {
+      "name_ko": "더블불고기버거",
+      "name_en": "Double Bulgogi Burger",
+      "price_won": 4000,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=93"
+    },
+    {
+      "name_ko": "스매쉬버거",
+      "name_en": "Smash Burger",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=305"
+    },
+    {
+      "name_ko": "더블스매쉬버거",
+      "name_en": "Double Smash Burger",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=307"
+    },
+    {
+      "name_ko": "스모키스매쉬버거",
+      "name_en": "Smoky Smash Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=306"
+    },
+    {
+      "name_ko": "그릴드버거",
+      "name_en": "Grilled Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 아황산류, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=308"
+    },
+    {
+      "name_ko": "그릴드베이컨버거",
+      "name_en": "Grilled Bacon Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 아황산류, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=309"
+    },
+    {
+      "name_ko": "후라이드치킨(뼈)",
+      "name_en": "Fried Chicken (bone-in)",
+      "price_won": 8000,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=64"
+    },
+    {
+      "name_ko": "후라이드치킨(순살)",
+      "name_en": "Fried Chicken (boneless)",
+      "price_won": 11900,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=193"
+    },
+    {
+      "name_ko": "맘스양념치킨(뼈)",
+      "name_en": "Mom's Seasoned Chicken (bone-in)",
+      "price_won": 9000,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 토마토, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=63"
+    },
+    {
+      "name_ko": "맘스양념치킨(순살)",
+      "name_en": "Mom's Seasoned Chicken (boneless)",
+      "price_won": 13900,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 토마토, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=195"
+    },
+    {
+      "name_ko": "간장마늘치킨(뼈)",
+      "name_en": "Soy Garlic Chicken (bone-in)",
+      "price_won": 9000,
+      "contains": [
+        "chicken",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 닭고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=62"
+    },
+    {
+      "name_ko": "간장마늘치킨(순살)",
+      "name_en": "Soy Garlic Chicken (boneless)",
+      "price_won": 13900,
+      "contains": [
+        "chicken",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 닭고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=197"
+    },
+    {
+      "name_ko": "반반치킨(후라이드+간장마늘)",
+      "name_en": "Half & Half (Fried + Soy Garlic)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 닭고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=67"
+    },
+    {
+      "name_ko": "반반치킨(후라이드+맘스양념)",
+      "name_en": "Half & Half (Fried + Mom's Seasoned)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 토마토, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=67"
+    },
+    {
+      "name_ko": "핫치즈치킨(뼈)",
+      "name_en": "Hot Cheese Chicken (bone-in)",
+      "price_won": 11400,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 토마토, 닭고기, 쇠고기, 오징어, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=209"
+    },
+    {
+      "name_ko": "핫치즈치킨(순살)",
+      "name_en": "Hot Cheese Chicken (boneless)",
+      "price_won": 14500,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 토마토, 닭고기, 쇠고기, 오징어, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=201"
+    },
+    {
+      "name_ko": "핫치즈밤치킨(뼈)",
+      "name_en": "Hot Cheese Bomb Chicken (bone-in)",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 토마토, 닭고기, 쇠고기, 오징어, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=283"
+    },
+    {
+      "name_ko": "핫치즈밤치킨(순살)",
+      "name_en": "Hot Cheese Bomb Chicken (boneless)",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 토마토, 닭고기, 쇠고기, 오징어, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=282"
+    },
+    {
+      "name_ko": "셰프스 버번치킨(뼈)",
+      "name_en": "Chef's Bourbon Chicken (bone-in)",
+      "price_won": 11900,
+      "contains": [
+        "chicken",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "땅콩, 대두, 밀, 아황산류, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=208"
+    },
+    {
+      "name_ko": "셰프스 버번치킨(순살)",
+      "name_en": "Chef's Bourbon Chicken (boneless)",
+      "price_won": 14900,
+      "contains": [
+        "chicken",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "땅콩, 대두, 밀, 아황산류, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=205"
+    },
+    {
+      "name_ko": "매직풍치킨(뼈)",
+      "name_en": "Magic Pung Chicken (bone-in)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 복숭아, 토마토, 아황산류, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=270"
+    },
+    {
+      "name_ko": "매직풍치킨(순살)",
+      "name_en": "Magic Pung Chicken (boneless)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 복숭아, 토마토, 아황산류, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=266"
+    },
+    {
+      "name_ko": "갓빠삭치킨(순살)",
+      "name_en": "God Crispy Chicken (boneless)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 토마토, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=302"
+    },
+    {
+      "name_ko": "후덕죽XO사천치킨(순살)",
+      "name_en": "XO Sichuan Chicken (boneless)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 새우, 닭고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=322"
+    },
+    {
+      "name_ko": "후라이드통다리(1조각)",
+      "name_en": "Fried Chicken Leg (1 pc)",
+      "price_won": 4000,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=74"
+    },
+    {
+      "name_ko": "케이준떡강정",
+      "name_en": "Cajun Rice Cake Gangjeong",
+      "price_won": 3500,
+      "contains": [
+        "chicken",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 땅콩, 대두, 밀, 아황산류, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=68"
+    },
+    {
+      "name_ko": "간장마늘떡강정",
+      "name_en": "Soy Garlic Rice Cake Gangjeong",
+      "price_won": 3900,
+      "contains": [
+        "chicken",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 닭고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=69"
+    },
+    {
+      "name_ko": "치파오떡강정",
+      "name_en": "Chipao Rice Cake Gangjeong",
+      "price_won": 3900,
+      "contains": [
+        "chicken",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 닭고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=70"
+    },
+    {
+      "name_ko": "닭강정트리오",
+      "name_en": "Dakgangjeong Trio",
+      "price_won": 10900,
+      "contains": [
+        "chicken",
+        "seafood",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 땅콩, 대두, 밀, 아황산류, 닭고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=60"
+    },
+    {
+      "name_ko": "케이준양념감자",
+      "name_en": "Cajun French Fries",
+      "price_won": 1700,
+      "contains": [
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=20"
+    },
+    {
+      "name_ko": "치즈스틱(2조각)",
+      "name_en": "Cheese Sticks (2 pcs)",
+      "price_won": 1900,
+      "contains": [
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=22"
+    },
+    {
+      "name_ko": "바삭크림치즈볼",
+      "name_en": "Crispy Cream Cheese Balls",
+      "price_won": 3500,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=17"
+    },
+    {
+      "name_ko": "치킨치즈스틱",
+      "name_en": "Chicken Cheese Stick",
+      "price_won": 4300,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 닭고기, 쇠고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=238"
+    },
+    {
+      "name_ko": "미트칠리감자",
+      "name_en": "Meat Chili Fries",
+      "price_won": 3300,
+      "contains": [
+        "pork",
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 쇠고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=239"
+    },
+    {
+      "name_ko": "빠삭어니언링",
+      "name_en": "Crispy Onion Rings",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 쇠고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=326"
+    },
+    {
+      "name_ko": "트리플스낵업",
+      "name_en": "Triple Snack Up",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 닭고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=261"
+    },
+    {
+      "name_ko": "치즈스낵업",
+      "name_en": "Cheese Snack Up",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 닭고기, 쇠고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=262"
+    },
+    {
+      "name_ko": "트리플스낵박스",
+      "name_en": "Triple Snack Box",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 토마토, 아황산류, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=328"
+    },
+    {
+      "name_ko": "플래터스낵박스",
+      "name_en": "Platter Snack Box",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 닭고기, 쇠고기",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=329"
+    },
+    {
+      "name_ko": "스윗볼박스",
+      "name_en": "Sweet Ball Box",
+      "price_won": null,
+      "contains": [
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 땅콩, 대두, 밀, 오징어",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=327"
+    },
+    {
+      "name_ko": "당근빵",
+      "name_en": "Carrot Bread",
+      "price_won": 2600,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=279"
+    },
+    {
+      "name_ko": "코울슬로",
+      "name_en": "Coleslaw",
+      "price_won": 1800,
+      "contains": [
+        "egg",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 대두",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=15"
+    },
+    {
+      "name_ko": "콘샐러드",
+      "name_en": "Corn Salad",
+      "price_won": 1500,
+      "contains": [
+        "egg",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 대두",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=16"
+    },
+    {
+      "name_ko": "치킨무",
+      "name_en": "Pickled Radish",
+      "price_won": 500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.momstouch.co.kr/menu/view.php?idx=14"
+    }
+  ]
+}

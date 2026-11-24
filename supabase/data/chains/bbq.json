@@ -1,0 +1,842 @@
+{
+  "chain_ko": "BBQ",
+  "chain_en": "BBQ Chicken",
+  "name_patterns": [
+    "%BBQ%",
+    "%비비큐%"
+  ],
+  "name_exclude": [
+    "%케밥%",
+    "%KEBAB%"
+  ],
+  "source_urls": [
+    "https://bbq.co.kr/categories/19",
+    "https://bbq.co.kr/categories/20",
+    "https://bbq.co.kr/categories/21",
+    "https://bbq.co.kr/products/3003"
+  ],
+  "checked_on": "2026-11-24",
+  "notes": "Allergens, prices and origin come from bbq.co.kr's own menu API (/api/delivery/menu/<category>), the data the official ordering site loads for each item. CAUTION: on 2026-11-24 the allergen text was not visible on the rendered product page I checked (bbq_allergen.png shows the page), so this field could not be cross-checked against what customers see. Categories used: 치킨, 피자&버거, 사이드; sauces, drinks and sets were left out. Origins listed on the site:  닭고기: 국내산; (닭고기 : 국내산); 닭고기: 국내산; 닭고기: 브라질산; 닭고기: 외국산(스웨덴, 덴마크, 태국 등); 돼지고기: 국내산; 바베큐치킨(닭고기): 브라질산과 국내산 섞음; 베이컨슬라이스(돼지고기): 외국산; 비프스트립(쇠고기): 호주산; 소시지(닭고기): 국내산; 소시지(돼지고기): 국내산; 스모크햄(돼지고기): 외국산과 국내산 섞음; 오징어: 외국산; 페퍼로니(돼지고기): 국내산; 페퍼로니플러스(돼지고기): 국내산; 페퍼로니플러스(쇠고기): 호주산; 포크탑핑(돼지고기): 외국산과 국내산 섞음. Prices are the site's online-order prices. No shared-frying-oil statement found. name_en is the Korean name because the site has no English names.",
+  "dishes": [
+    {
+      "name_ko": "황금올리브치킨™",
+      "name_en": "황금올리브치킨™",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 땅콩, 대두, 밀, 새우, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3003"
+    },
+    {
+      "name_ko": "자메이카 통다리구이",
+      "name_en": "자메이카 통다리구이",
+      "price_won": 24000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 토마토, 닭고기, 쇠고기,, 조개류",
+      "source_url": "https://bbq.co.kr/products/3033"
+    },
+    {
+      "name_ko": "뿜치킹",
+      "name_en": "뿜치킹",
+      "price_won": 25000,
+      "contains": [
+        "beef",
+        "chicken",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 땅콩, 대두, 밀, 닭고기, 쇠고기",
+      "source_url": "https://bbq.co.kr/products/30352"
+    },
+    {
+      "name_ko": "황금올리브치킨™핫크리스피",
+      "name_en": "황금올리브치킨™핫크리스피",
+      "price_won": 24000,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 땅콩, 대두, 밀, 새우, 돼지고기, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3009"
+    },
+    {
+      "name_ko": "황금올리브치킨™블랙페퍼",
+      "name_en": "황금올리브치킨™블랙페퍼",
+      "price_won": 24000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 땅콩, 대두, 밀, 새우, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3022"
+    },
+    {
+      "name_ko": "스모크치킨(5조각)",
+      "name_en": "스모크치킨(5조각)",
+      "price_won": 22000,
+      "contains": [
+        "chicken",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 닭고기",
+      "source_url": "https://bbq.co.kr/products/3035"
+    },
+    {
+      "name_ko": "[황.양.반] 황올 반+양념 반",
+      "name_en": "[황.양.반] 황올 반+양념 반",
+      "price_won": 24000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 땅콩, 대두, 밀, 새우, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3105"
+    },
+    {
+      "name_ko": "황금올리브치킨™양념",
+      "name_en": "황금올리브치킨™양념",
+      "price_won": 24500,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 땅콩, 대두, 밀, 새우, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3108"
+    },
+    {
+      "name_ko": "황금올리브치킨™속안심",
+      "name_en": "황금올리브치킨™속안심",
+      "price_won": 19000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 땅콩, 대두, 밀, 새우, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3006"
+    },
+    {
+      "name_ko": "크런치버터치킨",
+      "name_en": "크런치버터치킨",
+      "price_won": 24000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 땅콩, 대두, 밀, 새우, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3024"
+    },
+    {
+      "name_ko": "핫베이크 윙",
+      "name_en": "핫베이크 윙",
+      "price_won": 24000,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 땅콩, 대두, 밀, 돼지고기, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/30215"
+    },
+    {
+      "name_ko": "맵소디",
+      "name_en": "맵소디",
+      "price_won": 24500,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 땅콩, 대두, 밀, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/30243"
+    },
+    {
+      "name_ko": "땡쇼크",
+      "name_en": "땡쇼크",
+      "price_won": 25000,
+      "contains": [
+        "chicken",
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 대두, 밀, 아황산류, 닭고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/30214"
+    },
+    {
+      "name_ko": "황금올리브치킨™핫윙(VAP)",
+      "name_en": "황금올리브치킨™핫윙(VAP)",
+      "price_won": 23000,
+      "contains": [
+        "chicken",
+        "seafood",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 땅콩, 대두, 밀, 새우, 닭고기",
+      "source_url": "https://bbq.co.kr/products/30218"
+    },
+    {
+      "name_ko": "[NEW] 필크런치",
+      "name_en": "[NEW] 필크런치",
+      "price_won": 27000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 계란, 닭고기, 조개류(굴), 쇠고기, 땅콩",
+      "source_url": "https://bbq.co.kr/products/30392"
+    },
+    {
+      "name_ko": "크런치 순살크래커",
+      "name_en": "크런치 순살크래커",
+      "price_won": 20000,
+      "contains": [
+        "chicken",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 닭고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3010"
+    },
+    {
+      "name_ko": "자메이카 소떡만나치킨",
+      "name_en": "자메이카 소떡만나치킨",
+      "price_won": 24000,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3025"
+    },
+    {
+      "name_ko": "황금올리브치킨™매운양념",
+      "name_en": "황금올리브치킨™매운양념",
+      "price_won": 25000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 땅콩, 대두, 밀, 새우, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3029"
+    },
+    {
+      "name_ko": "바사칸 윙",
+      "name_en": "바사칸 윙",
+      "price_won": 23000,
+      "contains": [
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 대두, 밀, 닭고기",
+      "source_url": "https://bbq.co.kr/products/3110"
+    },
+    {
+      "name_ko": "파더's치킨",
+      "name_en": "파더's치킨",
+      "price_won": 15000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 토마토, 닭고기, 쇠고기",
+      "source_url": "https://bbq.co.kr/products/3011"
+    },
+    {
+      "name_ko": "극한왕갈비치킨",
+      "name_en": "극한왕갈비치킨",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "땅콩, 대두, 밀, 아황산류, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3031"
+    },
+    {
+      "name_ko": "빠리치킨",
+      "name_en": "빠리치킨",
+      "price_won": 24000,
+      "contains": [
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 대두, 밀, 닭고기",
+      "source_url": "https://bbq.co.kr/products/30230"
+    },
+    {
+      "name_ko": "페퍼로니 시카고피자",
+      "name_en": "페퍼로니 시카고피자",
+      "price_won": 18000,
+      "contains": [
+        "pork",
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3056"
+    },
+    {
+      "name_ko": "허니리코타 시카고피자",
+      "name_en": "허니리코타 시카고피자",
+      "price_won": 18000,
+      "contains": [
+        "pork",
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3057"
+    },
+    {
+      "name_ko": "순살 치킨버거 (마일드)",
+      "name_en": "순살 치킨버거 (마일드)",
+      "price_won": 6900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://bbq.co.kr/products/30399"
+    },
+    {
+      "name_ko": "순살 치킨버거 (스파이시)",
+      "name_en": "순살 치킨버거 (스파이시)",
+      "price_won": 6900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://bbq.co.kr/products/30400"
+    },
+    {
+      "name_ko": "고구마퐁듀피자",
+      "name_en": "고구마퐁듀피자",
+      "price_won": 15900,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3060"
+    },
+    {
+      "name_ko": "쉬림프고르곤졸라피자",
+      "name_en": "쉬림프고르곤졸라피자",
+      "price_won": 15900,
+      "contains": [
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 새우",
+      "source_url": "https://bbq.co.kr/products/3058"
+    },
+    {
+      "name_ko": "콤비네이션피자",
+      "name_en": "콤비네이션피자",
+      "price_won": 13900,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 돼지고기, 토마토, 아황산류, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3059"
+    },
+    {
+      "name_ko": "브라운비프피자",
+      "name_en": "브라운비프피자",
+      "price_won": 12900,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 토마토, 아황산류, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/3061"
+    },
+    {
+      "name_ko": "뿜치킹 콘립(4개)",
+      "name_en": "뿜치킹 콘립(4개)",
+      "price_won": 5000,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 쇠고기",
+      "source_url": "https://bbq.co.kr/products/30353"
+    },
+    {
+      "name_ko": "뿜치킹 감자튀김",
+      "name_en": "뿜치킹 감자튀김",
+      "price_won": 5000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://bbq.co.kr/products/30367"
+    },
+    {
+      "name_ko": "오감볼",
+      "name_en": "오감볼",
+      "price_won": 8500,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 쇠고기, 새우, 오징어",
+      "source_url": "https://bbq.co.kr/products/3074"
+    },
+    {
+      "name_ko": "새우스틱(2개)",
+      "name_en": "새우스틱(2개)",
+      "price_won": 5500,
+      "contains": [
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 계란, 새우",
+      "source_url": "https://bbq.co.kr/products/3075"
+    },
+    {
+      "name_ko": "모둠감자튀김",
+      "name_en": "모둠감자튀김",
+      "price_won": 11000,
+      "contains": [
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀",
+      "source_url": "https://bbq.co.kr/products/3078"
+    },
+    {
+      "name_ko": "뿜치킹 모둠감자튀김",
+      "name_en": "뿜치킹 모둠감자튀김",
+      "price_won": 12000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://bbq.co.kr/products/30368"
+    },
+    {
+      "name_ko": "뿜치킹 통새우 멘보샤(5개)",
+      "name_en": "뿜치킹 통새우 멘보샤(5개)",
+      "price_won": 7000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://bbq.co.kr/products/30369"
+    },
+    {
+      "name_ko": "뿜치킹 BBQ볼(5개)",
+      "name_en": "뿜치킹 BBQ볼(5개)",
+      "price_won": 6000,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀",
+      "source_url": "https://bbq.co.kr/products/30374"
+    },
+    {
+      "name_ko": "BBQ 떡볶이",
+      "name_en": "BBQ 떡볶이",
+      "price_won": 7000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 우유, 토마토, 닭고기, 쇠고기, 새우, 조개류(굴, 홍합)",
+      "source_url": "https://bbq.co.kr/products/30249"
+    },
+    {
+      "name_ko": "뿜치킹 오감볼",
+      "name_en": "뿜치킹 오감볼",
+      "price_won": 9500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://bbq.co.kr/products/30370"
+    },
+    {
+      "name_ko": "롱김말이(1개)",
+      "name_en": "롱김말이(1개)",
+      "price_won": 2000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://bbq.co.kr/products/30362"
+    },
+    {
+      "name_ko": "롱김말이(3개)",
+      "name_en": "롱김말이(3개)",
+      "price_won": 6000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://bbq.co.kr/products/30363"
+    },
+    {
+      "name_ko": "BBQ 고추킹(2개)",
+      "name_en": "BBQ 고추킹(2개)",
+      "price_won": 9000,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 새우, 돼지고기, 아황산류, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://bbq.co.kr/products/30347"
+    },
+    {
+      "name_ko": "BBQ볼(5개)",
+      "name_en": "BBQ볼(5개)",
+      "price_won": 5000,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀",
+      "source_url": "https://bbq.co.kr/products/3066"
+    },
+    {
+      "name_ko": "BBQ 오뎅탕",
+      "name_en": "BBQ 오뎅탕",
+      "price_won": 11000,
+      "contains": [
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 조개류(굴, 홍합), 고등어, 게, 새우, 아황산류",
+      "source_url": "https://bbq.co.kr/products/30361"
+    },
+    {
+      "name_ko": "BBQ 닭볶음탕",
+      "name_en": "BBQ 닭볶음탕",
+      "price_won": 26000,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 닭고기. 쇠고기",
+      "source_url": "https://bbq.co.kr/products/30360"
+    },
+    {
+      "name_ko": "오징어튀김(3개)",
+      "name_en": "오징어튀김(3개)",
+      "price_won": 5000,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 쇠고기, 오징어",
+      "source_url": "https://bbq.co.kr/products/3076"
+    },
+    {
+      "name_ko": "황올한 닭발튀김",
+      "name_en": "황올한 닭발튀김",
+      "price_won": 7900,
+      "contains": [
+        "chicken",
+        "seafood",
+        "dairy",
+        "peanut",
+        "wheat"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 땅콩, 밀, 새우, 닭고기",
+      "source_url": "https://bbq.co.kr/products/3079"
+    },
+    {
+      "name_ko": "BBQ 감자튀김",
+      "name_en": "BBQ 감자튀김",
+      "price_won": 4000,
+      "contains": [
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두",
+      "source_url": "https://bbq.co.kr/products/3065"
+    },
+    {
+      "name_ko": "타르타르 새우튀김(5개)",
+      "name_en": "타르타르 새우튀김(5개)",
+      "price_won": 10000,
+      "contains": [
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 계란, 새우",
+      "source_url": "https://bbq.co.kr/products/3064"
+    },
+    {
+      "name_ko": "통새우 멘보샤(5개)",
+      "name_en": "통새우 멘보샤(5개)",
+      "price_won": 6000,
+      "contains": [
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 대두, 새우",
+      "source_url": "https://bbq.co.kr/products/3072"
+    },
+    {
+      "name_ko": "롱치즈스틱(1개)",
+      "name_en": "롱치즈스틱(1개)",
+      "price_won": 3500,
+      "contains": [
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 계란",
+      "source_url": "https://bbq.co.kr/products/3071"
+    },
+    {
+      "name_ko": "BBQ 닭껍데기",
+      "name_en": "BBQ 닭껍데기",
+      "price_won": 5000,
+      "contains": [
+        "chicken",
+        "seafood",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 우유, 닭고기, 조개류(굴), 땅콩, 새우",
+      "source_url": "https://bbq.co.kr/products/3077"
+    },
+    {
+      "name_ko": "BBQ 소떡",
+      "name_en": "BBQ 소떡",
+      "price_won": 3500,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 닭고기, 조개류(굴), 토마토, 쇠고기, 돼지고기, 아황산류",
+      "source_url": "https://bbq.co.kr/products/3073"
+    },
+    {
+      "name_ko": "BBQ 모둠볼(6개)",
+      "name_en": "BBQ 모둠볼(6개)",
+      "price_won": 6000,
+      "contains": [
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 계란",
+      "source_url": "https://bbq.co.kr/products/3067"
+    },
+    {
+      "name_ko": "BBQ 모둠볼(10개)",
+      "name_en": "BBQ 모둠볼(10개)",
+      "price_won": 9000,
+      "contains": [
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 계란",
+      "source_url": "https://bbq.co.kr/products/3068"
+    }
+  ]
+}

@@ -1,0 +1,294 @@
+{
+  "chain_ko": "이삭토스트",
+  "chain_en": "Isaac Toast",
+  "name_patterns": [
+    "%이삭토스트%"
+  ],
+  "source_urls": [
+    "https://www.isaac-toast.co.kr/menu/menu.php?ptype=list&catcode=10101000",
+    "https://www.isaac-toast.co.kr/menu/menu.php?ptype=list&catcode=10101200"
+  ],
+  "checked_on": "2026-11-24",
+  "notes": "MENU ONLY - the official site publishes no allergen information, so every dish has empty lists and allergens_as_written = 'not shown'. Show these as 'ask staff'. Toasts and sides from isaac-toast.co.kr (English names are the site's own). No allergen, origin or nutrition info on the list or item pages; no prices shown (null). Sets, sauces/jams and drinks left out.",
+  "dishes": [
+    {
+      "name_ko": "잠봉 스페셜 베이글",
+      "name_en": "Jambon Special Bagel",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2611130001&catcode=10101000"
+    },
+    {
+      "name_ko": "잠봉 치즈 베이글",
+      "name_en": "Jambon Cheese Bagel",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2611130002&catcode=10101000"
+    },
+    {
+      "name_ko": "프렌치 브리오슈 베이컨감자",
+      "name_en": "French Brioche Bacon Potato",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2607100002&catcode=10101000"
+    },
+    {
+      "name_ko": "프렌치 브리오슈 딥더블감자",
+      "name_en": "French Brioche Deep Double Potato",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2607100001&catcode=10101000"
+    },
+    {
+      "name_ko": "프렌치 브리오슈 스크램블",
+      "name_en": "French Brioche Scrambled",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2604240005&catcode=10101000"
+    },
+    {
+      "name_ko": "프렌치 브리오슈 스페셜",
+      "name_en": "French Brioche Special",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2604240004&catcode=10101000"
+    },
+    {
+      "name_ko": "리얼 칠리 새우",
+      "name_en": "Real Chili Shrimp",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2602230003&catcode=10101000"
+    },
+    {
+      "name_ko": "새우 스페셜",
+      "name_en": "Shrimp Special",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2602230005&catcode=10101000"
+    },
+    {
+      "name_ko": "리얼 양념치킨",
+      "name_en": "Real Seasoned Spicy Chicken",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2510280001&catcode=10101000"
+    },
+    {
+      "name_ko": "소이 크런치 치킨",
+      "name_en": "Soy Crunch Chicken",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2510280003&catcode=10101000"
+    },
+    {
+      "name_ko": "계란후라이 햄치즈",
+      "name_en": "Fried Egg Ham Cheese",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2504240005&catcode=10101000"
+    },
+    {
+      "name_ko": "계란후라이 스페셜",
+      "name_en": "Fried Egg Special",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2504240001&catcode=10101000"
+    },
+    {
+      "name_ko": "프렌치 햄치즈",
+      "name_en": "French Ham Cheese",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2404220003&catcode=10101000"
+    },
+    {
+      "name_ko": "감자 스페셜",
+      "name_en": "Potato Special",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2310230002&catcode=10101000"
+    },
+    {
+      "name_ko": "베이컨 포테이토 피자",
+      "name_en": "Bacon Potato Pizza",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2306210014&catcode=10101000"
+    },
+    {
+      "name_ko": "그릴드 불갈비",
+      "name_en": "Grilled Bulgalbi",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2306210030&catcode=10101000"
+    },
+    {
+      "name_ko": "스크램블 햄치즈",
+      "name_en": "Scrambled Ham cheese",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2402160001&catcode=10101000"
+    },
+    {
+      "name_ko": "스크램블 베이컨",
+      "name_en": "Scrambled Bacon",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2402160004&catcode=10101000"
+    },
+    {
+      "name_ko": "딥치즈 베이컨 포테이토",
+      "name_en": "Deep Cheese Bacon Potato",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2306210018&catcode=10101000"
+    },
+    {
+      "name_ko": "딥치즈 베이컨",
+      "name_en": "Deep Cheese Bacon",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2306210016&catcode=10101000"
+    },
+    {
+      "name_ko": "햄치즈 포테이토",
+      "name_en": "Ham Cheese Potato",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2306210020&catcode=10101000"
+    },
+    {
+      "name_ko": "베이컨 베스트",
+      "name_en": "Bacon Best",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2306210011&catcode=10101000"
+    },
+    {
+      "name_ko": "햄 스페셜 토스트",
+      "name_en": "Ham Special",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2306210009&catcode=10101000"
+    },
+    {
+      "name_ko": "햄치즈 토스트",
+      "name_en": "Ham Cheese",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2306210007&catcode=10101000"
+    },
+    {
+      "name_ko": "양송이 크림 컵스프",
+      "name_en": "Mushroom Cream Cup Soup",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2611120001&catcode=10101200"
+    },
+    {
+      "name_ko": "코울슬로",
+      "name_en": "Coleslaw",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2510270003&catcode=10101200"
+    },
+    {
+      "name_ko": "칠리 포테이토 팝",
+      "name_en": "Chili Potato Pop",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2603090001&catcode=10101200"
+    },
+    {
+      "name_ko": "포테이토 팝(시즈닝)",
+      "name_en": "Potato Pop Seasoning",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2502170001&catcode=10101200"
+    },
+    {
+      "name_ko": "치즈 팝",
+      "name_en": "Cheese Pop",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2408090002&catcode=10101200"
+    },
+    {
+      "name_ko": "어니언 포테이토 팝",
+      "name_en": "Onion Potato Pop",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2411110005&catcode=10101200"
+    },
+    {
+      "name_ko": "포테이토 팝",
+      "name_en": "Potato Pop",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.isaac-toast.co.kr/menu/menu.php?ptype=view&prdcode=2306210034&catcode=10101200"
+    }
+  ]
+}
