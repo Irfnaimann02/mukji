@@ -5,7 +5,7 @@ import {
 } from '@/data/search-history-store';
 import type { Diet, FoodProfile, Restaurant } from '@/data/types';
 import { restaurantFits } from '@/logic/profile-filter';
-import { listRestaurants } from '@/logic/restaurant-service';
+import { findRestaurantsMatching } from '@/logic/restaurant-service';
 
 // Picked by the team for around ERICA until we have real search counts.
 const POPULAR_FOR_EVERYONE = ['Kimbap', 'Chicken', 'Ramyeon', 'Cafe'];
@@ -48,8 +48,9 @@ export async function searchRestaurants(
   const q = query.trim().toLowerCase();
   if (!q) return [];
 
-  const all = await listRestaurants();
-  return all
+  // The database finds candidates; matches() keeps the exact same rule as before.
+  const found = await findRestaurantsMatching(q);
+  return found
     .filter((restaurant) => matches(restaurant, q))
     .map((restaurant) => ({ restaurant, fits: restaurantFits(restaurant, profile) }))
     .sort((a, b) => Number(b.fits) - Number(a.fits));

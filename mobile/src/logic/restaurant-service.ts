@@ -3,12 +3,30 @@ import {
   findKakaoRestaurant,
   KAKAO_ID_PREFIX,
 } from '@/data/kakao-repository';
-import { fetchRestaurants } from '@/data/restaurant-repository';
+import {
+  fetchListedRestaurants,
+  fetchRestaurantsByIds,
+  fetchRestaurantsNear,
+  searchRestaurantRows,
+} from '@/data/restaurant-repository';
 import type { Restaurant } from '@/data/types';
+import { withinRadius } from '@/logic/geo';
 
-// Only our own restaurants (Favourites, Reserve and Search use this).
-export function listRestaurants(): Promise<Restaurant[]> {
-  return fetchRestaurants();
+// #48: the app never loads every restaurant at once (there are thousands in Ansan).
+
+// Our own restaurants with these ids, e.g. the user's favourites or bookings.
+export function listRestaurantsByIds(ids: string[]): Promise<Restaurant[]> {
+  return fetchRestaurantsByIds(ids);
+}
+
+// Our own restaurants whose name, food type or a dish matches the word.
+export function findRestaurantsMatching(query: string): Promise<Restaurant[]> {
+  return searchRestaurantRows(query);
+}
+
+// The short list the team added by hand (owner portal: choose your restaurant).
+export function listListedRestaurants(): Promise<Restaurant[]> {
+  return fetchListedRestaurants();
 }
 
 // #47: our own restaurants plus the places Kakao finds around a point.
@@ -19,7 +37,7 @@ export async function listRestaurantsNear(
   radius: number
 ): Promise<Restaurant[]> {
   const [own, kakao] = await Promise.all([
-    fetchRestaurants(),
+    fetchRestaurantsNear(lat, lng, radius),
     fetchKakaoRestaurants(lat, lng, radius).catch((error) => {
       console.warn('Kakao search failed:', error);
       return [] as Restaurant[];
@@ -27,13 +45,15 @@ export async function listRestaurantsNear(
   ]);
 
   const extra = kakao.filter((place) => !own.some((r) => samePlace(r, place)));
-  return [...own, ...extra];
+  // The database already keeps to the radius (032); this keeps the map honest
+  // even if a search area ever comes back as a square.
+  return withinRadius([...own, ...extra], { lat, lng }, radius);
 }
 
 export async function findRestaurant(id: string): Promise<Restaurant | undefined> {
   if (id.startsWith(KAKAO_ID_PREFIX)) return findKakaoRestaurant(id);
-  const all = await fetchRestaurants();
-  return all.find((r) => r.id === id);
+  const [restaurant] = await fetchRestaurantsByIds([id]);
+  return restaurant;
 }
 
 // The same restaurant if Kakao's id matches, or it is within about 30 m

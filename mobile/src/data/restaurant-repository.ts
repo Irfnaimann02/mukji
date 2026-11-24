@@ -5,32 +5,140 @@ import type { CategoryHint, Dish, Restaurant } from './types';
 
 // The only file that knows where restaurants come from.
 // Supabase only returns approved restaurants (row level security).
-export async function fetchRestaurants(): Promise<Restaurant[]> {
-  if (!supabase) {
-    console.warn(
-      'Supabase keys missing in mobile/.env, using mock restaurants.'
+//
+// #48: Mukji now holds every licensed restaurant in Ansan (thousands), so the app
+// never downloads all of them. It asks for the ones near a point, by id, or by a
+// search word. Supabase returns at most 1000 rows per request anyway.
+
+const WITH_DISHES = '*, dishes(*)';
+// Most restaurants one map view or list asks for; the nearest come first.
+const NEARBY_MAX = 600;
+const SEARCH_MAX = 50;
+const IDS_PER_REQUEST = 100;
+
+let hintsRequest: Promise<Map<string, CategoryHint>> | null = null;
+
+// Food-type hints rarely change: load them once per app start.
+// A missing hint never blocks the app: restaurants still load without it.
+function categoryHints(): Promise<Map<string, CategoryHint>> {
+  if (!supabase) return Promise.resolve(new Map());
+  const client = supabase;
+  hintsRequest ??= (async () => {
+    const { data, error } = await client.from('category_defaults').select('*');
+    if (error) {
+      console.warn('Could not load food-type hints:', error.message);
+      hintsRequest = null; // try again next time
+      return new Map<string, CategoryHint>();
+    }
+    return new Map<string, CategoryHint>(
+      (data ?? []).map((row) => [row.category, toCategoryHint(row)])
     );
+  })();
+  return hintsRequest;
+}
+
+async function toRestaurants(rows: any[] | null): Promise<Restaurant[]> {
+  const hints = await categoryHints();
+  return (rows ?? []).map((row) => toRestaurant(row, hints));
+}
+
+function warnMock(): void {
+  console.warn('Supabase keys missing in mobile/.env, using mock restaurants.');
+}
+
+// Restaurants within radiusM of a point, nearest first (SQL 032: restaurants_near).
+export async function fetchRestaurantsNear(
+  lat: number,
+  lng: number,
+  radiusM: number
+): Promise<Restaurant[]> {
+  if (!supabase) {
+    warnMock();
     return MOCK_RESTAURANTS;
   }
+  const { data, error } = await supabase
+    .rpc('restaurants_near', {
+      p_lat: lat,
+      p_lng: lng,
+      p_radius_m: Math.round(radiusM),
+      p_max: NEARBY_MAX,
+    })
+    .select(WITH_DISHES);
+  if (error) throw error;
+  return toRestaurants(data as any[]);
+}
 
-  // Load restaurants and food-type hints together.
-  const [restaurants, hints] = await Promise.all([
-    supabase.from('restaurants').select('*, dishes(*)'),
-    supabase.from('category_defaults').select('*'),
-  ]);
-
-  if (restaurants.error) throw restaurants.error;
-
-  // A missing hint never blocks the app: restaurants still load without it.
-  if (hints.error) {
-    console.warn('Could not load food-type hints:', hints.error.message);
+// The restaurants with these ids (favourites, bookings, one restaurant page).
+export async function fetchRestaurantsByIds(ids: string[]): Promise<Restaurant[]> {
+  const unique = [...new Set(ids)].filter(Boolean);
+  if (unique.length === 0) return [];
+  if (!supabase) {
+    warnMock();
+    return MOCK_RESTAURANTS.filter((r) => unique.includes(r.id));
   }
-
-  const hintByCategory = new Map<string, CategoryHint>(
-    (hints.data ?? []).map((row) => [row.category, toCategoryHint(row)])
+  const client = supabase;
+  const chunks: string[][] = [];
+  for (let i = 0; i < unique.length; i += IDS_PER_REQUEST) {
+    chunks.push(unique.slice(i, i + IDS_PER_REQUEST));
+  }
+  const results = await Promise.all(
+    chunks.map((chunk) => client.from('restaurants').select(WITH_DISHES).in('id', chunk))
   );
+  const rows: any[] = [];
+  for (const result of results) {
+    if (result.error) throw result.error;
+    rows.push(...(result.data ?? []));
+  }
+  return toRestaurants(rows);
+}
 
-  return restaurants.data.map((row) => toRestaurant(row, hintByCategory));
+// Restaurants whose name, food type or one of whose dishes contains the word.
+// The word is reduced to letters, numbers and spaces first, so it cannot change
+// the query itself.
+export async function searchRestaurantRows(query: string): Promise<Restaurant[]> {
+  const word = query.replace(/[^\p{L}\p{N} ]/gu, ' ').replace(/\s+/g, ' ').trim();
+  if (!word) return [];
+  if (!supabase) {
+    warnMock();
+    return MOCK_RESTAURANTS;
+  }
+  const like = `%${word}%`;
+  const [byName, byDish] = await Promise.all([
+    supabase
+      .from('restaurants')
+      .select('id')
+      .or(`name_ko.ilike.${like},name_en.ilike.${like},food_type.ilike.${like}`)
+      .limit(SEARCH_MAX),
+    supabase
+      .from('dishes')
+      .select('restaurant_id')
+      .or(`name_ko.ilike.${like},name_en.ilike.${like}`)
+      .limit(SEARCH_MAX * 4),
+  ]);
+  if (byName.error) throw byName.error;
+  if (byDish.error) throw byDish.error;
+  const ids = [
+    ...(byName.data ?? []).map((row) => String(row.id)),
+    ...(byDish.data ?? []).map((row) => String(row.restaurant_id)),
+  ];
+  return fetchRestaurantsByIds([...new Set(ids)].slice(0, SEARCH_MAX));
+}
+
+// The restaurants the team added by hand (not the bulk licence import), for
+// places that need a short list, like the owner portal's "choose your restaurant".
+export async function fetchListedRestaurants(): Promise<Restaurant[]> {
+  if (!supabase) {
+    warnMock();
+    return MOCK_RESTAURANTS;
+  }
+  const { data, error } = await supabase
+    .from('restaurants')
+    .select(WITH_DISHES)
+    .eq('bulk_import', false)
+    .order('name_ko')
+    .limit(NEARBY_MAX);
+  if (error) throw error;
+  return toRestaurants(data as any[]);
 }
 
 // Database columns are snake_case; the app uses camelCase.

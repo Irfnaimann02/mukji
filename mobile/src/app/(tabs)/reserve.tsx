@@ -12,7 +12,7 @@ import { useTranslation } from '@/hooks/use-translation';
 import { preorderSummary, won } from '@/logic/booking-details';
 import { formatTime } from '@/logic/booking-times';
 import { openDirections } from '@/logic/directions';
-import { listRestaurants } from '@/logic/restaurant-service';
+import { listRestaurantsByIds } from '@/logic/restaurant-service';
 import { showAlert } from '@/components/show-alert';
 
 const BLUE = '#1B5FAD';
@@ -47,9 +47,11 @@ export default function ReserveScreen() {
     setLoading(true);
     setError(false);
     try {
-      const [mine, all] = await Promise.all([listMyBookings(), listRestaurants()]);
+      const mine = await listMyBookings();
+      // Only the restaurants these bookings are for, not every restaurant in Ansan.
+      const booked = await listRestaurantsByIds(mine.map((booking) => booking.restaurantId));
       setBookings(mine);
-      setRestaurants(all);
+      setRestaurants(booked);
     } catch {
       setError(true);
     } finally {
