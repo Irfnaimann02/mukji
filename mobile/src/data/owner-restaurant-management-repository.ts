@@ -227,24 +227,41 @@ export async function uploadOwnerRestaurantPhoto(input: {
 export async function deleteOwnerRestaurantPhoto(restaurantId: string, photoId: string): Promise<void> {
   const sb = client();
   await requireLinkedOwner(restaurantId);
+
   const { data: photo, error: readError } = await sb
     .from('restaurant_photos')
     .select('storage_path')
     .eq('id', photoId)
     .eq('restaurant_id', restaurantId)
     .maybeSingle();
+
   if (readError) throw readError;
   if (!photo) throw new Error('This restaurant photo could not be found.');
 
+  const storagePath = String(photo.storage_path);
+
+  // Remove the actual Storage file first.
+  const { data: removedFiles, error: storageError } = await sb
+    .storage
+    .from(PHOTO_BUCKET)
+    .remove([storagePath]);
+
+  if (storageError) throw storageError;
+
+  if (!removedFiles || removedFiles.length === 0) {
+    throw new Error('The photo file could not be removed from storage.');
+  }
+
+  // Delete the metadata only after the Storage file is removed.
   const { error: deleteError } = await sb
     .from('restaurant_photos')
     .delete()
     .eq('id', photoId)
     .eq('restaurant_id', restaurantId);
-  if (deleteError) throw deleteError;
 
-  const { error: storageError } = await sb.storage.from(PHOTO_BUCKET).remove([String(photo.storage_path)]);
-  if (storageError) {
-    console.warn('[MUKJI] A removed restaurant photo may remain in public storage:', storageError.message);
+  if (deleteError) {
+    throw new Error(
+      `The photo file was removed, but its database record could not be deleted: ${deleteError.message}`
+    );
   }
 }
