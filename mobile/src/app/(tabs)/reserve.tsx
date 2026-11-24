@@ -9,7 +9,7 @@ import { BookingStatusPill } from '@/components/booking-status-pill';
 import { cancelBooking, listMyBookings, type Booking } from '@/data/booking-repository';
 import type { Restaurant } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
-import { preorderSummary, won } from '@/logic/booking-details';
+import { preorderSummary, preorderTotalLabel } from '@/logic/booking-details';
 import { formatTime } from '@/logic/booking-times';
 import { openDirections } from '@/logic/directions';
 import { listRestaurantsByIds } from '@/logic/restaurant-service';
@@ -172,7 +172,7 @@ export default function ReserveScreen() {
                 {preorder.items === 1 ? t('bookingOneItem') : t('bookingItemCount', { count: preorder.items })}
               </Text>
               <View style={styles.preorderTotal}>
-                <Text style={styles.preorderTitle}>{won(preorder.totalWon)}</Text>
+                <Text style={styles.preorderTitle}>{preorderTotalLabel(preorder)}</Text>
                 <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={16} color="#6B6460" />
               </View>
             </Pressable>

@@ -12,7 +12,7 @@ export type MapPin = {
   badges: string[];
   badgeCount: number;
   faded: boolean; // #14 + #4: nothing here fits the user (see fadedFor)
-  fadedFor: FadeReason | null; // 'allergy' = every dish has an allergen, 'diet' = no dish is Safe
+  fadedFor: FadeReason | null; // 'allergy' = every dish has an allergen, 'diet' = no dish is Safe, 'typical' = only a typical menu
   fromKakao: boolean; // #47: found with Kakao, no menu yet
 };
 

@@ -13,7 +13,7 @@ import {
 } from '@/data/booking-repository';
 import type { Restaurant } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
-import { decodeNote, preorderSummary, won } from '@/logic/booking-details';
+import { decodeNote, preorderSummary, preorderTotalLabel } from '@/logic/booking-details';
 import { formatBookingTime, isInFuture } from '@/logic/booking-times';
 import { showAlert } from '@/components/show-alert';
 import { userMessage } from '@/logic/user-error';
@@ -158,7 +158,7 @@ export function OwnerReservations({ restaurants }: { restaurants: Restaurant[] }
                 <View style={styles.preorder}>
                   <PreorderLines lines={preorder.lines} />
                   <Text style={styles.line}>
-                    {t('bookingPreorderTotal')}: {won(preorder.totalWon)}
+                    {t('bookingPreorderTotal')}: {preorderTotalLabel(preorder)}
                   </Text>
                 </View>
               )}

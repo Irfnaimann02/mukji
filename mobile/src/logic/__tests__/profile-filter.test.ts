@@ -194,4 +194,17 @@ describe('typical menu dishes', () => {
     expect(isTypicalMenu(restaurant([typical('a', []), dish('b', [])]))).toBe(false);
     expect(isTypicalMenu(restaurant([]))).toBe(false);
   });
+
+  // #103 + #4: a place with only a typical menu is faded for anyone with a diet OR an allergy.
+  test('typical-only menu: faded for an allergy-only profile too, never for no profile', () => {
+    const typicalOnly = restaurant([{ ...dish('공기밥', []), typical: true }]);
+    expect(fadeReason(typicalOnly, profile([], ['egg']))).toBe('typical');
+    expect(fadeReason(typicalOnly, profile(['halal']))).toBe('typical');
+    expect(fadeReason(typicalOnly, profile([]))).toBeNull();
+  });
+
+  test('typical-only menu where every dish has the allergen: the allergy reason wins', () => {
+    const typicalEgg = restaurant([{ ...dish('계란말이', ['egg']), typical: true }]);
+    expect(fadeReason(typicalEgg, profile([], ['egg']))).toBe('allergy');
+  });
 });

@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 
 import { DEFAULT_PROFILE, type Dish, type FoodProfile, type Restaurant } from '@/data/types';
-import { explainDish, relevantOrigin, rulesBlocking } from '@/logic/dish-explanation';
+import { TYPICAL_QUESTION, explainDish, relevantOrigin, rulesBlocking } from '@/logic/dish-explanation';
 
 // #10 the facts behind "Why?"
 describe('dish-explanation', () => {
@@ -88,5 +88,28 @@ describe('dish-explanation', () => {
     expect(result.reasons).toEqual([{ kind: 'halal_meat', ingredient: 'lamb' }]);
     const origin = [{ itemKo: '양고기', country: '호주산' }, { itemKo: '쌀', country: '국내산' }];
     expect(relevantOrigin(dish(['lamb'], [], { nameKo: '양고기 케밥' }), origin).map((o) => o.itemKo)).toEqual(['양고기']);
+  });
+
+  // #103: a typical (generated) dish always says so first and asks what is in it.
+  it('a typical dish that is Ask first only because it is typical still gets a reason and a question', () => {
+    const typicalRice = dish([], [], { nameKo: '공기밥', typical: true });
+    const result = explainDish(typicalRice, restaurant(false), halal);
+    expect(result.status).toBe('ask_first');
+    expect(result.reasons).toEqual([{ kind: 'typical' }]);
+    expect(result.questions).toEqual([TYPICAL_QUESTION]);
+  });
+
+  it('a typical dish keeps its other reasons after the typical one', () => {
+    const typicalPork = dish(['pork'], [], { nameKo: '제육볶음', typical: true });
+    const result = explainDish(typicalPork, restaurant(false), halal);
+    expect(result.status).toBe('avoid');
+    expect(result.reasons.map((r) => r.kind)).toEqual(['typical', 'contains']);
+    expect(result.questions[0]).toEqual(TYPICAL_QUESTION);
+  });
+
+  it('no typical reason when the dish is Safe (no diet, no allergy)', () => {
+    const result = explainDish(dish([], [], { typical: true }), restaurant(false), DEFAULT_PROFILE);
+    expect(result.status).toBe('safe');
+    expect(result.reasons).toEqual([]);
   });
 });

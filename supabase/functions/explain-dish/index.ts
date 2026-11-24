@@ -36,7 +36,8 @@ const texts = (value: unknown, maxItems = 10): string[] =>
 type Facts = {
   language: 'en' | 'ko';
   status: string;
-  dish: { nameKo: string; nameEn: string; contains: string[]; mayContain: string[] };
+  // typical (#103): from a generated typical menu for this restaurant type, not its real menu
+  dish: { nameKo: string; nameEn: string; contains: string[]; mayContain: string[]; typical: boolean };
   restaurant: {
     nameKo: string;
     nameEn: string;
@@ -63,6 +64,7 @@ function readFacts(body: Record<string, unknown>): Facts | null {
       nameEn: text(dish.nameEn),
       contains: pick(dish.contains, INGREDIENTS),
       mayContain: pick(dish.mayContain, INGREDIENTS),
+      typical: dish.typical === true,
     },
     restaurant: {
       nameKo: text(restaurant.nameKo),
@@ -84,6 +86,8 @@ function systemPrompt(language: 'en' | 'ko'): string {
     '',
     'Facts you get: the dish name and its ingredients ("contains" = known to be in it, "mayContain" = might be, e.g. in the broth or sauce),',
     'the restaurant type, whether it is halal-certified, its 원산지 (origin) lines for this dish, and the user diets and allergies.',
+    'If dish.typical is true, the dish comes from a GENERATED typical menu for this type of restaurant, not this restaurant\'s real menu:',
+    'say that first, treat its ingredients as what such a dish usually has, and make the first question ask whether they serve it and what is in it.',
     '',
     'Write two things:',
     '1. "reason": say exactly what is uncertain or wrong for THIS dish and THIS user, and why it matters for their restriction.',

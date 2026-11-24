@@ -27,6 +27,7 @@ import {
   encodeNote,
   expandDishIds,
   preorderSummary,
+  preorderTotalLabel,
   won,
 } from '@/logic/booking-details';
 import {
@@ -129,7 +130,8 @@ export default function ReserveFormScreen() {
       return next;
     });
 
-  const dishes = restaurant?.dishes ?? [];
+  // #103: typical (generated) dishes are not this restaurant's menu, so they can't be pre-ordered.
+  const dishes = (restaurant?.dishes ?? []).filter((dish) => !dish.typical);
   const dishIds = expandDishIds(quantities);
   const preorder = preorderSummary(dishIds, dishes);
   // Show the first few dishes; a dish the user already added always stays visible.
@@ -142,7 +144,7 @@ export default function ReserveFormScreen() {
   const summaryBottom =
     preorder.items === 0
       ? t('bookingNoPreorder')
-      : `${preorder.items === 1 ? t('bookingOneDish') : t('bookingDishCount', { count: preorder.items })} · ${won(preorder.totalWon)}${preorder.unpricedItems > 0 ? ' + ?' : ''}`;
+      : `${preorder.items === 1 ? t('bookingOneDish') : t('bookingDishCount', { count: preorder.items })} · ${preorderTotalLabel(preorder)}`;
 
   const submit = async () => {
     if (!restaurant || !slot || sending) return;

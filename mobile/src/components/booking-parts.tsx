@@ -57,7 +57,8 @@ export function PreorderLines({ lines }: { lines: PreorderLine[] }) {
             <Text style={styles.lineQty}>{line.qty}× </Text>
             {line.nameKo}
           </Text>
-          <Text style={styles.linePrice}>{won(line.lineTotalWon)}</Text>
+          {/* no price on the source (chain or typical menu): show none, never ₩0 */}
+          {line.lineTotalWon > 0 && <Text style={styles.linePrice}>{won(line.lineTotalWon)}</Text>}
         </View>
       ))}
     </View>

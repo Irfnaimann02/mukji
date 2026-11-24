@@ -78,6 +78,7 @@ export function DishWhySheet({ dish, restaurant, profile, onClose }: Props) {
   }, [dish, restaurant, profile, status]);
 
   const reasonText = (reason: Reason): string => {
+    if (reason.kind === 'typical') return t('whyTypicalMenu'); // #103
     const ingredient = t(INGREDIENT_LABEL[reason.ingredient]);
     if (reason.kind === 'halal_meat') return t('whyHalalMeat', { ingredient });
     const rule = reason.rules.map((r) => t(RULE_LABEL[r])).join(', ');
@@ -143,7 +144,9 @@ export function DishWhySheet({ dish, restaurant, profile, onClose }: Props) {
                   <Text style={styles.body}>{t('whyNothingFlagged')}</Text>
                 ) : (
                   explanation.reasons.map((reason, index) => (
-                    <View key={`${reason.kind}-${reason.ingredient}-${index}`} style={styles.bulletRow}>
+                    <View
+                      key={`${reason.kind}-${'ingredient' in reason ? reason.ingredient : ''}-${index}`}
+                      style={styles.bulletRow}>
                       <Ionicons
                         name={reason.kind === 'contains' ? 'close-circle' : 'help-circle'}
                         size={18}
