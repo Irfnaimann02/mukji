@@ -14,6 +14,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { OwnerReservations } from '@/components/owner-reservations';
 import { OwnerDashboard } from '@/components/owner-dashboard';
+import { OwnerRestaurantManagement } from '@/components/owner-restaurant-management';
 import { ALL_INGREDIENTS, type Restaurant } from '@/data/types';
 import { useAuth } from '@/hooks/use-auth';
 import { useTranslation } from '@/hooks/use-translation';
@@ -204,16 +205,13 @@ export default function OwnerPortalScreen() {
     };
   }, [auth.ready, auth.user?.id, signedInAsOwner, previewMode, owner]);
 
-  function updateRestaurantField(
-    key: keyof Omit<RestaurantDraft, 'dishes'>,
-    value: string,
-  ) {
+
+  function updateOriginDraft(value: string) {
     if (!selectedRestaurant) return;
     const restaurantId = selectedRestaurant.id;
-
     setRestaurantDrafts((current) => {
       const base = current[restaurantId] ?? createRestaurantDraft(selectedRestaurant);
-      return { ...current, [restaurantId]: { ...base, [key]: value } };
+      return { ...current, [restaurantId]: { ...base, originText: value } };
     });
   }
 
@@ -420,43 +418,38 @@ export default function OwnerPortalScreen() {
   }
 
   function renderRestaurantEditor() {
-    if (!selectedRestaurant || !activeDraft) return null;
     return (
-      <View style={styles.content}>
-        <View style={styles.noticeCard}>
-          <Ionicons name="save-outline" size={22} color="#1b5fad" />
-          <View style={styles.flex}>
-            <Text style={styles.cardTitle}>{owner('ownerLocalDraftEditor')}</Text>
-            <Text style={styles.bodyText}>
-              {owner('ownerChangesHereDoNotUpdateThePublicRestaurantPage')}
-            </Text>
-          </View>
-        </View>
-        <View style={styles.card}>
-          <Field label={owner('ownerRestaurantNameKorean')} value={activeDraft.nameKo} onChangeText={(value) => updateRestaurantField('nameKo', value)} />
-          <Field label={owner('ownerRestaurantNameEnglish')} value={activeDraft.nameEn} onChangeText={(value) => updateRestaurantField('nameEn', value)} />
-          <Field label={owner('ownerAddress2')} value={activeDraft.address} onChangeText={(value) => updateRestaurantField('address', value)} multiline />
-          <Field label={owner('ownerPhoneNumber')} value={activeDraft.phone} onChangeText={(value) => updateRestaurantField('phone', value)} keyboardType="phone-pad" />
-          <Field
-            label={owner('ownerIngredientOriginsOneItemPerLineItemCountry')}
-            value={activeDraft.originText}
-            onChangeText={(value) => updateRestaurantField('originText', value)}
-            multiline
-            placeholder={owner('ownerExampleBeefAustralia')}
-          />
-        </View>
-        <View style={styles.warningCard}>
-          <Text style={styles.warningTitle}>{owner('ownerHalalCertificationIsReadOnly')}</Text>
-          <Text style={styles.bodyText}>
-            {owner('ownerThePublicCertificationValueIsControlledByMukjiVerificat7444e7da')}
-          </Text>
-        </View>
-        <PrimaryButton
-          title={saving ? owner('ownerSaving') : owner('ownerSaveLocalDraft')}
-          onPress={() => void saveRestaurantDraft()}
-          disabled={saving || draftsLoading}
+      <>
+        <OwnerRestaurantManagement
+          restaurant={selectedRestaurant}
+          previewMode={previewMode}
         />
-      </View>
+        {selectedRestaurant && activeDraft ? (
+          <View style={styles.content}>
+            <View style={styles.noticeCard}>
+              <Ionicons name="save-outline" size={22} color="#1b5fad" />
+              <View style={styles.flex}>
+                <Text style={styles.cardTitle}>{owner('ownerLocalDraftEditor')}</Text>
+                <Text style={styles.bodyText}>{owner('ownerChangesHereDoNotUpdateThePublicRestaurantPage')}</Text>
+              </View>
+            </View>
+            <View style={styles.card}>
+              <Field
+                label={owner('ownerIngredientOriginsOneItemPerLineItemCountry')}
+                value={activeDraft.originText}
+                onChangeText={updateOriginDraft}
+                multiline
+                placeholder={owner('ownerExampleBeefAustralia')}
+              />
+            </View>
+            <PrimaryButton
+              title={saving ? owner('ownerSaving') : owner('ownerSaveLocalDraft')}
+              onPress={() => void saveRestaurantDraft()}
+              disabled={saving || draftsLoading}
+            />
+          </View>
+        ) : null}
+      </>
     );
   }
 
