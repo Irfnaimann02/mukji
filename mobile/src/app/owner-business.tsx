@@ -22,10 +22,11 @@ import {
   deleteOwnerBusinessDraft,
   emptyOwnerBusinessDetails,
   listOwnerBusinessDocuments,
-  loadOwnerBusinessDraft,
+  loadLatestOwnerBusinessApplication,
   removeOwnerBusinessDocument,
   saveOwnerBusinessDraft,
   uploadOwnerBusinessDocument,
+  OWNER_BUSINESS_PRIVACY_NOTICE_VERSION,
   type OwnerBusinessDocument,
   type OwnerBusinessDraft,
 } from '@/logic/owner-business-service';
@@ -149,15 +150,16 @@ export default function OwnerBusinessOnboardingScreen() {
       setLoading(true);
       setPageError('');
       try {
-        const result = await loadOwnerBusinessDraft();
+        const result = await loadLatestOwnerBusinessApplication();
         if (!active) return;
         setDetails(result.initialDetails);
-        setDraftId(result.draft?.id ?? null);
-        setDraftStatus(result.draft?.status ?? null);
-        setPrivacyNoticeAccepted(Boolean(result.draft?.privacyNoticeAcknowledgedAt));
-        setPrivacyNoticePersisted(Boolean(result.draft?.privacyNoticeAcknowledgedAt));
-        if (result.draft) {
-          const savedDocuments = await listOwnerBusinessDocuments(result.draft.id);
+        setDraftId(result.application?.id ?? null);
+        setDraftStatus(result.application?.status ?? null);
+        const noticeIsCurrent = result.application?.privacyNoticeVersion === OWNER_BUSINESS_PRIVACY_NOTICE_VERSION;
+        setPrivacyNoticeAccepted(Boolean(result.application?.privacyNoticeAcknowledgedAt && noticeIsCurrent));
+        setPrivacyNoticePersisted(Boolean(result.application?.privacyNoticeAcknowledgedAt && noticeIsCurrent));
+        if (result.application) {
+          const savedDocuments = await listOwnerBusinessDocuments(result.application.id);
           if (!active) return;
           setDocuments(savedDocuments);
         } else {
@@ -365,6 +367,12 @@ export default function OwnerBusinessOnboardingScreen() {
             <Text style={styles.warningText}>{pageError}</Text>
             <ActionButton title={owner('ownerBackToOwnerPortal')} secondary onPress={() => router.back()} />
           </View>
+        ) : draftId && draftStatus !== 'draft' ? (
+          <View style={styles.warning}>
+            <Text style={styles.warningTitle}>{owner('ownerRestaurantApplicationStatus')}</Text>
+            <Text style={styles.warningText}>{owner('ownerBusinessSubmittedLocked')}</Text>
+            <ActionButton title={owner('ownerBackToOwnerPortal')} secondary onPress={() => router.back()} />
+          </View>
         ) : (
           <>
             <View style={styles.notice}>
@@ -531,6 +539,13 @@ export default function OwnerBusinessOnboardingScreen() {
               onPress={() => void handleSave()}
               disabled={saving || uploading}
             />
+            {draftId && draftStatus === 'draft' && privacyNoticePersisted ? (
+              <ActionButton
+                title={owner('ownerRestaurantApplicationTitle')}
+                onPress={() => router.push('/owner-restaurant-application')}
+                disabled={saving || uploading || deleting}
+              />
+            ) : null}
             {draftId && draftStatus === 'draft' ? (
               <ActionButton
                 title={deleting ? owner('ownerDeletingBusinessDraft') : owner('ownerDeleteBusinessDraft')}

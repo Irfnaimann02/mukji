@@ -21,14 +21,10 @@ import { continueAsGuest } from '@/logic/welcome-service';
 import { signOutAndReturnToWelcome } from '@/logic/session-service';
 import {
   createRestaurantDraft,
-  isValidOwnerEmail,
   loadOwnerDrafts,
   loadOwnerPortalRestaurants,
-  saveApplicationDraft as persistApplicationDraft,
   saveRestaurantDrafts,
   switchToUserMode,
-  EMPTY_APPLICATION_DRAFT,
-  type ApplicationDraft,
   type DishDraft,
   type RestaurantDraft,
 } from '@/logic/owner-portal-service';
@@ -114,11 +110,9 @@ export default function OwnerPortalScreen() {
   const [saving, setSaving] = useState(false);
   const [portalError, setPortalError] = useState('');
   const [draftError, setDraftError] = useState('');
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [ownedRestaurants, setOwnedRestaurants] = useState<Restaurant[]>([]);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState('');
   const [activeTab, setActiveTab] = useState<PortalTab>('overview');
-  const [application, setApplication] = useState<ApplicationDraft>(EMPTY_APPLICATION_DRAFT);
   const [restaurantDrafts, setRestaurantDrafts] = useState<Record<string, RestaurantDraft>>({});
 
   const signedInAsOwner = auth.user !== null && !auth.isAnonymous;
@@ -153,7 +147,6 @@ export default function OwnerPortalScreen() {
       try {
         const savedDrafts = await loadOwnerDrafts(draftOwnerKey);
         if (!alive) return;
-        setApplication(savedDrafts.application);
         setRestaurantDrafts(savedDrafts.restaurantDrafts);
       } catch (error) {
         if (!alive) return;
@@ -187,10 +180,8 @@ export default function OwnerPortalScreen() {
       setPortalError('');
 
       try {
-        const { restaurants: allRestaurants, ownedRestaurants: linked } =
-          await loadOwnerPortalRestaurants(previewMode);
+        const { ownedRestaurants: linked } = await loadOwnerPortalRestaurants(previewMode);
         if (!alive) return;
-        setRestaurants(allRestaurants);
         setOwnedRestaurants(linked);
         setSelectedRestaurantId((current) =>
           linked.some((restaurant) => restaurant.id === current)
@@ -211,66 +202,6 @@ export default function OwnerPortalScreen() {
       alive = false;
     };
   }, [auth.ready, auth.user?.id, signedInAsOwner, previewMode, owner]);
-
-  function updateApplication<K extends keyof ApplicationDraft>(
-    key: K,
-    value: ApplicationDraft[K],
-  ) {
-    setApplication((current) => ({ ...current, [key]: value }));
-  }
-
-  function validateApplication(): string | null {
-    const email = application.email.trim() || auth.email || '';
-
-    if (!application.ownerName.trim()) {
-      return owner('ownerEnterTheOwnerName');
-    }
-    if (!isValidOwnerEmail(email)) {
-      return owner('ownerEnterAValidContactEmail');
-    }
-
-    if (application.kind === 'existing' && !application.existingRestaurantId) {
-      return owner('ownerChooseARestaurantToClaim');
-    }
-
-    if (application.kind === 'new') {
-      if (!application.businessNameKo.trim() || !application.businessName.trim()) {
-        return owner('ownerEnterTheRestaurantNameInKoreanAndEnglish');
-      }
-      if (!application.address.trim() || !application.phone.trim()) {
-        return owner('ownerEnterTheRestaurantAddressAndPhoneNumber');
-      }
-    }
-
-    return null;
-  }
-
-  async function saveApplicationDraft() {
-    const validationError = validateApplication();
-    if (validationError) {
-      showAlert(owner('ownerCheckTheApplication'), validationError);
-      return;
-    }
-    if (!draftOwnerKey) {
-      showAlert(owner('ownerSignInRequired'));
-      return;
-    }
-
-    setSaving(true);
-    try {
-      const valueToSave = { ...application, email: application.email.trim() || auth.email || '' };
-      await persistApplicationDraft(draftOwnerKey, valueToSave);
-      setApplication(valueToSave);
-      showAlert(
-        owner('ownerDraftSaved'),
-        owner('ownerThisDraftIsSavedOnlyOnThisDeviceItHasNotBeenSubmittedToMukji'),
-      );
-    } catch {
-      showAlert(owner('ownerSaveFailed'), owner('ownerPleaseTryAgain'));
-    } finally {
-      setSaving(false);
-    }
-  }
 
   function updateRestaurantField(
     key: keyof Omit<RestaurantDraft, 'dishes'>,
@@ -448,154 +379,19 @@ export default function OwnerPortalScreen() {
             </Text>
           </View>
         </View>
-
         <PrimaryButton
           title={owner('ownerBusinessOnboarding')}
           onPress={() => router.push('/owner-business')}
-          disabled={saving || draftsLoading}
+          disabled={draftsLoading}
         />
-        <Text style={styles.sectionTitle}>{owner('ownerWhatWouldYouLikeToDo')}</Text>
-        <View style={styles.choiceRow}>
-          {(['existing', 'new'] as const).map((kind) => (
-            <Pressable
-              key={kind}
-              onPress={() => updateApplication('kind', kind)}
-              style={[styles.choice, application.kind === kind && styles.choiceActive]}>
-              <Text style={[styles.choiceText, application.kind === kind && styles.choiceTextActive]}>
-                {kind === 'existing'
-                  ? owner('ownerClaimExistingRestaurant')
-                  : owner('ownerRegisterNewRestaurant')}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-
-        {application.kind === 'existing' ? (
-          <View style={styles.card}>
-            <Text style={styles.fieldLabel}>{owner('ownerChooseTheRestaurant')}</Text>
-            {restaurants.length === 0 ? (
-              <Text style={styles.bodyText}>
-                {owner('ownerNoRestaurantListIsAvailableRightNowYouCanSaveThisDraftA344e33fa')}
-              </Text>
-            ) : (
-              restaurants.map((restaurant) => (
-                <Pressable
-                  key={restaurant.id}
-                  onPress={() => updateApplication('existingRestaurantId', restaurant.id)}
-                  style={[
-                    styles.restaurantChoice,
-                    application.existingRestaurantId === restaurant.id && styles.restaurantChoiceActive,
-                  ]}>
-                  <View style={styles.flex}>
-                    <Text style={styles.restaurantName}>{restaurant.nameEn}</Text>
-                    <Text style={styles.mutedText}>
-                      {restaurant.nameKo} · {restaurant.address}
-                    </Text>
-                  </View>
-                  <Ionicons
-                    name={application.existingRestaurantId === restaurant.id ? 'radio-button-on' : 'radio-button-off'}
-                    size={21}
-                    color="#1b5fad"
-                  />
-                </Pressable>
-              ))
-            )}
-          </View>
-        ) : (
-          <View style={styles.card}>
-            <Field
-              label={owner('ownerRestaurantNameKorean')}
-              value={application.businessNameKo}
-              onChangeText={(value) => updateApplication('businessNameKo', value)}
-            />
-            <Field
-              label={owner('ownerRestaurantNameEnglish')}
-              value={application.businessName}
-              onChangeText={(value) => updateApplication('businessName', value)}
-            />
-            <Field
-              label={owner('ownerRestaurantAddress')}
-              value={application.address}
-              onChangeText={(value) => updateApplication('address', value)}
-              multiline
-            />
-            <Field
-              label={owner('ownerRestaurantPhone')}
-              value={application.phone}
-              onChangeText={(value) => updateApplication('phone', value)}
-              keyboardType="phone-pad"
-            />
-          </View>
-        )}
-
-        <View style={styles.card}>
-          <Text style={styles.sectionTitle}>{owner('ownerOwnerInformation')}</Text>
-          <Field
-            label={owner('ownerOwnerName')}
-            value={application.ownerName}
-            onChangeText={(value) => updateApplication('ownerName', value)}
-          />
-          <Field
-            label={owner('ownerContactEmail')}
-            value={application.email || auth.email || ''}
-            onChangeText={(value) => updateApplication('email', value)}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-          <Field
-            label={owner('ownerAdditionalMessageOptional')}
-            value={application.message}
-            onChangeText={(value) => updateApplication('message', value)}
-            multiline
-          />
-        </View>
-
-        <View style={styles.card}>
-          <Text style={styles.sectionTitle}>{owner('ownerHalalInformation')}</Text>
-          <Text style={styles.bodyText}>
-            {owner('ownerChooseTheStatementThatBestDescribesTheRestaurantTheMukj7ef4d9e9')}
-          </Text>
-          {([
-            ['not_claiming', 'ownerNotClaimingHalalCertification'],
-            ['certified', 'ownerWeHaveAHalalCertificate'],
-            ['not_certified', 'ownerHalalFriendlyNotCertified'],
-          ] as const).map(([value, labelKey]) => (
-            <Pressable
-              key={value}
-              onPress={() => updateApplication('halalClaim', value)}
-              style={styles.radioRow}>
-              <Ionicons
-                name={application.halalClaim === value ? 'radio-button-on' : 'radio-button-off'}
-                size={21}
-                color="#1b5fad"
-              />
-              <Text style={styles.bodyText}>{owner(labelKey)}</Text>
-            </Pressable>
-          ))}
-          <View style={styles.uploadPlaceholder}>
-            <Ionicons name="document-attach-outline" size={22} color="#6b7a8d" />
-            <View style={styles.flex}>
-              <Text style={styles.fieldLabel}>{owner('ownerBusinessDocument')}</Text>
-              <Text style={styles.mutedText}>{owner('ownerDocumentUploadIsNotConnectedYet')}</Text>
-            </View>
-          </View>
-          <View style={styles.uploadPlaceholder}>
-            <Ionicons name="ribbon-outline" size={22} color="#6b7a8d" />
-            <View style={styles.flex}>
-              <Text style={styles.fieldLabel}>{owner('ownerHalalCertificateIfApplicable')}</Text>
-              <Text style={styles.mutedText}>
-                {owner('ownerCertificateUploadAndVerificationAreNotConnectedYet')}
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.warningCard}>
-          <Text style={styles.warningTitle}>{owner('ownerDraftOnlyNotSubmitted')}</Text>
-          <Text style={styles.bodyText}>
-            {owner('ownerThisApplicationIsStoredOnThisDeviceOnlyItIsNotPendingAp09969516')}
-          </Text>
-        </View>
+        <PrimaryButton
+          title={owner('ownerRestaurantApplicationTitle')}
+          onPress={() => router.push('/owner-restaurant-application')}
+          disabled={draftsLoading}
+        />
+        <Text style={styles.bodyText}>
+          {owner('ownerRestaurantApplicationIntro')}
+        </Text>
         <Pressable
           style={[styles.signOutButton, { borderColor: '#b8cce5', backgroundColor: '#eef4fb' }]}
           onPress={() => {
@@ -607,11 +403,6 @@ export default function OwnerPortalScreen() {
             {owner('ownerSwitchToUserMode')}
           </Text>
         </Pressable>
-        <PrimaryButton
-          title={saving ? owner('ownerSaving') : owner('ownerSaveApplicationDraft')}
-          onPress={() => void saveApplicationDraft()}
-          disabled={saving || draftsLoading}
-        />
       </View>
     );
   }
