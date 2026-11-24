@@ -1,0 +1,775 @@
+{
+  "chain_ko": "페리카나",
+  "chain_en": "Pelicana",
+  "name_patterns": [
+    "%페리카나%"
+  ],
+  "source_urls": [
+    "https://www.pelicana.co.kr/menu/list",
+    "https://www.pelicana.co.kr/menu/origin",
+    "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100303"
+  ],
+  "checked_on": "2026-11-24",
+  "notes": "Allergens and origin are text on each item page ('알레르기 정보'). Prices are the site's listed prices; the site notes they may differ by store/channel and not every store sells every item. All chicken (incl. gizzards, feet, neck) is domestic (국내산). Nearly every chicken item lists 쇠고기 (beef). Two cheese-ball sides say '유유', an obvious typo for 우유 (milk) - mapped to dairy; 계란 mapped to egg; 조개류(굴포함) mapped to seafood. No shared-frying-oil statement found.",
+  "dishes": [
+    {
+      "name_ko": "양념치킨",
+      "name_en": "Seasoned Chicken",
+      "price_won": 21000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 계란, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100299"
+    },
+    {
+      "name_ko": "후라이드",
+      "name_en": "Fried Chicken",
+      "price_won": 20000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100302"
+    },
+    {
+      "name_ko": "반반치킨",
+      "name_en": "Half & Half Chicken",
+      "price_won": 22000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 계란, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100303"
+    },
+    {
+      "name_ko": "매운후라이드",
+      "name_en": "Spicy Fried Chicken",
+      "price_won": 20000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100304"
+    },
+    {
+      "name_ko": "매운양념치킨",
+      "name_en": "Spicy Seasoned Chicken",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100305"
+    },
+    {
+      "name_ko": "마늘치킨",
+      "name_en": "Garlic Chicken",
+      "price_won": 21000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100306"
+    },
+    {
+      "name_ko": "파닭치킨",
+      "name_en": "Green Onion Chicken",
+      "price_won": 21000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 계란",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100307"
+    },
+    {
+      "name_ko": "간장치킨",
+      "name_en": "Soy Sauce Chicken",
+      "price_won": 21000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 조개류(굴포함)",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100308"
+    },
+    {
+      "name_ko": "핫데블치킨",
+      "name_en": "Hot Devil Chicken",
+      "price_won": 21000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 토마토, 조개류(굴포함), 우유",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100310"
+    },
+    {
+      "name_ko": "홍단치킨",
+      "name_en": "Hongdan Chicken",
+      "price_won": 21000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100537"
+    },
+    {
+      "name_ko": "홍홍치킨",
+      "name_en": "Honghong Chicken",
+      "price_won": 21000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100538"
+    },
+    {
+      "name_ko": "단단치킨",
+      "name_en": "Dandan Chicken",
+      "price_won": 21000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100539"
+    },
+    {
+      "name_ko": "화이트딥 치폴릭치킨",
+      "name_en": "White Deep Chipolic Chicken",
+      "price_won": 24000,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 우유, 토마토, 계란",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100545"
+    },
+    {
+      "name_ko": "치폴릭치킨",
+      "name_en": "Chipolic Chicken",
+      "price_won": 23000,
+      "contains": [
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 우유, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100546"
+    },
+    {
+      "name_ko": "순살후라이드",
+      "name_en": "Boneless Fried Chicken",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100311"
+    },
+    {
+      "name_ko": "순살양념치킨",
+      "name_en": "Boneless Seasoned Chicken",
+      "price_won": 25000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 계란, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100312"
+    },
+    {
+      "name_ko": "순살반반치킨",
+      "name_en": "Boneless Half & Half",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 계란, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100313"
+    },
+    {
+      "name_ko": "순살매운양념치킨",
+      "name_en": "Boneless Spicy Seasoned Chicken",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100367"
+    },
+    {
+      "name_ko": "순살마늘치킨",
+      "name_en": "Boneless Garlic Chicken",
+      "price_won": 24000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100369"
+    },
+    {
+      "name_ko": "순살파닭치킨",
+      "name_en": "Boneless Green Onion Chicken",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 계란",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100374"
+    },
+    {
+      "name_ko": "순살간장치킨",
+      "name_en": "Boneless Soy Sauce Chicken",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 조개류(굴포함)",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100375"
+    },
+    {
+      "name_ko": "다리 후라이드",
+      "name_en": "Drumstick Fried",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100343"
+    },
+    {
+      "name_ko": "다리 양념치킨",
+      "name_en": "Drumstick Seasoned",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 계란, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100344"
+    },
+    {
+      "name_ko": "다리 반반치킨",
+      "name_en": "Drumstick Half & Half",
+      "price_won": 22000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 계란, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100345"
+    },
+    {
+      "name_ko": "다리 매운양념치킨",
+      "name_en": "Drumstick Spicy Seasoned",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100314"
+    },
+    {
+      "name_ko": "다리 마늘치킨",
+      "name_en": "Drumstick Garlic",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100346"
+    },
+    {
+      "name_ko": "다리 간장치킨",
+      "name_en": "Drumstick Soy Sauce",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 조개류(굴포함)",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100347"
+    },
+    {
+      "name_ko": "날개 후라이드",
+      "name_en": "Wing Fried",
+      "price_won": 21000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100348"
+    },
+    {
+      "name_ko": "날개 양념치킨",
+      "name_en": "Wing Seasoned",
+      "price_won": 22000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 계란, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100349"
+    },
+    {
+      "name_ko": "날개 반반치킨",
+      "name_en": "Wing Half & Half",
+      "price_won": 24000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 계란, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100350"
+    },
+    {
+      "name_ko": "날개 매운양념치킨",
+      "name_en": "Wing Spicy Seasoned",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100368"
+    },
+    {
+      "name_ko": "날개 마늘치킨",
+      "name_en": "Wing Garlic",
+      "price_won": 24000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100351"
+    },
+    {
+      "name_ko": "날개 간장치킨",
+      "name_en": "Wing Soy Sauce",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 조개류(굴포함)",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100352"
+    },
+    {
+      "name_ko": "페리윙봉 후라이드",
+      "name_en": "Peri Wing-Bong Fried",
+      "price_won": 22000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100353"
+    },
+    {
+      "name_ko": "페리윙봉 양념치킨",
+      "name_en": "Peri Wing-Bong Seasoned",
+      "price_won": 24000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 계란, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100354"
+    },
+    {
+      "name_ko": "페리윙봉 반반치킨",
+      "name_en": "Peri Wing-Bong Half & Half",
+      "price_won": 24000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 계란, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100355"
+    },
+    {
+      "name_ko": "페리윙봉 매운양념치킨",
+      "name_en": "Peri Wing-Bong Spicy Seasoned",
+      "price_won": 24000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100356"
+    },
+    {
+      "name_ko": "페리윙봉 간장치킨",
+      "name_en": "Peri Wing-Bong Soy Sauce",
+      "price_won": 24000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 조개류(굴포함)",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100357"
+    },
+    {
+      "name_ko": "치즈뿌리오",
+      "name_en": "Cheese Purio",
+      "price_won": 20000,
+      "contains": [
+        "beef",
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 우유",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100359"
+    },
+    {
+      "name_ko": "맵삭치킨",
+      "name_en": "Maepsak Chicken",
+      "price_won": 20000,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100360"
+    },
+    {
+      "name_ko": "두마리치킨",
+      "name_en": "Two Chickens",
+      "price_won": 46000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 계란, 토마토",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100361"
+    },
+    {
+      "name_ko": "츄러스치즈볼",
+      "name_en": "Churros Cheese Balls",
+      "price_won": 4500,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 유유",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100301"
+    },
+    {
+      "name_ko": "페리치즈볼",
+      "name_en": "Peri Cheese Balls",
+      "price_won": 6500,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 유유",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100362"
+    },
+    {
+      "name_ko": "꼬들목",
+      "name_en": "Chicken Neck",
+      "price_won": 7000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100364"
+    },
+    {
+      "name_ko": "근위튀김",
+      "name_en": "Fried Gizzards",
+      "price_won": 9000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100376"
+    },
+    {
+      "name_ko": "튀김닭발",
+      "name_en": "Fried Chicken Feet",
+      "price_won": 12000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100377"
+    },
+    {
+      "name_ko": "양념닭발(뼈)",
+      "name_en": "Seasoned Chicken Feet (bone-in)",
+      "price_won": 12000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 조개류(굴포함)",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100378"
+    },
+    {
+      "name_ko": "양념닭발(무뼈)",
+      "name_en": "Seasoned Chicken Feet (boneless)",
+      "price_won": 18000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기, 조개류(굴포함)",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100379"
+    },
+    {
+      "name_ko": "매콤떡볶이",
+      "name_en": "Spicy Tteokbokki",
+      "price_won": 5000,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 우유, 쇠고기",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100532"
+    },
+    {
+      "name_ko": "버터플라이새우",
+      "name_en": "Butterfly Shrimp",
+      "price_won": 5500,
+      "contains": [
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 새우",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100533"
+    },
+    {
+      "name_ko": "어포깡",
+      "name_en": "Fish Snack",
+      "price_won": 4500,
+      "contains": [
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 새우",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100534"
+    },
+    {
+      "name_ko": "양념떡튀김",
+      "name_en": "Seasoned Fried Rice Cake",
+      "price_won": 4000,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 우유",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100543"
+    },
+    {
+      "name_ko": "감자치즈스틱",
+      "name_en": "Potato Cheese Stick",
+      "price_won": 4000,
+      "contains": [
+        "egg",
+        "dairy",
+        "wheat"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 우유, 계란",
+      "source_url": "https://www.pelicana.co.kr/menu/detail?goodsNo=1000100544"
+    }
+  ]
+}

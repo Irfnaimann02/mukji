@@ -126,7 +126,9 @@ function DishRow({
     <Pressable style={styles.dish} onPress={onPress} testID="dish-row">
       <View style={styles.dishTop}>
         <Text style={styles.dishName}>
-          {dish.nameKo} · ₩{dish.priceWon.toLocaleString()}
+          {dish.nameKo}
+          {/* 0 = no price on the source (e.g. a chain's official site): show none, never ₩0 */}
+          {dish.priceWon > 0 ? ` · ₩${dish.priceWon.toLocaleString()}` : ''}
         </Text>
 
         <Text

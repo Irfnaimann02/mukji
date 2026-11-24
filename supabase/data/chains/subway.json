@@ -1,0 +1,513 @@
+{
+  "chain_ko": "써브웨이",
+  "chain_en": "Subway",
+  "name_patterns": [
+    "%써브웨이%",
+    "%서브웨이%",
+    "%subway%"
+  ],
+  "source_urls": [
+    "https://www.subway.co.kr/menuList/sandwich",
+    "https://www.subway.co.kr/sandwichAllergy",
+    "https://www.subway.co.kr/images/menu/allergy_img.png?2026110901",
+    "https://www.subway.co.kr/sandwichCountry"
+  ],
+  "checked_on": "2026-11-24",
+  "notes": "Allergen chart is one image (subway_allergen.png); ● = contains, ★ = may contain (mapped to may_contain). Values are for the base sandwich only: wheat bread + lettuce, tomato, pepper, onion, cucumber; NO cheese or sauce (except 스테이크&치즈 and breakfast items, which include American cheese) - bread, cheese and sauce choices add their own allergens (the chart lists them separately). Site warns of cross-contact during preparation. (F)/(S) variants of 안창 비프&머쉬룸 and 머쉬룸 appear as separate rows in the chart with different values; both are kept. (J)/(JC) store-variant rows were skipped. 램 = lamb: lamb is not an allergen column, but the two 램 sandwiches are lamb by name, so 'lamb' was added to their 'contains' by hand (review of PR #104). Prices are not shown on the site (null). Read by eye from the image - spot-check.",
+  "dishes": [
+    {
+      "name_ko": "이탈리안 비엠티",
+      "name_en": "Italian B.M.T.",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 돼지고기, 토마토 (★ 포함 가능성: 난류, 우유)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "써브웨이 클럽",
+      "name_en": "Subway Club",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 돼지고기, 토마토 (★ 포함 가능성: 난류, 우유, 아황산류)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "스파이시 이탈리안",
+      "name_en": "Spicy Italian",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 돼지고기, 토마토 (★ 포함 가능성: 난류, 우유)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "비엘티",
+      "name_en": "B.L.T.",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 돼지고기, 토마토 (★ 포함 가능성: 난류, 우유)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "에그마요",
+      "name_en": "Egg Mayo",
+      "price_won": null,
+      "contains": [
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "seafood",
+        "dairy"
+      ],
+      "allergens_as_written": "난류, 대두, 밀, 토마토 (★ 포함 가능성: 우유, 조개류)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "참치",
+      "name_en": "Tuna",
+      "price_won": null,
+      "contains": [
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "dairy"
+      ],
+      "allergens_as_written": "난류, 대두, 밀, 토마토 (★ 포함 가능성: 우유)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "로티세리 바비큐 치킨",
+      "name_en": "Rotisserie Barbecue Chicken",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 토마토, 닭고기 (★ 포함 가능성: 난류, 우유)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "로스트 치킨",
+      "name_en": "Roasted Chicken",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 토마토, 닭고기, 쇠고기 (★ 포함 가능성: 난류, 우유)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "치킨 데리야끼",
+      "name_en": "Chicken Teriyaki",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 토마토, 닭고기 (★ 포함 가능성: 난류, 우유)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "치킨 슬라이스",
+      "name_en": "Chicken Slice",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 토마토, 닭고기 (★ 포함 가능성: 난류, 우유)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "치킨 베이컨 아보카도",
+      "name_en": "Chicken Bacon Avocado",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 돼지고기, 토마토, 닭고기 (★ 포함 가능성: 난류, 우유)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "풀드포크 바비큐",
+      "name_en": "Pulled Pork Barbecue",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 돼지고기, 토마토 (★ 포함 가능성: 난류, 우유)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "쉬림프",
+      "name_en": "Shrimp",
+      "price_won": null,
+      "contains": [
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 새우, 토마토 (★ 포함 가능성: 난류, 우유)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "스파이시 쉬림프",
+      "name_en": "Spicy Shrimp",
+      "price_won": null,
+      "contains": [
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg"
+      ],
+      "allergens_as_written": "우유, 대두, 밀, 새우, 토마토 (★ 포함 가능성: 난류)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "스테이크 & 치즈",
+      "name_en": "Steak & Cheese",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg"
+      ],
+      "allergens_as_written": "우유, 대두, 밀, 토마토, 쇠고기 (★ 포함 가능성: 난류)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "안창 비프",
+      "name_en": "Anchang Beef",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 토마토, 쇠고기 (★ 포함 가능성: 난류, 우유)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "안창 비프&머쉬룸 (F)",
+      "name_en": "Anchang Beef & Mushroom (F)",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 토마토, 쇠고기 (★ 포함 가능성: 난류, 우유)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "안창 비프&머쉬룸 (S)",
+      "name_en": "Anchang Beef & Mushroom (S)",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "seafood",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "대두, 밀, 토마토, 쇠고기 (★ 포함 가능성: 난류, 메밀, 땅콩, 고등어, 게, 새우, 돼지고기, 복숭아, 아황산류, 호두, 닭고기, 오징어, 조개류, 잣)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "머쉬룸 (F)",
+      "name_en": "Mushroom (F)",
+      "price_won": null,
+      "contains": [
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "beef",
+        "seafood",
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 토마토 (★ 포함 가능성: 난류, 우유, 쇠고기, 조개류)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "머쉬룸 (S)",
+      "name_en": "Mushroom (S)",
+      "price_won": null,
+      "contains": [
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "seafood",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "대두, 밀, 토마토 (★ 포함 가능성: 난류, 메밀, 땅콩, 고등어, 게, 새우, 돼지고기, 복숭아, 아황산류, 호두, 닭고기, 오징어, 조개류, 잣)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "베지",
+      "name_en": "Veggie Delite",
+      "price_won": null,
+      "contains": [
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "egg",
+        "dairy"
+      ],
+      "allergens_as_written": "대두, 밀, 토마토 (★ 포함 가능성: 난류, 우유)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "피자썹",
+      "name_en": "Pizza Sub",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "beef",
+        "chicken",
+        "seafood",
+        "peanut"
+      ],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 돼지고기, 토마토 (★ 포함 가능성: 메밀, 땅콩, 고등어, 게, 새우, 복숭아, 아황산류, 호두, 닭고기, 쇠고기, 오징어, 조개류, 잣)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "잠봉",
+      "name_en": "Jambon",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut"
+      ],
+      "allergens_as_written": "대두, 밀, 돼지고기, 토마토 (★ 포함 가능성: 난류, 우유, 메밀, 땅콩, 고등어, 게, 새우, 복숭아, 아황산류, 호두, 닭고기, 쇠고기, 오징어, 조개류, 잣)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "잠봉 플러스",
+      "name_en": "Jambon Plus",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut"
+      ],
+      "allergens_as_written": "대두, 밀, 돼지고기, 토마토 (★ 포함 가능성: 난류, 우유, 메밀, 땅콩, 고등어, 게, 새우, 복숭아, 아황산류, 호두, 닭고기, 쇠고기, 오징어, 조개류, 잣)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "램",
+      "name_en": "Lamb",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "lamb",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "seafood",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "우유, 대두, 밀, 토마토, 쇠고기 (★ 포함 가능성: 난류, 메밀, 땅콩, 고등어, 게, 새우, 돼지고기, 복숭아, 아황산류, 호두, 닭고기, 오징어, 조개류, 잣)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "램 & 후무스",
+      "name_en": "Lamb & Hummus",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "lamb",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "seafood",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "우유, 대두, 밀, 토마토, 아황산류, 쇠고기 (★ 포함 가능성: 난류, 메밀, 땅콩, 고등어, 게, 새우, 돼지고기, 복숭아, 호두, 닭고기, 오징어, 조개류, 잣)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "햄, 에그 & 치즈 (아침)",
+      "name_en": "Ham, Egg & Cheese (breakfast)",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 돼지고기",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "웨스턴, 에그 & 치즈 (아침)",
+      "name_en": "Western, Egg & Cheese (breakfast)",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 돼지고기, 토마토",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    },
+    {
+      "name_ko": "잠봉, 에그 & 치즈 (아침)",
+      "name_en": "Jambon, Egg & Cheese (breakfast)",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "beef",
+        "chicken",
+        "seafood",
+        "peanut"
+      ],
+      "allergens_as_written": "난류, 우유, 대두, 밀, 돼지고기 (★ 포함 가능성: 메밀, 땅콩, 고등어, 게, 새우, 복숭아, 토마토, 아황산류, 호두, 닭고기, 쇠고기, 오징어, 조개류, 잣)",
+      "source_url": "https://www.subway.co.kr/sandwichAllergy"
+    }
+  ]
+}

@@ -37,6 +37,13 @@ describe('booking-details', () => {
     expect(summary.lines.map((line) => `${line.qty}x${line.id}`)).toEqual(['2xa', '1xb']);
   });
 
+  it('a dish without a price (chain menu, price 0) is counted as unpriced, not as ₩0 in the total', () => {
+    const summary = preorderSummary(['a', 'c', 'c'], [dish('a', 4500), dish('c', 0)]);
+    expect(summary.totalWon).toBe(4500);
+    expect(summary.unpricedItems).toBe(2);
+    expect(preorderSummary(['a'], [dish('a', 4500)]).unpricedItems).toBe(0);
+  });
+
   it('formats won with thousands separators', () => {
     expect(won(500)).toBe('₩500');
     expect(won(21000)).toBe('₩21,000');

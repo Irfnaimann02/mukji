@@ -64,7 +64,7 @@ export interface PreorderLine {
 export function preorderSummary(
   dishIds: string[],
   dishes: Dish[],
-): { lines: PreorderLine[]; items: number; totalWon: number } {
+): { lines: PreorderLine[]; items: number; totalWon: number; unpricedItems: number } {
   const counts = new Map<string, number>();
   for (const id of dishIds) counts.set(id, (counts.get(id) ?? 0) + 1);
 
@@ -77,6 +77,11 @@ export function preorderSummary(
     lines,
     items: lines.reduce((sum, line) => sum + line.qty, 0),
     totalWon: lines.reduce((sum, line) => sum + line.lineTotalWon, 0),
+    // dishes with no price on the source (price 0) are not in totalWon
+    unpricedItems: lines.reduce(
+      (sum, line) => sum + (dishes.find((d) => d.id === line.id)?.priceWon ? 0 : line.qty),
+      0,
+    ),
   };
 }
 

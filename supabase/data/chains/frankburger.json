@@ -1,0 +1,486 @@
+{
+  "chain_ko": "프랭크버거",
+  "chain_en": "Frank Burger",
+  "name_patterns": [
+    "%프랭크버거%",
+    "%프랭크 버거%"
+  ],
+  "source_urls": [
+    "https://www.frankburger.co.kr/html/menu_1.html",
+    "https://frankburger.co.kr/html/ingredient.html",
+    "https://frankburger.co.kr/img/page/2022_menu/01/ingredient.jpg?2"
+  ],
+  "checked_on": "2026-11-24",
+  "notes": "'원산지 / 영양성분 / 알레르기 유발 성분 보기' on the menu page opens one image (frankburger_allergen.jpg) with a dot table; read by eye - spot-check. Site footnotes: 알류 = poultry eggs only; 조개류 includes 굴, 전복, 홍합. Origin board: beef patties US/Australia mixed (Frank, Cheese, Bacon Cheese, Double Beef Cheese, Beef & Shrimp, JG, Sweet Chili Shrimp Beef, Mac & Cheese Beef); Hanwoo (Korean beef) for the 100% Hanwoo burgers; K불고기 patty = domestic pork + Hanwoo beef fat; bacon imported (US/Spain/Brazil); chicken: whole-breast fried domestic, giant leg Thailand, Padak burger and boneless chicken Brazil, tenders China, buffalo wings imported; squid rings China. Prices are not on the official menu page (null). Drinks and small sauces left out.",
+  "dishes": [
+    {
+      "name_ko": "프랭크버거",
+      "name_en": "Frank Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 닭고기, 쇠고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "치즈버거",
+      "name_en": "Cheese Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 닭고기, 쇠고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "베이컨치즈버거",
+      "name_en": "Bacon Cheese Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 닭고기, 쇠고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "쉬림프버거",
+      "name_en": "Shrimp Burger",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 새우, 토마토, 쇠고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "비프앤쉬림프버거",
+      "name_en": "Beef & Shrimp Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 새우, 돼지고기, 토마토, 닭고기, 쇠고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "JG버거",
+      "name_en": "JG Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 닭고기, 쇠고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "더블비프치즈버거",
+      "name_en": "Double Beef Cheese Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 닭고기, 쇠고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "K불고기버거",
+      "name_en": "K Bulgogi Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 아황산류, 쇠고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "K핫불고기버거",
+      "name_en": "K Hot Bulgogi Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 아황산류, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "청양마요쉬림프버거",
+      "name_en": "Red Pepper Mayo Shrimp Burger",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 새우, 토마토, 아황산류, 쇠고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "100%한우갈릭버거",
+      "name_en": "100% Hanwoo Garlic Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "100%한우버거",
+      "name_en": "100% Hanwoo Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 아황산류, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "파닭파닭치킨버거",
+      "name_en": "Padak Padak Chicken Burger",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 땅콩, 대두, 밀, 토마토, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "깐쇼새우비프버거",
+      "name_en": "Sweet Chili Shrimp Beef Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 새우, 돼지고기, 토마토, 아황산류, 닭고기, 쇠고기, 조개류",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "맥앤치즈비프버거",
+      "name_en": "Mac & Cheese Beef Burger",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 돼지고기, 토마토, 닭고기, 쇠고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "순살치킨 후라이드",
+      "name_en": "Boneless Chicken Fried",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 닭고기, 쇠고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "순살치킨 청양마요",
+      "name_en": "Boneless Chicken Red Pepper Mayo",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 아황산류, 닭고기, 쇠고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "순살치킨 양념",
+      "name_en": "Boneless Chicken Seasoned",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 우유, 대두, 밀, 토마토, 닭고기, 쇠고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "바삭어니언링",
+      "name_en": "Crispy Onion Rings",
+      "price_won": null,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "해쉬포테이토(1개)",
+      "name_en": "Hash Potato (1)",
+      "price_won": null,
+      "contains": [
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 토마토",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "오징어링(3개)",
+      "name_en": "Squid Rings (3)",
+      "price_won": null,
+      "contains": [
+        "seafood",
+        "egg",
+        "wheat"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 밀, 오징어",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "프렌치프라이",
+      "name_en": "French Fries",
+      "price_won": null,
+      "contains": [
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "치즈프렌치프라이",
+      "name_en": "Cheese French Fries",
+      "price_won": null,
+      "contains": [
+        "dairy",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "치즈스틱(3개)",
+      "name_en": "Cheese Sticks (3)",
+      "price_won": null,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "더치즈볼(3개)",
+      "name_en": "The Cheese Balls (3)",
+      "price_won": null,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "치킨텐더(2개)",
+      "name_en": "Chicken Tenders (2)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 닭고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "통가슴살후라이드(1개)",
+      "name_en": "Whole Breast Fried (1)",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 닭고기, 쇠고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "버팔로윙봉(2+2)",
+      "name_en": "Buffalo Wings & Drumettes (2+2)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 닭고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "자이언트통닭다리(1개)",
+      "name_en": "Giant Chicken Leg (1)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 닭고기",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "콘샐러드",
+      "name_en": "Corn Salad",
+      "price_won": null,
+      "contains": [
+        "egg",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 대두",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    },
+    {
+      "name_ko": "코울슬로",
+      "name_en": "Coleslaw",
+      "price_won": null,
+      "contains": [
+        "seafood",
+        "egg",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "알류, 대두, 조개류",
+      "source_url": "https://frankburger.co.kr/html/ingredient.html"
+    }
+  ]
+}

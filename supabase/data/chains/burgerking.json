@@ -1,0 +1,938 @@
+{
+  "chain_ko": "버거킹",
+  "chain_en": "Burger King",
+  "name_patterns": [
+    "%버거킹%"
+  ],
+  "source_urls": [
+    "https://www.burgerking.co.kr/menu/main",
+    "https://www.burgerking.co.kr/menu/detail/1100938"
+  ],
+  "checked_on": "2026-11-24",
+  "notes": "Allergens come from the site-wide '원산지, 영양성분, 알레르기 유발성분' popup (text table) opened from any menu detail page; current menu list from /menu/main (prices are not shown on the site, so null). Origin: beef patties Australia/New Zealand; chicken patties domestic/Thailand mixed depending on item (바삭킹 foreign, 너겟킹 and 크리스퍼 domestic); bacon is imported/US pork. Site note: some menu items may contain 밀, 대두, 우유, 돼지고기, 토마토, 닭고기, 쇠고기, 조개류, 난류, 게, 새우, 땅콩, 복숭아, 아황산류, 호두, 오징어, 잣 (general cross-contact notice, not per item, so not put in may_contain). Sets are omitted (they combine items listed here). name_en is the Korean name because the site has no English names. Not in the allergen table, so 'not shown': 프렌치프라이, 21치즈스틱, 빅 딥 체다치즈, 리얼 어니언링 (the table has a plain '어니언링' row = 대두, 밀, probably the same item but the name differs, so it was not applied).",
+  "dishes": [
+    {
+      "name_ko": "쯔란로제 크리스퍼",
+      "name_en": "쯔란로제 크리스퍼",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "쇠고기, 난류, 닭고기, 토마토, 우유, 대두, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "쯔란로제 딥 치즈 크리스퍼",
+      "name_en": "쯔란로제 딥 치즈 크리스퍼",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 대두, 우유, 돼지고기, 토마토, 닭고기, 쇠고기, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "블랙 트러플치즈 버거",
+      "name_en": "블랙 트러플치즈 버거",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 대두, 우유, 쇠고기, 오징어, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "몬스터 맥시멈2",
+      "name_en": "몬스터 맥시멈2",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "쇠고기, 닭고기, 토마토, 돼지고기, 대두, 밀, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "베이컨치즈와퍼",
+      "name_en": "베이컨치즈와퍼",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 돼지고기, 밀, 토마토, 쇠고기, 난류, 대두",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "오리지널스 뉴욕 스테이크",
+      "name_en": "오리지널스 뉴욕 스테이크",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 대두, 우유, 돼지고기, 토마토, 쇠고기, 조개류, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "몬스터 맥시멈",
+      "name_en": "몬스터 맥시멈",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "쇠고기, 난류, 닭고기, 토마토, 돼지고기, 대두, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "몬스터 맥시멈3",
+      "name_en": "몬스터 맥시멈3",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "쇠고기, 닭고기, 토마토, 돼지고기, 대두, 밀, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "더오치 맥시멈2",
+      "name_en": "더오치 맥시멈2",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 토마토, 쇠고기, 대두, 밀, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "오리지널스 엘파소 치폴레",
+      "name_en": "오리지널스 엘파소 치폴레",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 난류, 쇠고기, 토마토, 돼지고기, 우유, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "트러플 머쉬룸 와퍼",
+      "name_en": "트러플 머쉬룸 와퍼",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "돼지고기, 우유, 대두, 밀, 쇠고기, 난류, 토마토",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "핫 트러플 머쉬룸 와퍼",
+      "name_en": "핫 트러플 머쉬룸 와퍼",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 쇠고기, 토마토, 돼지고기, 우유, 밀, 대두",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "메종 트러플치즈 버거",
+      "name_en": "메종 트러플치즈 버거",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "돼지고기, 우유, 대두, 밀, 쇠고기, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "몬스터와퍼",
+      "name_en": "몬스터와퍼",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "돼지고기, 난류, 쇠고기, 닭고기, 토마토, 우유, 대두, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "콰트로치즈와퍼",
+      "name_en": "콰트로치즈와퍼",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "토마토, 쇠고기, 밀, 난류, 대두, 우유",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "통새우와퍼",
+      "name_en": "통새우와퍼",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 우유, 토마토, 쇠고기, 새우, 난류, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "와퍼",
+      "name_en": "와퍼",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "쇠고기, 토마토, 대두, 밀, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "치즈와퍼",
+      "name_en": "치즈와퍼",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 대두, 우유, 토마토, 난류, 쇠고기",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "불고기와퍼",
+      "name_en": "불고기와퍼",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 대두, 난류, 쇠고기, 토마토",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "갈릭불고기와퍼",
+      "name_en": "갈릭불고기와퍼",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 대두, 토마토, 쇠고기, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "콰트로치즈 와퍼주니어",
+      "name_en": "콰트로치즈 와퍼주니어",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 우유, 토마토, 쇠고기, 난류, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "통새우와퍼주니어",
+      "name_en": "통새우와퍼주니어",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "새우, 대두, 우유, 토마토, 쇠고기, 밀, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "더블비프불고기버거",
+      "name_en": "더블비프불고기버거",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 쇠고기, 우유, 밀, 대두",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "와퍼주니어",
+      "name_en": "와퍼주니어",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "쇠고기, 밀, 대두, 토마토, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "치즈와퍼주니어",
+      "name_en": "치즈와퍼주니어",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 대두, 우유, 토마토, 난류, 쇠고기",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "불고기와퍼주니어",
+      "name_en": "불고기와퍼주니어",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 난류, 쇠고기, 토마토, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "비프불고기버거",
+      "name_en": "비프불고기버거",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 난류, 우유, 쇠고기",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "치즈버거",
+      "name_en": "치즈버거",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 난류, 토마토, 쇠고기, 밀, 우유",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "더 크리스퍼",
+      "name_en": "더 크리스퍼",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 쇠고기, 난류, 토마토, 밀, 대두",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "더 크리스퍼 베이컨&치즈",
+      "name_en": "더 크리스퍼 베이컨&치즈",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 닭고기, 쇠고기, 토마토, 돼지고기, 난류, 대두, 우유",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "크리스퍼 랩",
+      "name_en": "크리스퍼 랩",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 난류, 우유, 밀, 닭고기",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "치킨킹BLT",
+      "name_en": "치킨킹BLT",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 난류, 쇠고기, 닭고기, 토마토, 돼지고기, 우유, 대두",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "치킨킹",
+      "name_en": "치킨킹",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 우유, 대두, 밀, 쇠고기, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "통새우슈림프버거",
+      "name_en": "통새우슈림프버거",
+      "price_won": null,
+      "contains": [
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "새우, 난류, 우유, 대두, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "치킨 치즈 마요 버거",
+      "name_en": "치킨 치즈 마요 버거",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 대두, 우유, 닭고기, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "치킨버거",
+      "name_en": "치킨버거",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 난류, 닭고기",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "롱치킨버거",
+      "name_en": "롱치킨버거",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 밀, 대두, 닭고기",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "불고기 롱치킨버거",
+      "name_en": "불고기 롱치킨버거",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 대두, 닭고기, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "몬스터 주니어",
+      "name_en": "몬스터 주니어",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "쇠고기, 닭고기, 토마토, 우유, 대두, 밀, 난류",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "크리스퍼 텐더",
+      "name_en": "크리스퍼 텐더",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "21치즈스틱",
+      "name_en": "21치즈스틱",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "오믈렛 크루아상위치",
+      "name_en": "오믈렛 크루아상위치",
+      "price_won": null,
+      "contains": [
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 우유, 대두, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "잠봉햄&치즈오믈렛 크루아상위치",
+      "name_en": "잠봉햄&치즈오믈렛 크루아상위치",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 돼지고기, 우유, 대두, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "BLT 오믈렛 크루아상위치",
+      "name_en": "BLT 오믈렛 크루아상위치",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 돼지고기, 토마토, 난류, 대두, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "비프 킹 랩",
+      "name_en": "비프 킹 랩",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 쇠고기, 토마토, 우유, 대두, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "해쉬브라운",
+      "name_en": "해쉬브라운",
+      "price_won": null,
+      "contains": [
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "딥 트러플 프라이",
+      "name_en": "딥 트러플 프라이",
+      "price_won": null,
+      "contains": [
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 우유, 난류, 대두",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "바삭킹4조각",
+      "name_en": "바삭킹4조각",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 쇠고기",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "바삭킹2조각",
+      "name_en": "바삭킹2조각",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "쇠고기, 대두, 밀, 닭고기",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "리얼 어니언링(R)",
+      "name_en": "리얼 어니언링(R)",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "리얼 어니언링(L)",
+      "name_en": "리얼 어니언링(L)",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "너겟킹 10조각",
+      "name_en": "너겟킹 10조각",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 대두, 닭고기",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "너겟킹 8조각",
+      "name_en": "너겟킹 8조각",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 대두, 닭고기",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "너겟킹 4조각",
+      "name_en": "너겟킹 4조각",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 닭고기",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "코코넛슈림프(3조각)+스위트칠리소스",
+      "name_en": "코코넛슈림프(3조각)+스위트칠리소스",
+      "price_won": null,
+      "contains": [
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 대두, 밀, 새우",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "코코넛슈림프(6조각)+스위트칠리소스",
+      "name_en": "코코넛슈림프(6조각)+스위트칠리소스",
+      "price_won": null,
+      "contains": [
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀, 난류, 새우, 대두",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "코코넛슈림프(9조각)+스위트칠리소스",
+      "name_en": "코코넛슈림프(9조각)+스위트칠리소스",
+      "price_won": null,
+      "contains": [
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 난류, 새우, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "쉐이킹프라이 매콤치즈",
+      "name_en": "쉐이킹프라이 매콤치즈",
+      "price_won": null,
+      "contains": [
+        "dairy",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "쉐이킹프라이 구운갈릭",
+      "name_en": "쉐이킹프라이 구운갈릭",
+      "price_won": null,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 우유, 토마토, 밀",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "쉐이킹프라이 스윗어니언",
+      "name_en": "쉐이킹프라이 스윗어니언",
+      "price_won": null,
+      "contains": [
+        "dairy",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 우유",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "프렌치프라이(R)",
+      "name_en": "프렌치프라이(R)",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "프렌치프라이(L)",
+      "name_en": "프렌치프라이(L)",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "콘샐러드",
+      "name_en": "콘샐러드",
+      "price_won": null,
+      "contains": [
+        "egg",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 대두",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "코울슬로",
+      "name_en": "코울슬로",
+      "price_won": null,
+      "contains": [
+        "egg",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "난류, 대두",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    },
+    {
+      "name_ko": "빅 딥 체다치즈",
+      "name_en": "빅 딥 체다치즈",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.burgerking.co.kr/menu/main"
+    }
+  ]
+}

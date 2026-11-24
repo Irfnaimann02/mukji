@@ -1,0 +1,1264 @@
+{
+  "chain_ko": "bhc",
+  "chain_en": "bhc Chicken",
+  "name_patterns": [
+    "%bhc%",
+    "%비에이치씨%"
+  ],
+  "source_urls": [
+    "https://www.bhc.co.kr/menu/1",
+    "https://www.bhc.co.kr/menu/23",
+    "https://www.bhc.co.kr/menu/50",
+    "https://www.bhc.co.kr/api/v1/web/products/143000"
+  ],
+  "checked_on": "2026-11-24",
+  "notes": "Data comes from the '원산지 / 영양 / 알레르기 정보' popup on bhc.co.kr menu pages; the popup is filled from the site's own product API (source_url per dish). Allergens are listed per component (meat, batter, sauce, boneless version...); 'contains' is the union of all listed components, including parts marked '순살메뉴만 해당' (boneless only), so bone-in orders may contain less. '알류(가금류만 해당)' and '계란' mapped to egg, '소고기' to beef, '조개류(굴/홍합/가리비...)' to seafood. Chicken: 국내산 where stated. Sauces/dips, 혼치 combo sets, burger sets, dessert and 제주한정 items were left out. Prices are the site's listed prices (0 shown as null). One pizza lists '이황산류' (typo for 아황산류).",
+  "dishes": [
+    {
+      "name_ko": "뿌링클",
+      "name_en": "뿌링클",
+      "price_won": 20000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 닭고기, 대두 ; 뿌링클시즈닝: 우유, 대두 ; 뿌링뿌링소스: 난류, 우유, 대두 ; 순살바삭클: 대두, 밀, 닭고기, 쇠고기 ; 바삭클 배터믹스: 밀, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/1000"
+    },
+    {
+      "name_ko": "핫뿌링클",
+      "name_en": "핫뿌링클",
+      "price_won": 20000,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "뿌링클 HOT 시즈닝: 우유, 대두 ; 바삭클 배터믹스: 밀, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/2000"
+    },
+    {
+      "name_ko": "콰삭킹",
+      "name_en": "콰삭킹",
+      "price_won": 20000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 닭고기, 대두 ; 후라이드 배터믹스: 난류, 대두, 밀, 조개류(굴) ; 콰삭킹브래더: 난류,우유,땅콩,대두,밀,새우,쇠고기,조개류(굴) ; 콰삭킹 순살(순살메뉴만 해당): 난류, 우유, 땅콩, 대두, 밀, 새우, 닭고기, 쇠고기, 조개류(굴)",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/3000"
+    },
+    {
+      "name_ko": "카이막 치즈볼",
+      "name_en": "카이막 치즈볼",
+      "price_won": 6000,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "카이막 치즈볼: 우유, 대두, 밀",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/4000"
+    },
+    {
+      "name_ko": "맛초킹",
+      "name_en": "맛초킹",
+      "price_won": 20000,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 닭고기, 대두 ; 맛초킹 배터믹스: 난류 ; 맛초킹소스: 대두, 밀 ; 통살치킨: 대두, 밀, 닭고기, 우유, 토마토",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/5000"
+    },
+    {
+      "name_ko": "뿌링 카이막 치즈볼",
+      "name_en": "뿌링 카이막 치즈볼",
+      "price_won": 7000,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "카이막 치즈볼: 우유, 대두, 밀 ; 뿌링클 시즈닝: 우유, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/6000"
+    },
+    {
+      "name_ko": "콰삭 슈림프",
+      "name_en": "콰삭 슈림프",
+      "price_won": 9000,
+      "contains": [
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콰삭킹 새우: 밀, 대두, 쇠고기, 조개류(굴), 땅콩, 새우, 우유, 계란",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/7000"
+    },
+    {
+      "name_ko": "뿌링클나쵸",
+      "name_en": "뿌링클나쵸",
+      "price_won": 2000,
+      "contains": [
+        "dairy",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "뿌링클나쵸: 대두,우유",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/8000"
+    },
+    {
+      "name_ko": "뿌링클라이스",
+      "name_en": "뿌링클라이스",
+      "price_won": 4000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "뿌링클 라이스: 대두,우유,밀,쇠고기,닭고기,토마토,조개류",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/9000"
+    },
+    {
+      "name_ko": "맛초킹라이스",
+      "name_en": "맛초킹라이스",
+      "price_won": 4000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "맛초킹 라이스: 대두,우유,밀,쇠고기,닭고기,게,조개류",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/10000"
+    },
+    {
+      "name_ko": "뿌링치즈볼",
+      "name_en": "뿌링치즈볼",
+      "price_won": 6500,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "치즈볼: 우유, 대두, 밀 ; 뿌링클 시즈닝: 우유, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/12000"
+    },
+    {
+      "name_ko": "달콤바삭치즈볼",
+      "name_en": "달콤바삭치즈볼",
+      "price_won": 5500,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "치즈볼: 우유, 대두, 밀",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/13000"
+    },
+    {
+      "name_ko": "분모자 로제 떡볶이",
+      "name_en": "분모자 로제 떡볶이",
+      "price_won": 6000,
+      "contains": [
+        "pork",
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "분모자 로제 떡볶이: 우유, 대두, 밀, 돼지고기, 소고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/14000"
+    },
+    {
+      "name_ko": "치로스",
+      "name_en": "치로스",
+      "price_won": 6000,
+      "contains": [
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "치로스: 밀, 우유, 대두, 난류",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/15000"
+    },
+    {
+      "name_ko": "뿌링감자",
+      "name_en": "뿌링감자",
+      "price_won": 5000,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "케이준 양념감자: 밀, 대두 ; 뿌링클 시즈닝: 우유, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/16000"
+    },
+    {
+      "name_ko": "빨간소떡",
+      "name_en": "빨간소떡",
+      "price_won": 3500,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "소떡소떡: 돼지고기, 닭고기, 쇠고기, 밀, 대두, 토마토, 난류 ; bhc양념치킨소스: 대두, 밀, 토마토 ; 레드킹소스: 대두, 밀, 토마토",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/17000"
+    },
+    {
+      "name_ko": "뿌링소떡",
+      "name_en": "뿌링소떡",
+      "price_won": 4000,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "소떡소떡: 돼지고기, 닭고기, 쇠고기, 밀, 대두, 토마토, 난류 ; 뿌링클 시즈닝: 우유, 대두 ; bhc양념치킨소스: 대두, 밀, 토마토 ; 레드킹소스: 대두, 밀, 토마토",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/18000"
+    },
+    {
+      "name_ko": "뿌링핫도그",
+      "name_en": "뿌링핫도그",
+      "price_won": 6000,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "뿌링핫도그: 돼지고기, 닭고기, 쇠고기, 대두, 난류, 밀, 우유, 토마토 ; 뿌링클 시즈닝: 우유, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/19000"
+    },
+    {
+      "name_ko": "웨지감자",
+      "name_en": "웨지감자",
+      "price_won": 6000,
+      "contains": [
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "웨지감자: 대두, 밀",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/20000"
+    },
+    {
+      "name_ko": "뿌링치즈스틱",
+      "name_en": "뿌링치즈스틱",
+      "price_won": 5000,
+      "contains": [
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "치즈스틱: 난류, 우유, 대두, 밀 ; 뿌링클 시즈닝: 우유, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/21000"
+    },
+    {
+      "name_ko": "뿌링진미채튀김",
+      "name_en": "뿌링진미채튀김",
+      "price_won": 6000,
+      "contains": [
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "진미채후라이드: 난류, 대두, 밀, 오징어 ; 뿌링클 시즈닝: 우유, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/22000"
+    },
+    {
+      "name_ko": "케이준프라이",
+      "name_en": "케이준프라이",
+      "price_won": 4000,
+      "contains": [
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "감자: 밀, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/23000"
+    },
+    {
+      "name_ko": "치킨스넥",
+      "name_en": "치킨스넥",
+      "price_won": 11000,
+      "contains": [
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭목살: 닭고기, 대두, 밀, 우유, 토마토 ; 후라이드 배터믹스: 난류, 대두, 밀, 조개류(굴) ; 양념치킨소스: 대두, 밀, 토마토 ; 건빵가루: 밀",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/24000"
+    },
+    {
+      "name_ko": "뿌링클나쵸 더블",
+      "name_en": "뿌링클나쵸 더블",
+      "price_won": 6500,
+      "contains": [
+        "dairy",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "뿌링클 나쵸 더블: 대두,우유",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/25000"
+    },
+    {
+      "name_ko": "국물떡볶이",
+      "name_en": "국물떡볶이",
+      "price_won": 11000,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "밀떡: 밀, 대두 ; 어묵: 밀, 대두 ; 국물떡볶이분말소스: 우유, 밀, 대두, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/26000"
+    },
+    {
+      "name_ko": "오징어 모듬 튀김",
+      "name_en": "오징어 모듬 튀김",
+      "price_won": 13000,
+      "contains": [
+        "beef",
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "오징어링: 오징어, 밀, 난류 ; 오징어 스틱: 오징어, 밀, 난류 ; 케이준 양념감자: 밀, 대두 ; 피클드레싱: 대두, 난류, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/29000"
+    },
+    {
+      "name_ko": "빠삭 먹태구이",
+      "name_en": "빠삭 먹태구이",
+      "price_won": 13000,
+      "contains": [
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "먹태: 해당사항 없음 ; 맛초킹소스: 대두, 밀",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/30000"
+    },
+    {
+      "name_ko": "오징어&땅콩",
+      "name_en": "오징어&땅콩",
+      "price_won": 12000,
+      "contains": [
+        "seafood",
+        "peanut"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "오징어&땅콩: 오징어, 땅콩",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/31000"
+    },
+    {
+      "name_ko": "얼큰어묵탕",
+      "name_en": "얼큰어묵탕",
+      "price_won": 17000,
+      "contains": [
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "어묵: 대두, 밀, 게, 오징어 ; 매운어묵탕농축액: 대두, 밀, 게, 오징어",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/32000"
+    },
+    {
+      "name_ko": "골뱅이무침",
+      "name_en": "골뱅이무침",
+      "price_won": 15000,
+      "contains": [
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "골뱅이: 대두, 밀 ; 소면: 밀 ; 무침소스: 밀, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/33000"
+    },
+    {
+      "name_ko": "콰삭 치킨 버거",
+      "name_en": "콰삭 치킨 버거",
+      "price_won": 5900,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콰삭 치킨 버거: 알류,우유,땅콩,대두,밀,새우,토마토,아황산류,닭고기,쇠고기,조개류(굴)",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/34000"
+    },
+    {
+      "name_ko": "클래식 치킨 버거",
+      "name_en": "클래식 치킨 버거",
+      "price_won": 5900,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "클래식 치킨 버거: 알류,우유,대두,밀,아황산류,닭고기,쇠고기,조개류(굴)",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/35000"
+    },
+    {
+      "name_ko": "코울슬로 치킨 버거",
+      "name_en": "코울슬로 치킨 버거",
+      "price_won": 6900,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "코울슬로 치킨 버거: 알류,우유,대두,밀,토마토,아황산류,닭고기, 쇠고기,조개류(굴)",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/36000"
+    },
+    {
+      "name_ko": "콤비네이션 피자",
+      "name_en": "콤비네이션 피자",
+      "price_won": 14000,
+      "contains": [
+        "pork",
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콤비네이션 피자: 밀, 대두, 우유, 난류, 토마토, 쇠고기, 돼지고기, 조개류(굴)",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/42000"
+    },
+    {
+      "name_ko": "고구마피자",
+      "name_en": "고구마피자",
+      "price_won": 14000,
+      "contains": [
+        "pork",
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "고구마 피자: 밀,대두, 우유, 난류, 토마토, 쇠고기, 돼지고기, 조개류(굴)",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/43000"
+    },
+    {
+      "name_ko": "감자피자",
+      "name_en": "감자피자",
+      "price_won": 14000,
+      "contains": [
+        "pork",
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "감자피자: 밀,대두, 우유, 난류, 토마토, 쇠고기, 돼지고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/44000"
+    },
+    {
+      "name_ko": "퐁듀피자",
+      "name_en": "퐁듀피자",
+      "price_won": 15000,
+      "contains": [
+        "pork",
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "퐁듀 피자: 밀, 대두, 우유, 난류, 토마토, 쇠고기, 돼지고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/45000"
+    },
+    {
+      "name_ko": "골드킹",
+      "name_en": "골드킹",
+      "price_won": 20000,
+      "contains": [
+        "chicken",
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 닭고기, 대두 ; 후라이드 배터믹스: 난류, 대두, 밀, 조개류(굴) ; 골드킹 소스: 대두, 밀 ; 골드킹 순살: 난류, 대두, 밀, 닭고기, 조개류(굴)",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/53000"
+    },
+    {
+      "name_ko": "레드킹",
+      "name_en": "레드킹",
+      "price_won": 20000,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 닭고기, 대두 ; 맛초킹 배터믹스: 난류 ; 맵스터소스: 대두, 밀, 토마토 ; 통살치킨: 대두, 밀, 닭고기, 우유, 토마토",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/56000"
+    },
+    {
+      "name_ko": "핫후라이드",
+      "name_en": "핫후라이드",
+      "price_won": 20000,
+      "contains": [
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 닭고기, 대두 ; 핫후라이드마리네이드: 대두, 밀, 우유, 토마토 ; 후라이드 배터믹스: 난류, 대두, 밀, 조개류(굴)",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/57000"
+    },
+    {
+      "name_ko": "양념치킨",
+      "name_en": "양념치킨",
+      "price_won": 20000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 닭고기, 대두 ; bhc양념치킨소스: 밀, 대두, 토마토, 쇠고기 ; 후라이드 배터믹스: 난류, 대두, 밀, 조개류(굴)",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/58000"
+    },
+    {
+      "name_ko": "콜팝치킨",
+      "name_en": "콜팝치킨",
+      "price_won": 4000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콜팝치킨: 닭고기, 밀, 대두, 난류, 우유, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/61000"
+    },
+    {
+      "name_ko": "뿌링콜팝",
+      "name_en": "뿌링콜팝",
+      "price_won": 5000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콜팝치킨: 닭고기, 밀, 대두, 난류, 우유, 쇠고기 ; 뿌링클시즈닝: 우유, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/62000"
+    },
+    {
+      "name_ko": "왕콜팝",
+      "name_en": "왕콜팝",
+      "price_won": 5500,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콜팝: 닭고기, 밀, 대두, 난류, 우유, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/63000"
+    },
+    {
+      "name_ko": "뿌링왕콜팝",
+      "name_en": "뿌링왕콜팝",
+      "price_won": 7000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콜팝치킨: 닭고기, 밀, 대두, 난류, 우유, 쇠고기 ; 뿌링클 시즈닝: 우유, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/64000"
+    },
+    {
+      "name_ko": "미니콜팝",
+      "name_en": "미니콜팝",
+      "price_won": 4000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콜팝: 닭고기, 밀, 대두, 난류, 우유, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/65000"
+    },
+    {
+      "name_ko": "뿌링미니콜팝",
+      "name_en": "뿌링미니콜팝",
+      "price_won": 5000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콜팝치킨: 닭고기, 밀, 대두, 난류, 우유, 쇠고기 ; 뿌링클 시즈닝: 우유, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/66000"
+    },
+    {
+      "name_ko": "빅콜팝",
+      "name_en": "빅콜팝",
+      "price_won": 12500,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콜팝치킨: 닭고기, 밀, 대두, 난류, 우유, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/67000"
+    },
+    {
+      "name_ko": "뿌링빅콜팝",
+      "name_en": "뿌링빅콜팝",
+      "price_won": 15000,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콜팝치킨: 닭고기, 밀, 대두, 난류, 우유, 쇠고기 ; 뿌링클 시즈닝: 우유, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/68000"
+    },
+    {
+      "name_ko": "동글락 바삭 콜팝(Regular)",
+      "name_en": "동글락 바삭 콜팝(Regular)",
+      "price_won": 6500,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "동글락 바삭 콜팝: 알류, 땅콩, 대두, 밀, 닭고기, 쇠고기, 오징어,조개류(굴) ; 봉봉마요소스: 알류, 대두, 토마토, 아황산류, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/69000"
+    },
+    {
+      "name_ko": "동글락 바삭 콜팝(Large)",
+      "name_en": "동글락 바삭 콜팝(Large)",
+      "price_won": 8500,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "동글락 바삭 콜팝: 알류,땅콩,대두,밀,닭고기,쇠고기,오징어,조개류(굴) ; 봉봉마요소스: 알류, 대두, 토마토, 아황산류,쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/70000"
+    },
+    {
+      "name_ko": "동글락 바삭 콜팝(Mini)",
+      "name_en": "동글락 바삭 콜팝(Mini)",
+      "price_won": 6500,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "동글락 바삭 콜팝: 알류, 땅콩, 대두, 밀, 닭고기, 쇠고기, 오징어, 조개류(굴) ; 봉봉마요소스: 알류, 대두, 토마토, 아황산류, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/71000"
+    },
+    {
+      "name_ko": "해바라기 후라이드",
+      "name_en": "해바라기 후라이드",
+      "price_won": 20000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 닭고기, 대두 ; 후라이드 배터믹스: 난류, 대두, 밀, 조개류(굴) ; 더블팝순살: 알류(가금류만 해당), 우유, 대두, 밀 , 토마토,닭고기, 조개류(굴) ; 허니머스타드드레싱: 알류(가금류만 해당), 대두, 밀 ; 양념킹소스(팩): 알류(가금류만 해당), 대두, 밀, 토마토, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/73000"
+    },
+    {
+      "name_ko": "콰삭톡",
+      "name_en": "콰삭톡",
+      "price_won": 20000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 닭고기, 대두 ; 후라이드 배터믹스: 난류, 대두, 밀, 조개류(굴) ; 콰삭킹브래더: 난류,우유,땅콩,대두,밀,새우,쇠고기,조개류(굴) ; 콰삭킹 순살: 난류, 우유, 땅콩, 대두, 밀, 새우, 닭고기, 쇠고기, 조개류(굴) ; 스윗 칠리톡: 우유, 대두, 밀, 토마토, 쇠고기 ; 버터 비스킷톡: 우유, 대두, 밀 ; 트리플 페퍼톡: 우유, 대두, 밀",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/74000"
+    },
+    {
+      "name_ko": "바삭클",
+      "name_en": "바삭클",
+      "price_won": 18000,
+      "contains": [
+        "beef",
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 닭고기, 대두 ; 바삭클 배터믹스: 밀, 대두 ; 순살 바삭클(순살메뉴만 해당): 밀, 대두, 닭고기,  쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/75000"
+    },
+    {
+      "name_ko": "불고기피자",
+      "name_en": "불고기피자",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "불고기피자: 밀,대두,우유,난류,토마토,쇠고기,이황산류,조개류(굴)",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/106000"
+    },
+    {
+      "name_ko": "스윗칠리킹",
+      "name_en": "스윗칠리킹",
+      "price_won": 20000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 대두, 닭고기 ; 후라이드 배터믹스: 알류,대두,밀,조개류(굴) ; 스윗칠리킹: 우유,대두,밀,토마토,쇠고기,조개류(굴) ; 통살치킨: 우유,대두,밀, 토마토,닭고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/107000"
+    },
+    {
+      "name_ko": "스윗칠리킹 반반",
+      "name_en": "스윗칠리킹 반반",
+      "price_won": 22900,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 대두, 닭고기 ; 후라이드 배터믹스: 알류,대두,밀,조개류(굴) ; 스윗칠리킹: 우유,대두,밀,토마토,쇠고기,조개류(굴) ; 통살치킨: 우유,대두,밀, 토마토,닭고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/108000"
+    },
+    {
+      "name_ko": "맛초킹 닭똥집 튀김",
+      "name_en": "맛초킹 닭똥집 튀김",
+      "price_won": 12000,
+      "contains": [
+        "beef",
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭똥집: 우유,대두,밀,토마토,닭고기,쇠고기 ; 맛초킹소스: 대두, 밀",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/109000"
+    },
+    {
+      "name_ko": "레드킹 닭똥집 튀김",
+      "name_en": "레드킹 닭똥집 튀김",
+      "price_won": 12000,
+      "contains": [
+        "beef",
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭똥집: 우유,대두,밀,토마토,닭고기,쇠고기 ; 레드킹소스: 대두, 밀, 토마토",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/110000"
+    },
+    {
+      "name_ko": "유린기",
+      "name_en": "유린기",
+      "price_won": 13000,
+      "contains": [
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "치킨까스: 알류,우유,대두,밀,새우,닭고기 ; 맛초킹소스: 대두, 밀",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/111000"
+    },
+    {
+      "name_ko": "나가사키 짬뽕 전골",
+      "name_en": "나가사키 짬뽕 전골",
+      "price_won": 23000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "해물세트: 게, 새우, 오징어, 조개류(백합,홍합) ; 수타식중화면: 밀 ; 해물나가사끼소스: 우유,대두, 밀, 게, 새우 ,닭고기,쇠고기, 오징어, 조개류 (굴,홍합,바지락)",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/112000"
+    },
+    {
+      "name_ko": "쏘이갈릭킹(오리지널)",
+      "name_en": "Soy Garlic King (Original)",
+      "price_won": 21900,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 대두, 닭고기 ; bhc 쏘이갈릭킹 배터믹스: 대두, 밀, 쇠고기, 조개류(굴) ; bhc 쏘이갈릭킹 오리지널소스: 대두, 밀, 새우, 조개류(굴) ; 골드킹순살: 알류, 대두, 밀, 닭고기, 조개류(굴) ; 스윗 갈릭 소스: 우유, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/115000"
+    },
+    {
+      "name_ko": "쏘이갈릭킹(허니)",
+      "name_en": "Soy Garlic King (Honey)",
+      "price_won": 21900,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 대두, 닭고기 ; bhc 쏘이갈릭킹 배터믹스: 대두, 밀, 쇠고기, 조개류(굴) ; bhc 쏘이갈릭킹 허니소스: 우유, 대두, 밀, 쇠고기, 조개류(굴) ; 골드킹순살: 알류, 대두, 밀, 닭고기, 조개류(굴) ; 스윗 갈릭 소스: 우유, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/116000"
+    },
+    {
+      "name_ko": "후라이드 닭똥집 튀김",
+      "name_en": "후라이드 닭똥집 튀김",
+      "price_won": 11000,
+      "contains": [
+        "beef",
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭똥집튀김: 우유, 대두, 밀, 토마토, 닭고기, 쇠고기 ; 치킨양념소스(소팩): 대두, 밀, 토마토, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/118000"
+    },
+    {
+      "name_ko": "커링클",
+      "name_en": "커링클",
+      "price_won": 21900,
+      "contains": [
+        "beef",
+        "chicken",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 대두, 닭고기 ; 순살바삭클: 대두, 밀, 닭고기, 쇠고기 ; 바삭클배터믹스: 대두, 밀 ; 커링클시즈닝: 우유, 땅콩,대두,밀,토마토,닭고기,쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/120000"
+    },
+    {
+      "name_ko": "커링클/뿌링클 반반",
+      "name_en": "커링클/뿌링클 반반",
+      "price_won": 23500,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭: 대두, 닭고기 ; 바삭클배터믹스: 대두, 밀 ; 순살바삭클: 대두, 밀, 닭고기, 쇠고기 ; 커링클시즈닝: 우유, 땅콩,대두,밀,토마토,닭고기,쇠고기 ; 뿌링클시즈닝: 우유, 대두 ; 뿌링뿌링소스: 알류(가금류만 해당), 우유, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/121000"
+    },
+    {
+      "name_ko": "가래떡 떡볶이",
+      "name_en": "가래떡 떡볶이",
+      "price_won": 6900,
+      "contains": [
+        "beef",
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "가래떡 떡볶이: 우유, 대두, 밀, 닭고기, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/122000"
+    },
+    {
+      "name_ko": "크리스피번(뿌링클)",
+      "name_en": "크리스피번(뿌링클)",
+      "price_won": 5500,
+      "contains": [
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "크리스피번: 알류(가금류만 해당),우유, 대두, 밀, 조개류(굴) ; 뿌링클시즈닝: 우유, 대두",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/123000"
+    },
+    {
+      "name_ko": "크리스피번(밀크)",
+      "name_en": "크리스피번(밀크)",
+      "price_won": 5500,
+      "contains": [
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "크리스피번: 알류(가금류만 해당),우유, 대두, 밀, 조개류(굴) ; 밀크시즈닝: 우유",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/124000"
+    },
+    {
+      "name_ko": "크리스피번(바나나)",
+      "name_en": "크리스피번(바나나)",
+      "price_won": 5500,
+      "contains": [
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "크리스피번: 알류(가금류만 해당),우유, 대두, 밀, 조개류(굴) ; 바나나시즈닝: 우유",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/125000"
+    },
+    {
+      "name_ko": "콰삭감자",
+      "name_en": "콰삭감자",
+      "price_won": 6900,
+      "contains": [
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콰삭웨지감자: 알류(가금류만 해당),우유,땅콩,대두,밀,새우,쇠고기,조개류(굴)",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/126000"
+    },
+    {
+      "name_ko": "콰삭모짜킹",
+      "name_en": "콰삭모짜킹",
+      "price_won": 24000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콰삭모짜킹: 알류(가금류만 해당), 우유, 땅콩, 대두, 밀, 새우, 닭고기, 쇠고기, 조개류(굴, 가리비) ; 아라비아따딥: 대두, 밀, 토마토, 쇠고기, 조개류(굴) ; 그린올리브딥: 알류(가금류만 해당), 우유, 대두, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/137000"
+    },
+    {
+      "name_ko": "양념킹",
+      "name_en": "Yangnyeomking",
+      "price_won": 21900,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "신선육: 대두, 닭고기 ; 후라이드배터믹스: 알류(가금류만 해당), 대두, 밀, 조개류(굴) ; bhc양념킹소스: 알류(가금류만 해당), 대두, 밀, 토마토, 쇠고기 ; 더블팝순살: 알류(가금류만 해당), 우유, 대두, 밀 , 토마토, 닭고기, 조개류(굴)",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/140000"
+    },
+    {
+      "name_ko": "반반치킨(후라이드/양념킹)",
+      "name_en": "Half Sauce & Half Classic Fried",
+      "price_won": 22900,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "더블팝순살: 알류(가금류만 해당), 우유, 대두, 밀, 토마토, 닭고기, 조개류(굴) ; bhc양념킹소스: 알류(가금류만 해당), 대두, 밀, 토마토, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/141000"
+    },
+    {
+      "name_ko": "알싹킹",
+      "name_en": "Alssakking",
+      "price_won": 22900,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "신선육: 대두, 닭고기 ; 알싹킹배터믹스: 알류(가금류만 해당), 대두, 밀, 쇠고기 ; 맵싸소스: 우유, 대두, 밀, 토마토, 쇠고기, 조개류(굴, 홍합, 바지락) ; 파싹소스: 알류(가금류만 해당), 우유, 대두, 밀",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/142000"
+    },
+    {
+      "name_ko": "콰삭킹반 콰삭양념킹반",
+      "name_en": "Half Kwasakking / Half Kwasakyangnyeomking",
+      "price_won": 23500,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "신선육: 대두, 닭고기 ; 후라이드배터믹스: 알류(가금류만 해당), 대두, 밀, 조개류(굴) ; 콰삭킹브래더: 알류(가금류만 해당), 우유, 땅콩, 대두, 밀, 새우, 쇠고기, 조개류(굴) ; bhc양념킹소스: 알류(가금류만 해당), 대두, 밀, 토마토, 소고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/143000"
+    },
+    {
+      "name_ko": "콰삭모짜킹(1조각)",
+      "name_en": "Kwasakmozzaking(1Pc)",
+      "price_won": 3000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콰삭모짜킹: 알류(가금류만 해당), 우유, 땅콩, 대두, 밀, 새우, 닭고기, 쇠고기, 조개류(굴, 가리비)",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/144000"
+    },
+    {
+      "name_ko": "콰삭모짜킹(2조각)",
+      "name_en": "Kwasakmozzaking(2Pcs)",
+      "price_won": 7000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콰삭모짜킹: 알류(가금류만 해당), 우유, 땅콩, 대두, 밀, 새우, 닭고기, 쇠고기, 조개류(굴, 가리비) ; 아라비아따딥: 대두, 토마토, 밀, 쇠고기, 조개류(굴) ; 그린올리브딥: 알류(가금류만 해당),우유, 대두, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/147000"
+    },
+    {
+      "name_ko": "콰삭모짜킹 하프(4조각)",
+      "name_en": "Kwasakmozzaking Half(4Pcs)",
+      "price_won": 12000,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "콰삭모짜킹: 알류(가금류만 해당), 우유, 땅콩, 대두, 밀, 새우, 닭고기, 쇠고기, 조개류(굴, 가리비) ; 아라비아따딥: 대두, 토마토, 밀, 쇠고기, 조개류(굴) ; 그린올리브딥: 알류(가금류만 해당), 우유, 대두, 쇠고기",
+      "source_url": "https://www.bhc.co.kr/api/v1/web/products/148000"
+    }
+  ]
+}
