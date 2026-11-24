@@ -10,6 +10,7 @@ import {
   searchRestaurantRows,
 } from '@/data/restaurant-repository';
 import type { Restaurant } from '@/data/types';
+import { withinRadius } from '@/logic/geo';
 
 // #48: the app never loads every restaurant at once (there are thousands in Ansan).
 
@@ -44,7 +45,9 @@ export async function listRestaurantsNear(
   ]);
 
   const extra = kakao.filter((place) => !own.some((r) => samePlace(r, place)));
-  return [...own, ...extra];
+  // The database already keeps to the radius (032); this keeps the map honest
+  // even if a search area ever comes back as a square.
+  return withinRadius([...own, ...extra], { lat, lng }, radius);
 }
 
 export async function findRestaurant(id: string): Promise<Restaurant | undefined> {

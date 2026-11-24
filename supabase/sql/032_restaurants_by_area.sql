@@ -7,9 +7,11 @@
 --    The team's own restaurants stay false, so short lists (the owner portal) can skip the import.
 -- 2. An index on (lat, lng) so "restaurants in this area" stays fast.
 -- 3. restaurants_near(): restaurants within a radius, nearest first, at most 1000.
+--    The (lat, lng) box only uses the index; the distance check keeps it a circle, so
+--    the box's corners (up to about 40% further than the radius) are not returned.
 --    It runs as the caller (security invoker), so row level security still applies:
 --    only approved restaurants are returned. The app adds its dishes with PostgREST.
--- Safe to re-run.
+-- Safe to re-run. (Run again after the review fix: create or replace updates the function.)
 
 begin;
 
@@ -33,14 +35,16 @@ as $$
   with box as (
     select
       least(greatest(p_radius_m, 50), 20000) / 111320.0 as dlat,
-      least(greatest(p_radius_m, 50), 20000) / (111320.0 * cos(radians(p_lat))) as dlng
+      least(greatest(p_radius_m, 50), 20000) / (111320.0 * cos(radians(p_lat))) as dlng,
+      cos(radians(p_lat)) as k
   )
   select r.*
   from public.restaurants as r, box
   where r.lat between p_lat - box.dlat and p_lat + box.dlat
     and r.lng between p_lng - box.dlng and p_lng + box.dlng
-  -- distance on a flat map is enough at this scale
-  order by power(r.lat - p_lat, 2) + power((r.lng - p_lng) * cos(radians(p_lat)), 2)
+    -- inside the circle, not just the box (distance on a flat map is enough at this scale)
+    and power(r.lat - p_lat, 2) + power((r.lng - p_lng) * box.k, 2) <= power(box.dlat, 2)
+  order by power(r.lat - p_lat, 2) + power((r.lng - p_lng) * box.k, 2)
   limit least(greatest(p_max, 1), 1000);
 $$;
 

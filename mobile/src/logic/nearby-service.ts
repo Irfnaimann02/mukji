@@ -1,9 +1,11 @@
 import type { FoodProfile, FoodType, Restaurant } from '@/data/types';
+import { distanceInMeters, type Point } from '@/logic/geo';
 import { restaurantFits } from '@/logic/profile-filter';
 import { listRestaurantsNear } from '@/logic/restaurant-service';
 import { rankSuggestions } from '@/logic/suggestion-ranker';
 
-export type Point = { lat: number; lng: number };
+// Kept here too so screens can keep importing them from nearby-service.
+export { distanceInMeters, type Point };
 
 // Middle of campus. Used when we don't have the user's location.
 export const ERICA_CENTRE: Point = { lat: 37.2967, lng: 126.836 };
@@ -14,18 +16,6 @@ export type NearbyRestaurant = {
   restaurant: Restaurant;
   meters: number;
 };
-
-// Straight-line distance in metres (haversine formula).
-export function distanceInMeters(a: Point, b: Point): number {
-  const R = 6371000;
-  const toRad = (deg: number) => (deg * Math.PI) / 180;
-  const dLat = toRad(b.lat - a.lat);
-  const dLng = toRad(b.lng - a.lng);
-  const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLng / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
-}
 
 export function walkMinutes(meters: number): number {
   return Math.max(1, Math.round(meters / WALK_METERS_PER_MINUTE));
