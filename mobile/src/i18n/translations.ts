@@ -89,6 +89,7 @@ export const translations = {
     whyAiSuggested: 'Suggested for this dish',
     whyWhatDataSays: 'What the data says',
     whyNothingFlagged: 'Nothing in your profile is flagged for this dish.',
+    whyTypicalMenu: "This is a typical dish for this kind of restaurant, not this restaurant's real menu, so nothing about it is confirmed.",
     whyContains: 'Contains {ingredient}, which {rule} rules out.',
     whyMayContain: 'May contain {ingredient} (often in the broth or sauce), which {rule} rules out. Ask before ordering.',
     whyHalalMeat: 'Has {ingredient}, and this restaurant is not halal-certified, so the meat may not be halal.',
@@ -293,6 +294,7 @@ export const translations = {
     nextPhrase: 'Next phrase',
     noAllergenFreeDish: 'No dish here is free of your allergens',
     noDishFitsDiet: 'No dish here is Safe for your diet',
+    onlyTypicalMenu: 'Only a typical menu, nothing here is confirmed. Ask the staff',
 
     // #48 food personality
     foodPersonality: 'Food personality',
@@ -318,9 +320,6 @@ export const translations = {
     accountSettings: 'Account settings',
     accountSettingsSub: 'Business mode, sign out',
     guestProfileThisPhone: "You're using Mukji as a guest. Your food profile is saved on this phone only.",
-    signInKakaoGoogle: 'Sign in with Kakao or Google',
-    keepProfileOnAnyPhone: 'Keep your food profile on any phone',
-    comingSoon: 'Soon',
     developerSection: 'DEVELOPER',
     youAvoid: 'YOU AVOID',
     saved: 'Saved',
@@ -669,6 +668,7 @@ export const translations = {
     whyAiSuggested: '이 메뉴에 맞춘 질문',
     whyWhatDataSays: '데이터에 나온 내용',
     whyNothingFlagged: '이 메뉴에는 내 프로필에 걸리는 재료가 없어요.',
+    whyTypicalMenu: '이 종류의 음식점에서 흔한 메뉴일 뿐, 이 가게의 실제 메뉴가 아니라서 확인된 정보가 없어요.',
     whyContains: '{ingredient} 포함 · {rule} 기준에서 제외돼요.',
     whyMayContain: '{ingredient} 포함 가능성이 있어요 (주로 육수나 소스). {rule} 기준에서 제외돼요. 주문 전에 물어보세요.',
     whyHalalMeat: '{ingredient} 포함 · 할랄 인증 음식점이 아니라서 할랄 고기가 아닐 수 있어요.',
@@ -873,6 +873,7 @@ export const translations = {
     nextPhrase: '다음 문장',
     noAllergenFreeDish: '알레르기 유발 성분이 없는 메뉴가 없습니다',
     noDishFitsDiet: '식단에 맞는 안전한 메뉴가 없습니다',
+    onlyTypicalMenu: '일반적인 메뉴만 있어 확인된 메뉴가 없습니다. 직원에게 확인하세요',
 
     // #48 food personality
     foodPersonality: '음식 취향',
@@ -898,9 +899,6 @@ export const translations = {
     accountSettings: '계정 설정',
     accountSettingsSub: '사장님 모드, 로그아웃',
     guestProfileThisPhone: '게스트로 먹지를 사용 중이에요. 음식 프로필은 이 폰에만 저장돼요.',
-    signInKakaoGoogle: '카카오 또는 구글로 로그인',
-    keepProfileOnAnyPhone: '어떤 폰에서든 음식 프로필을 유지해요',
-    comingSoon: '준비 중',
     developerSection: '개발자',
     youAvoid: '피하는 음식',
     saved: '저장됨',

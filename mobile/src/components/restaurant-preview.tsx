@@ -8,6 +8,8 @@ import {
 import type { FoodType } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
 import type { MapPin } from '@/logic/map-pins';
+import type { FadeReason } from '@/logic/profile-filter';
+import type { TranslationKey } from '@/i18n/translations';
 import { distanceInMeters, walkMinutes, type Point } from '@/logic/nearby-service';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, router } from 'expo-router';
@@ -19,6 +21,13 @@ import {
   View,
 } from 'react-native';
 import { showAlert } from '@/components/show-alert';
+
+// Why a pin is faded (#14, #4, #103), as shown in the preview.
+const FADE_MESSAGE: Record<FadeReason, TranslationKey> = {
+  allergy: 'noAllergenFreeDish',
+  diet: 'noDishFitsDiet',
+  typical: 'onlyTypicalMenu',
+};
 
 const FOOD_TYPE_KEYS: Record<
   FoodType,
@@ -113,7 +122,7 @@ export function RestaurantPreview({ pin, from, onClose }: Props) {
 
         {pin.fadedFor && (
           <Text style={styles.warning}>
-            {t(pin.fadedFor === 'allergy' ? 'noAllergenFreeDish' : 'noDishFitsDiet')}
+            {t(FADE_MESSAGE[pin.fadedFor])}
           </Text>
         )}
 

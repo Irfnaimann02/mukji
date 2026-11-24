@@ -85,6 +85,14 @@ export function preorderSummary(
   };
 }
 
+// The pre-order total as shown to people. Chain and typical dishes often have no price (0):
+//   all priced -> '₩9,000'; some without a price -> '₩4,500 + ?'; none priced -> '?'.
+export function preorderTotalLabel(summary: { totalWon: number; unpricedItems: number }): string {
+  if (summary.unpricedItems === 0) return won(summary.totalWon);
+  if (summary.totalWon === 0) return '?';
+  return `${won(summary.totalWon)} + ?`;
+}
+
 // 4500 -> '₩4,500'
 export function won(amount: number): string {
   return `₩${String(Math.round(amount)).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;

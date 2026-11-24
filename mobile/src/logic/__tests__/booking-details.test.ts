@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 
 import type { Dish } from '@/data/types';
-import { decodeNote, encodeNote, expandDishIds, preorderSummary, won } from '@/logic/booking-details';
+import { decodeNote, encodeNote, expandDishIds, preorderSummary, preorderTotalLabel, won } from '@/logic/booking-details';
 
 // #50 quantities and contact details fit the existing reservations table
 describe('booking-details', () => {
@@ -47,5 +47,11 @@ describe('booking-details', () => {
   it('formats won with thousands separators', () => {
     expect(won(500)).toBe('₩500');
     expect(won(21000)).toBe('₩21,000');
+  });
+
+  it('labels the total: all priced, some without a price, or none priced', () => {
+    expect(preorderTotalLabel(preorderSummary(['a', 'a'], [dish('a', 4500)]))).toBe('₩9,000');
+    expect(preorderTotalLabel(preorderSummary(['a', 'c'], [dish('a', 4500), dish('c', 0)]))).toBe('₩4,500 + ?');
+    expect(preorderTotalLabel(preorderSummary(['c'], [dish('c', 0)]))).toBe('?');
   });
 });

@@ -48,6 +48,7 @@ export async function fetchAiExplanation(
           nameEn: dish.nameEn,
           contains: dish.contains,
           mayContain: dish.mayContain,
+          typical: dish.typical === true, // #103
         },
         restaurant: {
           nameKo: restaurant.nameKo,

@@ -14,7 +14,8 @@ export type Rule = Diet | 'allergy';
 export type Reason =
   | { kind: 'contains'; ingredient: Ingredient; rules: Rule[] } // in the dish for sure
   | { kind: 'may_contain'; ingredient: Ingredient; rules: Rule[] } // might be, e.g. in the broth
-  | { kind: 'halal_meat'; ingredient: Ingredient }; // meat at a place that is not halal-certified
+  | { kind: 'halal_meat'; ingredient: Ingredient } // meat at a place that is not halal-certified
+  | { kind: 'typical' }; // #103: from a generated typical menu, not this restaurant's real menu
 
 export interface DishExplanation {
   status: DishStatus;
@@ -34,6 +35,13 @@ const HALAL_QUESTION: OrderPhrase = {
   ko: '할랄 고기인가요?',
   rom: 'Halal gogi-ingayo?',
   en: 'Is the meat halal?',
+};
+
+// #103: for a dish from a generated typical menu, the first thing to find out.
+export const TYPICAL_QUESTION: OrderPhrase = {
+  ko: '이 메뉴에 뭐가 들어가요?',
+  rom: 'I menyue mwoga deureogayo?',
+  en: 'What is in this dish?',
 };
 
 // Korean words that show a 원산지 (origin) item is about this ingredient.
@@ -85,6 +93,7 @@ export function explainDish(dish: Dish, restaurant: Restaurant, profile: FoodPro
   const blocked = blockedIngredients(profile);
   const reasons: Reason[] = [];
   const questions: OrderPhrase[] = [];
+  const status = dishStatus(dish, restaurant, profile);
 
   for (const ingredient of dish.contains) {
     if (!blocked.has(ingredient)) continue;
@@ -126,8 +135,15 @@ export function explainDish(dish: Dish, restaurant: Restaurant, profile: FoodPro
     }
   }
 
+  // #103: a typical dish is a guess about this type of restaurant, so say that first and
+  // ask what is really in it (otherwise a typical dish with no matching tag has no reason at all).
+  if (dish.typical && status !== 'safe') {
+    reasons.unshift({ kind: 'typical' });
+    questions.unshift(TYPICAL_QUESTION);
+  }
+
   return {
-    status: dishStatus(dish, restaurant, profile),
+    status,
     reasons,
     sources: {
       restaurant: restaurant.sources,

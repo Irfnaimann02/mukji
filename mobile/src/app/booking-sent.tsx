@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { DateBlock, PreorderLines, usePeopleLabel } from '@/components/booking-parts';
 import type { Restaurant } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
-import { preorderSummary, won } from '@/logic/booking-details';
+import { preorderSummary, preorderTotalLabel } from '@/logic/booking-details';
 import { formatTime } from '@/logic/booking-times';
 import { findRestaurant } from '@/logic/restaurant-service';
 
@@ -75,7 +75,7 @@ export default function BookingSentScreen() {
               <PreorderLines lines={preorder.lines} />
               <View style={styles.totalRow}>
                 <Text style={styles.total}>{t('bookingPreorderTotal')}</Text>
-                <Text style={styles.total}>{won(preorder.totalWon)}</Text>
+                <Text style={styles.total}>{preorderTotalLabel(preorder)}</Text>
               </View>
             </>
           )}
