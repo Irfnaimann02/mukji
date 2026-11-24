@@ -91,8 +91,6 @@ export type FadeReason = 'allergy' | 'diet';
 // No menu yet: we can't tell, so it is not faded (the page says "ask staff").
 export function fadeReason(restaurant: Restaurant, profile: FoodProfile): FadeReason | null {
   if (restaurant.dishes.length === 0) return null;
-  // #103: a typical menu is a guess, so it can't say a place doesn't fit (same as no menu)
-  if (isTypicalMenu(restaurant)) return null;
   if (fadedForAllergies(restaurant, profile)) return 'allergy';
   if (profile.diets.length > 0 && !restaurantFits(restaurant, profile)) return 'diet';
   return null;

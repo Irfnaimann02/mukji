@@ -195,15 +195,3 @@ describe('typical menu dishes', () => {
     expect(isTypicalMenu(restaurant([]))).toBe(false);
   });
 });
-
-describe('typical menus on the map', () => {
-  const typicalCafe = restaurant([
-    { ...dish('아메리카노', []), typical: true },
-    { ...dish('케이크', ['wheat', 'egg', 'dairy']), typical: true },
-  ]);
-
-  test('a typical-only restaurant is not faded (we do not know, same as no menu)', () => {
-    expect(fadeReason(typicalCafe, profile(['halal']))).toBeNull();
-    expect(fadeReason(typicalCafe, profile([], ['wheat', 'egg', 'dairy']))).toBeNull();
-  });
-});
