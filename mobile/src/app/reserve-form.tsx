@@ -142,7 +142,7 @@ export default function ReserveFormScreen() {
   const summaryBottom =
     preorder.items === 0
       ? t('bookingNoPreorder')
-      : `${preorder.items === 1 ? t('bookingOneDish') : t('bookingDishCount', { count: preorder.items })} · ${won(preorder.totalWon)}`;
+      : `${preorder.items === 1 ? t('bookingOneDish') : t('bookingDishCount', { count: preorder.items })} · ${won(preorder.totalWon)}${preorder.unpricedItems > 0 ? ' + ?' : ''}`;
 
   const submit = async () => {
     if (!restaurant || !slot || sending) return;
@@ -329,7 +329,7 @@ export default function ReserveFormScreen() {
                         <Text style={styles.dishName}>{dish.nameKo}</Text>
                         <Text style={styles.hint}>{dish.nameEn}</Text>
                         <View style={styles.dishMeta}>
-                          <Text style={styles.dishPrice}>{won(dish.priceWon)}</Text>
+                          {dish.priceWon > 0 && <Text style={styles.dishPrice}>{won(dish.priceWon)}</Text>}
                           <DishFitPill status={dishStatus(dish, restaurant, profile)} />
                         </View>
                       </View>

@@ -1,0 +1,249 @@
+{
+  "chain_ko": "엽기떡볶이",
+  "chain_en": "Yupdduk (Dongdaemun Yupgi Tteokbokki)",
+  "name_patterns": [
+    "%엽기떡볶이%",
+    "%엽떡%"
+  ],
+  "source_urls": [
+    "https://www.yupdduk.com/sub/menu/yup-menu"
+  ],
+  "checked_on": "2026-11-24",
+  "notes": "MENU ONLY - the official site publishes no allergen information, so every dish has empty lists and allergens_as_written = 'not shown'. Show these as 'ask staff'. The menu popup on yupdduk.com has an allergen field (#sel_al_info) but it was empty for every item on 2026-11-24. Prices are the site's listed prices. Sets, toppings, meal kits, sauces, seasoning and drinks left out.",
+  "dishes": [
+    {
+      "name_ko": "엽기메뉴 (엽기떡볶이)",
+      "name_en": "Yupgi Tteokbokki",
+      "price_won": 14000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "로제메뉴 (로제떡볶이)",
+      "name_en": "Rosé Tteokbokki",
+      "price_won": 16000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "마라떡볶이",
+      "name_en": "Mala Tteokbokki",
+      "price_won": 16000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "마라로제떡볶이",
+      "name_en": "Mala Rosé Tteokbokki",
+      "price_won": 18000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "2인 엽기떡볶이",
+      "name_en": "Yupgi Tteokbokki for 2",
+      "price_won": 9000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "엽기닭볶음탕",
+      "name_en": "Yupgi Spicy Braised Chicken",
+      "price_won": 24000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "숯불통뼈닭발",
+      "name_en": "Charcoal Chicken Feet (bone-in)",
+      "price_won": 15000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "숯불무뼈닭발",
+      "name_en": "Charcoal Chicken Feet (boneless)",
+      "price_won": 16000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "국물통뼈닭발",
+      "name_en": "Soup Chicken Feet (bone-in)",
+      "price_won": 16000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "국물무뼈닭발",
+      "name_en": "Soup Chicken Feet (boneless)",
+      "price_won": 17000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "참치마요밥",
+      "name_en": "Tuna Mayo Rice",
+      "price_won": 3500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "주먹김밥(셀프)",
+      "name_en": "Rice Ball Gimbap (DIY)",
+      "price_won": 2000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "계란찜",
+      "name_en": "Steamed Egg",
+      "price_won": 2000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "계란야채죽",
+      "name_en": "Egg Vegetable Porridge",
+      "price_won": 5000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "순대",
+      "name_en": "Sundae (blood sausage)",
+      "price_won": 3000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "오뎅튀김(15개)",
+      "name_en": "Fried Fish Cake (15)",
+      "price_won": 2000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "모둠튀김",
+      "name_en": "Assorted Fritters",
+      "price_won": 2000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "만두(4개)",
+      "name_en": "Dumplings (4)",
+      "price_won": 2000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "김말이(3개)",
+      "name_en": "Fried Seaweed Rolls (3)",
+      "price_won": 2000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "야채튀김(1개)",
+      "name_en": "Vegetable Fritter (1)",
+      "price_won": 1000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "꿔바로우(5개)",
+      "name_en": "Guobaorou (5)",
+      "price_won": 5900,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "엽봉(5개)",
+      "name_en": "Yupbong Wings (5)",
+      "price_won": 5000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "바삭치즈만두(7개)",
+      "name_en": "Crispy Cheese Dumplings (7)",
+      "price_won": 2000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "엽도그",
+      "name_en": "Yup Dog",
+      "price_won": 2000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "감자채튀김",
+      "name_en": "Shredded Potato Fries",
+      "price_won": 2500,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    },
+    {
+      "name_ko": "공깃밥",
+      "name_en": "Steamed Rice",
+      "price_won": 1000,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "not shown",
+      "source_url": "https://www.yupdduk.com/sub/menu/yup-menu"
+    }
+  ]
+}

@@ -1,0 +1,1140 @@
+{
+  "chain_ko": "교촌치킨",
+  "chain_en": "Kyochon Chicken",
+  "name_patterns": [
+    "%교촌%"
+  ],
+  "source_urls": [
+    "https://www.kyochon.com/menu/chicken.asp",
+    "https://www.kyochon.com/menu/allergyinfo.asp",
+    "https://www.kyochon.com/images/menu/allergyinfo_20261123_pc.jpg"
+  ],
+  "checked_on": "2026-11-24",
+  "notes": "Allergen table is one image dated 2026-11-23 (kyochon_allergen.jpg, '주요 알레르기 성분'); read by eye from zoomed crops - spot-check. 계란 mapped to egg, 조개류(굴) to seafood; 복숭아/토마토/아황산류 kept only in allergens_as_written. The same image has an origin board (원산지 표시판 CO-STD-261123): main chicken series and wing series are listed with their own origin; part of it is cut off in the image, so origins were not copied. One item page (허니윙콤비) says 닭고기(태국산), so wing products may be imported. Prices are on individual item pages as '권장소비자가격' and vary by store; not collected (null). Sauces were left out. name_en = Korean name (no English names on site). Review of #105: fish is not on Korea's allergen list, so dishes that are fish by name got 'seafood' added to 'contains' by hand: 아, 귀한먹태.",
+  "dishes": [
+    {
+      "name_ko": "간장한마리",
+      "name_en": "간장한마리",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "간장콤보",
+      "name_en": "간장콤보",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "간장윙",
+      "name_en": "간장윙",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "간장스틱",
+      "name_en": "간장스틱",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "간장순살",
+      "name_en": "간장순살",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "레드한마리",
+      "name_en": "레드한마리",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "레드콤보",
+      "name_en": "레드콤보",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "레드윙",
+      "name_en": "레드윙",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "레드스틱",
+      "name_en": "레드스틱",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "레드순살",
+      "name_en": "레드순살",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "반반콤보(간장+레드)",
+      "name_en": "반반콤보(간장+레드)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "반반스틱(간장+레드)",
+      "name_en": "반반스틱(간장+레드)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "반반윙(간장+레드)",
+      "name_en": "반반윙(간장+레드)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "반반순살(간장+레드)",
+      "name_en": "반반순살(간장+레드)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "반반순살(레드+허니)",
+      "name_en": "반반순살(레드+허니)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "반반한마리(간장+레드)",
+      "name_en": "반반한마리(간장+레드)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "반반한마리(간장+허니갈릭)",
+      "name_en": "반반한마리(간장+허니갈릭)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "반반한마리(레드+허니갈릭)",
+      "name_en": "반반한마리(레드+허니갈릭)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "반반한마리(간장+마라레드)",
+      "name_en": "반반한마리(간장+마라레드)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 대두, 밀, 조개류(굴)",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "반반한마리(레드+마라레드)",
+      "name_en": "반반한마리(레드+마라레드)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 대두, 밀, 복숭아, 조개류(굴)",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "반반한마리(마라레드+허니갈릭)",
+      "name_en": "반반한마리(마라레드+허니갈릭)",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 대두, 밀, 조개류(굴)",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니한마리",
+      "name_en": "허니한마리",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니콤보",
+      "name_en": "허니콤보",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니순살",
+      "name_en": "허니순살",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "후라이드한마리",
+      "name_en": "후라이드한마리",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 땅콩, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "양념치킨한마리",
+      "name_en": "양념치킨한마리",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 땅콩, 대두, 밀, 토마토",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "후라이드양념반반한마리",
+      "name_en": "후라이드양념반반한마리",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 땅콩, 대두, 밀, 토마토",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "후라이드순살",
+      "name_en": "후라이드순살",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 땅콩, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "양념치킨순살",
+      "name_en": "양념치킨순살",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 땅콩, 대두, 밀, 토마토",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "후라이드양념반반순살",
+      "name_en": "후라이드양념반반순살",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 땅콩, 대두, 밀, 토마토",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "살살후라이드",
+      "name_en": "살살후라이드",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 우유, 대두, 밀, 토마토, 쇠고기, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "파채소이살살",
+      "name_en": "파채소이살살",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 우유, 대두, 밀, 토마토, 쇠고기, 조개류(굴)",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니갈릭한마리",
+      "name_en": "허니갈릭한마리",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니옥수수한마리",
+      "name_en": "허니옥수수한마리",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 우유, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니옥수수순살",
+      "name_en": "허니옥수수순살",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 우유, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "마라레드한마리",
+      "name_en": "마라레드한마리",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 대두, 밀, 조개류(굴)",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "간장싱글윙",
+      "name_en": "간장싱글윙",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니싱글윙",
+      "name_en": "허니싱글윙",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "레드싱글윙",
+      "name_en": "레드싱글윙",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "후라이드싱글윙",
+      "name_en": "후라이드싱글윙",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 땅콩, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "양념치킨싱글윙",
+      "name_en": "양념치킨싱글윙",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 땅콩, 대두, 밀, 토마토",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "마라레드싱글윙",
+      "name_en": "마라레드싱글윙",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 대두, 밀, 조개류(굴)",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니갈릭싱글윙",
+      "name_en": "허니갈릭싱글윙",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니옥수수싱글윙",
+      "name_en": "허니옥수수싱글윙",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 우유, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "간장윙박스",
+      "name_en": "간장윙박스",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니윙박스",
+      "name_en": "허니윙박스",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "레드윙박스",
+      "name_en": "레드윙박스",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "후라이드윙박스",
+      "name_en": "후라이드윙박스",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 땅콩, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "양념치킨윙박스",
+      "name_en": "양념치킨윙박스",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 땅콩, 대두, 밀, 토마토",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "마라레드윙박스",
+      "name_en": "마라레드윙박스",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 대두, 밀, 조개류(굴)",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니갈릭윙박스",
+      "name_en": "허니갈릭윙박스",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니옥수수윙박스",
+      "name_en": "허니옥수수윙박스",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 우유, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "간장윙콤비",
+      "name_en": "간장윙콤비",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "레드윙콤비",
+      "name_en": "레드윙콤비",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니윙콤비",
+      "name_en": "허니윙콤비",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "마라레드윙콤비",
+      "name_en": "마라레드윙콤비",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "seafood",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 대두, 밀, 조개류(굴)",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니갈릭윙콤비",
+      "name_en": "허니갈릭윙콤비",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니옥수수윙콤비",
+      "name_en": "허니옥수수윙콤비",
+      "price_won": null,
+      "contains": [
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 우유, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "샐러드",
+      "name_en": "샐러드",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "토마토",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "웨지감자",
+      "name_en": "웨지감자",
+      "price_won": null,
+      "contains": [
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 토마토, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "웨지고구마",
+      "name_en": "웨지고구마",
+      "price_won": null,
+      "contains": [
+        "dairy",
+        "wheat"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "웨지반반",
+      "name_en": "웨지반반",
+      "price_won": null,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 토마토, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "꽈배기",
+      "name_en": "꽈배기",
+      "price_won": null,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "칩카사바",
+      "name_en": "칩카사바",
+      "price_won": null,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "포테이토앤칩스(점보팩)",
+      "name_en": "포테이토앤칩스(점보팩)",
+      "price_won": null,
+      "contains": [
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "소이파채샐러드",
+      "name_en": "소이파채샐러드",
+      "price_won": null,
+      "contains": [
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "대두, 밀, 조개류(굴)",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "퐁듀치즈볼",
+      "name_en": "퐁듀치즈볼",
+      "price_won": null,
+      "contains": [
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "계란, 우유, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "고르곤치즈볼",
+      "name_en": "고르곤치즈볼",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "계란, 우유, 대두, 밀, 쇠고기",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "교촌X노티드츄러스",
+      "name_en": "교촌X노티드츄러스",
+      "price_won": null,
+      "contains": [
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "계란, 우유, 땅콩, 대두, 밀",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "오리지널찰도그",
+      "name_en": "오리지널찰도그",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 우유, 대두, 밀, 쇠고기",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "체다치즈찰도그",
+      "name_en": "체다치즈찰도그",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 우유, 대두, 밀, 쇠고기",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "국물맵떡",
+      "name_en": "국물맵떡",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 우유, 대두, 밀, 쇠고기, 게",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "블랙시크릿팝콘",
+      "name_en": "블랙시크릿팝콘",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 우유, 대두, 밀, 쇠고기",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "허니치룽지",
+      "name_en": "허니치룽지",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 우유, 대두, 밀, 토마토, 쇠고기",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "레드치룽지",
+      "name_en": "레드치룽지",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 우유, 대두, 밀, 토마토, 쇠고기",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "궁중닭갈비볶음밥",
+      "name_en": "궁중닭갈비볶음밥",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 우유, 대두, 밀, 쇠고기, 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "달걀듬뿍볶음밥",
+      "name_en": "달걀듬뿍볶음밥",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 계란, 우유, 대두, 밀, 쇠고기, 조개류(굴), 복숭아",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "아, 귀한먹태",
+      "name_en": "아, 귀한먹태",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "egg",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "계란, 땅콩, 대두, 밀, 쇠고기",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "모둠어묵탕",
+      "name_en": "모둠어묵탕",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "우유, 대두, 밀, 게, 새우, 토마토, 쇠고기, 오징어",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "바삭근위튀김(똥집튀김)",
+      "name_en": "바삭근위튀김(똥집튀김)",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 우유, 대두, 밀, 토마토, 쇠고기",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    },
+    {
+      "name_ko": "소이파닭편육",
+      "name_en": "소이파닭편육",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "닭고기, 우유, 대두, 밀, 아황산류, 쇠고기",
+      "source_url": "https://www.kyochon.com/menu/allergyinfo.asp"
+    }
+  ]
+}

@@ -1,0 +1,960 @@
+{
+  "chain_ko": "본죽",
+  "chain_en": "Bonjuk",
+  "name_patterns": [
+    "%본죽%"
+  ],
+  "source_urls": [
+    "https://www.bonif.co.kr/brand/menu?brdCd=BF101",
+    "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+  ],
+  "checked_on": "2026-11-24",
+  "notes": "Text table '본죽 메뉴별 알레르기 유발물질 정보 (2026년 10월 업데이트)' under the '알레르기 정보' tab of any 본죽 menu page. '직접 유발물질' (direct) -> contains; '간접 유발물질' (indirect, i.e. possible cross-contact in the store) -> may_contain. Almost every porridge lists nearly all other allergens as indirect, so may_contain is long for most items. Covers 본죽 only (not 본죽&비빔밥 or 본도시락, which are separate brands on bonif.co.kr - branch names containing '본죽&비빔밥' will still match %본죽%). Prices vary by store and are not in the table (null). Includes the '추가 및 반찬' section (add-ons and side dishes). Review of #105: fish is not on Korea's allergen list, so dishes that are fish by name got 'seafood' added to 'contains' by hand: 추어죽, 불고기낙지죽, 참치야채죽.",
+  "dishes": [
+    {
+      "name_ko": "추어죽",
+      "name_en": "추어죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "자연송이쇠고기죽",
+      "name_en": "자연송이쇠고기죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "seafood",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "특자연송이쇠고기죽",
+      "name_en": "특자연송이쇠고기죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "seafood",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "삼계죽",
+      "name_en": "삼계죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "seafood",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 닭고기 우유 / 간접: 난류(계란) 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "불고기낙지죽",
+      "name_en": "불고기낙지죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "현미 삼계죽",
+      "name_en": "현미 삼계죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "seafood",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 닭고기 우유 / 간접: 난류(계란) 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "전복죽",
+      "name_en": "전복죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 전복 조개류 잣 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 굴",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "진전복죽",
+      "name_en": "진전복죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 전복 조개류 잣 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 굴",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "특전복죽",
+      "name_en": "특전복죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 전복 조개류 잣 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 굴",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "전복내장죽",
+      "name_en": "전복내장죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 전복 조개류 잣 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 굴",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "진전복내장죽",
+      "name_en": "진전복내장죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 전복 조개류 잣 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 굴",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "특전복내장죽",
+      "name_en": "특전복내장죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 전복 조개류 잣 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 굴",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "트러플전복죽",
+      "name_en": "트러플전복죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 전복 조개류 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 굴 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "특트러플전복죽",
+      "name_en": "특트러플전복죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 전복 조개류 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 굴 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "삼계전복죽",
+      "name_en": "삼계전복죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "chicken",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 닭고기 우유 전복 조개류 / 간접: 난류(계란) 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 굴 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "현미 전복죽",
+      "name_en": "현미 전복죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 전복 조개류 잣 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 굴",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "쇠고기야채죽",
+      "name_en": "쇠고기야채죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "seafood",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "쇠고기버섯죽",
+      "name_en": "쇠고기버섯죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "seafood",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "해물죽",
+      "name_en": "해물죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 새우 오징어 굴 조개류 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 아황산류 고등어 호두 메밀 홍합 전복 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "특해물죽",
+      "name_en": "특해물죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 새우 오징어 굴 조개류 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 아황산류 고등어 호두 메밀 홍합 전복 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "새우죽",
+      "name_en": "새우죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 새우 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "특새우죽",
+      "name_en": "특새우죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 새우 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "통영굴버섯죽",
+      "name_en": "통영굴버섯죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 굴 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "특통영굴버섯죽",
+      "name_en": "특통영굴버섯죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 굴 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "참치야채죽",
+      "name_en": "참치야채죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "7가지야채죽",
+      "name_en": "7가지야채죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "seafood",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "흰죽",
+      "name_en": "흰죽",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "직접: - / 간접: -",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "미음",
+      "name_en": "미음",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "직접: - / 간접: -",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "현미 쇠고기야채죽",
+      "name_en": "현미 쇠고기야채죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "seafood",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "버섯들깨산나물죽",
+      "name_en": "버섯들깨산나물죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "seafood",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "홍게품은죽",
+      "name_en": "홍게품은죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 게 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "진홍게품은죽",
+      "name_en": "진홍게품은죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 게 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "특홍게품은죽",
+      "name_en": "특홍게품은죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 게 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "낙지김치죽",
+      "name_en": "낙지김치죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 새우 조개류 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 게 복숭아 토마토 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "신짬뽕죽",
+      "name_en": "신짬뽕죽",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "egg",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 우유 게 새우 오징어 홍합 굴 조개류 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 복숭아 토마토 아황산류 고등어 호두 메밀 전복 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "참깨계란새우쮺",
+      "name_en": "참깨계란새우쮺",
+      "price_won": null,
+      "contains": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 난류(계란) 대두 밀 쇠고기 닭고기 돼지고기 우유 토마토 새우 오징어 홍합 굴 조개류 / 간접: 땅콩 게 복숭아 아황산류 고등어 호두 메밀 전복 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "푸팟퐁커리게살쮺",
+      "name_en": "푸팟퐁커리게살쮺",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "egg",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 난류(계란) 대두 밀 쇠고기 우유 게 토마토 아황산류 굴 조개류 / 간접: 닭고기 돼지고기 땅콩 복숭아 새우 고등어 호두 메밀 오징어 홍합 전복 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "동지팥죽",
+      "name_en": "동지팥죽",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "직접: - / 간접: -",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "단팥죽",
+      "name_en": "단팥죽",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "직접: - / 간접: -",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "단호박죽",
+      "name_en": "단호박죽",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "직접: - / 간접: 복숭아",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "녹두죽",
+      "name_en": "녹두죽",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "직접: - / 간접: -",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "명품잣죽",
+      "name_en": "명품잣죽",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "직접: 잣 / 간접: -",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "흑임자죽",
+      "name_en": "흑임자죽",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [],
+      "allergens_as_written": "직접: 잣 / 간접: -",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "저당 단호박죽",
+      "name_en": "저당 단호박죽",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "allergens_as_written": "직접: - / 간접: 난류(계란) 대두 밀 땅콩 우유 복숭아 토마토 아황산류 호두 메밀",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "저당 단팥죽",
+      "name_en": "저당 단팥죽",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "allergens_as_written": "직접: - / 간접: 난류(계란) 대두 밀 땅콩 우유 복숭아 토마토 아황산류 호두 메밀",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "늘푸른김치(국내산)",
+      "name_en": "늘푸른김치(국내산)",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "seafood",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 새우 조개류 / 간접: 돼지고기",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "종가집김치(국내산)",
+      "name_en": "종가집김치(국내산)",
+      "price_won": null,
+      "contains": [
+        "seafood"
+      ],
+      "may_contain": [
+        "soy"
+      ],
+      "allergens_as_written": "직접: 새우 / 간접: 대두 토마토",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "오징어초무침",
+      "name_en": "오징어초무침",
+      "price_won": null,
+      "contains": [
+        "seafood"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "직접: 오징어 / 간접: -",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "장조림(외국산:뉴질랜드,호주,미국)",
+      "name_en": "장조림(외국산:뉴질랜드,호주,미국)",
+      "price_won": null,
+      "contains": [
+        "beef",
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [
+        "pork",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut"
+      ],
+      "allergens_as_written": "직접: 대두 밀 쇠고기 / 간접: 난류(계란) 닭고기 돼지고기 땅콩 우유 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "동치미베이스",
+      "name_en": "동치미베이스",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [
+        "pork",
+        "beef",
+        "seafood",
+        "dairy",
+        "wheat",
+        "soy"
+      ],
+      "allergens_as_written": "직접: - / 간접: 대두 밀 쇠고기 돼지고기 우유 새우 오징어 홍합 전복 굴 조개류",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "매실골드",
+      "name_en": "매실골드",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "allergens_as_written": "직접: - / 간접: 난류(계란) 대두 밀 쇠고기 닭고기 돼지고기 땅콩 우유 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "모짜렐라치즈(냉동)",
+      "name_en": "모짜렐라치즈(냉동)",
+      "price_won": null,
+      "contains": [
+        "dairy"
+      ],
+      "may_contain": [
+        "pork",
+        "beef",
+        "egg",
+        "wheat",
+        "soy"
+      ],
+      "allergens_as_written": "직접: 우유 / 간접: 난류(계란) 대두 밀 쇠고기 돼지고기",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "본현미죽밥",
+      "name_en": "본현미죽밥",
+      "price_won": null,
+      "contains": [],
+      "may_contain": [
+        "pork",
+        "beef",
+        "chicken",
+        "seafood",
+        "egg",
+        "dairy",
+        "peanut",
+        "wheat",
+        "soy"
+      ],
+      "allergens_as_written": "직접: - / 간접: 난류(계란) 대두 밀 쇠고기 닭고기 돼지고기 땅콩 우유 게 복숭아 토마토 새우 아황산류 고등어 호두 메밀 오징어 홍합 전복 굴 조개류 잣",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    },
+    {
+      "name_ko": "일회용진간장(팩)",
+      "name_en": "일회용진간장(팩)",
+      "price_won": null,
+      "contains": [
+        "wheat",
+        "soy"
+      ],
+      "may_contain": [],
+      "allergens_as_written": "직접: 대두 밀 / 간접: -",
+      "source_url": "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
+    }
+  ]
+}
