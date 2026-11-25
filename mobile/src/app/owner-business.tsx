@@ -346,7 +346,7 @@ export default function OwnerBusinessOnboardingScreen() {
         options={{
           title: owner('ownerBusinessOnboardingTitle'),
           headerShown: true,
-          headerTintColor: '#14213D',
+          headerTintColor: '#171717',
           headerStyle: { backgroundColor: '#F5F8FC' },
         }}
       />
@@ -361,7 +361,7 @@ export default function OwnerBusinessOnboardingScreen() {
         </View>
 
         {loading ? (
-          <ActivityIndicator size="large" color="#1B5FAD" style={styles.loading} />
+          <ActivityIndicator size="large" color="#F26A21" style={styles.loading} />
         ) : pageError ? (
           <View style={styles.warning}>
             <Text style={styles.warningText}>{pageError}</Text>
@@ -376,7 +376,7 @@ export default function OwnerBusinessOnboardingScreen() {
         ) : (
           <>
             <View style={styles.notice}>
-              <Ionicons name="lock-closed-outline" size={20} color="#1B5FAD" />
+              <Ionicons name="lock-closed-outline" size={20} color="#F26A21" />
               <Text style={styles.noticeText}>{owner('ownerBusinessPrivacyNotice')}</Text>
             </View>
             <Pressable
@@ -390,7 +390,7 @@ export default function OwnerBusinessOnboardingScreen() {
               <Ionicons
                 name={privacyNoticeAccepted ? 'checkbox' : 'square-outline'}
                 size={22}
-                color="#1B5FAD"
+                color="#F26A21"
               />
               <Text style={styles.consentText}>{owner('ownerBusinessPrivacyConsent')}</Text>
             </Pressable>
@@ -409,7 +409,7 @@ export default function OwnerBusinessOnboardingScreen() {
                   <Ionicons
                     name={details.applicantType === value ? 'radio-button-on' : 'radio-button-off'}
                     size={20}
-                    color="#1B5FAD"
+                    color="#F26A21"
                   />
                   <Text style={styles.choiceText}>{owner(label)}</Text>
                 </Pressable>
@@ -447,7 +447,7 @@ export default function OwnerBusinessOnboardingScreen() {
                   <Ionicons
                     name={details.businessType === value ? 'radio-button-on' : 'radio-button-off'}
                     size={20}
-                    color="#1B5FAD"
+                    color="#F26A21"
                   />
                   <Text style={styles.choiceText}>{owner(label)}</Text>
                 </Pressable>
@@ -493,7 +493,7 @@ export default function OwnerBusinessOnboardingScreen() {
                   <Ionicons
                     name={selectedDocumentType === item.value ? 'radio-button-on' : 'radio-button-off'}
                     size={20}
-                    color="#1B5FAD"
+                    color="#F26A21"
                   />
                   <Text style={styles.choiceText}>{owner(item.label)}</Text>
                 </Pressable>
@@ -509,7 +509,7 @@ export default function OwnerBusinessOnboardingScreen() {
               ) : (
                 documents.map((document) => (
                   <View key={document.id} style={styles.documentRow}>
-                    <Ionicons name="document-text-outline" size={21} color="#1B5FAD" />
+                    <Ionicons name="document-text-outline" size={21} color="#F26A21" />
                     <View style={styles.documentInfo}>
                       <Text style={styles.documentName}>{document.originalFilename}</Text>
                       <Text style={styles.muted}>
@@ -519,7 +519,7 @@ export default function OwnerBusinessOnboardingScreen() {
                       </Text>
                     </View>
                     <Pressable onPress={() => void handleOpenDocument(document)} accessibilityRole="button">
-                      <Ionicons name="open-outline" size={20} color="#1B5FAD" />
+                      <Ionicons name="open-outline" size={20} color="#F26A21" />
                     </Pressable>
                     <Pressable onPress={() => handleRemoveDocument(document)} accessibilityRole="button">
                       <Ionicons name="trash-outline" size={20} color="#B3261E" />
@@ -565,32 +565,32 @@ const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: '#F5F8FC' },
   page: { padding: 18, paddingBottom: 36, gap: 16 },
   header: { alignItems: 'center', gap: 8, paddingVertical: 8 },
-  icon: { width: 54, height: 54, borderRadius: 16, backgroundColor: '#1B5FAD', alignItems: 'center', justifyContent: 'center' },
-  title: { color: '#14213D', fontSize: 23, fontWeight: '900', textAlign: 'center' },
+  icon: { width: 54, height: 54, borderRadius: 16, backgroundColor: '#F26A21', alignItems: 'center', justifyContent: 'center' },
+  title: { color: '#171717', fontSize: 23, fontWeight: '900', textAlign: 'center' },
   subtitle: { color: '#64748B', fontSize: 13, lineHeight: 20, textAlign: 'center' },
   loading: { padding: 30 },
-  notice: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, padding: 14, borderRadius: 12, backgroundColor: '#EAF2FC' },
-  noticeText: { flex: 1, color: '#31577E', fontSize: 12, lineHeight: 19 },
+  notice: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, padding: 14, borderRadius: 12, backgroundColor: '#FFF0E7' },
+  noticeText: { flex: 1, color: '#4B4B4B', fontSize: 12, lineHeight: 19 },
   consentRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, paddingHorizontal: 4, paddingVertical: 6 },
-  consentText: { flex: 1, color: '#344256', fontSize: 12, lineHeight: 19 },
+  consentText: { flex: 1, color: '#4B4B4B', fontSize: 12, lineHeight: 19 },
   card: { backgroundColor: '#FFFFFF', borderRadius: 15, padding: 16, gap: 12, borderWidth: 1, borderColor: '#E5EAF0' },
-  sectionTitle: { color: '#14213D', fontSize: 16, fontWeight: '800' },
-  label: { color: '#344256', fontSize: 13, fontWeight: '700' },
+  sectionTitle: { color: '#171717', fontSize: 16, fontWeight: '800' },
+  label: { color: '#4B4B4B', fontSize: 13, fontWeight: '700' },
   field: { gap: 6 },
-  input: { minHeight: 48, borderWidth: 1, borderColor: '#D5DDE7', borderRadius: 10, paddingHorizontal: 12, color: '#14213D', backgroundColor: '#FFFFFF' },
+  input: { minHeight: 48, borderWidth: 1, borderColor: '#D5DDE7', borderRadius: 10, paddingHorizontal: 12, color: '#171717', backgroundColor: '#FFFFFF' },
   choice: { minHeight: 44, flexDirection: 'row', alignItems: 'center', gap: 9, borderWidth: 1, borderColor: '#D5DDE7', borderRadius: 10, paddingHorizontal: 12 },
-  choiceActive: { borderColor: '#1B5FAD', backgroundColor: '#EEF5FD' },
-  choiceText: { flex: 1, color: '#344256', fontSize: 13, fontWeight: '600' },
+  choiceActive: { borderColor: '#F26A21', backgroundColor: '#FFF6F0' },
+  choiceText: { flex: 1, color: '#4B4B4B', fontSize: 13, fontWeight: '600' },
   bodyText: { color: '#64748B', fontSize: 12, lineHeight: 19 },
-  button: { minHeight: 49, borderRadius: 11, backgroundColor: '#1B5FAD', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 14 },
+  button: { minHeight: 49, borderRadius: 11, backgroundColor: '#F26A21', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 14 },
   buttonText: { color: '#FFFFFF', fontSize: 14, fontWeight: '800' },
-  secondaryButton: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#1B5FAD' },
-  secondaryButtonText: { color: '#1B5FAD' },
+  secondaryButton: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#F26A21' },
+  secondaryButtonText: { color: '#F26A21' },
   disabled: { opacity: 0.5 },
   muted: { color: '#64748B', fontSize: 11, lineHeight: 17 },
   documentRow: { flexDirection: 'row', alignItems: 'center', gap: 9, paddingVertical: 10, borderTopWidth: 1, borderTopColor: '#EEF2F6' },
   documentInfo: { flex: 1, gap: 3 },
-  documentName: { color: '#14213D', fontSize: 12, fontWeight: '700' },
+  documentName: { color: '#171717', fontSize: 12, fontWeight: '700' },
   warning: { padding: 14, borderRadius: 12, backgroundColor: '#FFF4DF', gap: 7 },
   warningTitle: { color: '#8A5A00', fontWeight: '800', fontSize: 13 },
   warningText: { color: '#72531E', fontSize: 12, lineHeight: 19 },

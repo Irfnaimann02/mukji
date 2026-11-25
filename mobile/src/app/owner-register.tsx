@@ -24,8 +24,8 @@ import {
 
 import { userMessage } from '@/logic/user-error';
 
-const BLUE = '#1B5FAD';
-const NAVY = '#14213D';
+const BLUE = '#F26A21';
+const NAVY = '#171717';
 const MUTED = '#64748B';
 
 export default function OwnerRegisterScreen() {
@@ -390,7 +390,7 @@ const styles = StyleSheet.create({
     minHeight: 49, flexDirection: 'row', alignItems: 'center', gap: 10,
     borderWidth: 1, borderColor: '#D8E1EC', borderRadius: 12, paddingHorizontal: 12,
   },
-  choiceActive: { borderColor: BLUE, backgroundColor: '#EFF6FF' },
+  choiceActive: { borderColor: BLUE, backgroundColor: '#FFF6F0' },
   choiceText: { flex: 1, color: NAVY, fontSize: 14, fontWeight: '700' },
   field: { gap: 7 },
   label: { color: NAVY, fontSize: 13, fontWeight: '700' },
@@ -422,7 +422,7 @@ const styles = StyleSheet.create({
   link: { color: BLUE, fontSize: 13, fontWeight: '800' },
   securityNote: {
     flexDirection: 'row', alignItems: 'flex-start', gap: 9, padding: 13,
-    borderRadius: 12, backgroundColor: '#EFF6FF',
+    borderRadius: 12, backgroundColor: '#FFF6F0',
   },
-  securityText: { flex: 1, color: '#31577E', fontSize: 12, lineHeight: 18 },
+  securityText: { flex: 1, color: '#4B4B4B', fontSize: 12, lineHeight: 18 },
 });

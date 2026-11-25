@@ -17,8 +17,9 @@ import { decodeNote, preorderSummary, preorderTotalLabel } from '@/logic/booking
 import { formatBookingTime, isInFuture } from '@/logic/booking-times';
 import { showAlert } from '@/components/show-alert';
 import { userMessage } from '@/logic/user-error';
+import { OwnerPortalColors } from '@/constants/owner-portal-theme';
 
-const BLUE = '#1b5fad';
+const ACCENT = OwnerPortalColors.orange;
 
 // Requests that still need the owner come first.
 const ORDER: BookingStatus[] = ['requested', 'confirmed', 'cancelled', 'declined', 'completed'];
@@ -27,12 +28,13 @@ const ORDER: BookingStatus[] = ['requested', 'confirmed', 'cancelled', 'declined
 // A booking the customer cancelled is shown as an alert at the top.
 // The owner can also cancel a waiting or confirmed booking (e.g. the customer phoned to cancel).
 export function OwnerReservations({ restaurants }: { restaurants: Restaurant[] }) {
-  const { t, language } = useTranslation();
+  const { t, owner, language } = useTranslation();
   const peopleLabel = usePeopleLabel();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [statusFilter, setStatusFilter] = useState<'all' | 'requested' | 'confirmed' | 'completed'>('all');
 
   const idsKey = restaurants.map((r) => r.id).join(',');
 
@@ -91,18 +93,31 @@ export function OwnerReservations({ restaurants }: { restaurants: Restaurant[] }
   const cancelledUpcoming = bookings.filter(
     (b) => b.status === 'cancelled' && b.cancelledBy !== 'restaurant' && isInFuture(b.reservedFor, now),
   );
-  const sorted = [...bookings].sort(
-    (a, b) => ORDER.indexOf(a.status) - ORDER.indexOf(b.status) || a.reservedFor.localeCompare(b.reservedFor),
-  );
+  const sorted = [...bookings]
+    .filter((booking) => statusFilter === 'all' || booking.status === statusFilter)
+    .sort((a, b) => ORDER.indexOf(a.status) - ORDER.indexOf(b.status) || a.reservedFor.localeCompare(b.reservedFor));
 
   return (
     <View style={styles.root}>
       <View style={styles.headerRow}>
         <Text style={styles.title}>{t('bookingOwnerTitle')}</Text>
         <Pressable onPress={refresh} accessibilityRole="button" hitSlop={8} style={styles.refresh}>
-          <Ionicons name="refresh" size={16} color={BLUE} />
+          <Ionicons name="refresh" size={16} color={ACCENT} />
           <Text style={styles.refreshText}>{t('bookingRefresh')}</Text>
         </Pressable>
+      </View>
+
+      <View style={styles.filters}>
+        {([
+          ['all', owner('bookingOwnerFilterAll')],
+          ['requested', owner('bookingOwnerFilterPending')],
+          ['confirmed', owner('bookingOwnerFilterConfirmed')],
+          ['completed', owner('bookingOwnerFilterCompleted')],
+        ] as const).map(([key, label]) => (
+          <Pressable key={key} onPress={() => setStatusFilter(key)} style={[styles.filterChip, statusFilter === key && styles.filterChipActive]} accessibilityRole="button" accessibilityState={{ selected: statusFilter === key }}>
+            <Text style={[styles.filterText, statusFilter === key && styles.filterTextActive]}>{label}</Text>
+          </Pressable>
+        ))}
       </View>
 
       {cancelledUpcoming.length > 0 && (
@@ -120,7 +135,7 @@ export function OwnerReservations({ restaurants }: { restaurants: Restaurant[] }
       )}
 
       {loading ? (
-        <ActivityIndicator size="large" color={BLUE} style={styles.spinner} />
+        <ActivityIndicator size="large" color={ACCENT} style={styles.spinner} />
       ) : error ? (
         <Text style={styles.muted}>{t('couldNotLoadReservations')}</Text>
       ) : sorted.length === 0 ? (
@@ -211,11 +226,16 @@ export function OwnerReservations({ restaurants }: { restaurants: Restaurant[] }
 
 const styles = StyleSheet.create({
   root: { gap: 12 },
+  filters: { flexDirection: 'row', flexWrap: 'wrap', gap: 7 },
+  filterChip: { paddingHorizontal: 13, paddingVertical: 8, borderRadius: 20, backgroundColor: '#fff', borderWidth: 1, borderColor: OwnerPortalColors.border },
+  filterChipActive: { backgroundColor: OwnerPortalColors.orange, borderColor: OwnerPortalColors.orange },
+  filterText: { color: OwnerPortalColors.inkSoft, fontSize: 11, fontWeight: '700' },
+  filterTextActive: { color: '#fff' },
   flex: { flex: 1 },
   headerRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  title: { color: '#14213d', fontSize: 18, fontWeight: '700' },
+  title: { color: OwnerPortalColors.ink, fontSize: 18, fontWeight: '700' },
   refresh: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  refreshText: { color: BLUE, fontWeight: '600' },
+  refreshText: { color: ACCENT, fontWeight: '600' },
   alert: {
     flexDirection: 'row',
     gap: 10,
@@ -234,17 +254,17 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#dbe3ec',
+    borderColor: OwnerPortalColors.border,
     backgroundColor: '#FFFFFF',
   },
   cardCancelled: { borderColor: '#F2D9D2' },
   preorder: { gap: 6, marginTop: 4, paddingTop: 8, borderTopWidth: 1, borderTopColor: '#EEF2F6' },
   cardTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 },
-  time: { flex: 1, color: '#14213d', fontSize: 16, fontWeight: '700' },
-  line: { color: '#14213d', fontSize: 14, fontWeight: '600' },
+  time: { flex: 1, color: OwnerPortalColors.ink, fontSize: 16, fontWeight: '700' },
+  line: { color: OwnerPortalColors.ink, fontSize: 14, fontWeight: '600' },
   actions: { flexDirection: 'row', gap: 8, marginTop: 6 },
   action: { flex: 1, padding: 12, borderRadius: 10, alignItems: 'center' },
-  confirm: { backgroundColor: BLUE },
+  confirm: { backgroundColor: ACCENT },
   confirmText: { color: '#FFFFFF', fontWeight: '700' },
   decline: { borderWidth: 1, borderColor: '#F2D9D2', backgroundColor: '#FFFFFF' },
   declineText: { color: '#B3402A', fontWeight: '700' },

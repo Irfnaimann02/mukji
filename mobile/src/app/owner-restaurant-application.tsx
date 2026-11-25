@@ -314,7 +314,7 @@ export default function OwnerRestaurantApplicationScreen() {
       <ScrollView contentContainerStyle={styles.page} keyboardShouldPersistTaps="handled">
         {loading ? (
           <View style={styles.loading}>
-            <ActivityIndicator size="large" color="#1b5fad" />
+            <ActivityIndicator size="large" color="#F26A21" />
           </View>
         ) : pageError ? (
           <View style={styles.card}>
@@ -325,7 +325,7 @@ export default function OwnerRestaurantApplicationScreen() {
           </View>
         ) : !businessApplicationId ? (
           <View style={styles.card}>
-            <Ionicons name="document-text-outline" size={36} color="#1b5fad" />
+            <Ionicons name="document-text-outline" size={36} color="#F26A21" />
             <Text style={styles.title}>{owner('ownerRestaurantApplicationBusinessRequired')}</Text>
             <Text style={styles.body}>{owner('ownerBusinessSaveFirstMessage')}</Text>
             <ActionButton title={owner('ownerBusinessOnboarding')} onPress={() => router.replace('/owner-business')} />
@@ -395,7 +395,7 @@ export default function OwnerRestaurantApplicationScreen() {
                           <Ionicons
                             name={selected ? 'radio-button-on' : 'radio-button-off'}
                             size={22}
-                            color="#1b5fad"
+                            color="#F26A21"
                           />
                         </Pressable>
                       );
@@ -414,7 +414,7 @@ export default function OwnerRestaurantApplicationScreen() {
                 )}
 
                 <View style={styles.noticeCard}>
-                  <Ionicons name="information-circle-outline" size={22} color="#1b5fad" />
+                  <Ionicons name="information-circle-outline" size={22} color="#F26A21" />
                   <Text style={styles.body}>{owner('ownerRestaurantApplicationPrivacy')}</Text>
                 </View>
                 <ActionButton
@@ -482,30 +482,30 @@ const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: '#F5F7FA' },
   page: { padding: 20, gap: 14, paddingBottom: 36 },
   loading: { flex: 1, minHeight: 220, alignItems: 'center', justifyContent: 'center' },
-  title: { color: '#172B4D', fontSize: 24, fontWeight: '800' },
-  body: { color: '#526174', fontSize: 14, lineHeight: 21 },
+  title: { color: '#171717', fontSize: 24, fontWeight: '800' },
+  body: { color: '#4B4B4B', fontSize: 14, lineHeight: 21 },
   muted: { color: '#718096', fontSize: 12, marginTop: 3 },
   card: { backgroundColor: '#FFFFFF', borderRadius: 16, padding: 16, gap: 12, borderWidth: 1, borderColor: '#E4EAF1' },
-  statusCard: { backgroundColor: '#EEF4FB', borderRadius: 14, padding: 16, gap: 6, borderWidth: 1, borderColor: '#C8D9EC' },
-  label: { color: '#526174', fontSize: 13, fontWeight: '700' },
-  statusValue: { color: '#174A80', fontSize: 18, fontWeight: '800' },
-  sectionTitle: { color: '#172B4D', fontSize: 17, fontWeight: '800' },
+  statusCard: { backgroundColor: '#FFF6F0', borderRadius: 14, padding: 16, gap: 6, borderWidth: 1, borderColor: '#F5C5A8' },
+  label: { color: '#4B4B4B', fontSize: 13, fontWeight: '700' },
+  statusValue: { color: '#4B4B4B', fontSize: 18, fontWeight: '800' },
+  sectionTitle: { color: '#171717', fontSize: 17, fontWeight: '800' },
   field: { gap: 6 },
-  input: { borderWidth: 1, borderColor: '#D8E0EA', backgroundColor: '#FFFFFF', borderRadius: 10, paddingHorizontal: 12, paddingVertical: 11, color: '#172B4D', fontSize: 15 },
+  input: { borderWidth: 1, borderColor: '#D8E0EA', backgroundColor: '#FFFFFF', borderRadius: 10, paddingHorizontal: 12, paddingVertical: 11, color: '#171717', fontSize: 15 },
   multilineInput: { minHeight: 86, textAlignVertical: 'top' },
   choiceRow: { flexDirection: 'row', gap: 10 },
   choice: { flex: 1, minHeight: 56, justifyContent: 'center', padding: 12, borderWidth: 1, borderColor: '#D8E0EA', borderRadius: 12, backgroundColor: '#FFFFFF' },
-  choiceActive: { borderColor: '#1B5FAD', backgroundColor: '#EEF4FB' },
-  choiceText: { color: '#526174', fontWeight: '700', textAlign: 'center' },
-  choiceTextActive: { color: '#174A80' },
+  choiceActive: { borderColor: '#F26A21', backgroundColor: '#FFF6F0' },
+  choiceText: { color: '#4B4B4B', fontWeight: '700', textAlign: 'center' },
+  choiceTextActive: { color: '#4B4B4B' },
   result: { flexDirection: 'row', alignItems: 'center', gap: 10, padding: 12, borderWidth: 1, borderColor: '#E1E7EF', borderRadius: 12 },
-  resultSelected: { borderColor: '#1B5FAD', backgroundColor: '#EEF4FB' },
+  resultSelected: { borderColor: '#F26A21', backgroundColor: '#FFF6F0' },
   resultText: { flex: 1 },
-  resultName: { color: '#172B4D', fontWeight: '700', fontSize: 14 },
-  noticeCard: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, padding: 14, backgroundColor: '#EEF4FB', borderRadius: 12 },
-  button: { minHeight: 48, borderRadius: 12, backgroundColor: '#1B5FAD', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16 },
-  secondaryButton: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#B8CCE5' },
+  resultName: { color: '#171717', fontWeight: '700', fontSize: 14 },
+  noticeCard: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, padding: 14, backgroundColor: '#FFF6F0', borderRadius: 12 },
+  button: { minHeight: 48, borderRadius: 12, backgroundColor: '#F26A21', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16 },
+  secondaryButton: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#F5C5A8' },
   buttonText: { color: '#FFFFFF', fontSize: 15, fontWeight: '800' },
-  secondaryButtonText: { color: '#1B5FAD' },
+  secondaryButtonText: { color: '#F26A21' },
   disabled: { opacity: 0.55 },
 });

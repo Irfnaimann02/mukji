@@ -25,6 +25,7 @@ import {
   type OwnerMenuValidationError,
 } from '@/logic/owner-menu-management';
 import { userMessage } from '@/logic/user-error';
+import { OwnerPortalColors } from '@/constants/owner-portal-theme';
 
 type Props = { restaurant: Restaurant; previewMode: boolean };
 const CATEGORIES: OwnerMenuCategory[] = ['main', 'side', 'drink', 'other'];
@@ -237,14 +238,14 @@ export function OwnerMenuManagement({ restaurant, previewMode }: Props) {
     ]);
   };
 
-  if (loading && !previewMode) return <View style={styles.loading}><ActivityIndicator color="#1b5fad" /><Text style={styles.muted}>{owner('ownerLoadingMenu')}</Text></View>;
+  if (loading && !previewMode) return <View style={styles.loading}><ActivityIndicator color={OwnerPortalColors.orange} /><Text style={styles.muted}>{owner('ownerLoadingMenu')}</Text></View>;
 
   return (
     <View style={styles.content}>
       {previewMode ? <View style={styles.notice}><Text style={styles.noticeText}>{owner('ownerMenuPreviewOnly')}</Text></View> : null}
       {error ? <View style={styles.error}><Text style={styles.errorText}>{error}</Text><Pressable onPress={() => void reload()}><Text style={styles.link}>{owner('ownerTryAgain')}</Text></Pressable></View> : null}
       <View style={styles.notice}>
-        <Ionicons name="shield-checkmark-outline" size={21} color="#1b5fad" />
+        <Ionicons name="shield-checkmark-outline" size={21} color={OwnerPortalColors.orange} />
         <View style={styles.flex}>
           <Text style={styles.title}>{owner('ownerMenuManagementTitle')}</Text>
           <Text style={styles.body}>{owner('ownerMenuManagementIntro')}</Text>
@@ -266,7 +267,7 @@ export function OwnerMenuManagement({ restaurant, previewMode }: Props) {
           {item.editable ? (
             <View style={styles.photoActions}>
               <Pressable style={styles.photoButton} disabled={photoBusy === item.id || previewMode} onPress={() => void choosePhoto(item)}>
-                <Ionicons name="image-outline" size={17} color="#1b5fad" />
+                <Ionicons name="image-outline" size={17} color={OwnerPortalColors.orange} />
                 <Text style={styles.photoButtonText}>{photoBusy === item.id ? owner('ownerSaving') : owner('ownerMenuPhotoChoose')}</Text>
               </Pressable>
               {item.photoUrl ? <Pressable style={styles.photoRemove} disabled={photoBusy === item.id || previewMode} onPress={() => removePhoto(item)}><Text style={styles.deleteText}>{owner('ownerMenuPhotoRemove')}</Text></Pressable> : null}
@@ -277,7 +278,7 @@ export function OwnerMenuManagement({ restaurant, previewMode }: Props) {
           <TextInput style={styles.input} value={item.priceWon} editable={item.editable && !previewMode} onChangeText={(v) => updateItem(item.id!, { priceWon: v.replace(/[^0-9,]/g, '') })} keyboardType="numeric" placeholder={owner('ownerPriceKRW')} />
           <CategoryPicker value={item.category} disabled={!item.editable || previewMode} onChange={(category) => updateItem(item.id!, { category })} />
           <Pressable style={styles.availability} disabled={!item.editable || previewMode} onPress={() => updateItem(item.id!, { isAvailable: !item.isAvailable })}>
-            <Ionicons name={item.isAvailable ? 'checkbox' : 'square-outline'} size={20} color="#1b5fad" />
+            <Ionicons name={item.isAvailable ? 'checkbox' : 'square-outline'} size={20} color={OwnerPortalColors.orange} />
             <Text style={styles.body}>{item.isAvailable ? owner('ownerMenuAvailable') : owner('ownerMenuUnavailable')}</Text>
           </Pressable>
           {item.editable ? (
@@ -342,20 +343,20 @@ const styles = StyleSheet.create({
   content: { padding: 16, gap: 14 },
   loading: { padding: 30, alignItems: 'center', gap: 10 },
   card: { backgroundColor: '#fff', borderRadius: 14, padding: 16, gap: 11 },
-  notice: { backgroundColor: '#e8f0fb', borderRadius: 12, padding: 14, flexDirection: 'row', gap: 10, alignItems: 'flex-start' },
-  noticeText: { color: '#1b5fad', fontSize: 13, lineHeight: 19 },
+  notice: { backgroundColor: OwnerPortalColors.orangeTint, borderRadius: 12, padding: 14, flexDirection: 'row', gap: 10, alignItems: 'flex-start' },
+  noticeText: { color: OwnerPortalColors.orange, fontSize: 13, lineHeight: 19 },
   error: { backgroundColor: '#fff0ef', padding: 14, borderRadius: 12, gap: 8 },
   errorText: { color: '#a32620' },
-  title: { fontSize: 16, fontWeight: '800', color: '#14213d' },
-  subtitle: { fontSize: 14, fontWeight: '800', color: '#14213d' },
-  body: { fontSize: 13, color: '#536273', lineHeight: 19, flexShrink: 1 },
+  title: { fontSize: 16, fontWeight: '800', color: OwnerPortalColors.ink },
+  subtitle: { fontSize: 14, fontWeight: '800', color: OwnerPortalColors.ink },
+  body: { fontSize: 13, color: OwnerPortalColors.inkSoft, lineHeight: 19, flexShrink: 1 },
   muted: { fontSize: 12, color: '#8290a0' },
   menuPhoto: { width: '100%', height: 170, borderRadius: 10, backgroundColor: '#eef2f6' },
   photoActions: { flexDirection: 'row', alignItems: 'center', gap: 14 },
   photoButton: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 6 },
-  photoButtonText: { color: '#1b5fad', fontWeight: '700', fontSize: 13 },
+  photoButtonText: { color: OwnerPortalColors.orange, fontWeight: '700', fontSize: 13 },
   photoRemove: { paddingVertical: 6 },
-  input: { borderWidth: 1, borderColor: '#d5dde7', borderRadius: 10, paddingHorizontal: 12, paddingVertical: 10, color: '#14213d', fontSize: 14 },
+  input: { borderWidth: 1, borderColor: OwnerPortalColors.border, borderRadius: 10, paddingHorizontal: 12, paddingVertical: 10, color: OwnerPortalColors.ink, fontSize: 14 },
   rowBetween: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 8 },
   row: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   status: { fontSize: 11, fontWeight: '700', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 8, overflow: 'hidden' },
@@ -363,17 +364,17 @@ const styles = StyleSheet.create({
   pending: { color: '#8a5a00', backgroundColor: '#fff4df' },
   availability: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 4 },
   categories: { flexDirection: 'row', flexWrap: 'wrap', gap: 7 },
-  category: { borderWidth: 1, borderColor: '#d5dde7', borderRadius: 18, paddingHorizontal: 11, paddingVertical: 7 },
-  categorySelected: { borderColor: '#1b5fad', backgroundColor: '#e8f0fb' },
-  categoryText: { color: '#536273', fontSize: 12, fontWeight: '600' },
-  categoryTextSelected: { color: '#1b5fad' },
-  primary: { backgroundColor: '#1b5fad', borderRadius: 10, padding: 12, alignItems: 'center' },
+  category: { borderWidth: 1, borderColor: OwnerPortalColors.border, borderRadius: 18, paddingHorizontal: 11, paddingVertical: 7 },
+  categorySelected: { borderColor: OwnerPortalColors.orange, backgroundColor: OwnerPortalColors.orangeTint },
+  categoryText: { color: OwnerPortalColors.inkSoft, fontSize: 12, fontWeight: '600' },
+  categoryTextSelected: { color: OwnerPortalColors.orange },
+  primary: { backgroundColor: OwnerPortalColors.orange, borderRadius: 10, padding: 12, alignItems: 'center' },
   primaryText: { color: '#fff', fontWeight: '700' },
-  secondary: { borderWidth: 1, borderColor: '#1b5fad', borderRadius: 10, padding: 11, alignItems: 'center' },
-  secondaryText: { color: '#1b5fad', fontWeight: '700' },
+  secondary: { borderWidth: 1, borderColor: OwnerPortalColors.orange, borderRadius: 10, padding: 11, alignItems: 'center' },
+  secondaryText: { color: OwnerPortalColors.orange, fontWeight: '700' },
   delete: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 7, padding: 8 },
   deleteText: { color: '#b3261e', fontWeight: '700' },
   separator: { height: 1, backgroundColor: '#e8edf3' },
-  link: { color: '#1b5fad', fontWeight: '700' },
+  link: { color: OwnerPortalColors.orange, fontWeight: '700' },
   flex: { flex: 1 },
 });

@@ -27,8 +27,8 @@ import { signOutAndReturnToWelcome } from '@/logic/session-service';
 import { showAlert } from '@/components/show-alert';
 import { UserFacingError, userMessage } from '@/logic/user-error';
 
-const BLUE = '#1B5FAD';
-const NAVY = '#14213D';
+const BLUE = '#F26A21';
+const NAVY = '#171717';
 const MUTED = '#64748B';
 
 export default function OwnerLoginScreen() {
@@ -407,7 +407,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#E6ECF3',
-    shadowColor: '#19324D',
+    shadowColor: '#171717',
     shadowOpacity: 0.06,
     shadowRadius: 18,
     shadowOffset: { width: 0, height: 7 },
@@ -418,7 +418,7 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 13,
-    backgroundColor: '#EAF2FC',
+    backgroundColor: '#FFF0E7',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -479,9 +479,9 @@ const styles = StyleSheet.create({
     gap: 9,
     padding: 12,
     borderRadius: 12,
-    backgroundColor: '#EFF6FF',
+    backgroundColor: '#FFF6F0',
   },
-  infoText: { flex: 1, color: '#31577E', fontSize: 13, lineHeight: 19 },
+  infoText: { flex: 1, color: '#4B4B4B', fontSize: 13, lineHeight: 19 },
   testBox: {
     gap: 9,
     marginTop: 3,

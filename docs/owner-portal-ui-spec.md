@@ -7,7 +7,7 @@
 ## Design principles
 
 - Keep the Owner Portal inside the existing MUKJI mobile application.
-- Use a clean, light interface with MUKJI blue accents, consistent spacing, readable cards and clear status labels.
+- Use a clean, light interface with MUKJI orange, white and black accents, consistent spacing, readable cards and clear status labels.
 - Use Korean as the primary interface language and provide English support through the existing translation system.
 - Break onboarding into short steps. Show progress and preserve incomplete work as a draft.
 - Every screen must account for loading, empty, error and success states where applicable.
@@ -315,20 +315,31 @@
 
 ---
 
-## Related post-login screens (future phases)
+## PR9 — Post-login Owner Portal experience
 
-The following are part of the broader product plan but are not part of OP-01 to OP-10 implementation:
+The existing Owner Portal is organized as a professional workspace with a persistent left sidebar (navigation rail) and a main content area. The five destinations are Home, Restaurants, Menus, Reservations and More. On narrow mobile layouts, the rail may adapt to a compact navigation treatment while preserving the same destinations and information architecture. The visual reference is the approved MUKJI Owner Portal design board (Image 2), recoloured to use MUKJI orange, white and black rather than blue.
 
-- OP-11 Owner Dashboard.
-- OP-12 Business Selector.
-- OP-13 Branch Management.
-- OP-14 Restaurant Details.
-- OP-15 Menu Management.
-- OP-16 Food Suitability Management.
+- **Home:** existing owner dashboard data, application activity, linked-restaurant summary and quick actions. Do not invent analytics or reservation totals that are not returned by the existing repositories.
+- **Restaurants:** selected-restaurant context, restaurant profile, location, opening hours, facilities, photos and existing editing workflows.
+- **Menus:** existing menu items, prices, availability, photos, ingredient details and ingredient-review submission workflows.
+- **Reservations:** existing owner-wide booking list, refresh, customer-cancellation alerts and permitted owner responses, with client-side status filters.
+- **More:** account information, help/support information, terms/policies information, switch to customer mode and sign out. Do not present future features as working destinations.
+
+A restaurant selector remains visible above the content on every post-login tab. When an owner has multiple linked restaurants, it opens a selector; with one linked restaurant, it remains visible as context. Existing reservations continue to query the owner's linked restaurants according to the current repository contract.
+
+Owners without an approved restaurant link remain in the existing application/onboarding path. They can complete business information, upload supporting documents and submit a new-restaurant or existing-restaurant claim application. The five-tab management shell is shown only when the account has an owner-linked restaurant (or when the development preview resolves its sample restaurant). Uploading documents or submitting an application does not itself grant access or verify a restaurant.
+
+Shared visual tokens are defined in `mobile/src/constants/owner-portal-theme.ts`. The customer-facing portal is not part of this redesign and must retain its own appearance.
+
+## Wider roadmap (not part of PR9)
+
+The following remain future product ideas unless separately approved and implemented:
+
+- OP-12 Business Selector beyond the current restaurant selector.
+- OP-13 Full branch-management workflows.
 - OP-17 Document Centre.
 - OP-18 Team Management.
 - OP-19 Employee Access Requests.
-- OP-20 Account Settings.
 - OP-21 Change History.
 
 ## Data and security constraints
