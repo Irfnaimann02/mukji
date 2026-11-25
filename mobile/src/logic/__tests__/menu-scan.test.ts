@@ -114,6 +114,13 @@ describe('menu-scan', () => {
       expect(scanImageFrom({ uri: 'data:image/png;base64,QUJD' })).toEqual({ data: 'QUJD', mimeType: 'image/png' });
     });
 
+    it('trusts the photo bytes over the picker type (iPhone HEIC turned into JPEG)', () => {
+      expect(scanImageFrom({ uri: 'file:///a.heic', base64: '/9j/4AAQ', mimeType: 'image/heic' })).toEqual({
+        data: '/9j/4AAQ',
+        mimeType: 'image/jpeg',
+      });
+    });
+
     it('says what is wrong with a photo it cannot send', () => {
       expect(scanImageFrom({ uri: 'file:///a.jpg' })).toBe('no_data');
       expect(scanImageFrom({ uri: 'file:///a.heic', base64: 'AAAA', mimeType: 'image/heic' })).toBe('bad_type');

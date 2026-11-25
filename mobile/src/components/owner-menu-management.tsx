@@ -29,7 +29,12 @@ import { OwnerPortalColors } from '@/constants/owner-portal-theme';
 
 type Props = { restaurant: Restaurant; previewMode: boolean };
 const CATEGORIES: OwnerMenuCategory[] = ['main', 'side', 'drink', 'other'];
-const PICKER_OPTIONS: ImagePicker.ImagePickerOptions = { mediaTypes: 'images', quality: 0.8, allowsEditing: false };
+const PICKER_OPTIONS: ImagePicker.ImagePickerOptions = {
+  mediaTypes: 'images',
+  quality: 0.8,
+  allowsEditing: false,
+  preferredAssetRepresentationMode: ImagePicker.UIImagePickerPreferredAssetRepresentationMode.Compatible, // iPhone: JPEG, not HEIC
+};
 
 const VALIDATION_MESSAGES: Record<OwnerMenuValidationError, OwnerPortalTranslationKey> = {
   name_ko_required: 'ownerMenuValidation_name_ko_required',

@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -10,6 +11,7 @@ import {
   View,
 } from 'react-native';
 
+import { showAlert } from '@/components/show-alert';
 import type { Diet, Restaurant, Review, ReviewEligibility, VisitKind } from '@/data/types';
 import { useAuth } from '@/hooks/use-auth';
 import { useProfile } from '@/hooks/use-profile';
@@ -20,15 +22,15 @@ import {
   defaultReviewDiets,
   loadReviewEligibility,
   loadReviews,
+  loadReviewStars,
   postReview,
   REVIEW_BODY_MAX,
   REVIEW_DIETS,
   reviewErrorKey,
   starText,
-  loadReviewStars,
   summarizeStars,
 } from '@/logic/review-service';
-import { showAlert } from '@/components/show-alert';
+import { withTimeout } from '@/logic/with-timeout';
 
 // #52 Reviews after eating. Only people who ate here can write one:
 // a completed reservation, or a check-in within 100 m in the last 7 days.
@@ -126,14 +128,18 @@ export function ReviewSection({ restaurant }: { restaurant: Restaurant }) {
     if (checkingIn) return;
     setCheckingIn(true);
     try {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        showAlert(t('locationNeededTitle'), t('locationNeededBody'));
-        return;
+      // Web: the browser asks for location itself (some browsers have no permission API).
+      if (Platform.OS !== 'web') {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          showAlert(t('locationNeededTitle'), t('locationNeededBody'));
+          return;
+        }
       }
-      const position = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.High,
-      });
+      const position = await withTimeout(
+        Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High }),
+        15000,
+      );
       const result = await checkIn(restaurant.id, {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
