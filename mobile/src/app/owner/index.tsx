@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import { useEffect, useMemo, useState } from 'react';
+import type { ComponentRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Pressable,
@@ -18,6 +19,7 @@ import { OwnerMenuManagement } from '@/components/owner-menu-management';
 import { OwnerRestaurantManagement } from '@/components/owner-restaurant-management';
 import type { Restaurant } from '@/data/types';
 import { useAuth } from '@/hooks/use-auth';
+import { useProfile } from '@/hooks/use-profile';
 import { useTranslation } from '@/hooks/use-translation';
 import type { OwnerPortalTranslationKey } from '@/i18n/translations';
 import { continueAsGuest } from '@/logic/welcome-service';
@@ -32,9 +34,10 @@ import {
 } from '@/logic/owner-portal-service';
 import { showAlert } from '@/components/show-alert';
 import { userMessage } from '@/logic/user-error';
+import { OwnerPortalColors, OwnerPortalRadii, OwnerPortalSpacing } from '@/constants/owner-portal-theme';
 
+type PortalTab = 'home' | 'restaurants' | 'menus' | 'reservations' | 'more';
 
-type PortalTab = 'overview' | 'restaurant' | 'menu' | 'reservations' | 'settings';
 function Field({
   label,
   value,
@@ -59,7 +62,7 @@ function Field({
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        placeholderTextColor="#9aa5b1"
+        placeholderTextColor={OwnerPortalColors.muted}
         multiline={multiline}
         keyboardType={keyboardType}
         autoCapitalize={autoCapitalize}
@@ -90,12 +93,21 @@ function PrimaryButton({
   );
 }
 
+const tabs: { key: PortalTab; label: OwnerPortalTranslationKey; icon: keyof typeof Ionicons.glyphMap; activeIcon: keyof typeof Ionicons.glyphMap }[] = [
+  { key: 'home', label: 'ownerPortalHome', icon: 'home-outline', activeIcon: 'home' },
+  { key: 'restaurants', label: 'ownerPortalRestaurants', icon: 'storefront-outline', activeIcon: 'storefront' },
+  { key: 'menus', label: 'ownerPortalMenus', icon: 'restaurant-outline', activeIcon: 'restaurant' },
+  { key: 'reservations', label: 'ownerReservations', icon: 'calendar-outline', activeIcon: 'calendar' },
+  { key: 'more', label: 'ownerPortalMore', icon: 'ellipsis-horizontal', activeIcon: 'ellipsis-horizontal' },
+];
+
 export default function OwnerPortalScreen() {
   const auth = useAuth();
   const router = useRouter();
   const params = useLocalSearchParams<{ preview?: string }>();
   const previewMode = __DEV__ && params.preview === '1';
-  const { owner } = useTranslation();
+  const { owner, language } = useTranslation();
+  const { profile, setProfile } = useProfile();
 
   const [loading, setLoading] = useState(true);
   const [draftsLoading, setDraftsLoading] = useState(true);
@@ -104,8 +116,10 @@ export default function OwnerPortalScreen() {
   const [draftError, setDraftError] = useState('');
   const [ownedRestaurants, setOwnedRestaurants] = useState<Restaurant[]>([]);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState('');
-  const [activeTab, setActiveTab] = useState<PortalTab>('overview');
+  const [activeTab, setActiveTab] = useState<PortalTab>('home');
+  const [restaurantPickerOpen, setRestaurantPickerOpen] = useState(false);
   const [restaurantDrafts, setRestaurantDrafts] = useState<Record<string, RestaurantDraft>>({});
+  const contentScrollRef = useRef<ComponentRef<typeof ScrollView>>(null);
 
   const signedInAsOwner = auth.user !== null && !auth.isAnonymous;
   const userId = auth.user?.id ?? '';
@@ -155,7 +169,7 @@ export default function OwnerPortalScreen() {
     };
   }, [auth.ready, auth.isAnonymous, draftOwnerKey, previewMode, owner]);
 
-  // Restaurant ownership is assigned by the Mukji team in Supabase.
+  // Restaurant ownership is assigned by the MUKJI team in Supabase.
   useEffect(() => {
     let alive = true;
 
@@ -195,6 +209,11 @@ export default function OwnerPortalScreen() {
     };
   }, [auth.ready, auth.user?.id, signedInAsOwner, previewMode, owner]);
 
+  function changeTab(tab: PortalTab) {
+    setActiveTab(tab);
+    setRestaurantPickerOpen(false);
+    contentScrollRef.current?.scrollTo({ y: 0, animated: false });
+  }
 
   function updateOriginDraft(value: string) {
     if (!selectedRestaurant) return;
@@ -240,307 +259,422 @@ export default function OwnerPortalScreen() {
       await signOutAndReturnToWelcome();
       router.replace('/');
     } catch {
-      showAlert(
-        owner('ownerSignOutFailed'),
-        owner('ownerPleaseTryAgain'),
-      );
+      showAlert(owner('ownerSignOutFailed'), owner('ownerPleaseTryAgain'));
     }
   }
 
   function renderApplicationForm() {
     return (
       <View style={styles.content}>
+        <View style={styles.applicationIntro}>
+          <View style={styles.brandMark}><Ionicons name="restaurant" size={23} color={OwnerPortalColors.orange} /></View>
+          <Text style={styles.pageTitle}>{owner('ownerRestaurantOwnerApplication')}</Text>
+          <Text style={styles.bodyText}>{owner('ownerYourAccountIsSignedInButItIsNotLinkedToARestaurantYetYo6b975e40')}</Text>
+        </View>
         <OwnerDashboard restaurants={[]} previewMode={previewMode} />
         <View style={styles.noticeCard}>
-          <Ionicons name="information-circle-outline" size={24} color="#1b5fad" />
+          <Ionicons name="document-text-outline" size={23} color={OwnerPortalColors.orange} />
           <View style={styles.flex}>
-            <Text style={styles.cardTitle}>{owner('ownerRestaurantOwnerApplication')}</Text>
-            <Text style={styles.bodyText}>
-              {owner('ownerYourAccountIsSignedInButItIsNotLinkedToARestaurantYetYo6b975e40')}
-            </Text>
+            <Text style={styles.cardTitle}>{owner('ownerBusinessOnboarding')}</Text>
+            <Text style={styles.bodyText}>{owner('ownerRestaurantApplicationIntro')}</Text>
           </View>
         </View>
-        <PrimaryButton
-          title={owner('ownerBusinessOnboarding')}
-          onPress={() => router.push('/owner-business')}
-          disabled={draftsLoading}
-        />
-        <PrimaryButton
-          title={owner('ownerRestaurantApplicationTitle')}
-          onPress={() => router.push('/owner-restaurant-application')}
-          disabled={draftsLoading}
-        />
-        <Text style={styles.bodyText}>
-          {owner('ownerRestaurantApplicationIntro')}
-        </Text>
+        <PrimaryButton title={owner('ownerBusinessOnboarding')} onPress={() => router.push('/owner-business')} disabled={draftsLoading} />
+        <PrimaryButton title={owner('ownerRestaurantApplicationTitle')} onPress={() => router.push('/owner-restaurant-application')} disabled={draftsLoading} />
+        <Text style={styles.mutedText}>{owner('ownerForRestaurantOwnershipCertificationOrPublicDataCorrecti620066e6')}</Text>
         <Pressable
-          style={[styles.signOutButton, { borderColor: '#b8cce5', backgroundColor: '#eef4fb' }]}
-          onPress={() => {
-            void switchToUserMode().then(() => router.replace('/(tabs)/map'));
-          }}
+          style={styles.secondaryButton}
+          onPress={() => { void switchToUserMode().then(() => router.replace('/(tabs)/map')); }}
           accessibilityRole="button">
-          <Ionicons name="swap-horizontal-outline" size={20} color="#1b5fad" />
-          <Text style={[styles.signOutText, { color: '#1b5fad' }]}>
-            {owner('ownerSwitchToUserMode')}
-          </Text>
+          <Ionicons name="swap-horizontal-outline" size={19} color={OwnerPortalColors.orange} />
+          <Text style={styles.secondaryButtonText}>{owner('ownerSwitchToUserMode')}</Text>
         </Pressable>
       </View>
     );
   }
 
-  function renderOverview() {
+  function renderHome() {
     return (
-      <OwnerDashboard
-        restaurants={ownedRestaurants}
-        selectedRestaurant={selectedRestaurant}
-        previewMode={previewMode}
-      />
+      <View style={styles.screenContent}>
+        <OwnerDashboard restaurants={ownedRestaurants} selectedRestaurant={selectedRestaurant} previewMode={previewMode} />
+        <View style={styles.sectionBlock}>
+          <Text style={styles.sectionTitle}>{owner('ownerPortalQuickActions')}</Text>
+          <View style={styles.quickActions}>
+            <QuickAction icon="calendar-outline" label={owner('ownerReservations')} onPress={() => changeTab('reservations')} />
+            <QuickAction icon="restaurant-outline" label={owner('ownerMenu')} onPress={() => changeTab('menus')} />
+            <QuickAction icon="storefront-outline" label={owner('ownerRestaurant')} onPress={() => changeTab('restaurants')} />
+          </View>
+        </View>
+      </View>
     );
   }
 
-  function renderRestaurantEditor() {
+  function renderRestaurants() {
     return (
-      <>
-        <OwnerRestaurantManagement
-          restaurant={selectedRestaurant}
-          previewMode={previewMode}
-        />
+      <View style={styles.screenContent}>
+        <View style={styles.screenHeading}>
+          <Text style={styles.pageTitle}>{owner('ownerPortalRestaurants')}</Text>
+          <Text style={styles.mutedText}>{owner('ownerManageYourRestaurantInformation')}</Text>
+        </View>
+        {selectedRestaurant ? (
+          <View style={styles.restaurantSummaryCard}>
+            <View style={styles.restaurantSummaryIcon}><Ionicons name="storefront" size={24} color={OwnerPortalColors.orange} /></View>
+            <View style={styles.flex}>
+              <Text style={styles.restaurantName}>{selectedRestaurant.nameEn || selectedRestaurant.nameKo}</Text>
+              <Text style={styles.mutedText}>{selectedRestaurant.nameKo}</Text>
+              <Text style={styles.mutedText} numberOfLines={2}>{selectedRestaurant.address}</Text>
+            </View>
+            <View style={styles.activePill}><Text style={styles.activePillText}>{owner('ownerPortalLinked')}</Text></View>
+          </View>
+        ) : null}
+        <OwnerRestaurantManagement restaurant={selectedRestaurant} previewMode={previewMode} />
         {selectedRestaurant && activeDraft ? (
           <View style={styles.content}>
             <View style={styles.noticeCard}>
-              <Ionicons name="save-outline" size={22} color="#1b5fad" />
+              <Ionicons name="save-outline" size={21} color={OwnerPortalColors.orange} />
               <View style={styles.flex}>
                 <Text style={styles.cardTitle}>{owner('ownerLocalDraftEditor')}</Text>
                 <Text style={styles.bodyText}>{owner('ownerChangesHereDoNotUpdateThePublicRestaurantPage')}</Text>
               </View>
             </View>
             <View style={styles.card}>
-              <Field
-                label={owner('ownerIngredientOriginsOneItemPerLineItemCountry')}
-                value={activeDraft.originText}
-                onChangeText={updateOriginDraft}
-                multiline
-                placeholder={owner('ownerExampleBeefAustralia')}
-              />
+              <Field label={owner('ownerIngredientOriginsOneItemPerLineItemCountry')} value={activeDraft.originText} onChangeText={updateOriginDraft} multiline placeholder={owner('ownerExampleBeefAustralia')} />
             </View>
-            <PrimaryButton
-              title={saving ? owner('ownerSaving') : owner('ownerSaveLocalDraft')}
-              onPress={() => void saveRestaurantDraft()}
-              disabled={saving || draftsLoading}
-            />
+            <PrimaryButton title={saving ? owner('ownerSaving') : owner('ownerSaveLocalDraft')} onPress={() => void saveRestaurantDraft()} disabled={saving || draftsLoading} />
           </View>
         ) : null}
-      </>
+      </View>
     );
   }
 
-  function renderMenuEditor() {
+  function renderMenus() {
     if (!selectedRestaurant) return null;
-    return <OwnerMenuManagement restaurant={selectedRestaurant} previewMode={previewMode} />;
+    return (
+      <View style={styles.screenContent}>
+        <View style={styles.screenHeading}>
+          <Text style={styles.pageTitle}>{owner('ownerPortalMenus')}</Text>
+          <Text style={styles.mutedText}>{owner('ownerPortalMenuSubtitle')}</Text>
+        </View>
+        <OwnerMenuManagement restaurant={selectedRestaurant} previewMode={previewMode} />
+      </View>
+    );
   }
 
   function renderReservations() {
+    if (previewMode) {
+      return (
+        <View style={styles.screenContent}>
+          <View style={styles.screenHeading}>
+            <Text style={styles.pageTitle}>{owner('ownerReservations')}</Text>
+            <Text style={styles.mutedText}>Sample reservations for your presentation · Preview only</Text>
+          </View>
+          {[
+            { name: 'Minji Kim', time: 'Today · 18:30', guests: '2 guests', status: 'Awaiting response', color: '#FFF0E7' },
+            { name: 'Daniel Lee', time: 'Today · 19:00', guests: '4 guests', status: 'Confirmed', color: '#EAF5ED' },
+            { name: 'Aisha Rahman', time: 'Tomorrow · 12:30', guests: '3 guests', status: 'Awaiting response', color: '#FFF0E7' },
+            { name: 'Jisoo Park', time: 'Tomorrow · 19:30', guests: '5 guests', status: 'Confirmed', color: '#EAF5ED' },
+          ].map((booking, index) => (
+            <View key={`${booking.name}-${index}`} style={styles.previewBooking}>
+              <View style={styles.previewBookingAvatar}><Ionicons name="person" size={20} color={OwnerPortalColors.orange} /></View>
+              <View style={styles.flex}>
+                <Text style={styles.cardTitle}>{booking.name}</Text>
+                <Text style={styles.mutedText}>{booking.time} · {booking.guests}</Text>
+                <Text style={styles.previewBookingStatus}>{booking.status}</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={19} color={OwnerPortalColors.muted} />
+            </View>
+          ))}
+          <View style={styles.previewFootnote}><Ionicons name="information-circle-outline" size={17} color={OwnerPortalColors.orange} /><Text style={styles.mutedText}>These are demonstration records. Real reservations and owner responses remain connected to the existing booking system.</Text></View>
+        </View>
+      );
+    }
     return (
-      <View style={styles.content}>
-        {/* #50 booking requests from Supabase; a customer's cancellation shows as an alert */}
+      <View style={styles.screenContent}>
+        <Text style={[styles.mutedText, { paddingHorizontal: OwnerPortalSpacing.md }]}>{owner('ownerPortalReservationsSubtitle')}</Text>
+        {ownedRestaurants.length > 1 ? <Text style={[styles.mutedText, { paddingHorizontal: OwnerPortalSpacing.md }]}>{owner('ownerPortalReservationsAllBranchesNote')}</Text> : null}
+        {/* Keep the established owner-wide reservation query and response rules. */}
         <OwnerReservations restaurants={ownedRestaurants} />
       </View>
     );
   }
 
-  function renderSettings() {
+  function renderMore() {
     return (
-      <View style={styles.content}>
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>{owner('ownerAccount')}</Text>
-          <Text style={styles.bodyText}>{auth.email ?? '-'}</Text>
-          <Text style={styles.mutedText}>
-            {owner('ownerOwnerAccessIsBasedOnRestaurantLinksAssignedByTheMukjiTeam')}
-          </Text>
+      <View style={styles.screenContent}>
+        <View style={styles.screenHeading}>
+          <Text style={styles.pageTitle}>{owner('ownerPortalMore')}</Text>
+          <Text style={styles.mutedText}>{owner('ownerPortalMoreSubtitle')}</Text>
         </View>
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>{owner('ownerHelpAndSupport')}</Text>
-          <Text style={styles.bodyText}>
-            {owner('ownerForRestaurantOwnershipCertificationOrPublicDataCorrecti620066e6')}
-          </Text>
+        <View style={styles.accountCard}>
+          <View style={styles.accountAvatar}><Ionicons name="person" size={23} color={OwnerPortalColors.orange} /></View>
+          <View style={styles.flex}>
+            <Text style={styles.cardTitle}>{owner('ownerAccount')}</Text>
+            <Text style={styles.mutedText}>{auth.email ?? '-'}</Text>
+          </View>
         </View>
-        <Pressable
-          style={[styles.signOutButton, { borderColor: '#b8cce5', backgroundColor: '#eef4fb' }]}
-          onPress={() => {
-            void switchToUserMode().then(() => router.replace('/(tabs)/map'));
-          }}
-          accessibilityRole="button">
-          <Ionicons name="swap-horizontal-outline" size={20} color="#1b5fad" />
-          <Text style={[styles.signOutText, { color: '#1b5fad' }]}>{owner('ownerSwitchToUserMode')}</Text>
-        </Pressable>
-        <Pressable style={styles.signOutButton} onPress={() => void handleSignOut()} accessibilityRole="button">
-          <Ionicons name="log-out-outline" size={20} color="#b3261e" />
-          <Text style={styles.signOutText}>{owner('ownerSignOut')}</Text>
-        </Pressable>
+        <View style={styles.menuCard}>
+          <Pressable
+            style={styles.moreAction}
+            onPress={() => setProfile({ ...profile, language: language === 'en' ? 'ko' : 'en' })}
+            accessibilityRole="button"
+            accessibilityLabel={language === 'en' ? 'Switch language to Korean' : '언어를 영어로 변경'}>
+            <Ionicons name="language-outline" size={21} color={OwnerPortalColors.orange} />
+            <View style={styles.flex}>
+              <Text style={styles.moreActionText}>{language === 'en' ? 'Language / 언어' : '언어 / Language'}</Text>
+              <Text style={styles.mutedText}>{language === 'en' ? 'English' : '한국어'}</Text>
+            </View>
+            <View style={styles.languagePill}><Text style={styles.languagePillText}>{language.toUpperCase()}</Text></View>
+          </Pressable>
+          <View style={styles.rowDivider} />
+          <MoreRow icon="help-circle-outline" label={owner('ownerHelpAndSupport')} />
+          <View style={styles.rowDivider} />
+          <MoreRow icon="document-text-outline" label={owner('ownerPortalTerms')} />
+        </View>
+        <View style={styles.menuCard}>
+          <Pressable style={styles.moreAction} onPress={() => { void switchToUserMode().then(() => router.replace('/(tabs)/map')); }} accessibilityRole="button">
+            <Ionicons name="swap-horizontal-outline" size={21} color={OwnerPortalColors.orange} />
+            <Text style={styles.moreActionText}>{owner('ownerSwitchToUserMode')}</Text>
+            <Ionicons name="chevron-forward" size={18} color={OwnerPortalColors.muted} />
+          </Pressable>
+          <View style={styles.rowDivider} />
+          <Pressable style={styles.moreAction} onPress={() => void handleSignOut()} accessibilityRole="button">
+            <Ionicons name="log-out-outline" size={21} color={OwnerPortalColors.danger} />
+            <Text style={[styles.moreActionText, { color: OwnerPortalColors.danger }]}>{owner('ownerSignOut')}</Text>
+            <Ionicons name="chevron-forward" size={18} color={OwnerPortalColors.muted} />
+          </Pressable>
+        </View>
+        <View style={styles.brandFooter}>
+          <View style={styles.brandMark}><Ionicons name="restaurant" size={24} color={OwnerPortalColors.orange} /></View>
+          <Text style={styles.brandFooterTitle}>MUKJI</Text>
+          <Text style={styles.mutedText}>{owner('ownerPortalFooter')}</Text>
+        </View>
       </View>
     );
   }
 
-  const tabs: { key: PortalTab; label: OwnerPortalTranslationKey; icon: keyof typeof Ionicons.glyphMap }[] = [
-    { key: 'overview', label: 'ownerOverview', icon: 'grid-outline' },
-    { key: 'restaurant', label: 'ownerRestaurant', icon: 'storefront-outline' },
-    { key: 'menu', label: 'ownerMenu', icon: 'restaurant-outline' },
-    { key: 'reservations', label: 'ownerReservations', icon: 'calendar-outline' },
-    { key: 'settings', label: 'ownerSettings', icon: 'settings-outline' },
-  ];
+  const activeContent = () => {
+    switch (activeTab) {
+      case 'home': return renderHome();
+      case 'restaurants': return renderRestaurants();
+      case 'menus': return renderMenus();
+      case 'reservations': return renderReservations();
+      case 'more': return renderMore();
+      default: return renderHome();
+    }
+  };
 
   return (
-    <SafeAreaView style={styles.screen} edges={['bottom']}>
-      <Stack.Screen options={{ headerShown: true, title: owner('ownerMukjiOwnerPortal') }} />
-      <ScrollView contentContainerStyle={styles.page} keyboardShouldPersistTaps="handled">
-        {previewMode && (
-          <View style={[styles.noticeCard, { margin: 16, marginBottom: 0 }]}>
-            <Ionicons name="eye-outline" size={22} color="#1b5fad" />
-            <View style={styles.flex}>
-              <Text style={styles.cardTitle}>{owner('ownerTemporaryPreviewNotOwnerAccess')}</Text>
-              <Text style={styles.bodyText}>{owner('ownerYouCanInspectTheOwnerDashboardAndEditLocalSampleDraftsN85e67155')}</Text>
-              <Pressable onPress={() => router.replace('/(tabs)/profile')} accessibilityRole="button">
-                <Text style={[styles.secondaryButtonText, { marginTop: 8 }]}>{owner('ownerExitPreview')}</Text>
-              </Pressable>
-            </View>
+    <SafeAreaView style={styles.screen} edges={['top', 'bottom']}>
+      <Stack.Screen options={{ headerShown: false }} />
+      {!auth.ready || loading || draftsLoading ? (
+        <View style={styles.loading}>
+          <ActivityIndicator size="large" color={OwnerPortalColors.orange} />
+          <Text style={styles.mutedText}>{owner('ownerLoadingOwnerPortal')}</Text>
+        </View>
+      ) : !signedInAsOwner && !previewMode ? (
+        <View style={styles.emptyCard}>
+          <Ionicons name="lock-closed-outline" size={48} color={OwnerPortalColors.orange} />
+          <Text style={styles.cardTitle}>{owner('ownerOwnerSignInRequired')}</Text>
+          <Text style={styles.bodyText}>{owner('ownerSignInWithYourRestaurantOwnerEmailToContinue')}</Text>
+          <PrimaryButton title={owner('ownerGoToOwnerLogin')} onPress={() => router.replace('/owner-login')} />
+          <PrimaryButton title={owner('ownerBackToUserModeContinueAsGuest')} onPress={() => void handleContinueAsGuest()} />
+        </View>
+      ) : portalError ? (
+        <View style={styles.emptyCard}>
+          <Ionicons name="alert-circle-outline" size={42} color={OwnerPortalColors.danger} />
+          <Text style={styles.cardTitle}>{owner('ownerCouldNotLoadOwnerInformation')}</Text>
+          <Text style={styles.bodyText}>{portalError}</Text>
+          <PrimaryButton title={owner('ownerTryAgain')} onPress={() => router.replace('/owner')} />
+        </View>
+      ) : draftError ? (
+        <View style={styles.emptyCard}>
+          <Ionicons name="alert-circle-outline" size={42} color={OwnerPortalColors.danger} />
+          <Text style={styles.cardTitle}>{owner('ownerCouldNotLoadSavedDrafts')}</Text>
+          <Text style={styles.bodyText}>{draftError}</Text>
+          <PrimaryButton title={owner('ownerContinueWithoutDrafts')} onPress={() => setDraftError('')} />
+        </View>
+      ) : ownedRestaurants.length === 0 ? (
+        <ScrollView contentContainerStyle={styles.page} keyboardShouldPersistTaps="handled">
+          {previewMode ? <PreviewNotice onExit={() => router.replace('/(tabs)/profile')} owner={owner} /> : null}
+          {renderApplicationForm()}
+        </ScrollView>
+      ) : (
+        <View style={styles.portalLayout}>
+          <View style={styles.sidebar}>
+            <View style={styles.sidebarBrand}><Ionicons name="restaurant" size={23} color="#FFFFFF" /></View>
+            {tabs.map((tab) => {
+              const active = activeTab === tab.key;
+              return (
+                <Pressable key={tab.key} onPress={() => changeTab(tab.key)} style={[styles.sidebarItem, active && styles.sidebarItemActive]} accessibilityRole="button" accessibilityState={{ selected: active }} accessibilityLabel={owner(tab.label)}>
+                  <Ionicons name={active ? tab.activeIcon : tab.icon} size={21} color={active ? '#FFFFFF' : '#B8B8B8'} />
+                  <Text style={[styles.sidebarLabel, active && styles.sidebarLabelActive]} numberOfLines={1}>{owner(tab.label)}</Text>
+                </Pressable>
+              );
+            })}
+            <View style={styles.sidebarSpacer} />
+            <Ionicons name="person-circle-outline" size={27} color="#FFFFFF" />
           </View>
-        )}
-        {!auth.ready || loading || draftsLoading ? (
-          <View style={styles.loading}>
-            <ActivityIndicator size="large" color="#1b5fad" />
-            <Text style={styles.mutedText}>{owner('ownerLoadingOwnerPortal')}</Text>
-          </View>
-        ) : !signedInAsOwner && !previewMode ? (
-          <View style={styles.emptyCard}>
-            <Ionicons name="lock-closed-outline" size={48} color="#1b5fad" />
-            <Text style={styles.cardTitle}>{owner('ownerOwnerSignInRequired')}</Text>
-            <Text style={styles.bodyText}>{owner('ownerSignInWithYourRestaurantOwnerEmailToContinue')}</Text>
-            <PrimaryButton title={owner('ownerGoToOwnerLogin')} onPress={() => router.replace('/owner-login')} />
-            <PrimaryButton
-              title={owner('ownerBackToUserModeContinueAsGuest')}
-              onPress={() => void handleContinueAsGuest()}
-            />
-          </View>
-        ) : portalError ? (
-          <View style={styles.emptyCard}>
-            <Ionicons name="alert-circle-outline" size={42} color="#b3261e" />
-            <Text style={styles.cardTitle}>{owner('ownerCouldNotLoadOwnerInformation')}</Text>
-            <Text style={styles.bodyText}>{portalError}</Text>
-            <PrimaryButton title={owner('ownerTryAgain')} onPress={() => router.replace('/owner')} />
-          </View>
-        ) : draftError ? (
-          <View style={styles.emptyCard}>
-            <Ionicons name="alert-circle-outline" size={42} color="#b3261e" />
-            <Text style={styles.cardTitle}>{owner('ownerCouldNotLoadSavedDrafts')}</Text>
-            <Text style={styles.bodyText}>{draftError}</Text>
-            <PrimaryButton title={owner('ownerContinueWithoutDrafts')} onPress={() => setDraftError('')} />
-          </View>
-        ) : ownedRestaurants.length === 0 ? (
-          renderApplicationForm()
-        ) : (
-          <>
-            <View style={styles.topHeader}>
-              <View style={styles.flex}>
-                <Text style={styles.pageTitle}>{owner('ownerOwnerPortal')}</Text>
-                <Text style={styles.mutedText}>{owner('ownerManageYourRestaurantInformation')}</Text>
+          <ScrollView style={styles.mainWorkspace} ref={contentScrollRef} contentContainerStyle={styles.page} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+            <View style={styles.brandHeader}>
+              <View style={styles.brandWordmark}>
+                <View style={styles.brandMarkSmall}><Ionicons name="restaurant" size={17} color="#fff" /></View>
+                <Text style={styles.brandName}>MUKJI</Text>
               </View>
-              <View style={styles.ownerAvatar}><Ionicons name="person" size={21} color="#1b5fad" /></View>
+              <View style={styles.headerRight}>
+                {previewMode ? <View style={styles.previewPill}><Text style={styles.previewPillText}>PREVIEW</Text></View> : null}
+                <View style={styles.ownerAvatar}><Ionicons name="person" size={19} color={OwnerPortalColors.orange} /></View>
+              </View>
             </View>
-
-            {ownedRestaurants.length > 1 && (
-              <View style={styles.restaurantPicker}>
-                <Text style={styles.fieldLabel}>{owner('ownerYourRestaurants')}</Text>
+            {previewMode ? <PreviewNotice onExit={() => router.replace('/(tabs)/profile')} owner={owner} /> : null}
+            <Pressable
+              style={styles.restaurantSelector}
+              onPress={() => ownedRestaurants.length > 1 && setRestaurantPickerOpen((open) => !open)}
+              accessibilityRole={ownedRestaurants.length > 1 ? 'button' : undefined}
+              accessibilityLabel={owner('ownerPortalSelectedRestaurant')}>
+              <View style={styles.selectorIcon}><Ionicons name="storefront" size={23} color={OwnerPortalColors.orange} /></View>
+              <View style={styles.flex}>
+                <Text style={styles.selectorName} numberOfLines={1}>{selectedRestaurant?.nameEn || selectedRestaurant?.nameKo || owner('ownerPortalSelectedRestaurant')}</Text>
+                <Text style={styles.selectorSub} numberOfLines={1}>{selectedRestaurant?.nameKo || selectedRestaurant?.address || ''}</Text>
+              </View>
+              {ownedRestaurants.length > 1 ? <Ionicons name={restaurantPickerOpen ? 'chevron-up' : 'chevron-down'} size={20} color="#fff" /> : null}
+            </Pressable>
+            {restaurantPickerOpen ? (
+              <View style={styles.restaurantDropdown}>
                 {ownedRestaurants.map((restaurant) => (
                   <Pressable
                     key={restaurant.id}
-                    onPress={() => setSelectedRestaurantId(restaurant.id)}
-                    style={[styles.restaurantChoice, selectedRestaurant?.id === restaurant.id && styles.restaurantChoiceActive]}>
+                    onPress={() => { setSelectedRestaurantId(restaurant.id); setRestaurantPickerOpen(false); }}
+                    style={[styles.dropdownItem, selectedRestaurant?.id === restaurant.id && styles.dropdownItemActive]}
+                    accessibilityRole="button">
                     <View style={styles.flex}>
-                      <Text style={styles.restaurantName}>{restaurant.nameEn}</Text>
+                      <Text style={styles.restaurantName}>{restaurant.nameEn || restaurant.nameKo}</Text>
                       <Text style={styles.mutedText}>{restaurant.nameKo}</Text>
                     </View>
-                    <Ionicons name={selectedRestaurant?.id === restaurant.id ? 'radio-button-on' : 'radio-button-off'} size={21} color="#1b5fad" />
+                    {selectedRestaurant?.id === restaurant.id ? <Ionicons name="checkmark-circle" size={21} color={OwnerPortalColors.orange} /> : null}
                   </Pressable>
                 ))}
               </View>
-            )}
-
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.tabRow}>
-              {tabs.map((tab) => (
-                <Pressable key={tab.key} onPress={() => setActiveTab(tab.key)} style={[styles.tabButton, activeTab === tab.key && styles.tabButtonActive]}>
-                  <Ionicons name={tab.icon} size={17} color={activeTab === tab.key ? '#fff' : '#6b7a8d'} />
-                  <Text style={[styles.tabButtonText, activeTab === tab.key && styles.tabButtonTextActive]}>{owner(tab.label)}</Text>
-                </Pressable>
-              ))}
-            </ScrollView>
-
-            {activeTab === 'overview' && renderOverview()}
-            {activeTab === 'restaurant' && renderRestaurantEditor()}
-            {activeTab === 'menu' && renderMenuEditor()}
-            {activeTab === 'reservations' && renderReservations()}
-            {activeTab === 'settings' && renderSettings()}
-          </>
-        )}
-      </ScrollView>
+            ) : null}
+            {activeContent()}
+          </ScrollView>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
 
+function QuickAction({ icon, label, onPress }: { icon: keyof typeof Ionicons.glyphMap; label: string; onPress: () => void }) {
+  return (
+    <Pressable style={styles.quickAction} onPress={onPress} accessibilityRole="button">
+      <View style={styles.quickActionIcon}><Ionicons name={icon} size={22} color={OwnerPortalColors.orange} /></View>
+      <Text style={styles.quickActionLabel}>{label}</Text>
+      <Ionicons name="chevron-forward" size={16} color={OwnerPortalColors.muted} />
+    </Pressable>
+  );
+}
+
+function MoreRow({ icon, label }: { icon: keyof typeof Ionicons.glyphMap; label: string }) {
+  return (
+    <View style={styles.moreAction}>
+      <Ionicons name={icon} size={20} color={OwnerPortalColors.inkSoft} />
+      <Text style={styles.moreActionText}>{label}</Text>
+    </View>
+  );
+}
+
+function PreviewNotice({ onExit, owner }: { onExit: () => void; owner: (key: OwnerPortalTranslationKey) => string }) {
+  return (
+    <View style={styles.previewNotice}>
+      <Ionicons name="eye-outline" size={20} color={OwnerPortalColors.orange} />
+      <View style={styles.flex}>
+        <Text style={styles.cardTitle}>{owner('ownerTemporaryPreviewNotOwnerAccess')}</Text>
+        <Text style={styles.bodyText}>{owner('ownerYouCanInspectTheOwnerDashboardAndEditLocalSampleDraftsN85e67155')}</Text>
+        <Pressable onPress={onExit} accessibilityRole="button"><Text style={styles.previewExit}>{owner('ownerExitPreview')}</Text></Pressable>
+      </View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: '#f4f7fa' },
-  page: { paddingBottom: 36 },
+  screen: { flex: 1, backgroundColor: OwnerPortalColors.canvas },
+  portalLayout: { flex: 1, flexDirection: 'row' },
+  sidebar: { width: 82, backgroundColor: '#202124', alignItems: 'center', paddingTop: 14, paddingBottom: 14, gap: 12 },
+  sidebarBrand: { width: 44, height: 44, borderRadius: 14, backgroundColor: OwnerPortalColors.orange, alignItems: 'center', justifyContent: 'center', marginBottom: 10 },
+  sidebarItem: { width: 70, minHeight: 58, borderRadius: 12, alignItems: 'center', justifyContent: 'center', gap: 4, paddingHorizontal: 3 },
+  sidebarItemActive: { backgroundColor: OwnerPortalColors.orange },
+  sidebarLabel: { color: '#B8B8B8', fontSize: 9, fontWeight: '700', textAlign: 'center' },
+  sidebarLabelActive: { color: '#FFFFFF' },
+  sidebarSpacer: { flex: 1 },
+  mainWorkspace: { flex: 1 },
+  languagePill: { paddingHorizontal: 10, paddingVertical: 6, borderRadius: 20, backgroundColor: OwnerPortalColors.orangeSoft },
+  languagePillText: { color: OwnerPortalColors.orangeDark, fontSize: 11, fontWeight: '900' },
+  previewBooking: { marginHorizontal: OwnerPortalSpacing.md, padding: 14, borderRadius: 15, borderWidth: 1, borderColor: OwnerPortalColors.border, backgroundColor: '#FFFFFF', flexDirection: 'row', alignItems: 'center', gap: 12 },
+  previewBookingAvatar: { width: 42, height: 42, borderRadius: 14, backgroundColor: OwnerPortalColors.orangeSoft, alignItems: 'center', justifyContent: 'center' },
+  previewBookingStatus: { color: OwnerPortalColors.orangeDark, fontSize: 11, fontWeight: '800', marginTop: 4 },
+  previewFootnote: { marginHorizontal: OwnerPortalSpacing.md, padding: 12, borderRadius: 12, backgroundColor: OwnerPortalColors.orangeTint, flexDirection: 'row', gap: 8, alignItems: 'flex-start' },
+  page: { paddingBottom: OwnerPortalSpacing.xl },
   flex: { flex: 1 },
-  loading: { padding: 40, alignItems: 'center', gap: 12 },
-  content: { padding: 16, gap: 14 },
-  topHeader: { paddingHorizontal: 16, paddingTop: 18, paddingBottom: 12, flexDirection: 'row', alignItems: 'center', gap: 12 },
-  pageTitle: { fontSize: 25, fontWeight: '800', color: '#14213d' },
-  ownerAvatar: { width: 44, height: 44, borderRadius: 22, backgroundColor: '#e8f0fb', alignItems: 'center', justifyContent: 'center' },
-  heroCard: { padding: 20, borderRadius: 18, backgroundColor: '#1b5fad', gap: 6 },
-  eyebrow: { color: '#d9e8fa', fontSize: 11, fontWeight: '800', letterSpacing: 1 },
-  heroTitle: { color: '#fff', fontSize: 23, fontWeight: '800' },
-  heroSubtitle: { color: '#e8f0fb', fontSize: 15 },
-  heroAddress: { color: '#e8f0fb', fontSize: 12, marginTop: 5 },
-  statsRow: { flexDirection: 'row', gap: 12 },
-  statCard: { flex: 1, padding: 16, backgroundColor: '#fff', borderRadius: 14, gap: 4 },
-  statNumber: { fontSize: 25, fontWeight: '800', color: '#14213d' },
-  statLabel: { fontSize: 12, color: '#6b7a8d' },
-  card: { backgroundColor: '#fff', padding: 16, borderRadius: 14, gap: 12 },
-  cardTitle: { color: '#14213d', fontSize: 16, fontWeight: '700' },
-  sectionTitle: { color: '#14213d', fontSize: 18, fontWeight: '800' },
-  bodyText: { color: '#536273', fontSize: 13, lineHeight: 20 },
-  mutedText: { color: '#8290a0', fontSize: 12, lineHeight: 18 },
-  noticeCard: { backgroundColor: '#e8f0fb', padding: 15, borderRadius: 14, flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
-  warningCard: { backgroundColor: '#fff4df', padding: 15, borderRadius: 14, gap: 7 },
-  warningTitle: { color: '#8a5a00', fontWeight: '800', fontSize: 14 },
+  loading: { flex: 1, padding: 40, alignItems: 'center', justifyContent: 'center', gap: 12, backgroundColor: OwnerPortalColors.canvas },
+  content: { padding: OwnerPortalSpacing.md, gap: OwnerPortalSpacing.md },
+  screenContent: { paddingBottom: OwnerPortalSpacing.xl, gap: OwnerPortalSpacing.md },
+  brandHeader: { paddingHorizontal: OwnerPortalSpacing.md, paddingTop: 8, paddingBottom: 13, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  brandWordmark: { flexDirection: 'row', alignItems: 'center', gap: 9 },
+  brandMarkSmall: { width: 31, height: 31, borderRadius: 10, backgroundColor: OwnerPortalColors.orange, alignItems: 'center', justifyContent: 'center' },
+  brandName: { color: OwnerPortalColors.ink, fontSize: 21, fontWeight: '900', letterSpacing: 1.2 },
+  headerRight: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  ownerAvatar: { width: 38, height: 38, borderRadius: 19, backgroundColor: OwnerPortalColors.orangeSoft, alignItems: 'center', justifyContent: 'center' },
+  previewPill: { backgroundColor: OwnerPortalColors.orangeSoft, borderRadius: 20, paddingHorizontal: 10, paddingVertical: 6 },
+  previewPillText: { color: OwnerPortalColors.orangeDark, fontSize: 9, fontWeight: '900', letterSpacing: 0.7 },
+  restaurantSelector: { marginHorizontal: OwnerPortalSpacing.md, marginBottom: OwnerPortalSpacing.md, backgroundColor: OwnerPortalColors.orange, borderRadius: OwnerPortalRadii.lg, padding: 13, flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: 76 },
+  selectorIcon: { width: 44, height: 44, borderRadius: 13, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' },
+  selectorName: { color: '#fff', fontSize: 15, fontWeight: '800' },
+  selectorSub: { color: '#fff3eb', fontSize: 11, marginTop: 3 },
+  restaurantDropdown: { marginHorizontal: OwnerPortalSpacing.md, marginTop: -7, marginBottom: OwnerPortalSpacing.md, backgroundColor: '#fff', borderRadius: OwnerPortalRadii.md, borderWidth: 1, borderColor: OwnerPortalColors.border, padding: 6 },
+  dropdownItem: { padding: 12, flexDirection: 'row', alignItems: 'center', borderRadius: 10 },
+  dropdownItemActive: { backgroundColor: OwnerPortalColors.orangeTint },
+  screenHeading: { paddingHorizontal: OwnerPortalSpacing.md, paddingTop: 5, gap: 4 },
+  pageTitle: { color: OwnerPortalColors.ink, fontSize: 23, fontWeight: '900', letterSpacing: -0.4 },
+  sectionBlock: { paddingHorizontal: OwnerPortalSpacing.md, gap: 11 },
+  sectionTitle: { color: OwnerPortalColors.ink, fontSize: 16, fontWeight: '800' },
+  quickActions: { gap: 9 },
+  quickAction: { backgroundColor: '#fff', borderRadius: OwnerPortalRadii.md, borderWidth: 1, borderColor: OwnerPortalColors.border, padding: 12, flexDirection: 'row', alignItems: 'center', gap: 11, minHeight: 62 },
+  quickActionIcon: { width: 38, height: 38, borderRadius: 11, backgroundColor: OwnerPortalColors.orangeTint, alignItems: 'center', justifyContent: 'center' },
+  quickActionLabel: { color: OwnerPortalColors.ink, fontSize: 13, fontWeight: '700', flex: 1 },
+  restaurantSummaryCard: { marginHorizontal: OwnerPortalSpacing.md, backgroundColor: '#fff', borderRadius: OwnerPortalRadii.lg, borderWidth: 1, borderColor: OwnerPortalColors.border, padding: 13, flexDirection: 'row', alignItems: 'center', gap: 11 },
+  restaurantSummaryIcon: { width: 46, height: 46, borderRadius: 13, backgroundColor: OwnerPortalColors.orangeTint, alignItems: 'center', justifyContent: 'center' },
+  restaurantName: { color: OwnerPortalColors.ink, fontSize: 14, fontWeight: '800' },
+  activePill: { backgroundColor: '#e6f5eb', paddingHorizontal: 9, paddingVertical: 5, borderRadius: 20 },
+  activePillText: { color: '#247443', fontSize: 10, fontWeight: '800' },
+  accountCard: { marginHorizontal: OwnerPortalSpacing.md, padding: 15, backgroundColor: '#fff', borderRadius: OwnerPortalRadii.lg, borderWidth: 1, borderColor: OwnerPortalColors.border, flexDirection: 'row', alignItems: 'center', gap: 12 },
+  accountAvatar: { width: 44, height: 44, borderRadius: 22, backgroundColor: OwnerPortalColors.orangeTint, alignItems: 'center', justifyContent: 'center' },
+  menuCard: { marginHorizontal: OwnerPortalSpacing.md, paddingHorizontal: 14, backgroundColor: '#fff', borderRadius: OwnerPortalRadii.lg, borderWidth: 1, borderColor: OwnerPortalColors.border },
+  moreAction: { minHeight: 54, flexDirection: 'row', alignItems: 'center', gap: 12 },
+  moreActionText: { flex: 1, color: OwnerPortalColors.ink, fontSize: 13, fontWeight: '600' },
+  rowDivider: { height: 1, backgroundColor: OwnerPortalColors.divider },
+  brandFooter: { alignItems: 'center', paddingVertical: 23, gap: 5 },
+  brandMark: { width: 48, height: 48, borderRadius: 15, backgroundColor: OwnerPortalColors.orangeTint, alignItems: 'center', justifyContent: 'center' },
+  brandFooterTitle: { color: OwnerPortalColors.ink, fontSize: 20, fontWeight: '900', letterSpacing: 1 },
+  bottomNavigation: { minHeight: 67, backgroundColor: '#fff', borderTopWidth: 1, borderTopColor: OwnerPortalColors.border, flexDirection: 'row', paddingHorizontal: 4, paddingTop: 7, paddingBottom: 3 },
+  navItem: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 3, position: 'relative' },
+  navLabel: { color: OwnerPortalColors.muted, fontSize: 9, fontWeight: '600' },
+  navLabelActive: { color: OwnerPortalColors.orange, fontWeight: '900' },
+  navIndicator: { position: 'absolute', top: -7, width: 25, height: 3, borderRadius: 2, backgroundColor: OwnerPortalColors.orange },
+  previewNotice: { marginHorizontal: OwnerPortalSpacing.md, marginBottom: 12, padding: 13, borderRadius: OwnerPortalRadii.md, backgroundColor: OwnerPortalColors.orangeTint, flexDirection: 'row', alignItems: 'flex-start', gap: 10 },
+  previewExit: { color: OwnerPortalColors.orangeDark, fontSize: 12, fontWeight: '800', marginTop: 7 },
+  applicationIntro: { alignItems: 'flex-start', gap: 10, paddingVertical: 9 },
+  emptyCard: { flex: 1, margin: 16, padding: 24, borderRadius: OwnerPortalRadii.lg, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', gap: 12 },
+  card: { backgroundColor: '#fff', padding: 16, borderRadius: OwnerPortalRadii.md, gap: 12, borderWidth: 1, borderColor: OwnerPortalColors.border },
+  cardTitle: { color: OwnerPortalColors.ink, fontSize: 15, fontWeight: '800' },
+  bodyText: { color: OwnerPortalColors.inkSoft, fontSize: 13, lineHeight: 20 },
+  mutedText: { color: OwnerPortalColors.muted, fontSize: 12, lineHeight: 18 },
+  noticeCard: { backgroundColor: OwnerPortalColors.orangeTint, padding: 15, borderRadius: OwnerPortalRadii.md, flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
   field: { gap: 6 },
-  fieldLabel: { color: '#344256', fontSize: 13, fontWeight: '700' },
-  input: { borderWidth: 1, borderColor: '#d5dde7', backgroundColor: '#fff', borderRadius: 10, paddingHorizontal: 12, paddingVertical: 11, color: '#14213d', fontSize: 14 },
+  fieldLabel: { color: OwnerPortalColors.inkSoft, fontSize: 13, fontWeight: '700' },
+  input: { borderWidth: 1, borderColor: OwnerPortalColors.border, backgroundColor: '#fff', borderRadius: 10, paddingHorizontal: 12, paddingVertical: 11, color: OwnerPortalColors.ink, fontSize: 14 },
   multilineInput: { minHeight: 90, textAlignVertical: 'top' },
-  choiceRow: { flexDirection: 'row', gap: 10 },
-  choice: { flex: 1, borderWidth: 1, borderColor: '#d5dde7', backgroundColor: '#fff', borderRadius: 11, padding: 12, justifyContent: 'center' },
-  choiceActive: { borderColor: '#1b5fad', backgroundColor: '#e8f0fb' },
-  choiceText: { color: '#536273', fontWeight: '600', fontSize: 12, textAlign: 'center' },
-  choiceTextActive: { color: '#1b5fad' },
-  restaurantChoice: { flexDirection: 'row', alignItems: 'center', padding: 12, borderRadius: 10, borderWidth: 1, borderColor: '#e1e7ef', backgroundColor: '#fff', gap: 10, marginTop: 8 },
-  restaurantChoiceActive: { borderColor: '#1b5fad', backgroundColor: '#f0f5fc' },
-  restaurantName: { color: '#14213d', fontSize: 14, fontWeight: '700' },
-  radioRow: { flexDirection: 'row', alignItems: 'center', gap: 9, paddingVertical: 5 },
-  uploadPlaceholder: { borderWidth: 1, borderColor: '#d5dde7', borderStyle: 'dashed', borderRadius: 10, padding: 12, flexDirection: 'row', alignItems: 'center', gap: 10 },
-  primaryButton: { backgroundColor: '#1b5fad', padding: 15, borderRadius: 11, alignItems: 'center' },
+  primaryButton: { backgroundColor: OwnerPortalColors.orange, padding: 15, borderRadius: 11, alignItems: 'center' },
   primaryButtonText: { color: '#fff', fontWeight: '800', fontSize: 14 },
   disabledButton: { opacity: 0.55 },
-  secondaryButton: { borderWidth: 1, borderColor: '#1b5fad', backgroundColor: '#fff', padding: 14, borderRadius: 11, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
-  secondaryButtonText: { color: '#1b5fad', fontWeight: '700' },
-  restaurantPicker: { marginHorizontal: 16, marginBottom: 12, padding: 12, borderRadius: 13, backgroundColor: '#fff' },
-  tabRow: { paddingHorizontal: 16, gap: 8, paddingBottom: 4 },
-  tabButton: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 20, backgroundColor: '#fff' },
-  tabButtonActive: { backgroundColor: '#1b5fad' },
-  tabButtonText: { color: '#6b7a8d', fontSize: 12, fontWeight: '700' },
-  tabButtonTextActive: { color: '#fff' },
-  emptyCard: { margin: 16, padding: 24, borderRadius: 16, backgroundColor: '#fff', alignItems: 'center', gap: 12 },
-  pendingBadge: { paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20, backgroundColor: '#fff4df' },
-  pendingBadgeText: { color: '#8a5a00', fontSize: 11, fontWeight: '800' },
-  signOutButton: { borderWidth: 1, borderColor: '#e5b7b4', borderRadius: 11, padding: 14, backgroundColor: '#fff', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
-  signOutText: { color: '#b3261e', fontWeight: '800' },
-  menuHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  secondaryButton: { borderWidth: 1, borderColor: OwnerPortalColors.orange, backgroundColor: '#fff', padding: 14, borderRadius: 11, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
+  secondaryButtonText: { color: OwnerPortalColors.orangeDark, fontWeight: '800' },
 });
