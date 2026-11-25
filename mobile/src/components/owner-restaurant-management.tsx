@@ -31,6 +31,7 @@ import {
   type RestaurantPhoto,
 } from '@/logic/owner-restaurant-management';
 import { userMessage } from '@/logic/user-error';
+import { OwnerPortalColors } from '@/constants/owner-portal-theme';
 
 const PICKER_OPTIONS: ImagePicker.ImagePickerOptions = {
   mediaTypes: 'images',
@@ -289,7 +290,7 @@ export function OwnerRestaurantManagement({
 
   if (!restaurant) return null;
   if (loading) {
-    return <View style={styles.loading}><ActivityIndicator size="large" color="#1b5fad" /><Text style={styles.muted}>{owner('ownerLoadingRestaurantInformation')}</Text></View>;
+    return <View style={styles.loading}><ActivityIndicator size="large" color={OwnerPortalColors.orange} /><Text style={styles.muted}>{owner('ownerLoadingRestaurantInformation')}</Text></View>;
   }
   if (error) {
     return <View style={styles.card}><Ionicons name="alert-circle-outline" size={24} color="#b3261e" /><Text style={styles.title}>{owner('ownerRestaurantManagementLoadFailed')}</Text><Text style={styles.body}>{error}</Text></View>;
@@ -299,9 +300,9 @@ export function OwnerRestaurantManagement({
   return (
     <View style={styles.root}>
       {previewMode ? (
-        <View style={styles.notice}><Ionicons name="eye-outline" size={21} color="#1b5fad" /><Text style={styles.body}>{owner('ownerRestaurantManagementPreviewNote')}</Text></View>
+        <View style={styles.notice}><Ionicons name="eye-outline" size={21} color={OwnerPortalColors.orange} /><Text style={styles.body}>{owner('ownerRestaurantManagementPreviewNote')}</Text></View>
       ) : (
-        <View style={styles.notice}><Ionicons name="cloud-done-outline" size={21} color="#1b5fad" /><Text style={styles.body}>{owner('ownerRestaurantManagementSavedToMukjiNote')}</Text></View>
+        <View style={styles.notice}><Ionicons name="cloud-done-outline" size={21} color={OwnerPortalColors.orange} /><Text style={styles.body}>{owner('ownerRestaurantManagementSavedToMukjiNote')}</Text></View>
       )}
 
       <View style={styles.card}>
@@ -335,7 +336,7 @@ export function OwnerRestaurantManagement({
               <View style={styles.dayHeading}>
                 <Text style={styles.dayName}>{owner(DAY_LABELS[day.key])}</Text>
                 <Pressable onPress={() => toggleClosedDay(day.key)} style={[styles.closedToggle, closed && styles.closedToggleActive]} accessibilityRole="checkbox" accessibilityState={{ checked: closed }}>
-                  <Ionicons name={closed ? 'checkbox' : 'square-outline'} size={18} color={closed ? '#1b5fad' : '#718096'} />
+                  <Ionicons name={closed ? 'checkbox' : 'square-outline'} size={18} color={closed ? OwnerPortalColors.orange : OwnerPortalColors.muted} />
                   <Text style={[styles.closedText, closed && styles.closedTextActive]}>{owner('ownerClosed')}</Text>
                 </Pressable>
               </View>
@@ -369,7 +370,7 @@ export function OwnerRestaurantManagement({
           ))}
         </View>
         <Pressable onPress={() => void addPhotos()} disabled={previewMode || uploading || photos.length >= RESTAURANT_PHOTO_MAX_COUNT} style={[styles.secondaryButton, (previewMode || uploading || photos.length >= RESTAURANT_PHOTO_MAX_COUNT) && styles.disabledButton]} accessibilityRole="button">
-          {uploading ? <ActivityIndicator color="#1b5fad" /> : <Ionicons name="images-outline" size={18} color="#1b5fad" />}
+          {uploading ? <ActivityIndicator color={OwnerPortalColors.orange} /> : <Ionicons name="images-outline" size={18} color={OwnerPortalColors.orange} />}
           <Text style={styles.secondaryButtonText}>{uploading ? owner('ownerUploadingRestaurantPhotos') : owner('ownerAddRestaurantPhotos')}</Text>
         </Pressable>
       </View>
@@ -391,36 +392,36 @@ const styles = StyleSheet.create({
   root: { padding: 16, gap: 14 },
   flex: { flex: 1 },
   loading: { padding: 36, alignItems: 'center', gap: 10 },
-  muted: { color: '#718096', fontSize: 12 },
-  notice: { backgroundColor: '#e8f0fb', borderRadius: 13, padding: 14, flexDirection: 'row', alignItems: 'center', gap: 10 },
-  card: { backgroundColor: '#fff', borderRadius: 14, borderWidth: 1, borderColor: '#e4eaf1', padding: 15, gap: 13 },
-  sectionTitle: { color: '#14213d', fontSize: 16, fontWeight: '800' },
-  title: { color: '#14213d', fontSize: 16, fontWeight: '800' },
+  muted: { color: OwnerPortalColors.muted, fontSize: 12 },
+  notice: { backgroundColor: OwnerPortalColors.orangeTint, borderRadius: 13, padding: 14, flexDirection: 'row', alignItems: 'center', gap: 10 },
+  card: { backgroundColor: '#fff', borderRadius: 14, borderWidth: 1, borderColor: OwnerPortalColors.border, padding: 15, gap: 13 },
+  sectionTitle: { color: OwnerPortalColors.ink, fontSize: 16, fontWeight: '800' },
+  title: { color: OwnerPortalColors.ink, fontSize: 16, fontWeight: '800' },
   body: { color: '#5c6c80', fontSize: 12, lineHeight: 18, flex: 1 },
   field: { gap: 6, flex: 1 },
-  label: { color: '#344256', fontSize: 12, fontWeight: '700' },
-  input: { borderWidth: 1, borderColor: '#d5dde7', borderRadius: 10, backgroundColor: '#fff', paddingHorizontal: 11, paddingVertical: 10, color: '#14213d', fontSize: 14 },
+  label: { color: OwnerPortalColors.inkSoft, fontSize: 12, fontWeight: '700' },
+  input: { borderWidth: 1, borderColor: OwnerPortalColors.border, borderRadius: 10, backgroundColor: '#fff', paddingHorizontal: 11, paddingVertical: 10, color: OwnerPortalColors.ink, fontSize: 14 },
   multiline: { minHeight: 82, textAlignVertical: 'top' },
   row: { flexDirection: 'row', gap: 10 },
   dayRow: { borderTopWidth: 1, borderTopColor: '#edf1f5', paddingTop: 11, gap: 8 },
   dayHeading: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  dayName: { color: '#344256', fontSize: 13, fontWeight: '800' },
+  dayName: { color: OwnerPortalColors.inkSoft, fontSize: 13, fontWeight: '800' },
   closedToggle: { flexDirection: 'row', alignItems: 'center', gap: 5, padding: 5 },
-  closedToggleActive: { backgroundColor: '#eef4fb', borderRadius: 8 },
-  closedText: { color: '#718096', fontSize: 11, fontWeight: '700' },
-  closedTextActive: { color: '#1b5fad' },
-  smallLabel: { color: '#718096', fontSize: 10, marginBottom: 4 },
+  closedToggleActive: { backgroundColor: OwnerPortalColors.orangeTint, borderRadius: 8 },
+  closedText: { color: OwnerPortalColors.muted, fontSize: 11, fontWeight: '700' },
+  closedTextActive: { color: OwnerPortalColors.orange },
+  smallLabel: { color: OwnerPortalColors.muted, fontSize: 10, marginBottom: 4 },
   disabledInput: { backgroundColor: '#f1f4f8', color: '#94a3b8' },
   sectionHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  photoCount: { color: '#718096', fontSize: 12, fontWeight: '700' },
+  photoCount: { color: OwnerPortalColors.muted, fontSize: 12, fontWeight: '700' },
   photoGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 9 },
   photoItem: { width: '31%', aspectRatio: 1, position: 'relative' },
   photo: { width: '100%', height: '100%', borderRadius: 10, backgroundColor: '#eef2f7' },
   removePhoto: { position: 'absolute', top: 5, right: 5, width: 26, height: 26, borderRadius: 13, backgroundColor: '#a22', alignItems: 'center', justifyContent: 'center' },
-  secondaryButton: { borderWidth: 1, borderColor: '#b8cce5', borderRadius: 10, padding: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
-  secondaryButtonText: { color: '#1b5fad', fontWeight: '800', fontSize: 13 },
+  secondaryButton: { borderWidth: 1, borderColor: OwnerPortalColors.orangeSoft, borderRadius: 10, padding: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
+  secondaryButtonText: { color: OwnerPortalColors.orange, fontWeight: '800', fontSize: 13 },
   warning: { backgroundColor: '#fff4df', borderRadius: 12, padding: 13, flexDirection: 'row', alignItems: 'flex-start', gap: 9 },
-  primaryButton: { backgroundColor: '#1b5fad', borderRadius: 11, padding: 15, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
+  primaryButton: { backgroundColor: OwnerPortalColors.orange, borderRadius: 11, padding: 15, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },
   primaryButtonText: { color: '#fff', fontWeight: '800', fontSize: 14 },
   disabledButton: { opacity: 0.55 },
   validationHint: { color: '#8a5a00', fontSize: 11, textAlign: 'center' },
