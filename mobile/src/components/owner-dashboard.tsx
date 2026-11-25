@@ -73,31 +73,29 @@ export function OwnerDashboard({
     return date.toLocaleDateString(language === 'ko' ? 'ko-KR' : 'en-US');
   };
 
-  const periodLabels = language === 'ko'
-    ? ['7일', '30일', '3개월']
-    : ['7 Days', '30 Days', '3 Months'];
+  const periodLabels = language === 'ko' ? ['7일', '30일', '3개월'] : ['7 Days', '30 Days', '3 Months'];
 
   const cards = [
     {
-      label: language === 'ko' ? '연결된 매장' : 'Linked Restaurants',
+      label: owner('ownerPortalDashboardLinkedRestaurants'),
       value: String(restaurants.length),
       icon: 'storefront-outline' as const,
       tint: '#FFF0E7',
     },
     {
-      label: language === 'ko' ? '예약 응답 대기' : 'Pending Reservations',
+      label: owner('ownerDashboardPendingReservations'),
       value: previewMode ? '—' : String(data.pendingReservationCount),
       icon: 'calendar-outline' as const,
       tint: '#FFF0E7',
     },
     {
-      label: language === 'ko' ? '등록된 메뉴' : 'Menu Items',
+      label: owner('ownerPortalDashboardMenuItems'),
       value: selectedRestaurant ? String(selectedRestaurant.dishes.length) : '—',
       icon: 'restaurant-outline' as const,
       tint: '#FFF0E7',
     },
     {
-      label: language === 'ko' ? '검토가 필요한 신청' : 'Applications Needing Attention',
+      label: owner('ownerDashboardApplicationsNeedingAttention'),
       value: previewMode ? '—' : String(summary.needsInformation),
       icon: 'alert-circle-outline' as const,
       tint: '#FFF5E5',
@@ -110,36 +108,38 @@ export function OwnerDashboard({
     <View style={styles.root}>
       <View style={styles.hero}>
         <View style={styles.heroTop}>
-          <Text style={styles.heroEyebrow}>{language === 'ko' ? '매장 운영 개요' : 'RESTAURANT OVERVIEW'}</Text>
+          <Text style={styles.heroEyebrow}>{owner('ownerDashboardOverviewEyebrow')}</Text>
           {previewMode ? (
             <View style={styles.previewBadge}>
-              <Text style={styles.previewBadgeText}>PREVIEW</Text>
+              <Text style={styles.previewBadgeText}>{owner('ownerPreviewBadge')}</Text>
             </View>
           ) : null}
         </View>
         <Text style={styles.heroTitle}>
-          {language === 'ko' ? '안녕하세요!' : 'Good to see you!'}
+          {owner('ownerDashboardGreeting')}
         </Text>
         <Text style={styles.heroSubtitle}>
-          {selectedRestaurant?.nameEn || selectedRestaurant?.nameKo || (language === 'ko' ? '매장 운영 현황을 확인하세요' : 'Here is your restaurant at a glance.')}
+          {selectedRestaurant?.nameEn || selectedRestaurant?.nameKo || owner('ownerDashboardOverviewFallback')}
         </Text>
         <View style={styles.heroAccent} />
       </View>
 
       <View style={styles.sectionHeading}>
         <View style={styles.headingCopy}>
-          <Text style={styles.sectionTitle}>{language === 'ko' ? '비즈니스 인사이트' : 'Business Insights'}</Text>
-          <Text style={styles.sectionSubtitle}>{language === 'ko' ? '선택한 기간의 운영 지표' : 'Performance overview for the selected period'}</Text>
+          <Text style={styles.sectionTitle}>{owner('ownerDashboardBusinessInsights')}</Text>
+          <Text style={styles.sectionSubtitle}>{owner('ownerDashboardPeriodSubtitle')}</Text>
         </View>
       </View>
 
-      <View style={styles.periodRow} accessibilityLabel={language === 'ko' ? '분석 기간 선택 예정' : 'Analytics period filters planned'}>
-        {periodLabels.map((label, index) => (
-          <View key={label} style={[styles.periodButton, index === 0 && styles.periodButtonActive, styles.periodButtonDisabled]}>
-            <Text style={[styles.periodButtonText, index === 0 && styles.periodButtonTextActive]}>{label}</Text>
+      <View style={styles.periodRow} accessibilityLabel={owner('ownerDashboardPeriodFiltersComingSoon')}>
+        {periodLabels.map((label) => (
+          <View key={label} style={[styles.periodButton, styles.periodButtonDisabled]}>
+            <Text style={styles.periodButtonText}>{label}</Text>
           </View>
         ))}
       </View>
+
+      <Text style={styles.periodComingSoon}>{owner('ownerDashboardPeriodFiltersComingSoon')}</Text>
 
       <View style={styles.metricsGrid}>
         {cards.map((card) => (
@@ -156,9 +156,7 @@ export function OwnerDashboard({
       <View style={styles.analyticsNotice}>
         <Ionicons name="analytics-outline" size={19} color={ACCENT} />
         <Text style={styles.analyticsNoticeText}>
-          {language === 'ko'
-            ? '기간별 매출, 예약 추이 및 평점 분석은 지표와 데이터 출처가 확정된 후 제공됩니다.'
-            : 'Sales, reservation trends and rating analytics will appear after their metrics and data sources are defined. No sample figures are displayed.'}
+{owner('ownerDashboardAnalyticsNotice')}
         </Text>
       </View>
 
@@ -168,7 +166,7 @@ export function OwnerDashboard({
             <View style={styles.actionAlertIcon}>
               <Ionicons name="alert-circle" size={19} color={ACCENT} />
             </View>
-            <Text style={styles.sectionTitle}>{language === 'ko' ? '확인 필요' : 'Action Required'}</Text>
+            <Text style={styles.sectionTitle}>{owner('ownerPortalDashboardActionRequired')}</Text>
           </View>
           {loading ? <ActivityIndicator size="small" color={ACCENT} /> : null}
         </View>
@@ -177,9 +175,7 @@ export function OwnerDashboard({
           <View style={styles.emptyAction}>
             <Ionicons name="lock-closed-outline" size={20} color={OwnerPortalColors.muted} />
             <Text style={styles.emptyActionText}>
-              {language === 'ko'
-                ? '미리보기에서는 고객 예약 및 계정별 신청 정보가 숨겨집니다. 실제 소유자 계정으로 로그인하면 확인할 수 있습니다.'
-                : 'Private reservations and account-specific applications are hidden in direct preview. Sign in with an authorized owner account to view and manage them.'}
+{owner('ownerDashboardPreviewPrivateNotice')}
             </Text>
           </View>
         ) : error ? (
@@ -191,11 +187,9 @@ export function OwnerDashboard({
                 <Ionicons name="calendar-outline" size={18} color={ACCENT} />
               </View>
               <View style={styles.actionCopy}>
-                <Text style={styles.actionName}>{language === 'ko' ? '예약 요청' : 'Reservation requests'}</Text>
+                <Text style={styles.actionName}>{owner('ownerPortalDashboardReservationRequests')}</Text>
                 <Text style={styles.actionDescription}>
-                  {language === 'ko'
-                    ? `${data.pendingReservationCount}건의 예약이 응답을 기다리고 있습니다.`
-                    : `${data.pendingReservationCount} reservation(s) waiting for a response.`}
+{owner('ownerDashboardReservationsWaiting').replace('{count}', String(data.pendingReservationCount))}
                 </Text>
               </View>
               <Text style={styles.actionCount}>{data.pendingReservationCount}</Text>
@@ -219,7 +213,7 @@ export function OwnerDashboard({
             ))}
             {!loading && data.pendingReservationCount === 0 && attentionApplications.length === 0 ? (
               <Text style={styles.emptyActionText}>
-                {language === 'ko' ? '현재 확인이 필요한 항목이 없습니다.' : 'You are all caught up. There are no pending actions.'}
+                {owner('ownerDashboardNoPendingActions')}
               </Text>
             ) : null}
           </>
@@ -227,9 +221,9 @@ export function OwnerDashboard({
       </View>
 
       <View style={styles.activityCard}>
-        <Text style={styles.sectionTitle}>{language === 'ko' ? '최근 신청 활동' : 'Recent Application Activity'}</Text>
+        <Text style={styles.sectionTitle}>{owner('ownerDashboardRecentApplicationActivity')}</Text>
         {previewMode ? (
-          <Text style={styles.emptyActionText}>{language === 'ko' ? '미리보기에서는 계정별 신청 활동을 표시하지 않습니다.' : 'Account-specific application activity is not shown in preview.'}</Text>
+          <Text style={styles.emptyActionText}>{owner('ownerDashboardPreviewActivityHidden')}</Text>
         ) : summary.recentApplications.length === 0 ? (
           <Text style={styles.emptyActionText}>{owner('ownerDashboardNoApplications')}</Text>
         ) : (
@@ -269,10 +263,9 @@ const styles = StyleSheet.create({
   sectionSubtitle: { color: OwnerPortalColors.muted, fontSize: 11 },
   periodRow: { paddingHorizontal: 16, flexDirection: 'row', gap: 8 },
   periodButton: { flex: 1, borderRadius: 20, paddingVertical: 10, alignItems: 'center', backgroundColor: '#F2F1EF' },
-  periodButtonActive: { backgroundColor: ACCENT },
   periodButtonText: { color: OwnerPortalColors.inkSoft, fontSize: 11, fontWeight: '700' },
-  periodButtonTextActive: { color: '#FFFFFF' },
-  periodButtonDisabled: { opacity: 0.82 },
+  periodButtonDisabled: { opacity: 0.62 },
+  periodComingSoon: { marginTop: -7, paddingHorizontal: 18, color: OwnerPortalColors.muted, fontSize: 10, textAlign: 'right' },
   metricsGrid: { paddingHorizontal: 16, flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
   metricCard: { width: '48%', flexGrow: 1, minHeight: 120, backgroundColor: '#FFFFFF', borderRadius: 16, borderWidth: 1, borderColor: OwnerPortalColors.border, padding: 13, gap: 6 },
   metricIcon: { width: 36, height: 36, borderRadius: 11, alignItems: 'center', justifyContent: 'center' },

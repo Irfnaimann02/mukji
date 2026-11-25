@@ -339,7 +339,7 @@ export function OwnerRestaurantManagement({
           {photos.length === 0 ? (
             <View style={styles.photoPlaceholder}>
               <Ionicons name="image-outline" size={25} color={OwnerPortalColors.muted} />
-              <Text style={styles.photoPlaceholderText}>Insert picture</Text>
+              <Text style={styles.photoPlaceholderText}>{owner('ownerInsertPicture')}</Text>
             </View>
           ) : null}
           {photos.map((photo) => (

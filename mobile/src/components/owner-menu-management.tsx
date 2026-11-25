@@ -273,7 +273,7 @@ export function OwnerMenuManagement({ restaurant, previewMode }: Props) {
           ) : (
             <View style={styles.menuPhotoPlaceholder}>
               <Ionicons name="image-outline" size={25} color={OwnerPortalColors.muted} />
-              <Text style={styles.muted}>Insert picture</Text>
+              <Text style={styles.muted}>{owner('ownerInsertPicture')}</Text>
             </View>
           )}
           {item.editable ? (

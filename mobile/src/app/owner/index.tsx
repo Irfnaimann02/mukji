@@ -367,13 +367,11 @@ export default function OwnerPortalScreen() {
         <View style={styles.screenContent}>
           <View style={styles.screenHeading}>
             <Text style={styles.pageTitle}>{owner('ownerReservations')}</Text>
-            <Text style={styles.mutedText}>Preview access does not sign you in.</Text>
+            <Text style={styles.mutedText}>{owner('ownerPreviewReservationsSubtitle')}</Text>
           </View>
           <View style={styles.previewFootnote}>
             <Ionicons name="lock-closed-outline" size={17} color={OwnerPortalColors.orange} />
-            <Text style={styles.mutedText}>
-              Real TriBoTea reservations contain customer information. Sign in with an authorized TriBoTea owner account to view reservations and use the existing confirm, decline and cancellation actions. No sample reservations are shown in this preview.
-            </Text>
+            <Text style={styles.mutedText}>{owner('ownerPreviewReservationsLocked')}</Text>
           </View>
           <PrimaryButton title={owner('ownerGoToOwnerLogin')} onPress={() => router.push('/owner-login')} />
         </View>
@@ -499,7 +497,7 @@ export default function OwnerPortalScreen() {
                   <Text style={styles.brandName}>MUKJI</Text>
                 </View>
                 <View style={styles.headerRight}>
-                  {previewMode ? <View style={styles.previewPill}><Text style={styles.previewPillText}>PREVIEW</Text></View> : null}
+                  {previewMode ? <View style={styles.previewPill}><Text style={styles.previewPillText}>{owner('ownerPreviewBadge')}</Text></View> : null}
                   <View style={styles.ownerAvatar}><Ionicons name="person" size={19} color={OwnerPortalColors.orange} /></View>
                 </View>
               </View>
