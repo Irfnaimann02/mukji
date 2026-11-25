@@ -1,56 +1,39 @@
-# Welcome to your Expo app 👋
+# Mukji (먹지)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A food map for everyone in Korea. Naver Map and Kakao Map tell you **where** a restaurant is. Mukji tells you **whether you can eat there, what to order, and how to ask for it in Korean**, based on your own food profile: halal, vegan, no pork, allergies, price, distance, or no restriction at all.
 
-## Get started
+Course project for AI+X (Fall 2026). Launch area: around the ERICA campus.
 
-1. Install dependencies
+## Status
 
-   ```bash
-   npm install
-   ```
+Planning (Week 7). Screens are sketched and a clickable prototype exists; building starts after midterm.
 
-2. Start the app
+- Clickable prototype: https://claude.ai/artifact/Ruqs4wU1dTWFEm2D2ojS4z
+- Progress doc: https://claude.ai/code/artifact/41f7f9c0-54ec-4ffc-b940-4fe638a170af
 
-   ```bash
-   npx expo start
-   ```
+## Idea in one minute
 
-In the output, you'll find options to open the app in a
+- **Map first.** The app opens on a 2D map; each restaurant pin shows a logo for its food type, and places that fit your profile stand out.
+- **Badges for everyone.** "What they serve" (pork, beef, seafood, vegan options, alcohol) and "who it fits" (halal, halal-friendly, vegan, peanut-free).
+- **Dish level.** Each dish is safe, ask first or avoid, with what to leave out.
+- **AI explains.** "Why?" on a dish gives the reason from the menu, 원산지 label and reviews; the Menu Scanner reads paper menus.
+- **Ordering help.** A Korean order card and a Korean sentence for phone reservations.
+- **Reviews with diet tags.** Public reviews show the reviewer's diet and help correct the data.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Docs
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- [Team onboarding](docs/ONBOARDING.md): software to install, what to learn, how we use GitHub
+- [Project proposal](docs/proposal.md)
+- [Week 07 team activity worksheet](docs/week07-worksheet.md)
+- [AI use log](PROMPTS.md)
 
-## Get a fresh project
+## Tech stack
 
-When you're ready, run:
+React Native with Expo, `react-native-maps`, Supabase (PostgreSQL and login), Kakao Local API for restaurant data. Details are in the Week 07 worksheet.
 
-```bash
-npm run reset-project
-```
+## Working agreement
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
-
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Work is tracked as GitHub Issues. Put the issue number in every commit, for example `#4 add food profile filter`.
+- One branch per issue; merge through a pull request with `Closes #N`.
+- Close an issue only when its acceptance criteria are met.
+- Log any AI use in `PROMPTS.md`.
