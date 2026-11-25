@@ -317,7 +317,7 @@
 
 ## PR9 — Post-login Owner Portal experience
 
-The existing Owner Portal is being reorganized into five persistent bottom-navigation destinations. The visual reference is the approved MUKJI Owner Portal design board (Image 2), recoloured to use MUKJI orange, white and black rather than blue.
+The existing Owner Portal is organized as a professional workspace with a persistent left sidebar (navigation rail) and a main content area. The five destinations are Home, Restaurants, Menus, Reservations and More. On narrow mobile layouts, the rail may adapt to a compact navigation treatment while preserving the same destinations and information architecture. The visual reference is the approved MUKJI Owner Portal design board (Image 2), recoloured to use MUKJI orange, white and black rather than blue.
 
 - **Home:** existing owner dashboard data, application activity, linked-restaurant summary and quick actions. Do not invent analytics or reservation totals that are not returned by the existing repositories.
 - **Restaurants:** selected-restaurant context, restaurant profile, location, opening hours, facilities, photos and existing editing workflows.
