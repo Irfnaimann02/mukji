@@ -137,7 +137,7 @@ create or replace function public.owner_create_menu_item(
 returns jsonb
 language plpgsql
 security definer
-set search_path = public, pg_temp
+set search_path = ''
 as $$
 declare
   v_user uuid := auth.uid();
@@ -242,7 +242,7 @@ create or replace function public.owner_update_menu_item(
 returns void
 language plpgsql
 security definer
-set search_path = public, pg_temp
+set search_path = ''
 as $$
 declare
   v_user uuid := auth.uid();
@@ -306,7 +306,7 @@ create or replace function public.owner_submit_menu_ingredient_change(
 returns uuid
 language plpgsql
 security definer
-set search_path = public, pg_temp
+set search_path = ''
 as $$
 declare
   v_user uuid := auth.uid();
@@ -355,7 +355,7 @@ create or replace function public.owner_set_menu_item_photo(p_dish_id text, p_ph
 returns void
 language plpgsql
 security definer
-set search_path = public, pg_temp
+set search_path = ''
 as $$
 declare
   v_user uuid := auth.uid();
@@ -385,7 +385,7 @@ create or replace function public.owner_delete_menu_item(p_dish_id text)
 returns void
 language plpgsql
 security definer
-set search_path = public, pg_temp
+set search_path = ''
 as $$
 declare
   v_user uuid := auth.uid();
@@ -409,7 +409,7 @@ returns table (
 )
 language plpgsql
 security definer
-set search_path = public, pg_temp
+set search_path = ''
 as $$
 begin
   if not public.is_team_member() then raise exception 'team_only' using errcode = '42501'; end if;
@@ -431,7 +431,7 @@ create or replace function public.team_review_owner_ingredient_change(
 returns void
 language plpgsql
 security definer
-set search_path = public, pg_temp
+set search_path = ''
 as $$
 declare
   v_change public.owner_menu_ingredient_changes%rowtype;
