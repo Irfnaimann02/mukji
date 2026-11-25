@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { AccountCard } from '@/components/account-card';
 import { FoodProfileForm } from '@/components/food-profile-form';
 import { TeamMenuLink } from '@/components/team-menu-link';
+import { TeamOwnerLink } from '@/components/team-owner-link';
 import { useTranslation } from '@/hooks/use-translation';
 
 export default function ProfileScreen() {
@@ -20,6 +21,8 @@ export default function ProfileScreen() {
         <AccountCard />
         {/* Team only (029): menu photos waiting for review. Hidden for everyone else. */}
         <TeamMenuLink />
+        {/* Team only (#118): owner applications and opening any restaurant as owner. */}
+        <TeamOwnerLink />
         <FoodProfileForm />
       </ScrollView>
     </SafeAreaView>
