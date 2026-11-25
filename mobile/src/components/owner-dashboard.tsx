@@ -95,19 +95,29 @@ export function OwnerDashboard({
     },
   ];
 
+  const heroContent = (
+    <View style={styles.heroShade}>
+      <Text style={styles.heroEyebrow}>{owner('ownerDashboardHeroEyebrow')} · {owner(previewMode ? 'ownerDashboardPreviewLabel' : 'ownerDashboardBusinessOverviewLabel')}</Text>
+      <Text style={styles.heroTitle}>{owner('ownerDashboardWelcome')}</Text>
+      <Text style={styles.heroSubtitle}>{selectedRestaurant?.nameEn || owner('ownerDashboardOverviewDescription')}</Text>
+      {previewMode ? <View style={styles.heroTag}><Text style={styles.heroTagText}>{owner('ownerDashboardDemoLabel')}</Text></View> : null}
+    </View>
+  );
+
   return (
     <View style={styles.root}>
-      <ImageBackground
-        source={{ uri: selectedRestaurant?.featuredDishImageUrl || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&auto=format&fit=crop&q=85' }}
-        imageStyle={styles.heroImage}
-        style={styles.hero}>
-        <View style={styles.heroShade}>
-          <Text style={styles.heroEyebrow}>MUKJI OWNER · {previewMode ? 'PRESENTATION PREVIEW' : 'BUSINESS OVERVIEW'}</Text>
-          <Text style={styles.heroTitle}>{owner('ownerDashboardWelcome')}</Text>
-          <Text style={styles.heroSubtitle}>{selectedRestaurant?.nameEn || owner('ownerDashboardOverviewDescription')}</Text>
-          {previewMode ? <View style={styles.heroTag}><Text style={styles.heroTagText}>DEMO DATA · NOT LIVE</Text></View> : null}
+      {selectedRestaurant?.featuredDishImageUrl ? (
+        <ImageBackground
+          source={{ uri: selectedRestaurant.featuredDishImageUrl }}
+          imageStyle={styles.heroImage}
+          style={styles.hero}>
+          {heroContent}
+        </ImageBackground>
+      ) : (
+        <View style={styles.hero}>
+          {heroContent}
         </View>
-      </ImageBackground>
+      )}
       <View style={styles.heading}>
         <View style={styles.headingIcon}>
           <Ionicons name="grid-outline" size={22} color={ACCENT} />
@@ -132,40 +142,40 @@ export function OwnerDashboard({
       {previewMode ? (
         <View style={styles.analyticsCard}>
           <View style={styles.sectionHeader}>
-            <View><Text style={styles.sectionTitle}>Restaurant activity</Text><Text style={styles.muted}>Illustrative weekly trend</Text></View>
-            <View style={styles.periodPill}><Text style={styles.periodText}>7 DAYS</Text></View>
+            <View><Text style={styles.sectionTitle}>{owner('ownerDashboardRestaurantActivity')}</Text><Text style={styles.muted}>{owner('ownerDashboardIllustrativeWeeklyTrend')}</Text></View>
+            <View style={styles.periodPill}><Text style={styles.periodText}>{owner('ownerDashboardSevenDays')}</Text></View>
           </View>
           <View style={styles.chart}>
             {[34, 48, 42, 66, 55, 78, 91].map((height, index) => (
               <View key={index} style={styles.chartColumn}>
                 <View style={[styles.chartBar, { height }]} />
-                <Text style={styles.chartDay}>{['M','T','W','T','F','S','S'][index]}</Text>
+                <Text style={styles.chartDay}>{owner((['ownerDayMon','ownerDayTue','ownerDayWed','ownerDayThu','ownerDayFri','ownerDaySat','ownerDaySun'] as const)[index])}</Text>
               </View>
             ))}
           </View>
-          <View style={styles.chartLegend}><View style={styles.legendDot} /><Text style={styles.muted}>Sample reservation activity · preview only</Text></View>
+          <View style={styles.chartLegend}><View style={styles.legendDot} /><Text style={styles.muted}>{owner('ownerDashboardSampleReservationActivity')}</Text></View>
         </View>
       ) : (
         <View style={styles.infoCard}>
           <Ionicons name="analytics-outline" size={20} color={ACCENT} />
-          <Text style={styles.infoText}>Performance analytics will appear here when verified booking and sales data are available.</Text>
+          <Text style={styles.infoText}>{owner('ownerDashboardAnalyticsUnavailable')}</Text>
         </View>
       )}
 
       {previewMode ? (
         <View style={styles.analyticsCard}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Action required</Text>
-            <View style={styles.periodPill}><Text style={styles.periodText}>2 ITEMS</Text></View>
+            <Text style={styles.sectionTitle}>{owner('ownerDashboardActionRequired')}</Text>
+            <View style={styles.periodPill}><Text style={styles.periodText}>{owner('ownerDashboardTwoItems')}</Text></View>
           </View>
           <View style={styles.actionRow}>
             <View style={styles.actionIcon}><Ionicons name="calendar-outline" size={19} color={ACCENT} /></View>
-            <View style={styles.flex}><Text style={styles.applicationName}>Respond to 2 reservation requests</Text><Text style={styles.muted}>Customers are waiting for confirmation</Text></View>
+            <View style={styles.flex}><Text style={styles.applicationName}>{owner('ownerDashboardRespondToReservations')}</Text><Text style={styles.muted}>{owner('ownerDashboardCustomersWaiting')}</Text></View>
             <Ionicons name="chevron-forward" size={18} color="#858585" />
           </View>
           <View style={styles.actionRow}>
             <View style={styles.actionIcon}><Ionicons name="restaurant-outline" size={19} color={ACCENT} /></View>
-            <View style={styles.flex}><Text style={styles.applicationName}>Review menu availability</Text><Text style={styles.muted}>Keep today&apos;s menu up to date</Text></View>
+            <View style={styles.flex}><Text style={styles.applicationName}>{owner('ownerDashboardReviewMenuAvailability')}</Text><Text style={styles.muted}>{owner('ownerDashboardKeepMenuUpdated')}</Text></View>
             <Ionicons name="chevron-forward" size={18} color="#858585" />
           </View>
         </View>
