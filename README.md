@@ -1,39 +1,32 @@
-# Mukji (먹지)
+# MUKJI Owner Portal — Model 1 + Model 2 redesign
 
-A food map for everyone in Korea. Naver Map and Kakao Map tell you **where** a restaurant is. Mukji tells you **whether you can eat there, what to order, and how to ask for it in Korean**, based on your own food profile: halal, vegan, no pork, allergies, price, distance, or no restriction at all.
+## Included changes
+- `mobile/src/app/owner/index.tsx`
+  - Replaces the bottom tab bar with a dark left navigation rail.
+  - Keeps Home, Restaurants, Menus, Reservations and More.
+  - Adds an Owner Portal language switch in More. It updates the same shared `foodProfile.language` preference used by the User Portal.
+  - Adds a presentation-only reservations list in preview mode; live owner accounts continue using the existing Supabase-backed reservation component.
+- `mobile/src/components/owner-dashboard.tsx`
+  - Adds a restaurant-photo hero, analytics-style weekly activity chart, action-required panel and sample KPI values in preview mode.
+  - Live accounts do not receive invented sales or analytics; they see an explanatory empty-state note until real data is available.
+- `mobile/src/logic/owner-portal-service.ts`
+  - Adds a dedicated, isolated Salam Kitchen preview restaurant and four sample dishes with food photography.
+  - Preview records are local in-memory sample data and are never written to Supabase.
 
-Course project for AI+X (Fall 2026). Launch area: around the ERICA campus.
+## Apply
+Extract this ZIP into the repository root (`C:\dev\MUKJI\mukji`) and allow it to overwrite the three matching files.
 
-## Status
+## Open the presentation preview
+1. Run the app in Expo development mode.
+2. Open User Portal > Profile > Account settings.
+3. Under Developer section, choose **Preview Business Owner Page**.
+4. Navigate through all five sections using the left rail.
+5. In More, switch English/Korean. This uses the same saved language preference as the User Portal.
 
-Planning (Week 7). Screens are sketched and a clickable prototype exists; building starts after midterm.
+The preview entry is development-only (`__DEV__`), as it was in the supplied project.
 
-- Clickable prototype: https://claude.ai/artifact/Ruqs4wU1dTWFEm2D2ojS4z
-- Progress doc: https://claude.ai/code/artifact/41f7f9c0-54ec-4ffc-b940-4fe638a170af
-
-## Idea in one minute
-
-- **Map first.** The app opens on a 2D map; each restaurant pin shows a logo for its food type, and places that fit your profile stand out.
-- **Badges for everyone.** "What they serve" (pork, beef, seafood, vegan options, alcohol) and "who it fits" (halal, halal-friendly, vegan, peanut-free).
-- **Dish level.** Each dish is safe, ask first or avoid, with what to leave out.
-- **AI explains.** "Why?" on a dish gives the reason from the menu, 원산지 label and reviews; the Menu Scanner reads paper menus.
-- **Ordering help.** A Korean order card and a Korean sentence for phone reservations.
-- **Reviews with diet tags.** Public reviews show the reviewer's diet and help correct the data.
-
-## Docs
-
-- [Team onboarding](docs/ONBOARDING.md): software to install, what to learn, how we use GitHub
-- [Project proposal](docs/proposal.md)
-- [Week 07 team activity worksheet](docs/week07-worksheet.md)
-- [AI use log](PROMPTS.md)
-
-## Tech stack
-
-React Native with Expo, `react-native-maps`, Supabase (PostgreSQL and login), Kakao Local API for restaurant data. Details are in the Week 07 worksheet.
-
-## Working agreement
-
-- Work is tracked as GitHub Issues. Put the issue number in every commit, for example `#4 add food profile filter`.
-- One branch per issue; merge through a pull request with `Closes #N`.
-- Close an issue only when its acceptance criteria are met.
-- Log any AI use in `PROMPTS.md`.
+## Notes
+- Preview analytics, reservations, restaurant and menu content are clearly sample/demo content. They are not live booking or sales records.
+- Food/restaurant photos are loaded from Unsplash image URLs and therefore require an internet connection during the presentation.
+- Existing login, owner-to-restaurant assignment, onboarding/verification, restaurant editing, menu/ingredient workflows, reservation operations, drafts and Supabase access rules are preserved.
+- No database migrations, Supabase RLS policies, customer-facing screens or unrelated files are changed.
