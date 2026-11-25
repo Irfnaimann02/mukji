@@ -3,10 +3,10 @@ import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { ActivityIndicator, Image, Platform, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
+import { showAlert } from '@/components/show-alert';
 import type { Restaurant } from '@/data/types';
 import { useTranslation } from '@/hooks/use-translation';
 import { MENU_PHOTO_NOTE_MAX, menuPhotoErrorKey, menuPhotoPlace, submitMenuPhoto } from '@/logic/menu-photo-service';
-import { showAlert } from '@/components/show-alert';
 
 // "Send menu photo" on the restaurant page. Anyone (guests too) can snap the
 // menu board; the team checks it and turns it into dishes with the dish library.
@@ -18,6 +18,7 @@ const PICKER_OPTIONS: ImagePicker.ImagePickerOptions = {
   mediaTypes: 'images',
   quality: 0.7, // keeps photos well under the 5 MB limit and turns HEIC into JPEG
   allowsEditing: false,
+  preferredAssetRepresentationMode: ImagePicker.UIImagePickerPreferredAssetRepresentationMode.Compatible, // iPhone: JPEG, not HEIC
 };
 
 export function MenuPhotoButton({ restaurant }: { restaurant: Restaurant }) {

@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { DishFitPill } from '@/components/booking-parts';
 import { DishWhySheet } from '@/components/dish-why-sheet';
+import { showAlert } from '@/components/show-alert';
 import { scanMenuPhoto, type ScanError } from '@/data/menu-scan-repository';
 import type { Dish, Restaurant } from '@/data/types';
 import { useProfile } from '@/hooks/use-profile';
@@ -20,7 +21,6 @@ import {
   type ScanImageProblem,
 } from '@/logic/menu-scan';
 import { findRestaurant } from '@/logic/restaurant-service';
-import { showAlert } from '@/components/show-alert';
 
 const BLUE = '#1B5FAD';
 
@@ -35,6 +35,7 @@ const PICKER_OPTIONS: ImagePicker.ImagePickerOptions = {
   quality: 0.5, // menus are text: this keeps most phone photos under Claude's 5 MB limit
   base64: true,
   allowsEditing: false,
+  preferredAssetRepresentationMode: ImagePicker.UIImagePickerPreferredAssetRepresentationMode.Compatible, // iPhone: JPEG, not HEIC
 };
 
 const ERROR_KEY: Record<ScanError | ScanImageProblem, TranslationKey> = {

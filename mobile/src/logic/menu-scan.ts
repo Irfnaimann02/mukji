@@ -18,6 +18,14 @@ export const MAX_SCAN_BASE64_LENGTH = 5 * 1024 * 1024;
 // Image types every AI provider in scan-menu accepts.
 const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
+// The type the base64 data really is: JPEG, PNG and WebP each start with fixed bytes.
+function typeFromBytes(base64: string): string | null {
+  if (base64.startsWith('/9j/')) return 'image/jpeg';
+  if (base64.startsWith('iVBORw0KGgo')) return 'image/png';
+  if (base64.startsWith('UklGR')) return 'image/webp';
+  return null;
+}
+
 const INGREDIENTS: Ingredient[] = [
   'pork', 'beef', 'chicken', 'lamb', 'seafood', 'egg', 'dairy', 'alcohol', 'peanut', 'wheat', 'soy',
 ];
@@ -43,7 +51,9 @@ export function scanImageFrom(picked: PickedImage): ScanImage | ScanImageProblem
   const data = picked.base64 || dataUrl?.[2] || '';
   if (!data) return 'no_data';
 
-  let mimeType = (picked.mimeType || dataUrl?.[1] || 'image/jpeg').toLowerCase();
+  // iPhone photos are HEIC: the picker turns them into JPEG but can still say image/heic,
+  // so the first bytes decide the type when they are a known one.
+  let mimeType = (typeFromBytes(data) || picked.mimeType || dataUrl?.[1] || 'image/jpeg').toLowerCase();
   if (mimeType === 'image/jpg') mimeType = 'image/jpeg';
   if (!IMAGE_TYPES.includes(mimeType)) return 'bad_type';
   if (data.length > MAX_SCAN_BASE64_LENGTH) return 'too_big';
