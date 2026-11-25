@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Stack, useRouter } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -34,9 +34,13 @@ const MUTED = '#64748B';
 export default function OwnerLoginScreen() {
   const auth = useAuth();
   const router = useRouter();
+  const params = useLocalSearchParams<{ preview?: string }>();
+  const returnToPreview = __DEV__ && params.preview === '1';
   const { t, owner } = useTranslation();
 
-  const [email, setEmail] = useState('');
+  // Preview requests start with the dedicated TriBoTea test-owner email.
+  // The password is still entered by the developer and is never stored in source.
+  const [email, setEmail] = useState(returnToPreview ? 'owner-test@example.com' : '');
   const [code, setCode] = useState('');
   const [codeSent, setCodeSent] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -95,7 +99,7 @@ export default function OwnerLoginScreen() {
       await setAppMode('business');
       setCode('');
       setCodeSent(false);
-      router.replace('/owner');
+      router.replace(returnToPreview ? { pathname: '/owner', params: { preview: '1' } } : '/owner');
     });
 
   const onTestSignIn = () =>
@@ -104,7 +108,7 @@ export default function OwnerLoginScreen() {
       await signInTestAccount(email, testPassword);
       await setAppMode('business');
       setTestPassword('');
-      router.replace('/owner');
+      router.replace(returnToPreview ? { pathname: '/owner', params: { preview: '1' } } : '/owner');
     });
 
   const onSignOut = () =>
@@ -293,9 +297,13 @@ export default function OwnerLoginScreen() {
               <View style={styles.testBox}>
                 <View style={styles.testHeading}>
                   <Ionicons name="flask-outline" size={17} color="#A66500" />
-                  <Text style={styles.testTitle}>{t('testAccountTitle')}</Text>
+                  <Text style={styles.testTitle}>{returnToPreview ? 'TriBoTea Preview Sign-in' : t('testAccountTitle')}</Text>
                 </View>
-                <Text style={styles.testHint}>{t('testAccountHint')}</Text>
+                {returnToPreview ? (
+                  <Text style={styles.testHint}>Development preview for TriBoTea only. The team test-owner email is prefilled; enter its password to continue.</Text>
+                ) : (
+                  <Text style={styles.testHint}>{t('testAccountHint')}</Text>
+                )}
                 <TextInput
                   style={styles.input}
                   placeholder={t('passwordPlaceholder')}

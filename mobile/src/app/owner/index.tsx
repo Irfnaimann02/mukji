@@ -105,6 +105,7 @@ export default function OwnerPortalScreen() {
   const auth = useAuth();
   const router = useRouter();
   const params = useLocalSearchParams<{ preview?: string }>();
+  // Preview is a development-only entry path and must not require an owner login.
   const previewMode = __DEV__ && params.preview === '1';
   const { owner, language } = useTranslation();
   const { profile, setProfile } = useProfile();
@@ -361,38 +362,28 @@ export default function OwnerPortalScreen() {
   }
 
   function renderReservations() {
-    if (previewMode) {
+    if (previewMode && !signedInAsOwner) {
       return (
         <View style={styles.screenContent}>
           <View style={styles.screenHeading}>
             <Text style={styles.pageTitle}>{owner('ownerReservations')}</Text>
-            <Text style={styles.mutedText}>Sample reservations for your presentation · Preview only</Text>
+            <Text style={styles.mutedText}>Preview access does not sign you in.</Text>
           </View>
-          {[
-            { name: 'Minji Kim', time: 'Today · 18:30', guests: '2 guests', status: 'Awaiting response', color: '#FFF0E7' },
-            { name: 'Daniel Lee', time: 'Today · 19:00', guests: '4 guests', status: 'Confirmed', color: '#EAF5ED' },
-            { name: 'Aisha Rahman', time: 'Tomorrow · 12:30', guests: '3 guests', status: 'Awaiting response', color: '#FFF0E7' },
-            { name: 'Jisoo Park', time: 'Tomorrow · 19:30', guests: '5 guests', status: 'Confirmed', color: '#EAF5ED' },
-          ].map((booking, index) => (
-            <View key={`${booking.name}-${index}`} style={styles.previewBooking}>
-              <View style={styles.previewBookingAvatar}><Ionicons name="person" size={20} color={OwnerPortalColors.orange} /></View>
-              <View style={styles.flex}>
-                <Text style={styles.cardTitle}>{booking.name}</Text>
-                <Text style={styles.mutedText}>{booking.time} · {booking.guests}</Text>
-                <Text style={styles.previewBookingStatus}>{booking.status}</Text>
-              </View>
-              <Ionicons name="chevron-forward" size={19} color={OwnerPortalColors.muted} />
-            </View>
-          ))}
-          <View style={styles.previewFootnote}><Ionicons name="information-circle-outline" size={17} color={OwnerPortalColors.orange} /><Text style={styles.mutedText}>These are demonstration records. Real reservations and owner responses remain connected to the existing booking system.</Text></View>
+          <View style={styles.previewFootnote}>
+            <Ionicons name="lock-closed-outline" size={17} color={OwnerPortalColors.orange} />
+            <Text style={styles.mutedText}>
+              Real TriBoTea reservations contain customer information. Sign in with an authorized TriBoTea owner account to view reservations and use the existing confirm, decline and cancellation actions. No sample reservations are shown in this preview.
+            </Text>
+          </View>
+          <PrimaryButton title={owner('ownerGoToOwnerLogin')} onPress={() => router.push('/owner-login')} />
         </View>
       );
     }
+
     return (
       <View style={styles.screenContent}>
         <Text style={[styles.mutedText, { paddingHorizontal: OwnerPortalSpacing.md }]}>{owner('ownerPortalReservationsSubtitle')}</Text>
         {ownedRestaurants.length > 1 ? <Text style={[styles.mutedText, { paddingHorizontal: OwnerPortalSpacing.md }]}>{owner('ownerPortalReservationsAllBranchesNote')}</Text> : null}
-        {/* Keep the established owner-wide reservation query and response rules. */}
         <OwnerReservations restaurants={ownedRestaurants} />
       </View>
     );
@@ -500,63 +491,69 @@ export default function OwnerPortalScreen() {
         </ScrollView>
       ) : (
         <View style={styles.portalLayout}>
-          <View style={styles.sidebar}>
-            <View style={styles.sidebarBrand}><Ionicons name="restaurant" size={23} color="#FFFFFF" /></View>
-            {tabs.map((tab) => {
-              const active = activeTab === tab.key;
-              return (
-                <Pressable key={tab.key} onPress={() => changeTab(tab.key)} style={[styles.sidebarItem, active && styles.sidebarItemActive]} accessibilityRole="button" accessibilityState={{ selected: active }} accessibilityLabel={owner(tab.label)}>
-                  <Ionicons name={active ? tab.activeIcon : tab.icon} size={21} color={active ? '#FFFFFF' : '#B8B8B8'} />
-                  <Text style={[styles.sidebarLabel, active && styles.sidebarLabelActive]} numberOfLines={1}>{owner(tab.label)}</Text>
-                </Pressable>
-              );
-            })}
-            <View style={styles.sidebarSpacer} />
-            <Ionicons name="person-circle-outline" size={27} color="#FFFFFF" />
-          </View>
-          <ScrollView style={styles.mainWorkspace} ref={contentScrollRef} contentContainerStyle={styles.page} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-            <View style={styles.brandHeader}>
-              <View style={styles.brandWordmark}>
-                <View style={styles.brandMarkSmall}><Ionicons name="restaurant" size={17} color="#fff" /></View>
-                <Text style={styles.brandName}>MUKJI</Text>
+          <View style={styles.mainWorkspace}>
+            <ScrollView ref={contentScrollRef} contentContainerStyle={styles.page} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+              <View style={styles.brandHeader}>
+                <View style={styles.brandWordmark}>
+                  <View style={styles.brandMarkSmall}><Ionicons name="restaurant" size={17} color="#fff" /></View>
+                  <Text style={styles.brandName}>MUKJI</Text>
+                </View>
+                <View style={styles.headerRight}>
+                  {previewMode ? <View style={styles.previewPill}><Text style={styles.previewPillText}>PREVIEW</Text></View> : null}
+                  <View style={styles.ownerAvatar}><Ionicons name="person" size={19} color={OwnerPortalColors.orange} /></View>
+                </View>
               </View>
-              <View style={styles.headerRight}>
-                {previewMode ? <View style={styles.previewPill}><Text style={styles.previewPillText}>PREVIEW</Text></View> : null}
-                <View style={styles.ownerAvatar}><Ionicons name="person" size={19} color={OwnerPortalColors.orange} /></View>
-              </View>
-            </View>
-            {previewMode ? <PreviewNotice onExit={() => router.replace('/(tabs)/profile')} owner={owner} /> : null}
-            <Pressable
-              style={styles.restaurantSelector}
-              onPress={() => ownedRestaurants.length > 1 && setRestaurantPickerOpen((open) => !open)}
-              accessibilityRole={ownedRestaurants.length > 1 ? 'button' : undefined}
-              accessibilityLabel={owner('ownerPortalSelectedRestaurant')}>
-              <View style={styles.selectorIcon}><Ionicons name="storefront" size={23} color={OwnerPortalColors.orange} /></View>
-              <View style={styles.flex}>
-                <Text style={styles.selectorName} numberOfLines={1}>{selectedRestaurant?.nameEn || selectedRestaurant?.nameKo || owner('ownerPortalSelectedRestaurant')}</Text>
-                <Text style={styles.selectorSub} numberOfLines={1}>{selectedRestaurant?.nameKo || selectedRestaurant?.address || ''}</Text>
-              </View>
-              {ownedRestaurants.length > 1 ? <Ionicons name={restaurantPickerOpen ? 'chevron-up' : 'chevron-down'} size={20} color="#fff" /> : null}
-            </Pressable>
-            {restaurantPickerOpen ? (
-              <View style={styles.restaurantDropdown}>
-                {ownedRestaurants.map((restaurant) => (
+              {previewMode ? <PreviewNotice onExit={() => router.replace('/(tabs)/profile')} owner={owner} /> : null}
+              <Pressable
+                style={styles.restaurantSelector}
+                onPress={() => ownedRestaurants.length > 1 && setRestaurantPickerOpen((open) => !open)}
+                accessibilityRole={ownedRestaurants.length > 1 ? 'button' : undefined}
+                accessibilityLabel={owner('ownerPortalSelectedRestaurant')}>
+                <View style={styles.selectorIcon}><Ionicons name="storefront" size={23} color={OwnerPortalColors.orange} /></View>
+                <View style={styles.flex}>
+                  <Text style={styles.selectorName} numberOfLines={1}>{selectedRestaurant?.nameEn || selectedRestaurant?.nameKo || owner('ownerPortalSelectedRestaurant')}</Text>
+                  <Text style={styles.selectorSub} numberOfLines={1}>{selectedRestaurant?.nameKo || selectedRestaurant?.address || ''}</Text>
+                </View>
+                {ownedRestaurants.length > 1 ? <Ionicons name={restaurantPickerOpen ? 'chevron-up' : 'chevron-down'} size={20} color="#fff" /> : null}
+              </Pressable>
+              {restaurantPickerOpen ? (
+                <View style={styles.restaurantDropdown}>
+                  {ownedRestaurants.map((restaurant) => (
+                    <Pressable
+                      key={restaurant.id}
+                      onPress={() => { setSelectedRestaurantId(restaurant.id); setRestaurantPickerOpen(false); }}
+                      style={[styles.dropdownItem, selectedRestaurant?.id === restaurant.id && styles.dropdownItemActive]}
+                      accessibilityRole="button">
+                      <View style={styles.flex}>
+                        <Text style={styles.restaurantName}>{restaurant.nameEn || restaurant.nameKo}</Text>
+                        <Text style={styles.mutedText}>{restaurant.nameKo}</Text>
+                      </View>
+                      {selectedRestaurant?.id === restaurant.id ? <Ionicons name="checkmark-circle" size={21} color={OwnerPortalColors.orange} /> : null}
+                    </Pressable>
+                  ))}
+                </View>
+              ) : null}
+              {activeContent()}
+            </ScrollView>
+            <View style={styles.bottomNavigation}>
+              {tabs.map((tab) => {
+                const active = activeTab === tab.key;
+                return (
                   <Pressable
-                    key={restaurant.id}
-                    onPress={() => { setSelectedRestaurantId(restaurant.id); setRestaurantPickerOpen(false); }}
-                    style={[styles.dropdownItem, selectedRestaurant?.id === restaurant.id && styles.dropdownItemActive]}
-                    accessibilityRole="button">
-                    <View style={styles.flex}>
-                      <Text style={styles.restaurantName}>{restaurant.nameEn || restaurant.nameKo}</Text>
-                      <Text style={styles.mutedText}>{restaurant.nameKo}</Text>
-                    </View>
-                    {selectedRestaurant?.id === restaurant.id ? <Ionicons name="checkmark-circle" size={21} color={OwnerPortalColors.orange} /> : null}
+                    key={tab.key}
+                    onPress={() => changeTab(tab.key)}
+                    style={styles.navItem}
+                    accessibilityRole="button"
+                    accessibilityState={{ selected: active }}
+                    accessibilityLabel={owner(tab.label)}>
+                    {active ? <View style={styles.navIndicator} /> : null}
+                    <Ionicons name={active ? tab.activeIcon : tab.icon} size={21} color={active ? OwnerPortalColors.orange : OwnerPortalColors.muted} />
+                    <Text style={[styles.navLabel, active && styles.navLabelActive]} numberOfLines={1}>{owner(tab.label)}</Text>
                   </Pressable>
-                ))}
-              </View>
-            ) : null}
-            {activeContent()}
-          </ScrollView>
+                );
+              })}
+            </View>
+          </View>
         </View>
       )}
     </SafeAreaView>
@@ -598,13 +595,6 @@ function PreviewNotice({ onExit, owner }: { onExit: () => void; owner: (key: Own
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: OwnerPortalColors.canvas },
   portalLayout: { flex: 1, flexDirection: 'row' },
-  sidebar: { width: 82, backgroundColor: '#202124', alignItems: 'center', paddingTop: 14, paddingBottom: 14, gap: 12 },
-  sidebarBrand: { width: 44, height: 44, borderRadius: 14, backgroundColor: OwnerPortalColors.orange, alignItems: 'center', justifyContent: 'center', marginBottom: 10 },
-  sidebarItem: { width: 70, minHeight: 58, borderRadius: 12, alignItems: 'center', justifyContent: 'center', gap: 4, paddingHorizontal: 3 },
-  sidebarItemActive: { backgroundColor: OwnerPortalColors.orange },
-  sidebarLabel: { color: '#B8B8B8', fontSize: 9, fontWeight: '700', textAlign: 'center' },
-  sidebarLabelActive: { color: '#FFFFFF' },
-  sidebarSpacer: { flex: 1 },
   mainWorkspace: { flex: 1 },
   languagePill: { paddingHorizontal: 10, paddingVertical: 6, borderRadius: 20, backgroundColor: OwnerPortalColors.orangeSoft },
   languagePillText: { color: OwnerPortalColors.orangeDark, fontSize: 11, fontWeight: '900' },

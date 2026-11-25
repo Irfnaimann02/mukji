@@ -85,23 +85,7 @@ function Field({
   );
 }
 
-function emptyProfile(restaurant: Restaurant): RestaurantManagementProfile {
-  return {
-    id: restaurant.id,
-    nameKo: restaurant.nameKo,
-    nameEn: restaurant.nameEn,
-    category: restaurant.category ?? '',
-    address: restaurant.address,
-    phone: restaurant.phone,
-    latitude: String(restaurant.lat),
-    longitude: String(restaurant.lng),
-    description: '',
-    reservationUrl: restaurant.reservationUrl ?? '',
-    openingHours: {},
-    closedDays: [],
-    facilities: [],
-  };
-}
+
 
 export function OwnerRestaurantManagement({
   restaurant,
@@ -129,16 +113,6 @@ export function OwnerRestaurantManagement({
         setLoading(false);
         return;
       }
-      if (previewMode) {
-        const sample = emptyProfile(restaurant);
-        setProfile(sample);
-        setFacilityText('');
-        setPhotos([]);
-        setError('');
-        setLoading(false);
-        return;
-      }
-
       setLoading(true);
       setError('');
       try {
@@ -362,6 +336,12 @@ export function OwnerRestaurantManagement({
         </View>
         <Text style={styles.body}>{owner('ownerRestaurantPhotosHint')}</Text>
         <View style={styles.photoGrid}>
+          {photos.length === 0 ? (
+            <View style={styles.photoPlaceholder}>
+              <Ionicons name="image-outline" size={25} color={OwnerPortalColors.muted} />
+              <Text style={styles.photoPlaceholderText}>Insert picture</Text>
+            </View>
+          ) : null}
           {photos.map((photo) => (
             <View key={photo.id} style={styles.photoItem}>
               <Image source={{ uri: photo.url }} style={styles.photo} accessibilityLabel={photo.altText} />
@@ -416,6 +396,8 @@ const styles = StyleSheet.create({
   photoCount: { color: OwnerPortalColors.muted, fontSize: 12, fontWeight: '700' },
   photoGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 9 },
   photoItem: { width: '31%', aspectRatio: 1, position: 'relative' },
+  photoPlaceholder: { width: '31%', aspectRatio: 1, borderRadius: 10, borderWidth: 1, borderStyle: 'dashed', borderColor: OwnerPortalColors.border, backgroundColor: '#FAFAF9', alignItems: 'center', justifyContent: 'center', gap: 6 },
+  photoPlaceholderText: { color: OwnerPortalColors.muted, fontSize: 11, fontWeight: '700' },
   photo: { width: '100%', height: '100%', borderRadius: 10, backgroundColor: '#eef2f7' },
   removePhoto: { position: 'absolute', top: 5, right: 5, width: 26, height: 26, borderRadius: 13, backgroundColor: '#a22', alignItems: 'center', justifyContent: 'center' },
   secondaryButton: { borderWidth: 1, borderColor: OwnerPortalColors.orangeSoft, borderRadius: 10, padding: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 },

@@ -268,7 +268,14 @@ export function OwnerMenuManagement({ restaurant, previewMode }: Props) {
               {!item.editable ? <Text style={styles.muted}>{owner('ownerMenuSourceLocked')}</Text> : null}
             </View>
           </View>
-          {item.photoUrl ? <Image source={{ uri: item.photoUrl }} style={styles.menuPhoto} resizeMode="cover" /> : null}
+          {item.photoUrl ? (
+            <Image source={{ uri: item.photoUrl }} style={styles.menuPhoto} resizeMode="cover" />
+          ) : (
+            <View style={styles.menuPhotoPlaceholder}>
+              <Ionicons name="image-outline" size={25} color={OwnerPortalColors.muted} />
+              <Text style={styles.muted}>Insert picture</Text>
+            </View>
+          )}
           {item.editable ? (
             <View style={styles.photoActions}>
               <Pressable style={styles.photoButton} disabled={photoBusy === item.id || previewMode} onPress={() => void choosePhoto(item)}>
@@ -357,6 +364,7 @@ const styles = StyleSheet.create({
   body: { fontSize: 13, color: OwnerPortalColors.inkSoft, lineHeight: 19, flexShrink: 1 },
   muted: { fontSize: 12, color: '#8290a0' },
   menuPhoto: { width: '100%', height: 170, borderRadius: 10, backgroundColor: '#eef2f6' },
+  menuPhotoPlaceholder: { width: '100%', height: 170, borderRadius: 10, borderWidth: 1, borderStyle: 'dashed', borderColor: OwnerPortalColors.border, backgroundColor: '#FAFAF9', alignItems: 'center', justifyContent: 'center', gap: 8 },
   photoActions: { flexDirection: 'row', alignItems: 'center', gap: 14 },
   photoButton: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 6 },
   photoButtonText: { color: OwnerPortalColors.orange, fontWeight: '700', fontSize: 13 },
