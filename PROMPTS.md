@@ -253,3 +253,12 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Prompt: inspect every review comment on PR #122 against the latest supplied repository snapshot, fix the preview authentication mismatch, localization gaps, inactive analytics period controls, outdated Owner Portal UI specification, and missing prompt provenance while preserving the existing security boundaries.
 - Decisions: keep the development preview unauthenticated and read-only; do not recreate the deleted shared `owner-test@example.com` account or embed a shared password. Require an authorized owner session only for private reservations. Mark period filters as coming soon until real period-based metrics exist. Confirm the five-item bottom navigation as the final mobile Owner Portal layout.
 - Validation scope: source-level inspection and static checks only; no live Supabase, device, or end-to-end authentication/reservation test is claimed.
+
+## 2026-11-26 — #123 Team reads only submitted owner documents (Adib)
+- Tool: Claude (Claude Code)
+- Prompt: review our own #121 as if we were Aqil; then fix what that review found.
+- Found: 043's storage rule let team members read the whole private `owner-business-documents` bucket, including files from drafts an owner never submitted. The app only showed submitted documents, but the database allowed more than ETHICS.md section 8 says.
+- Output used: `supabase/sql/044_team_document_access_submitted_only.sql` (a yes/no helper `owner_document_is_submitted` and the replaced storage policy) and its test `supabase/tests/044_team_document_access_submitted_only.sql`.
+- Changes by me: kept it to the one policy; applicants' own rules (030/035) are unchanged. Checked that the test fails on the old 043 rule ("team could read a draft document") and passes on 044, locally and against the live database in a rolled-back transaction. The other finding (rejection reason not shown on the owner dashboard) is already fixed in Aqil's #122.
+- Files changed: `supabase/sql/044_team_document_access_submitted_only.sql` (new), `supabase/tests/044_team_document_access_submitted_only.sql` (new), `ETHICS.md`, `PROMPTS.md`.
+
