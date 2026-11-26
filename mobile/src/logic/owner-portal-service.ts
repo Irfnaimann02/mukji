@@ -15,33 +15,7 @@ import type { Restaurant } from '@/data/types';
 import { listRestaurantsByIds } from '@/logic/restaurant-service';
 
 
-const PREVIEW_RESTAURANT: Restaurant = {
-  id: 'mukji-owner-preview-restaurant',
-  nameKo: '살람 키친',
-  nameEn: 'Salam Kitchen',
-  foodType: 'halal',
-  lat: 37.303,
-  lng: 126.838,
-  address: 'Ansan, Gyeonggi-do, South Korea',
-  phone: '031-000-0000',
-  featuredDishNameEn: 'Korean beef rice bowl',
-  featuredDishImageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1000&auto=format&fit=crop&q=85',
-  priceLevel: 2,
-  halalCertified: false,
-  origin: [
-    { itemKo: '소고기', country: 'Australia' },
-    { itemKo: '닭고기', country: 'Korea' },
-  ],
-  recommendCount: 128,
-  rating: 4.8,
-  sources: ['preview'],
-  dishes: [
-    { id: 'preview-bulgogi', nameKo: '불고기 덮밥', nameEn: 'Bulgogi Rice Bowl', priceWon: 12000, contains: ['beef', 'soy', 'wheat'], mayContain: [], verifiedCount: 0, lastChecked: null, menuCategory: 'main', isAvailable: true, photoUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=700&auto=format&fit=crop&q=85' },
-    { id: 'preview-chicken', nameKo: '양념 치킨', nameEn: 'Korean Fried Chicken', priceWon: 16000, contains: ['chicken', 'wheat'], mayContain: ['soy'], verifiedCount: 0, lastChecked: null, menuCategory: 'main', isAvailable: true, photoUrl: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=700&auto=format&fit=crop&q=85' },
-    { id: 'preview-noodles', nameKo: '비빔면', nameEn: 'Spicy Mixed Noodles', priceWon: 9500, contains: ['wheat', 'soy'], mayContain: [], verifiedCount: 0, lastChecked: null, menuCategory: 'main', isAvailable: true, photoUrl: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=700&auto=format&fit=crop&q=85' },
-    { id: 'preview-drink', nameKo: '레몬 에이드', nameEn: 'Lemon Ade', priceWon: 5000, contains: [], mayContain: [], verifiedCount: 0, lastChecked: null, menuCategory: 'drink', isAvailable: true, photoUrl: 'https://images.unsplash.com/photo-1513558161293-cce5f3d3b2f9?w=700&auto=format&fit=crop&q=85' },
-  ],
-};
+const PREVIEW_RESTAURANT_ID = 'r16';
 
 export const EMPTY_APPLICATION_DRAFT: ApplicationDraft = {
   kind: 'existing',
@@ -118,7 +92,14 @@ export async function loadOwnerPortalRestaurants(previewMode: boolean): Promise<
   ownedRestaurants: Restaurant[];
 }> {
   if (previewMode) {
-    const restaurants = [PREVIEW_RESTAURANT];
+    // Development preview intentionally skips owner authentication, but it
+    // must still display the real restaurant record rather than fabricated data.
+    const restaurants = await listRestaurantsByIds([PREVIEW_RESTAURANT_ID]);
+    if (restaurants.length === 0) {
+      throw new Error(
+        `TriBoTea (${PREVIEW_RESTAURANT_ID}) could not be loaded. Check the Supabase connection and confirm that the restaurant is publicly readable.`,
+      );
+    }
     return { restaurants, ownedRestaurants: restaurants };
   }
 

@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 import type { Restaurant } from '@/data/types';
 import {
@@ -44,6 +44,7 @@ export function OwnerDashboard({
   const summary = useMemo(() => summarizeOwnerDashboard(data.applications), [data.applications]);
 
   useEffect(() => {
+    // Preview starts with loading=false, so no state update is needed here.
     if (previewMode) return;
 
     let active = true;
@@ -72,242 +73,220 @@ export function OwnerDashboard({
     return date.toLocaleDateString(language === 'ko' ? 'ko-KR' : 'en-US');
   };
 
-  const statCards = [
+  const periodLabels = language === 'ko' ? ['7일', '30일', '3개월'] : ['7 Days', '30 Days', '3 Months'];
+
+  const cards = [
     {
-      label: owner('ownerDashboardLinkedRestaurants'),
+      label: owner('ownerPortalDashboardLinkedRestaurants'),
       value: String(restaurants.length),
       icon: 'storefront-outline' as const,
+      tint: '#FFF0E7',
     },
     {
-      label: owner('ownerDashboardPendingApplications'),
-      value: previewMode ? '1' : String(summary.pendingApplications),
-      icon: 'document-text-outline' as const,
-    },
-    {
-      label: owner('ownerDashboardReservationRequests'),
-      value: previewMode ? '8' : String(data.pendingReservationCount),
+      label: owner('ownerDashboardPendingReservations'),
+      value: previewMode ? '—' : String(data.pendingReservationCount),
       icon: 'calendar-outline' as const,
+      tint: '#FFF0E7',
     },
     {
-      label: owner('ownerDashboardDraftApplications'),
-      value: previewMode ? '3' : String(summary.drafts),
-      icon: 'create-outline' as const,
+      label: owner('ownerPortalDashboardMenuItems'),
+      value: selectedRestaurant ? String(selectedRestaurant.dishes.length) : '—',
+      icon: 'restaurant-outline' as const,
+      tint: '#FFF0E7',
+    },
+    {
+      label: owner('ownerDashboardApplicationsNeedingAttention'),
+      value: previewMode ? '—' : String(summary.needsInformation),
+      icon: 'alert-circle-outline' as const,
+      tint: '#FFF5E5',
     },
   ];
 
-  const heroContent = (
-    <View style={styles.heroShade}>
-      <Text style={styles.heroEyebrow}>{owner('ownerDashboardHeroEyebrow')} · {owner(previewMode ? 'ownerDashboardPreviewLabel' : 'ownerDashboardBusinessOverviewLabel')}</Text>
-      <Text style={styles.heroTitle}>{owner('ownerDashboardWelcome')}</Text>
-      <Text style={styles.heroSubtitle}>{selectedRestaurant?.nameEn || owner('ownerDashboardOverviewDescription')}</Text>
-      {previewMode ? <View style={styles.heroTag}><Text style={styles.heroTagText}>{owner('ownerDashboardDemoLabel')}</Text></View> : null}
-    </View>
-  );
+  const attentionApplications = summary.attentionApplications.slice(0, 3);
 
   return (
     <View style={styles.root}>
-      {selectedRestaurant?.featuredDishImageUrl ? (
-        <ImageBackground
-          source={{ uri: selectedRestaurant.featuredDishImageUrl }}
-          imageStyle={styles.heroImage}
-          style={styles.hero}>
-          {heroContent}
-        </ImageBackground>
-      ) : (
-        <View style={styles.hero}>
-          {heroContent}
+      <View style={styles.hero}>
+        <View style={styles.heroTop}>
+          <Text style={styles.heroEyebrow}>{owner('ownerDashboardOverviewEyebrow')}</Text>
+          {previewMode ? (
+            <View style={styles.previewBadge}>
+              <Text style={styles.previewBadgeText}>{owner('ownerPreviewBadge')}</Text>
+            </View>
+          ) : null}
         </View>
-      )}
-      <View style={styles.heading}>
-        <View style={styles.headingIcon}>
-          <Ionicons name="grid-outline" size={22} color={ACCENT} />
-        </View>
-        <View style={styles.flex}>
-          <Text style={styles.eyebrow}>{owner('ownerOWNERDASHBOARD')}</Text>
-          <Text style={styles.title}>{owner('ownerDashboardWelcome')}</Text>
-          <Text style={styles.subtitle}>{owner('ownerDashboardOverviewDescription')}</Text>
+        <Text style={styles.heroTitle}>
+          {owner('ownerDashboardGreeting')}
+        </Text>
+        <Text style={styles.heroSubtitle}>
+          {selectedRestaurant?.nameEn || selectedRestaurant?.nameKo || owner('ownerDashboardOverviewFallback')}
+        </Text>
+        <View style={styles.heroAccent} />
+      </View>
+
+      <View style={styles.sectionHeading}>
+        <View style={styles.headingCopy}>
+          <Text style={styles.sectionTitle}>{owner('ownerDashboardBusinessInsights')}</Text>
+          <Text style={styles.sectionSubtitle}>{owner('ownerDashboardPeriodSubtitle')}</Text>
         </View>
       </View>
 
-      <View style={styles.statsGrid}>
-        {statCards.map((card) => (
-          <View key={card.label} style={styles.statCard}>
-            <Ionicons name={card.icon} size={20} color={ACCENT} />
-            <Text style={styles.statNumber}>{card.value}</Text>
-            <Text style={styles.statLabel}>{card.label}</Text>
+      <View style={styles.periodRow} accessibilityLabel={owner('ownerDashboardPeriodFiltersComingSoon')}>
+        {periodLabels.map((label) => (
+          <View key={label} style={[styles.periodButton, styles.periodButtonDisabled]}>
+            <Text style={styles.periodButtonText}>{label}</Text>
           </View>
         ))}
       </View>
 
-      {previewMode ? (
-        <View style={styles.analyticsCard}>
-          <View style={styles.sectionHeader}>
-            <View><Text style={styles.sectionTitle}>{owner('ownerDashboardRestaurantActivity')}</Text><Text style={styles.muted}>{owner('ownerDashboardIllustrativeWeeklyTrend')}</Text></View>
-            <View style={styles.periodPill}><Text style={styles.periodText}>{owner('ownerDashboardSevenDays')}</Text></View>
-          </View>
-          <View style={styles.chart}>
-            {[34, 48, 42, 66, 55, 78, 91].map((height, index) => (
-              <View key={index} style={styles.chartColumn}>
-                <View style={[styles.chartBar, { height }]} />
-                <Text style={styles.chartDay}>{owner((['ownerDayMon','ownerDayTue','ownerDayWed','ownerDayThu','ownerDayFri','ownerDaySat','ownerDaySun'] as const)[index])}</Text>
-              </View>
-            ))}
-          </View>
-          <View style={styles.chartLegend}><View style={styles.legendDot} /><Text style={styles.muted}>{owner('ownerDashboardSampleReservationActivity')}</Text></View>
-        </View>
-      ) : (
-        <View style={styles.infoCard}>
-          <Ionicons name="analytics-outline" size={20} color={ACCENT} />
-          <Text style={styles.infoText}>{owner('ownerDashboardAnalyticsUnavailable')}</Text>
-        </View>
-      )}
+      <Text style={styles.periodComingSoon}>{owner('ownerDashboardPeriodFiltersComingSoon')}</Text>
 
-      {previewMode ? (
-        <View style={styles.analyticsCard}>
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>{owner('ownerDashboardActionRequired')}</Text>
-            <View style={styles.periodPill}><Text style={styles.periodText}>{owner('ownerDashboardTwoItems')}</Text></View>
+      <View style={styles.metricsGrid}>
+        {cards.map((card) => (
+          <View key={card.label} style={styles.metricCard}>
+            <View style={[styles.metricIcon, { backgroundColor: card.tint }]}>
+              <Ionicons name={card.icon} size={21} color={ACCENT} />
+            </View>
+            <Text style={styles.metricValue}>{card.value}</Text>
+            <Text style={styles.metricLabel}>{card.label}</Text>
           </View>
-          <View style={styles.actionRow}>
-            <View style={styles.actionIcon}><Ionicons name="calendar-outline" size={19} color={ACCENT} /></View>
-            <View style={styles.flex}><Text style={styles.applicationName}>{owner('ownerDashboardRespondToReservations')}</Text><Text style={styles.muted}>{owner('ownerDashboardCustomersWaiting')}</Text></View>
-            <Ionicons name="chevron-forward" size={18} color="#858585" />
-          </View>
-          <View style={styles.actionRow}>
-            <View style={styles.actionIcon}><Ionicons name="restaurant-outline" size={19} color={ACCENT} /></View>
-            <View style={styles.flex}><Text style={styles.applicationName}>{owner('ownerDashboardReviewMenuAvailability')}</Text><Text style={styles.muted}>{owner('ownerDashboardKeepMenuUpdated')}</Text></View>
-            <Ionicons name="chevron-forward" size={18} color="#858585" />
-          </View>
-        </View>
-      ) : null}
+        ))}
+      </View>
 
-      {selectedRestaurant ? (
-        <View style={styles.selectedCard}>
-          <Text style={styles.sectionTitle}>{owner('ownerDashboardSelectedRestaurant')}</Text>
-          <Text style={styles.restaurantName}>{selectedRestaurant.nameEn || selectedRestaurant.nameKo}</Text>
-          <Text style={styles.muted}>{selectedRestaurant.address}</Text>
-          <View style={styles.selectedMeta}>
-            <Text style={styles.metaText}>
-              {owner('ownerDashboardMenuItems', { count: selectedRestaurant.dishes.length })}
-            </Text>
-            <Text style={styles.metaText}>
-              {selectedRestaurant.halalCertified
-                ? owner('ownerMarkedAsCertified')
-                : owner('ownerNotMarkedAsCertified')}
-            </Text>
-          </View>
-          <Text style={styles.footnote}>{owner('ownerDashboardCertificationNote')}</Text>
-        </View>
-      ) : null}
+      <View style={styles.analyticsNotice}>
+        <Ionicons name="analytics-outline" size={19} color={ACCENT} />
+        <Text style={styles.analyticsNoticeText}>
+{owner('ownerDashboardAnalyticsNotice')}
+        </Text>
+      </View>
 
-      <View style={styles.card}>
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>{owner('ownerDashboardApplicationStatus')}</Text>
+      <View style={styles.actionCard}>
+        <View style={styles.actionHeader}>
+          <View style={styles.actionTitleGroup}>
+            <View style={styles.actionAlertIcon}>
+              <Ionicons name="alert-circle" size={19} color={ACCENT} />
+            </View>
+            <Text style={styles.sectionTitle}>{owner('ownerPortalDashboardActionRequired')}</Text>
+          </View>
           {loading ? <ActivityIndicator size="small" color={ACCENT} /> : null}
         </View>
+
         {previewMode ? (
-          <Text style={styles.muted}>{owner('ownerDashboardPreviewDataUnavailable')}</Text>
+          <View style={styles.emptyAction}>
+            <Ionicons name="lock-closed-outline" size={20} color={OwnerPortalColors.muted} />
+            <Text style={styles.emptyActionText}>
+{owner('ownerDashboardPreviewPrivateNotice')}
+            </Text>
+          </View>
         ) : error ? (
-          <Text style={styles.muted}>{owner('ownerDashboardLoadError')}</Text>
-        ) : summary.recentApplications.length === 0 ? (
-          <Text style={styles.muted}>{owner('ownerDashboardNoApplications')}</Text>
+          <Text style={styles.emptyActionText}>{owner('ownerDashboardLoadError')}</Text>
         ) : (
-          summary.recentApplications.map((application) => (
-            <View key={application.id} style={styles.applicationRow}>
-              <View style={styles.flex}>
-                <Text style={styles.applicationName}>
+          <>
+            <View style={styles.actionRow}>
+              <View style={styles.actionRowIcon}>
+                <Ionicons name="calendar-outline" size={18} color={ACCENT} />
+              </View>
+              <View style={styles.actionCopy}>
+                <Text style={styles.actionName}>{owner('ownerPortalDashboardReservationRequests')}</Text>
+                <Text style={styles.actionDescription}>
+{owner('ownerDashboardReservationsWaiting').replace('{count}', String(data.pendingReservationCount))}
+                </Text>
+              </View>
+              <Text style={styles.actionCount}>{data.pendingReservationCount}</Text>
+            </View>
+            {attentionApplications.map((application) => (
+              <View key={application.id} style={styles.actionRow}>
+                <View style={styles.actionRowIcon}>
+                  <Ionicons name="document-text-outline" size={18} color={ACCENT} />
+                </View>
+                <View style={styles.actionCopy}>
+                  <Text style={styles.actionName}>
+                    {application.restaurantName || application.businessName || owner('ownerDashboardBusinessApplication')}
+                  </Text>
+                  <Text style={styles.actionDescription}>
+                    {owner(statusTranslationKey(application.status))}
+                    {application.updatedAt ? ` · ${dateLabel(application.updatedAt)}` : ''}
+                  </Text>
+                  {application.reviewMessage ? <Text style={styles.reviewMessage}>{application.reviewMessage}</Text> : null}
+                </View>
+              </View>
+            ))}
+            {!loading && data.pendingReservationCount === 0 && attentionApplications.length === 0 ? (
+              <Text style={styles.emptyActionText}>
+                {owner('ownerDashboardNoPendingActions')}
+              </Text>
+            ) : null}
+          </>
+        )}
+      </View>
+
+      <View style={styles.activityCard}>
+        <Text style={styles.sectionTitle}>{owner('ownerDashboardRecentApplicationActivity')}</Text>
+        {previewMode ? (
+          <Text style={styles.emptyActionText}>{owner('ownerDashboardPreviewActivityHidden')}</Text>
+        ) : summary.recentApplications.length === 0 ? (
+          <Text style={styles.emptyActionText}>{owner('ownerDashboardNoApplications')}</Text>
+        ) : (
+          summary.recentApplications.slice(0, 3).map((application) => (
+            <View key={application.id} style={styles.activityRow}>
+              <View style={styles.activityDot} />
+              <View style={styles.actionCopy}>
+                <Text style={styles.actionName}>
                   {application.restaurantName || application.businessName || owner('ownerDashboardBusinessApplication')}
                 </Text>
-                <Text style={styles.muted}>
-                  {application.kind === 'claim'
-                    ? owner('ownerRestaurantApplicationClaim')
-                    : application.kind === 'new'
-                      ? owner('ownerRestaurantApplicationNew')
-                      : owner('ownerDashboardBusinessInformation')}
+                <Text style={styles.actionDescription}>
+                  {owner(statusTranslationKey(application.status))}
                   {application.updatedAt ? ` · ${dateLabel(application.updatedAt)}` : ''}
                 </Text>
-                {application.status === 'needs_information' && application.reviewMessage ? (
-                  <Text style={styles.reviewMessage}>{application.reviewMessage}</Text>
-                ) : null}
-              </View>
-              <View style={[styles.statusPill, application.status === 'needs_information' && styles.statusNeedsInfo, application.status === 'rejected' && styles.statusRejected]}>
-                <Text style={styles.statusText}>{owner(statusTranslationKey(application.status))}</Text>
               </View>
             </View>
           ))
         )}
-      </View>
-
-      {summary.needsInformation > 0 ? (
-        <View style={styles.attentionCard}>
-          <Ionicons name="alert-circle-outline" size={21} color="#9a4b08" />
-          <View style={styles.flex}>
-            <Text style={styles.attentionTitle}>
-              {owner('ownerDashboardNeedsInformation', { count: summary.needsInformation })}
-            </Text>
-            <Text style={styles.attentionText}>{owner('ownerDashboardNeedsInformationHelp')}</Text>
-          </View>
-        </View>
-      ) : null}
-
-      <View style={styles.infoCard}>
-        <Ionicons name="information-circle-outline" size={20} color={ACCENT} />
-        <Text style={styles.infoText}>{owner('ownerDashboardAvailabilityNote')}</Text>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  root: { gap: 14 },
-  hero: { minHeight: 190, marginHorizontal: 16, borderRadius: 20, overflow: 'hidden', justifyContent: 'flex-end', backgroundColor: '#30251F' },
-  heroImage: { borderRadius: 20 },
-  heroShade: { minHeight: 190, padding: 18, justifyContent: 'flex-end', backgroundColor: 'rgba(20,16,13,0.48)' },
-  heroEyebrow: { color: '#FFD0B4', fontSize: 10, fontWeight: '900', letterSpacing: 1.3 },
-  heroTitle: { color: '#FFFFFF', fontSize: 25, fontWeight: '900', marginTop: 8 },
-  heroSubtitle: { color: '#FFFFFF', fontSize: 14, marginTop: 4, fontWeight: '600' },
-  heroTag: { alignSelf: 'flex-start', marginTop: 12, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 20, backgroundColor: ACCENT },
-  heroTagText: { color: '#FFFFFF', fontSize: 9, fontWeight: '900', letterSpacing: 0.7 },
-  analyticsCard: { marginHorizontal: 16, backgroundColor: '#fff', borderRadius: 16, borderWidth: 1, borderColor: '#E9E5E1', padding: 15, gap: 12 },
-  periodPill: { backgroundColor: '#FFF0E7', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 20 },
-  periodText: { color: ACCENT, fontSize: 10, fontWeight: '900' },
-  chart: { height: 118, flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-around', paddingTop: 10, borderBottomWidth: 1, borderBottomColor: '#EEE9E5' },
-  chartColumn: { alignItems: 'center', justifyContent: 'flex-end', gap: 6, flex: 1, height: '100%' },
-  chartBar: { width: 18, maxHeight: 92, borderTopLeftRadius: 6, borderTopRightRadius: 6, backgroundColor: ACCENT },
-  chartDay: { color: '#858585', fontSize: 10, fontWeight: '700' },
-  chartLegend: { flexDirection: 'row', alignItems: 'center', gap: 7 },
-  legendDot: { width: 7, height: 7, borderRadius: 4, backgroundColor: ACCENT },
+  root: { gap: 15 },
+  hero: { marginHorizontal: 16, minHeight: 190, borderRadius: 22, padding: 20, justifyContent: 'center', overflow: 'hidden', backgroundColor: '#24211F' },
+  heroTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  heroEyebrow: { color: '#FFD0B4', fontSize: 10, fontWeight: '900', letterSpacing: 1.4 },
+  previewBadge: { backgroundColor: ACCENT, borderRadius: 20, paddingHorizontal: 10, paddingVertical: 5 },
+  previewBadgeText: { color: '#FFFFFF', fontSize: 9, fontWeight: '900', letterSpacing: 0.7 },
+  heroTitle: { color: '#FFFFFF', fontSize: 28, fontWeight: '900', marginTop: 17 },
+  heroSubtitle: { color: '#FFFFFF', fontSize: 14, fontWeight: '600', marginTop: 5 },
+  heroAccent: { position: 'absolute', width: 150, height: 150, borderRadius: 75, right: -60, top: -65, backgroundColor: '#F26A21', opacity: 0.9 },
+  sectionHeading: { paddingHorizontal: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  headingCopy: { gap: 3 },
+  sectionTitle: { color: OwnerPortalColors.ink, fontSize: 16, fontWeight: '900' },
+  sectionSubtitle: { color: OwnerPortalColors.muted, fontSize: 11 },
+  periodRow: { paddingHorizontal: 16, flexDirection: 'row', gap: 8 },
+  periodButton: { flex: 1, borderRadius: 20, paddingVertical: 10, alignItems: 'center', backgroundColor: '#F2F1EF' },
+  periodButtonText: { color: OwnerPortalColors.inkSoft, fontSize: 11, fontWeight: '700' },
+  periodButtonDisabled: { opacity: 0.62 },
+  periodComingSoon: { marginTop: -7, paddingHorizontal: 18, color: OwnerPortalColors.muted, fontSize: 10, textAlign: 'right' },
+  metricsGrid: { paddingHorizontal: 16, flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
+  metricCard: { width: '48%', flexGrow: 1, minHeight: 120, backgroundColor: '#FFFFFF', borderRadius: 16, borderWidth: 1, borderColor: OwnerPortalColors.border, padding: 13, gap: 6 },
+  metricIcon: { width: 36, height: 36, borderRadius: 11, alignItems: 'center', justifyContent: 'center' },
+  metricValue: { color: OwnerPortalColors.ink, fontSize: 25, fontWeight: '900' },
+  metricLabel: { color: OwnerPortalColors.inkSoft, fontSize: 11, fontWeight: '700' },
+  analyticsNotice: { marginHorizontal: 16, borderRadius: 13, backgroundColor: '#FFF5EF', padding: 12, flexDirection: 'row', gap: 9, alignItems: 'flex-start' },
+  analyticsNoticeText: { flex: 1, color: OwnerPortalColors.inkSoft, fontSize: 11, lineHeight: 17 },
+  actionCard: { marginHorizontal: 16, backgroundColor: '#FFFFFF', borderRadius: 16, borderWidth: 1, borderColor: OwnerPortalColors.border, padding: 15, gap: 11 },
+  actionHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  actionTitleGroup: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  actionAlertIcon: { width: 30, height: 30, borderRadius: 10, backgroundColor: '#FFF0E7', alignItems: 'center', justifyContent: 'center' },
   actionRow: { flexDirection: 'row', alignItems: 'center', gap: 10, paddingVertical: 9, borderTopWidth: 1, borderTopColor: '#F0EDE9' },
-  actionIcon: { width: 36, height: 36, borderRadius: 11, backgroundColor: '#FFF0E7', alignItems: 'center', justifyContent: 'center' },
-  flex: { flex: 1 },
-  heading: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingTop: 18 },
-  headingIcon: { width: 44, height: 44, borderRadius: 14, backgroundColor: '#FFF0E7', alignItems: 'center', justifyContent: 'center' },
-  eyebrow: { color: ACCENT, fontSize: 11, fontWeight: '800', letterSpacing: 1 },
-  title: { color: '#171717', fontSize: 22, fontWeight: '800', marginTop: 2 },
-  subtitle: { color: '#6F6A66', fontSize: 13, marginTop: 3 },
-  statsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, paddingHorizontal: 16 },
-  statCard: { width: '48%', flexGrow: 1, minHeight: 112, backgroundColor: '#fff', borderRadius: 14, borderWidth: 1, borderColor: '#E9E5E1', padding: 14, gap: 5 },
-  statNumber: { color: '#171717', fontSize: 25, fontWeight: '800' },
-  statLabel: { color: '#6F6A66', fontSize: 12, fontWeight: '600' },
-  card: { marginHorizontal: 16, backgroundColor: '#fff', borderRadius: 14, borderWidth: 1, borderColor: '#E9E5E1', padding: 15, gap: 10 },
-  selectedCard: { marginHorizontal: 16, backgroundColor: '#fff', borderRadius: 14, borderWidth: 1, borderColor: '#E9E5E1', padding: 15, gap: 7 },
-  sectionHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  sectionTitle: { color: '#171717', fontSize: 15, fontWeight: '800' },
-  restaurantName: { color: '#171717', fontSize: 18, fontWeight: '700' },
-  muted: { color: '#858585', fontSize: 12, lineHeight: 18 },
-  selectedMeta: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, marginTop: 4 },
-  metaText: { color: '#65412D', fontSize: 12, fontWeight: '600' },
-  footnote: { color: '#858585', fontSize: 11, lineHeight: 16 },
-  applicationRow: { flexDirection: 'row', alignItems: 'center', gap: 10, paddingVertical: 10, borderTopWidth: 1, borderTopColor: '#F0EDE9' },
-  applicationName: { color: '#282421', fontSize: 13, fontWeight: '700' },
-  statusPill: { backgroundColor: '#FFF0E7', paddingHorizontal: 9, paddingVertical: 6, borderRadius: 20, maxWidth: 125 },
-  statusNeedsInfo: { backgroundColor: '#fff1dc' },
-  statusRejected: { backgroundColor: '#fdebea' },
-  statusText: { color: '#65412D', fontSize: 10, fontWeight: '700', textAlign: 'center' },
-  reviewMessage: { color: '#9a4b08', fontSize: 12, marginTop: 5 },
-  attentionCard: { marginHorizontal: 16, padding: 13, backgroundColor: '#fff8eb', borderColor: '#f2d7ad', borderWidth: 1, borderRadius: 12, flexDirection: 'row', gap: 10 },
-  attentionTitle: { color: '#7c3e08', fontWeight: '800', fontSize: 13 },
-  attentionText: { color: '#855a2b', fontSize: 12, lineHeight: 17, marginTop: 3 },
-  infoCard: { marginHorizontal: 16, padding: 13, backgroundColor: '#FFF6F0', borderRadius: 12, flexDirection: 'row', gap: 9, alignItems: 'flex-start' },
-  infoText: { flex: 1, color: '#65412D', fontSize: 11, lineHeight: 16 },
+  actionRowIcon: { width: 36, height: 36, borderRadius: 11, backgroundColor: '#FFF0E7', alignItems: 'center', justifyContent: 'center' },
+  actionCopy: { flex: 1 },
+  actionName: { color: OwnerPortalColors.ink, fontSize: 12, fontWeight: '800' },
+  actionDescription: { color: OwnerPortalColors.muted, fontSize: 10, lineHeight: 15, marginTop: 3 },
+  actionCount: { color: ACCENT, fontSize: 17, fontWeight: '900' },
+  emptyAction: { flexDirection: 'row', alignItems: 'flex-start', gap: 9, paddingVertical: 8 },
+  emptyActionText: { color: OwnerPortalColors.muted, fontSize: 11, lineHeight: 17 },
+  reviewMessage: { color: '#9A4B08', fontSize: 11, marginTop: 4 },
+  activityCard: { marginHorizontal: 16, backgroundColor: '#FFFFFF', borderRadius: 16, borderWidth: 1, borderColor: OwnerPortalColors.border, padding: 15, gap: 10 },
+  activityRow: { flexDirection: 'row', alignItems: 'center', gap: 10, borderTopWidth: 1, borderTopColor: '#F0EDE9', paddingTop: 10 },
+  activityDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: ACCENT },
 });

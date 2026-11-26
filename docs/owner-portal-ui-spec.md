@@ -317,7 +317,11 @@
 
 ## PR9 — Post-login Owner Portal experience
 
-The existing Owner Portal is organized as a professional workspace with a persistent left sidebar (navigation rail) and a main content area. The five destinations are Home, Restaurants, Menus, Reservations and More. On narrow mobile layouts, the rail may adapt to a compact navigation treatment while preserving the same destinations and information architecture. The visual reference is the approved MUKJI Owner Portal design board (Image 2), recoloured to use MUKJI orange, white and black rather than blue.
+The final Owner Portal layout uses a five-item bottom tab bar and a single main content area; a persistent left sidebar/navigation rail is not part of the approved mobile layout. The five destinations are Home, Restaurants, Menus, Reservations and More. The bottom tabs remain visible while the selected destination content scrolls above them. The restaurant selector remains in the content header. The visual reference is the approved MUKJI Owner Portal design board (Model 2), recoloured to use MUKJI orange, white and black rather than blue.
+
+**Development preview:** The Account page can open a development-only, read-only preview for the real TriBoTea listing (`r16`) without authenticating an owner. This is a UI/data inspection path, not an owner session. Menu and restaurant edits, uploads and deletions remain disabled. Private reservations and account-specific application data are not shown; the Reservations tab explains that an authorized owner account is required. Do not create a shared test-owner account or embed credentials to support this preview.
+
+**Dashboard analytics:** The 7 Days / 30 Days / 3 Months period controls are visibly marked as coming soon and disabled until real period-based metrics and data sources are implemented. Do not present them as functioning filters or fabricate chart data.
 
 - **Home:** existing owner dashboard data, application activity, linked-restaurant summary and quick actions. Do not invent analytics or reservation totals that are not returned by the existing repositories.
 - **Restaurants:** selected-restaurant context, restaurant profile, location, opening hours, facilities, photos and existing editing workflows.

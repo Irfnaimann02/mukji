@@ -248,6 +248,12 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Changes by me: chose to add owners rows instead of changing every owner security rule, so all of Aqil's existing owner checks stay as they are. Reject needs a reason; a "new restaurant" is only approved by linking it to an existing listing (it has no map position); close only removes team links, never a real owner. Kept the new screen out of the Owner Portal and the menu-review screen to avoid clashing with Aqil's open #116. Tested 043 locally on a copy of every migration (re-run safe; checks for strangers, team, applicant), and against the live database together with 036 in a rolled-back transaction.
 - Files changed: `supabase/sql/043_owner_approval_team_access.sql` (new), `supabase/tests/043_owner_approval_team_access.sql` (new), `mobile/src/data/team-owner-repository.ts` (new), `mobile/src/logic/team-owner-tools.ts` (new), `mobile/src/logic/__tests__/team-owner-tools.test.ts` (new), `mobile/src/app/team-owner-tools.tsx` (new), `mobile/src/components/team-owner-link.tsx` (new), `mobile/src/app/(tabs)/profile.tsx`, `mobile/src/i18n/translations.ts`, `ETHICS.md`, `PROMPTS.md`.
 
+## 2026-11-26 — #122 Owner Portal review fixes
+- Tool: ChatGPT (GPT-6) with the repository ZIP supplied by the project owner; changes were prepared for manual application.
+- Prompt: inspect every review comment on PR #122 against the latest supplied repository snapshot, fix the preview authentication mismatch, localization gaps, inactive analytics period controls, outdated Owner Portal UI specification, and missing prompt provenance while preserving the existing security boundaries.
+- Decisions: keep the development preview unauthenticated and read-only; do not recreate the deleted shared `owner-test@example.com` account or embed a shared password. Require an authorized owner session only for private reservations. Mark period filters as coming soon until real period-based metrics exist. Confirm the five-item bottom navigation as the final mobile Owner Portal layout.
+- Validation scope: source-level inspection and static checks only; no live Supabase, device, or end-to-end authentication/reservation test is claimed.
+
 ## 2026-11-26 — #123 Team reads only submitted owner documents (Adib)
 - Tool: Claude (Claude Code)
 - Prompt: review our own #121 as if we were Aqil; then fix what that review found.
