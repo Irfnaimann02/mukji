@@ -8,11 +8,11 @@
     "https://www.lotteeatz.com/brand/ria"
   ],
   "checked_on": "2026-11-24",
-  "notes": "MENU ONLY - the official site publishes no allergen information, so every dish has empty lists and allergens_as_written = 'not shown'. Show these as 'ask staff'. Menu and prices from LOTTE EATZ (lotteeatz.com, Lotte GRS's official ordering site). Its product page template has allergen/origin sections but they are commented out, so nothing is shown. Categories: 버거, 디저트 (sides), 치킨; packs, drinks and ice desserts left out. Prices are LOTTE EATZ online prices.",
+  "notes": "MENU ONLY - the official site publishes no allergen information, so every dish has empty lists and allergens_as_written = 'not shown'. Show these as 'ask staff'. Menu and prices from LOTTE EATZ (lotteeatz.com, Lotte GRS's official ordering site). Its product page template has allergen/origin sections but they are commented out, so nothing is shown. Categories: 버거, 디저트 (sides), 치킨; packs, drinks and ice desserts left out. Prices are LOTTE EATZ online prices. name_en: English names were translated by the Mukji team (#126, SQL 046); they are not the brand's official English.",
   "dishes": [
     {
       "name_ko": "무신사 무진장 스모키 더블비프",
-      "name_en": "무신사 무진장 스모키 더블비프",
+      "name_en": "Musinsa Mujinjang Smoky Double Beef",
       "price_won": 7900,
       "contains": [],
       "may_contain": [],
@@ -21,7 +21,7 @@
     },
     {
       "name_ko": "무신사무진장 스모키치킨비프",
-      "name_en": "무신사무진장 스모키치킨비프",
+      "name_en": "Musinsa Mujinjang Smoky Chicken Beef",
       "price_won": 9700,
       "contains": [],
       "may_contain": [],
@@ -30,7 +30,7 @@
     },
     {
       "name_ko": "리아 불고기 레드",
-      "name_en": "리아 불고기 레드",
+      "name_en": "Ria Bulgogi Red",
       "price_won": 6200,
       "contains": [],
       "may_contain": [],
@@ -39,7 +39,7 @@
     },
     {
       "name_ko": "리아 불고기 더블 레드",
-      "name_en": "리아 불고기 더블 레드",
+      "name_en": "Ria Bulgogi Double Red",
       "price_won": 8000,
       "contains": [],
       "may_contain": [],
@@ -48,7 +48,7 @@
     },
     {
       "name_ko": "리아 두툼새우",
-      "name_en": "리아 두툼새우",
+      "name_en": "Ria Thick Shrimp",
       "price_won": 7900,
       "contains": [],
       "may_contain": [],
@@ -57,7 +57,7 @@
     },
     {
       "name_ko": "리아 두툼새우 스파이시토마토",
-      "name_en": "리아 두툼새우 스파이시토마토",
+      "name_en": "Ria Thick Shrimp Spicy Tomato",
       "price_won": 7900,
       "contains": [],
       "may_contain": [],
@@ -66,7 +66,7 @@
     },
     {
       "name_ko": "하와이안 모짜렐라버거",
-      "name_en": "하와이안 모짜렐라버거",
+      "name_en": "Hawaiian Mozzarella Burger",
       "price_won": 8800,
       "contains": [],
       "may_contain": [],
@@ -75,7 +75,7 @@
     },
     {
       "name_ko": "통다리 크리스피치킨버거(파이어핫)",
-      "name_en": "통다리 크리스피치킨버거(파이어핫)",
+      "name_en": "Whole-Leg Crispy Chicken Burger (Fire Hot)",
       "price_won": 6900,
       "contains": [],
       "may_contain": [],
@@ -84,7 +84,7 @@
     },
     {
       "name_ko": "통다리 크리스피치킨버거(그릭랜치)",
-      "name_en": "통다리 크리스피치킨버거(그릭랜치)",
+      "name_en": "Whole-Leg Crispy Chicken Burger (Greek Ranch)",
       "price_won": 6900,
       "contains": [],
       "may_contain": [],
@@ -93,7 +93,7 @@
     },
     {
       "name_ko": "나폴리 모짜렐라버거 발사믹바질",
-      "name_en": "나폴리 모짜렐라버거 발사믹바질",
+      "name_en": "Napoli Mozzarella Burger Balsamic Basil",
       "price_won": 9300,
       "contains": [],
       "may_contain": [],
@@ -102,7 +102,7 @@
     },
     {
       "name_ko": "나폴리 모짜렐라버거 토마토바질",
-      "name_en": "나폴리 모짜렐라버거 토마토바질",
+      "name_en": "Napoli Mozzarella Burger Tomato Basil",
       "price_won": 9300,
       "contains": [],
       "may_contain": [],
@@ -111,7 +111,7 @@
     },
     {
       "name_ko": "전주 비빔라이스 버거",
-      "name_en": "전주 비빔라이스 버거",
+      "name_en": "Jeonju Bibim Rice Burger",
       "price_won": 7500,
       "contains": [],
       "may_contain": [],
@@ -120,7 +120,7 @@
     },
     {
       "name_ko": "리아 새우 베이컨",
-      "name_en": "리아 새우 베이컨",
+      "name_en": "Ria Shrimp Bacon",
       "price_won": 6200,
       "contains": [],
       "may_contain": [],
@@ -129,7 +129,7 @@
     },
     {
       "name_ko": "리아 불고기 베이컨",
-      "name_en": "리아 불고기 베이컨",
+      "name_en": "Ria Bulgogi Bacon",
       "price_won": 6200,
       "contains": [],
       "may_contain": [],
@@ -138,7 +138,7 @@
     },
     {
       "name_ko": "더블 한우불고기버거",
-      "name_en": "더블 한우불고기버거",
+      "name_en": "Double Hanwoo Bulgogi Burger (Korean Beef)",
       "price_won": 13200,
       "contains": [],
       "may_contain": [],
@@ -147,7 +147,7 @@
     },
     {
       "name_ko": "한우불고기버거",
-      "name_en": "한우불고기버거",
+      "name_en": "Hanwoo Bulgogi Burger (Korean Beef)",
       "price_won": 9200,
       "contains": [],
       "may_contain": [],
@@ -156,7 +156,7 @@
     },
     {
       "name_ko": "더블 클래식치즈버거(버터번)",
-      "name_en": "더블 클래식치즈버거(버터번)",
+      "name_en": "Double Classic Cheeseburger (Butter Bun)",
       "price_won": 7400,
       "contains": [],
       "may_contain": [],
@@ -165,7 +165,7 @@
     },
     {
       "name_ko": "더블 치킨버거",
-      "name_en": "더블 치킨버거",
+      "name_en": "Double Chicken Burger",
       "price_won": 6000,
       "contains": [],
       "may_contain": [],
@@ -174,7 +174,7 @@
     },
     {
       "name_ko": "더블 데리버거",
-      "name_en": "더블 데리버거",
+      "name_en": "Double Teriyaki Burger",
       "price_won": 5200,
       "contains": [],
       "may_contain": [],
@@ -183,7 +183,7 @@
     },
     {
       "name_ko": "더블엑스투버거",
-      "name_en": "더블엑스투버거",
+      "name_en": "Double X-Two Burger",
       "price_won": 7400,
       "contains": [],
       "may_contain": [],
@@ -192,7 +192,7 @@
     },
     {
       "name_ko": "리아 불고기 더블(빅불)",
-      "name_en": "리아 불고기 더블(빅불)",
+      "name_en": "Ria Bulgogi Double (Big Bul)",
       "price_won": 7700,
       "contains": [],
       "may_contain": [],
@@ -201,7 +201,7 @@
     },
     {
       "name_ko": "미라클버거",
-      "name_en": "미라클버거",
+      "name_en": "Miracle Burger",
       "price_won": 5900,
       "contains": [],
       "may_contain": [],
@@ -210,7 +210,7 @@
     },
     {
       "name_ko": "더블 미라클버거",
-      "name_en": "더블 미라클버거",
+      "name_en": "Double Miracle Burger",
       "price_won": 7400,
       "contains": [],
       "may_contain": [],
@@ -219,7 +219,7 @@
     },
     {
       "name_ko": "모짜렐라 인 더 버거 베이컨",
-      "name_en": "모짜렐라 인 더 버거 베이컨",
+      "name_en": "Mozzarella in the Burger Bacon",
       "price_won": 8200,
       "contains": [],
       "may_contain": [],
@@ -228,7 +228,7 @@
     },
     {
       "name_ko": "핫크리스피치킨버거",
-      "name_en": "핫크리스피치킨버거",
+      "name_en": "Hot Crispy Chicken Burger",
       "price_won": 6400,
       "contains": [],
       "may_contain": [],
@@ -237,7 +237,7 @@
     },
     {
       "name_ko": "리아 사각새우 더블",
-      "name_en": "리아 사각새우 더블",
+      "name_en": "Ria Square Shrimp Double",
       "price_won": 6200,
       "contains": [],
       "may_contain": [],
@@ -246,7 +246,7 @@
     },
     {
       "name_ko": "클래식치즈버거(버터번)",
-      "name_en": "클래식치즈버거(버터번)",
+      "name_en": "Classic Cheeseburger (Butter Bun)",
       "price_won": 5700,
       "contains": [],
       "may_contain": [],
@@ -255,7 +255,7 @@
     },
     {
       "name_ko": "리아 불고기",
-      "name_en": "리아 불고기",
+      "name_en": "Ria Bulgogi",
       "price_won": 5100,
       "contains": [],
       "may_contain": [],
@@ -264,7 +264,7 @@
     },
     {
       "name_ko": "리아 새우",
-      "name_en": "리아 새우",
+      "name_en": "Ria Shrimp",
       "price_won": 5100,
       "contains": [],
       "may_contain": [],
@@ -273,7 +273,7 @@
     },
     {
       "name_ko": "치킨버거",
-      "name_en": "치킨버거",
+      "name_en": "Chicken Burger",
       "price_won": 4500,
       "contains": [],
       "may_contain": [],
@@ -282,7 +282,7 @@
     },
     {
       "name_ko": "데리버거",
-      "name_en": "데리버거",
+      "name_en": "Teriyaki Burger",
       "price_won": 3800,
       "contains": [],
       "may_contain": [],
@@ -291,7 +291,7 @@
     },
     {
       "name_ko": "디지게 매운 돈까스(디진다맛)",
-      "name_en": "디지게 매운 돈까스(디진다맛)",
+      "name_en": "Deadly Spicy Pork Cutlet (Dijinda Flavour)",
       "price_won": 3500,
       "contains": [],
       "may_contain": [],
@@ -300,7 +300,7 @@
     },
     {
       "name_ko": "디지게 매운 돈까스(양념맛)",
-      "name_en": "디지게 매운 돈까스(양념맛)",
+      "name_en": "Deadly Spicy Pork Cutlet (Sweet & Spicy)",
       "price_won": 3500,
       "contains": [],
       "may_contain": [],
@@ -309,7 +309,7 @@
     },
     {
       "name_ko": "양념너겟",
-      "name_en": "양념너겟",
+      "name_en": "Sweet & Spicy Nuggets",
       "price_won": 3500,
       "contains": [],
       "may_contain": [],
@@ -318,7 +318,7 @@
     },
     {
       "name_ko": "치킨너겟",
-      "name_en": "치킨너겟",
+      "name_en": "Chicken Nuggets",
       "price_won": 3300,
       "contains": [],
       "may_contain": [],
@@ -327,7 +327,7 @@
     },
     {
       "name_ko": "포테이토",
-      "name_en": "포테이토",
+      "name_en": "Fries",
       "price_won": 2100,
       "contains": [],
       "may_contain": [],
@@ -336,7 +336,7 @@
     },
     {
       "name_ko": "포테이토(L)",
-      "name_en": "포테이토(L)",
+      "name_en": "Fries (L)",
       "price_won": 2600,
       "contains": [],
       "may_contain": [],
@@ -345,7 +345,7 @@
     },
     {
       "name_ko": "양념감자",
-      "name_en": "양념감자",
+      "name_en": "Seasoned Fries",
       "price_won": 2700,
       "contains": [],
       "may_contain": [],
@@ -354,7 +354,7 @@
     },
     {
       "name_ko": "치즈스틱",
-      "name_en": "치즈스틱",
+      "name_en": "Cheese Sticks",
       "price_won": 2900,
       "contains": [],
       "may_contain": [],
@@ -363,7 +363,7 @@
     },
     {
       "name_ko": "롱치즈스틱",
-      "name_en": "롱치즈스틱",
+      "name_en": "Long Cheese Sticks",
       "price_won": 2500,
       "contains": [],
       "may_contain": [],
@@ -372,7 +372,7 @@
     },
     {
       "name_ko": "통오징어링",
-      "name_en": "통오징어링",
+      "name_en": "Whole Squid Rings",
       "price_won": 2900,
       "contains": [],
       "may_contain": [],
@@ -381,7 +381,7 @@
     },
     {
       "name_ko": "지파이 하바네로(L)",
-      "name_en": "지파이 하바네로(L)",
+      "name_en": "G-Pie Habanero (L) (Fried Chicken Breast)",
       "price_won": 5800,
       "contains": [],
       "may_contain": [],
@@ -390,7 +390,7 @@
     },
     {
       "name_ko": "지파이 고소한맛(S)",
-      "name_en": "지파이 고소한맛(S)",
+      "name_en": "G-Pie Savoury (S) (Fried Chicken Breast)",
       "price_won": 4700,
       "contains": [],
       "may_contain": [],
@@ -399,7 +399,7 @@
     },
     {
       "name_ko": "코울슬로",
-      "name_en": "코울슬로",
+      "name_en": "Coleslaw",
       "price_won": 2000,
       "contains": [],
       "may_contain": [],
@@ -408,7 +408,7 @@
     },
     {
       "name_ko": "화이어윙",
-      "name_en": "화이어윙",
+      "name_en": "Fire Wings",
       "price_won": 3400,
       "contains": [],
       "may_contain": [],
@@ -417,7 +417,7 @@
     },
     {
       "name_ko": "치킨휠레",
-      "name_en": "치킨휠레",
+      "name_en": "Chicken Fillet",
       "price_won": 3300,
       "contains": [],
       "may_contain": [],
@@ -426,7 +426,7 @@
     },
     {
       "name_ko": "치킨다리 1조각",
-      "name_en": "치킨다리 1조각",
+      "name_en": "Chicken Drumstick (1 pc)",
       "price_won": 3100,
       "contains": [],
       "may_contain": [],
@@ -435,7 +435,7 @@
     },
     {
       "name_ko": "후라이드 순살치킨 (R)",
-      "name_en": "후라이드 순살치킨 (R)",
+      "name_en": "Fried Boneless Chicken (R)",
       "price_won": 11300,
       "contains": [],
       "may_contain": [],
@@ -444,7 +444,7 @@
     },
     {
       "name_ko": "후라이드순살치킨N (R)",
-      "name_en": "후라이드순살치킨N (R)",
+      "name_en": "Fried Boneless Chicken N (R)",
       "price_won": 11300,
       "contains": [],
       "may_contain": [],
@@ -453,7 +453,7 @@
     },
     {
       "name_ko": "후라이드 순살치킨 (L)",
-      "name_en": "후라이드 순살치킨 (L)",
+      "name_en": "Fried Boneless Chicken (L)",
       "price_won": 18600,
       "contains": [],
       "may_contain": [],
@@ -462,7 +462,7 @@
     },
     {
       "name_ko": "후라이드순살치킨N (L)",
-      "name_en": "후라이드순살치킨N (L)",
+      "name_en": "Fried Boneless Chicken N (L)",
       "price_won": 18600,
       "contains": [],
       "may_contain": [],
@@ -471,7 +471,7 @@
     },
     {
       "name_ko": "치킨다리 하프팩(4조각)",
-      "name_en": "치킨다리 하프팩(4조각)",
+      "name_en": "Chicken Drumstick Half Pack (4 pcs)",
       "price_won": 11100,
       "contains": [],
       "may_contain": [],

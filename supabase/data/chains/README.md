@@ -28,3 +28,10 @@ Collected on 2026-11-24 from each chain's own website only (no delivery apps, bl
 
 Menu-only chains have empty tags. `apply_chain_menus()` refuses them, because empty tags would show every dish as safe.
 For the same reason it skips single dishes marked 'not shown' inside the other chains (e.g. BBQ 순살 치킨버거, 버거킹 프렌치프라이).
+
+## English names (#126, SQL 046)
+
+455 dishes (bbq, bhc, bonjuk, burgerking, goobne, kfc, kyochon, lotteria) had only a Korean name, so `name_en` was a copy of `name_ko`. Their English names were then written by the Mukji team: official English where the brand uses it (Whopper, Zinger, Golden Olive), a plain description otherwise (간장한마리 → Soy Garlic Whole Chicken), and brand coinages romanized with a short hint (뿌링클 → Bburinkle (Cheese-Seasoned Fried Chicken)). **They are not the brands' official English.** Each file's `notes` says so.
+
+After editing names here, run `python scripts/chain_menus/build_046.py` to regenerate `supabase/sql/046_chain_dish_english_names.sql`. 046 only changes names that are still a copy of the Korean name, so it never overwrites a name fixed by hand.
+

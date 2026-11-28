@@ -279,3 +279,11 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Changes by me: kept the existing sign-out dialog and its key instead of a new screen; the web version shows the numbered choice with "Log in" first.
 - Checked: the new SQL test (Adib's peanut case) fails on the old rule and passes on the new one; all migrations and SQL tests pass locally; 4 new app tests and 1 updated (the copy-window test fails on the old sign-in code); en/ko keys still match.
 - Files changed: `supabase/sql/045_user_saved_data.sql`, `supabase/tests/045_user_saved_data.sql`, `mobile/src/data/saved-data-sync.ts`, `mobile/src/logic/saved-data.ts`, `mobile/src/logic/__tests__/saved-data.test.ts`, `mobile/src/data/__tests__/saved-data-sync.test.ts`, `mobile/src/hooks/use-account.ts`, `mobile/src/i18n/translations.ts`, `ETHICS.md`, `PROMPTS.md`.
+
+## 2026-11-28 — #126 English names for chain dishes (Adib)
+- Tool: Claude (Claude Code)
+- Prompt: write English names for the 455 chain dishes that only had a Korean name, so English users don't see Korean at chain branches.
+- Output used: English names in 8 files under `supabase/data/chains/` (bbq, bhc, bonjuk, burgerking, goobne, kfc, kyochon, lotteria), `scripts/chain_menus/build_046.py`, and the generated `supabase/sql/046_chain_dish_english_names.sql`.
+- Changes by me: reviewed the names. Rules: official English where the brand uses it, a plain description otherwise, brand coinages romanized with a hint of what the dish is; marked in every file's notes and the README as translated by Mukji, not official. Names only, no allergen tags changed. 046 updates `chain_menu_dishes` and the branch copies in `dishes`, and only where the English name is still a copy of the Korean one. Checked the live database has the same 455 dishes (same chain, dish number and Korean name). Tested locally: 455 source rows and 5,696 branch dishes translated, second run changes nothing.
+- Files changed: `supabase/data/chains/{bbq,bhc,bonjuk,burgerking,goobne,kfc,kyochon,lotteria}.json`, `supabase/data/chains/README.md`, `scripts/chain_menus/build_046.py` (new), `supabase/sql/046_chain_dish_english_names.sql` (new), `PROMPTS.md`.
+

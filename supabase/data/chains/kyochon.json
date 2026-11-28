@@ -10,11 +10,11 @@
     "https://www.kyochon.com/images/menu/allergyinfo_20261123_pc.jpg"
   ],
   "checked_on": "2026-11-24",
-  "notes": "Allergen table is one image dated 2026-11-23 (kyochon_allergen.jpg, '주요 알레르기 성분'); read by eye from zoomed crops - spot-check. 계란 mapped to egg, 조개류(굴) to seafood; 복숭아/토마토/아황산류 kept only in allergens_as_written. The same image has an origin board (원산지 표시판 CO-STD-261123): main chicken series and wing series are listed with their own origin; part of it is cut off in the image, so origins were not copied. One item page (허니윙콤비) says 닭고기(태국산), so wing products may be imported. Prices are on individual item pages as '권장소비자가격' and vary by store; not collected (null). Sauces were left out. name_en = Korean name (no English names on site). Review of #105: fish is not on Korea's allergen list, so dishes that are fish by name got 'seafood' added to 'contains' by hand: 아, 귀한먹태.",
+  "notes": "Allergen table is one image dated 2026-11-23 (kyochon_allergen.jpg, '주요 알레르기 성분'); read by eye from zoomed crops - spot-check. 계란 mapped to egg, 조개류(굴) to seafood; 복숭아/토마토/아황산류 kept only in allergens_as_written. The same image has an origin board (원산지 표시판 CO-STD-261123): main chicken series and wing series are listed with their own origin; part of it is cut off in the image, so origins were not copied. One item page (허니윙콤비) says 닭고기(태국산), so wing products may be imported. Prices are on individual item pages as '권장소비자가격' and vary by store; not collected (null). Sauces were left out. name_en: English names were translated by the Mukji team (#126, SQL 046); they are not the brand's official English. Review of #105: fish is not on Korea's allergen list, so dishes that are fish by name got 'seafood' added to 'contains' by hand: 아, 귀한먹태.",
   "dishes": [
     {
       "name_ko": "간장한마리",
-      "name_en": "간장한마리",
+      "name_en": "Soy Garlic Whole Chicken",
       "price_won": null,
       "contains": [
         "chicken",
@@ -27,7 +27,7 @@
     },
     {
       "name_ko": "간장콤보",
-      "name_en": "간장콤보",
+      "name_en": "Soy Garlic Combo (Wings & Drumsticks)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -40,7 +40,7 @@
     },
     {
       "name_ko": "간장윙",
-      "name_en": "간장윙",
+      "name_en": "Soy Garlic Wings",
       "price_won": null,
       "contains": [
         "chicken",
@@ -53,7 +53,7 @@
     },
     {
       "name_ko": "간장스틱",
-      "name_en": "간장스틱",
+      "name_en": "Soy Garlic Drumsticks",
       "price_won": null,
       "contains": [
         "chicken",
@@ -66,7 +66,7 @@
     },
     {
       "name_ko": "간장순살",
-      "name_en": "간장순살",
+      "name_en": "Soy Garlic Boneless",
       "price_won": null,
       "contains": [
         "chicken",
@@ -79,7 +79,7 @@
     },
     {
       "name_ko": "레드한마리",
-      "name_en": "레드한마리",
+      "name_en": "Red (Spicy) Whole Chicken",
       "price_won": null,
       "contains": [
         "chicken",
@@ -92,7 +92,7 @@
     },
     {
       "name_ko": "레드콤보",
-      "name_en": "레드콤보",
+      "name_en": "Red (Spicy) Combo",
       "price_won": null,
       "contains": [
         "chicken",
@@ -105,7 +105,7 @@
     },
     {
       "name_ko": "레드윙",
-      "name_en": "레드윙",
+      "name_en": "Red (Spicy) Wings",
       "price_won": null,
       "contains": [
         "chicken",
@@ -118,7 +118,7 @@
     },
     {
       "name_ko": "레드스틱",
-      "name_en": "레드스틱",
+      "name_en": "Red (Spicy) Drumsticks",
       "price_won": null,
       "contains": [
         "chicken",
@@ -131,7 +131,7 @@
     },
     {
       "name_ko": "레드순살",
-      "name_en": "레드순살",
+      "name_en": "Red (Spicy) Boneless",
       "price_won": null,
       "contains": [
         "chicken",
@@ -144,7 +144,7 @@
     },
     {
       "name_ko": "반반콤보(간장+레드)",
-      "name_en": "반반콤보(간장+레드)",
+      "name_en": "Half & Half Combo (Soy Garlic + Red)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -157,7 +157,7 @@
     },
     {
       "name_ko": "반반스틱(간장+레드)",
-      "name_en": "반반스틱(간장+레드)",
+      "name_en": "Half & Half Drumsticks (Soy Garlic + Red)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -170,7 +170,7 @@
     },
     {
       "name_ko": "반반윙(간장+레드)",
-      "name_en": "반반윙(간장+레드)",
+      "name_en": "Half & Half Wings (Soy Garlic + Red)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -183,7 +183,7 @@
     },
     {
       "name_ko": "반반순살(간장+레드)",
-      "name_en": "반반순살(간장+레드)",
+      "name_en": "Half & Half Boneless (Soy Garlic + Red)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -196,7 +196,7 @@
     },
     {
       "name_ko": "반반순살(레드+허니)",
-      "name_en": "반반순살(레드+허니)",
+      "name_en": "Half & Half Boneless (Red + Honey)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -209,7 +209,7 @@
     },
     {
       "name_ko": "반반한마리(간장+레드)",
-      "name_en": "반반한마리(간장+레드)",
+      "name_en": "Half & Half Whole Chicken (Soy Garlic + Red)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -222,7 +222,7 @@
     },
     {
       "name_ko": "반반한마리(간장+허니갈릭)",
-      "name_en": "반반한마리(간장+허니갈릭)",
+      "name_en": "Half & Half Whole Chicken (Soy Garlic + Honey Garlic)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -235,7 +235,7 @@
     },
     {
       "name_ko": "반반한마리(레드+허니갈릭)",
-      "name_en": "반반한마리(레드+허니갈릭)",
+      "name_en": "Half & Half Whole Chicken (Red + Honey Garlic)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -248,7 +248,7 @@
     },
     {
       "name_ko": "반반한마리(간장+마라레드)",
-      "name_en": "반반한마리(간장+마라레드)",
+      "name_en": "Half & Half Whole Chicken (Soy Garlic + Mala Red)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -263,7 +263,7 @@
     },
     {
       "name_ko": "반반한마리(레드+마라레드)",
-      "name_en": "반반한마리(레드+마라레드)",
+      "name_en": "Half & Half Whole Chicken (Red + Mala Red)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -278,7 +278,7 @@
     },
     {
       "name_ko": "반반한마리(마라레드+허니갈릭)",
-      "name_en": "반반한마리(마라레드+허니갈릭)",
+      "name_en": "Half & Half Whole Chicken (Mala Red + Honey Garlic)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -293,7 +293,7 @@
     },
     {
       "name_ko": "허니한마리",
-      "name_en": "허니한마리",
+      "name_en": "Honey Whole Chicken",
       "price_won": null,
       "contains": [
         "chicken",
@@ -306,7 +306,7 @@
     },
     {
       "name_ko": "허니콤보",
-      "name_en": "허니콤보",
+      "name_en": "Honey Combo",
       "price_won": null,
       "contains": [
         "chicken",
@@ -319,7 +319,7 @@
     },
     {
       "name_ko": "허니순살",
-      "name_en": "허니순살",
+      "name_en": "Honey Boneless",
       "price_won": null,
       "contains": [
         "chicken",
@@ -332,7 +332,7 @@
     },
     {
       "name_ko": "후라이드한마리",
-      "name_en": "후라이드한마리",
+      "name_en": "Fried Whole Chicken",
       "price_won": null,
       "contains": [
         "chicken",
@@ -346,7 +346,7 @@
     },
     {
       "name_ko": "양념치킨한마리",
-      "name_en": "양념치킨한마리",
+      "name_en": "Sweet & Spicy Whole Chicken",
       "price_won": null,
       "contains": [
         "chicken",
@@ -360,7 +360,7 @@
     },
     {
       "name_ko": "후라이드양념반반한마리",
-      "name_en": "후라이드양념반반한마리",
+      "name_en": "Half Fried + Half Sweet & Spicy Whole Chicken",
       "price_won": null,
       "contains": [
         "chicken",
@@ -374,7 +374,7 @@
     },
     {
       "name_ko": "후라이드순살",
-      "name_en": "후라이드순살",
+      "name_en": "Fried Boneless",
       "price_won": null,
       "contains": [
         "chicken",
@@ -388,7 +388,7 @@
     },
     {
       "name_ko": "양념치킨순살",
-      "name_en": "양념치킨순살",
+      "name_en": "Sweet & Spicy Boneless",
       "price_won": null,
       "contains": [
         "chicken",
@@ -402,7 +402,7 @@
     },
     {
       "name_ko": "후라이드양념반반순살",
-      "name_en": "후라이드양념반반순살",
+      "name_en": "Half Fried + Half Sweet & Spicy Boneless",
       "price_won": null,
       "contains": [
         "chicken",
@@ -416,7 +416,7 @@
     },
     {
       "name_ko": "살살후라이드",
-      "name_en": "살살후라이드",
+      "name_en": "Salsal Fried (Light Batter Chicken)",
       "price_won": null,
       "contains": [
         "beef",
@@ -432,7 +432,7 @@
     },
     {
       "name_ko": "파채소이살살",
-      "name_en": "파채소이살살",
+      "name_en": "Soy Scallion Salsal Chicken",
       "price_won": null,
       "contains": [
         "beef",
@@ -448,7 +448,7 @@
     },
     {
       "name_ko": "허니갈릭한마리",
-      "name_en": "허니갈릭한마리",
+      "name_en": "Honey Garlic Whole Chicken",
       "price_won": null,
       "contains": [
         "chicken",
@@ -461,7 +461,7 @@
     },
     {
       "name_ko": "허니옥수수한마리",
-      "name_en": "허니옥수수한마리",
+      "name_en": "Honey Corn Whole Chicken",
       "price_won": null,
       "contains": [
         "chicken",
@@ -476,7 +476,7 @@
     },
     {
       "name_ko": "허니옥수수순살",
-      "name_en": "허니옥수수순살",
+      "name_en": "Honey Corn Boneless",
       "price_won": null,
       "contains": [
         "chicken",
@@ -491,7 +491,7 @@
     },
     {
       "name_ko": "마라레드한마리",
-      "name_en": "마라레드한마리",
+      "name_en": "Mala Red Whole Chicken",
       "price_won": null,
       "contains": [
         "chicken",
@@ -506,7 +506,7 @@
     },
     {
       "name_ko": "간장싱글윙",
-      "name_en": "간장싱글윙",
+      "name_en": "Soy Garlic Single Wings",
       "price_won": null,
       "contains": [
         "chicken",
@@ -519,7 +519,7 @@
     },
     {
       "name_ko": "허니싱글윙",
-      "name_en": "허니싱글윙",
+      "name_en": "Honey Single Wings",
       "price_won": null,
       "contains": [
         "chicken",
@@ -532,7 +532,7 @@
     },
     {
       "name_ko": "레드싱글윙",
-      "name_en": "레드싱글윙",
+      "name_en": "Red (Spicy) Single Wings",
       "price_won": null,
       "contains": [
         "chicken",
@@ -545,7 +545,7 @@
     },
     {
       "name_ko": "후라이드싱글윙",
-      "name_en": "후라이드싱글윙",
+      "name_en": "Fried Single Wings",
       "price_won": null,
       "contains": [
         "chicken",
@@ -559,7 +559,7 @@
     },
     {
       "name_ko": "양념치킨싱글윙",
-      "name_en": "양념치킨싱글윙",
+      "name_en": "Sweet & Spicy Single Wings",
       "price_won": null,
       "contains": [
         "chicken",
@@ -573,7 +573,7 @@
     },
     {
       "name_ko": "마라레드싱글윙",
-      "name_en": "마라레드싱글윙",
+      "name_en": "Mala Red Single Wings",
       "price_won": null,
       "contains": [
         "chicken",
@@ -588,7 +588,7 @@
     },
     {
       "name_ko": "허니갈릭싱글윙",
-      "name_en": "허니갈릭싱글윙",
+      "name_en": "Honey Garlic Single Wings",
       "price_won": null,
       "contains": [
         "chicken",
@@ -601,7 +601,7 @@
     },
     {
       "name_ko": "허니옥수수싱글윙",
-      "name_en": "허니옥수수싱글윙",
+      "name_en": "Honey Corn Single Wings",
       "price_won": null,
       "contains": [
         "chicken",
@@ -616,7 +616,7 @@
     },
     {
       "name_ko": "간장윙박스",
-      "name_en": "간장윙박스",
+      "name_en": "Soy Garlic Wing Box",
       "price_won": null,
       "contains": [
         "chicken",
@@ -629,7 +629,7 @@
     },
     {
       "name_ko": "허니윙박스",
-      "name_en": "허니윙박스",
+      "name_en": "Honey Wing Box",
       "price_won": null,
       "contains": [
         "chicken",
@@ -642,7 +642,7 @@
     },
     {
       "name_ko": "레드윙박스",
-      "name_en": "레드윙박스",
+      "name_en": "Red (Spicy) Wing Box",
       "price_won": null,
       "contains": [
         "chicken",
@@ -655,7 +655,7 @@
     },
     {
       "name_ko": "후라이드윙박스",
-      "name_en": "후라이드윙박스",
+      "name_en": "Fried Wing Box",
       "price_won": null,
       "contains": [
         "chicken",
@@ -669,7 +669,7 @@
     },
     {
       "name_ko": "양념치킨윙박스",
-      "name_en": "양념치킨윙박스",
+      "name_en": "Sweet & Spicy Wing Box",
       "price_won": null,
       "contains": [
         "chicken",
@@ -683,7 +683,7 @@
     },
     {
       "name_ko": "마라레드윙박스",
-      "name_en": "마라레드윙박스",
+      "name_en": "Mala Red Wing Box",
       "price_won": null,
       "contains": [
         "chicken",
@@ -698,7 +698,7 @@
     },
     {
       "name_ko": "허니갈릭윙박스",
-      "name_en": "허니갈릭윙박스",
+      "name_en": "Honey Garlic Wing Box",
       "price_won": null,
       "contains": [
         "chicken",
@@ -711,7 +711,7 @@
     },
     {
       "name_ko": "허니옥수수윙박스",
-      "name_en": "허니옥수수윙박스",
+      "name_en": "Honey Corn Wing Box",
       "price_won": null,
       "contains": [
         "chicken",
@@ -726,7 +726,7 @@
     },
     {
       "name_ko": "간장윙콤비",
-      "name_en": "간장윙콤비",
+      "name_en": "Soy Garlic Wing Combi",
       "price_won": null,
       "contains": [
         "chicken",
@@ -739,7 +739,7 @@
     },
     {
       "name_ko": "레드윙콤비",
-      "name_en": "레드윙콤비",
+      "name_en": "Red (Spicy) Wing Combi",
       "price_won": null,
       "contains": [
         "chicken",
@@ -752,7 +752,7 @@
     },
     {
       "name_ko": "허니윙콤비",
-      "name_en": "허니윙콤비",
+      "name_en": "Honey Wing Combi",
       "price_won": null,
       "contains": [
         "chicken",
@@ -765,7 +765,7 @@
     },
     {
       "name_ko": "마라레드윙콤비",
-      "name_en": "마라레드윙콤비",
+      "name_en": "Mala Red Wing Combi",
       "price_won": null,
       "contains": [
         "chicken",
@@ -780,7 +780,7 @@
     },
     {
       "name_ko": "허니갈릭윙콤비",
-      "name_en": "허니갈릭윙콤비",
+      "name_en": "Honey Garlic Wing Combi",
       "price_won": null,
       "contains": [
         "chicken",
@@ -793,7 +793,7 @@
     },
     {
       "name_ko": "허니옥수수윙콤비",
-      "name_en": "허니옥수수윙콤비",
+      "name_en": "Honey Corn Wing Combi",
       "price_won": null,
       "contains": [
         "chicken",
@@ -808,7 +808,7 @@
     },
     {
       "name_ko": "샐러드",
-      "name_en": "샐러드",
+      "name_en": "Salad",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -817,7 +817,7 @@
     },
     {
       "name_ko": "웨지감자",
-      "name_en": "웨지감자",
+      "name_en": "Potato Wedges",
       "price_won": null,
       "contains": [
         "wheat",
@@ -829,7 +829,7 @@
     },
     {
       "name_ko": "웨지고구마",
-      "name_en": "웨지고구마",
+      "name_en": "Sweet Potato Wedges",
       "price_won": null,
       "contains": [
         "dairy",
@@ -841,7 +841,7 @@
     },
     {
       "name_ko": "웨지반반",
-      "name_en": "웨지반반",
+      "name_en": "Half & Half Wedges (Potato + Sweet Potato)",
       "price_won": null,
       "contains": [
         "dairy",
@@ -854,7 +854,7 @@
     },
     {
       "name_ko": "꽈배기",
-      "name_en": "꽈배기",
+      "name_en": "Twisted Doughnut (Kkwabaegi)",
       "price_won": null,
       "contains": [
         "dairy",
@@ -867,7 +867,7 @@
     },
     {
       "name_ko": "칩카사바",
-      "name_en": "칩카사바",
+      "name_en": "Cassava Chips",
       "price_won": null,
       "contains": [
         "dairy",
@@ -880,7 +880,7 @@
     },
     {
       "name_ko": "포테이토앤칩스(점보팩)",
-      "name_en": "포테이토앤칩스(점보팩)",
+      "name_en": "Potatoes & Chips (Jumbo Pack)",
       "price_won": null,
       "contains": [
         "dairy",
@@ -893,7 +893,7 @@
     },
     {
       "name_ko": "소이파채샐러드",
-      "name_en": "소이파채샐러드",
+      "name_en": "Soy Scallion Salad",
       "price_won": null,
       "contains": [
         "seafood",
@@ -906,7 +906,7 @@
     },
     {
       "name_ko": "퐁듀치즈볼",
-      "name_en": "퐁듀치즈볼",
+      "name_en": "Fondue Cheese Balls",
       "price_won": null,
       "contains": [
         "egg",
@@ -920,7 +920,7 @@
     },
     {
       "name_ko": "고르곤치즈볼",
-      "name_en": "고르곤치즈볼",
+      "name_en": "Gorgonzola Cheese Balls",
       "price_won": null,
       "contains": [
         "beef",
@@ -935,7 +935,7 @@
     },
     {
       "name_ko": "교촌X노티드츄러스",
-      "name_en": "교촌X노티드츄러스",
+      "name_en": "Kyochon x Knotted Churros",
       "price_won": null,
       "contains": [
         "egg",
@@ -950,7 +950,7 @@
     },
     {
       "name_ko": "오리지널찰도그",
-      "name_en": "오리지널찰도그",
+      "name_en": "Original Rice Hot Dog",
       "price_won": null,
       "contains": [
         "beef",
@@ -966,7 +966,7 @@
     },
     {
       "name_ko": "체다치즈찰도그",
-      "name_en": "체다치즈찰도그",
+      "name_en": "Cheddar Cheese Rice Hot Dog",
       "price_won": null,
       "contains": [
         "beef",
@@ -981,7 +981,7 @@
     },
     {
       "name_ko": "국물맵떡",
-      "name_en": "국물맵떡",
+      "name_en": "Soupy Spicy Tteokbokki",
       "price_won": null,
       "contains": [
         "beef",
@@ -997,7 +997,7 @@
     },
     {
       "name_ko": "블랙시크릿팝콘",
-      "name_en": "블랙시크릿팝콘",
+      "name_en": "Black Secret Popcorn Chicken",
       "price_won": null,
       "contains": [
         "beef",
@@ -1013,7 +1013,7 @@
     },
     {
       "name_ko": "허니치룽지",
-      "name_en": "허니치룽지",
+      "name_en": "Honey Chirungji (Crispy Rice Chicken)",
       "price_won": null,
       "contains": [
         "beef",
@@ -1029,7 +1029,7 @@
     },
     {
       "name_ko": "레드치룽지",
-      "name_en": "레드치룽지",
+      "name_en": "Red Chirungji (Spicy Crispy Rice Chicken)",
       "price_won": null,
       "contains": [
         "beef",
@@ -1045,7 +1045,7 @@
     },
     {
       "name_ko": "궁중닭갈비볶음밥",
-      "name_en": "궁중닭갈비볶음밥",
+      "name_en": "Royal Dakgalbi Fried Rice",
       "price_won": null,
       "contains": [
         "beef",
@@ -1060,7 +1060,7 @@
     },
     {
       "name_ko": "달걀듬뿍볶음밥",
-      "name_en": "달걀듬뿍볶음밥",
+      "name_en": "Extra-Egg Fried Rice",
       "price_won": null,
       "contains": [
         "beef",
@@ -1077,7 +1077,7 @@
     },
     {
       "name_ko": "아, 귀한먹태",
-      "name_en": "아, 귀한먹태",
+      "name_en": "Ah, Precious Dried Pollock",
       "price_won": null,
       "contains": [
         "beef",
@@ -1093,7 +1093,7 @@
     },
     {
       "name_ko": "모둠어묵탕",
-      "name_en": "모둠어묵탕",
+      "name_en": "Assorted Fish Cake Soup",
       "price_won": null,
       "contains": [
         "beef",
@@ -1108,7 +1108,7 @@
     },
     {
       "name_ko": "바삭근위튀김(똥집튀김)",
-      "name_en": "바삭근위튀김(똥집튀김)",
+      "name_en": "Crispy Fried Gizzards",
       "price_won": null,
       "contains": [
         "beef",
@@ -1123,7 +1123,7 @@
     },
     {
       "name_ko": "소이파닭편육",
-      "name_en": "소이파닭편육",
+      "name_en": "Soy Scallion Chicken Slices",
       "price_won": null,
       "contains": [
         "beef",

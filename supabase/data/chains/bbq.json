@@ -16,11 +16,11 @@
     "https://bbq.co.kr/products/3003"
   ],
   "checked_on": "2026-11-24",
-  "notes": "Allergens, prices and origin come from bbq.co.kr's own menu API (/api/delivery/menu/<category>), the data the official ordering site loads for each item. CAUTION: on 2026-11-24 the allergen text was not visible on the rendered product page I checked (bbq_allergen.png shows the page), so this field could not be cross-checked against what customers see. Categories used: 치킨, 피자&버거, 사이드; sauces, drinks and sets were left out. Origins listed on the site:  닭고기: 국내산; (닭고기 : 국내산); 닭고기: 국내산; 닭고기: 브라질산; 닭고기: 외국산(스웨덴, 덴마크, 태국 등); 돼지고기: 국내산; 바베큐치킨(닭고기): 브라질산과 국내산 섞음; 베이컨슬라이스(돼지고기): 외국산; 비프스트립(쇠고기): 호주산; 소시지(닭고기): 국내산; 소시지(돼지고기): 국내산; 스모크햄(돼지고기): 외국산과 국내산 섞음; 오징어: 외국산; 페퍼로니(돼지고기): 국내산; 페퍼로니플러스(돼지고기): 국내산; 페퍼로니플러스(쇠고기): 호주산; 포크탑핑(돼지고기): 외국산과 국내산 섞음. Prices are the site's online-order prices. No shared-frying-oil statement found. name_en is the Korean name because the site has no English names.",
+  "notes": "Allergens, prices and origin come from bbq.co.kr's own menu API (/api/delivery/menu/<category>), the data the official ordering site loads for each item. CAUTION: on 2026-11-24 the allergen text was not visible on the rendered product page I checked (bbq_allergen.png shows the page), so this field could not be cross-checked against what customers see. Categories used: 치킨, 피자&버거, 사이드; sauces, drinks and sets were left out. Origins listed on the site:  닭고기: 국내산; (닭고기 : 국내산); 닭고기: 국내산; 닭고기: 브라질산; 닭고기: 외국산(스웨덴, 덴마크, 태국 등); 돼지고기: 국내산; 바베큐치킨(닭고기): 브라질산과 국내산 섞음; 베이컨슬라이스(돼지고기): 외국산; 비프스트립(쇠고기): 호주산; 소시지(닭고기): 국내산; 소시지(돼지고기): 국내산; 스모크햄(돼지고기): 외국산과 국내산 섞음; 오징어: 외국산; 페퍼로니(돼지고기): 국내산; 페퍼로니플러스(돼지고기): 국내산; 페퍼로니플러스(쇠고기): 호주산; 포크탑핑(돼지고기): 외국산과 국내산 섞음. Prices are the site's online-order prices. No shared-frying-oil statement found. name_en: English names were translated by the Mukji team (#126, SQL 046); they are not the brand's official English.",
   "dishes": [
     {
       "name_ko": "황금올리브치킨™",
-      "name_en": "황금올리브치킨™",
+      "name_en": "Golden Olive Chicken™",
       "price_won": 23000,
       "contains": [
         "beef",
@@ -38,7 +38,7 @@
     },
     {
       "name_ko": "자메이카 통다리구이",
-      "name_en": "자메이카 통다리구이",
+      "name_en": "Jamaica Grilled Whole Leg",
       "price_won": 24000,
       "contains": [
         "beef",
@@ -53,7 +53,7 @@
     },
     {
       "name_ko": "뿜치킹",
-      "name_en": "뿜치킹",
+      "name_en": "Bbumchiking",
       "price_won": 25000,
       "contains": [
         "beef",
@@ -69,7 +69,7 @@
     },
     {
       "name_ko": "황금올리브치킨™핫크리스피",
-      "name_en": "황금올리브치킨™핫크리스피",
+      "name_en": "Golden Olive Chicken™ Hot Crispy",
       "price_won": 24000,
       "contains": [
         "pork",
@@ -87,7 +87,7 @@
     },
     {
       "name_ko": "황금올리브치킨™블랙페퍼",
-      "name_en": "황금올리브치킨™블랙페퍼",
+      "name_en": "Golden Olive Chicken™ Black Pepper",
       "price_won": 24000,
       "contains": [
         "beef",
@@ -105,7 +105,7 @@
     },
     {
       "name_ko": "스모크치킨(5조각)",
-      "name_en": "스모크치킨(5조각)",
+      "name_en": "Smoked Chicken (5 pcs)",
       "price_won": 22000,
       "contains": [
         "chicken",
@@ -117,7 +117,7 @@
     },
     {
       "name_ko": "[황.양.반] 황올 반+양념 반",
-      "name_en": "[황.양.반] 황올 반+양념 반",
+      "name_en": "Half Golden Olive + Half Sweet & Spicy",
       "price_won": 24000,
       "contains": [
         "beef",
@@ -135,7 +135,7 @@
     },
     {
       "name_ko": "황금올리브치킨™양념",
-      "name_en": "황금올리브치킨™양념",
+      "name_en": "Golden Olive Chicken™ Sweet & Spicy",
       "price_won": 24500,
       "contains": [
         "beef",
@@ -153,7 +153,7 @@
     },
     {
       "name_ko": "황금올리브치킨™속안심",
-      "name_en": "황금올리브치킨™속안심",
+      "name_en": "Golden Olive Chicken™ Tenderloin",
       "price_won": 19000,
       "contains": [
         "beef",
@@ -171,7 +171,7 @@
     },
     {
       "name_ko": "크런치버터치킨",
-      "name_en": "크런치버터치킨",
+      "name_en": "Crunch Butter Chicken",
       "price_won": 24000,
       "contains": [
         "beef",
@@ -189,7 +189,7 @@
     },
     {
       "name_ko": "핫베이크 윙",
-      "name_en": "핫베이크 윙",
+      "name_en": "Hot Bake Wings",
       "price_won": 24000,
       "contains": [
         "pork",
@@ -207,7 +207,7 @@
     },
     {
       "name_ko": "맵소디",
-      "name_en": "맵소디",
+      "name_en": "Maepsody (Spicy Chicken)",
       "price_won": 24500,
       "contains": [
         "beef",
@@ -225,7 +225,7 @@
     },
     {
       "name_ko": "땡쇼크",
-      "name_en": "땡쇼크",
+      "name_en": "Ttaengshock (Spicy Chicken)",
       "price_won": 25000,
       "contains": [
         "chicken",
@@ -240,7 +240,7 @@
     },
     {
       "name_ko": "황금올리브치킨™핫윙(VAP)",
-      "name_en": "황금올리브치킨™핫윙(VAP)",
+      "name_en": "Golden Olive Chicken™ Hot Wings (VAP)",
       "price_won": 23000,
       "contains": [
         "chicken",
@@ -256,7 +256,7 @@
     },
     {
       "name_ko": "[NEW] 필크런치",
-      "name_en": "[NEW] 필크런치",
+      "name_en": "[NEW] Pil Crunch Chicken",
       "price_won": 27000,
       "contains": [
         "beef",
@@ -274,7 +274,7 @@
     },
     {
       "name_ko": "크런치 순살크래커",
-      "name_en": "크런치 순살크래커",
+      "name_en": "Crunch Boneless Cracker Chicken",
       "price_won": 20000,
       "contains": [
         "chicken",
@@ -288,7 +288,7 @@
     },
     {
       "name_ko": "자메이카 소떡만나치킨",
-      "name_en": "자메이카 소떡만나치킨",
+      "name_en": "Jamaica Sausage & Rice Cake Chicken",
       "price_won": 24000,
       "contains": [
         "pork",
@@ -306,7 +306,7 @@
     },
     {
       "name_ko": "황금올리브치킨™매운양념",
-      "name_en": "황금올리브치킨™매운양념",
+      "name_en": "Golden Olive Chicken™ Extra Spicy Sauce",
       "price_won": 25000,
       "contains": [
         "beef",
@@ -324,7 +324,7 @@
     },
     {
       "name_ko": "바사칸 윙",
-      "name_en": "바사칸 윙",
+      "name_en": "Basakan Wings",
       "price_won": 23000,
       "contains": [
         "chicken",
@@ -338,7 +338,7 @@
     },
     {
       "name_ko": "파더's치킨",
-      "name_en": "파더's치킨",
+      "name_en": "Father's Chicken",
       "price_won": 15000,
       "contains": [
         "beef",
@@ -354,7 +354,7 @@
     },
     {
       "name_ko": "극한왕갈비치킨",
-      "name_en": "극한왕갈비치킨",
+      "name_en": "Extreme King Galbi Chicken",
       "price_won": 23000,
       "contains": [
         "beef",
@@ -370,7 +370,7 @@
     },
     {
       "name_ko": "빠리치킨",
-      "name_en": "빠리치킨",
+      "name_en": "Ppari Chicken",
       "price_won": 24000,
       "contains": [
         "chicken",
@@ -384,7 +384,7 @@
     },
     {
       "name_ko": "페퍼로니 시카고피자",
-      "name_en": "페퍼로니 시카고피자",
+      "name_en": "Pepperoni Chicago Pizza",
       "price_won": 18000,
       "contains": [
         "pork",
@@ -401,7 +401,7 @@
     },
     {
       "name_ko": "허니리코타 시카고피자",
-      "name_en": "허니리코타 시카고피자",
+      "name_en": "Honey Ricotta Chicago Pizza",
       "price_won": 18000,
       "contains": [
         "pork",
@@ -418,7 +418,7 @@
     },
     {
       "name_ko": "순살 치킨버거 (마일드)",
-      "name_en": "순살 치킨버거 (마일드)",
+      "name_en": "Boneless Chicken Burger (Mild)",
       "price_won": 6900,
       "contains": [],
       "may_contain": [],
@@ -427,7 +427,7 @@
     },
     {
       "name_ko": "순살 치킨버거 (스파이시)",
-      "name_en": "순살 치킨버거 (스파이시)",
+      "name_en": "Boneless Chicken Burger (Spicy)",
       "price_won": 6900,
       "contains": [],
       "may_contain": [],
@@ -436,7 +436,7 @@
     },
     {
       "name_ko": "고구마퐁듀피자",
-      "name_en": "고구마퐁듀피자",
+      "name_en": "Sweet Potato Fondue Pizza",
       "price_won": 15900,
       "contains": [
         "pork",
@@ -454,7 +454,7 @@
     },
     {
       "name_ko": "쉬림프고르곤졸라피자",
-      "name_en": "쉬림프고르곤졸라피자",
+      "name_en": "Shrimp Gorgonzola Pizza",
       "price_won": 15900,
       "contains": [
         "seafood",
@@ -468,7 +468,7 @@
     },
     {
       "name_ko": "콤비네이션피자",
-      "name_en": "콤비네이션피자",
+      "name_en": "Combination Pizza",
       "price_won": 13900,
       "contains": [
         "pork",
@@ -485,7 +485,7 @@
     },
     {
       "name_ko": "브라운비프피자",
-      "name_en": "브라운비프피자",
+      "name_en": "Brown Beef Pizza",
       "price_won": 12900,
       "contains": [
         "beef",
@@ -501,7 +501,7 @@
     },
     {
       "name_ko": "뿜치킹 콘립(4개)",
-      "name_en": "뿜치킹 콘립(4개)",
+      "name_en": "Bbumchiking Corn Ribs (4 pcs)",
       "price_won": 5000,
       "contains": [
         "beef",
@@ -515,7 +515,7 @@
     },
     {
       "name_ko": "뿜치킹 감자튀김",
-      "name_en": "뿜치킹 감자튀김",
+      "name_en": "Bbumchiking French Fries",
       "price_won": 5000,
       "contains": [],
       "may_contain": [],
@@ -524,7 +524,7 @@
     },
     {
       "name_ko": "오감볼",
-      "name_en": "오감볼",
+      "name_en": "Ogam Balls (Fried Snack Balls)",
       "price_won": 8500,
       "contains": [
         "beef",
@@ -539,7 +539,7 @@
     },
     {
       "name_ko": "새우스틱(2개)",
-      "name_en": "새우스틱(2개)",
+      "name_en": "Shrimp Sticks (2 pcs)",
       "price_won": 5500,
       "contains": [
         "seafood",
@@ -553,7 +553,7 @@
     },
     {
       "name_ko": "모둠감자튀김",
-      "name_en": "모둠감자튀김",
+      "name_en": "Assorted Fries",
       "price_won": 11000,
       "contains": [
         "wheat",
@@ -565,7 +565,7 @@
     },
     {
       "name_ko": "뿜치킹 모둠감자튀김",
-      "name_en": "뿜치킹 모둠감자튀김",
+      "name_en": "Bbumchiking Assorted Fries",
       "price_won": 12000,
       "contains": [],
       "may_contain": [],
@@ -574,7 +574,7 @@
     },
     {
       "name_ko": "뿜치킹 통새우 멘보샤(5개)",
-      "name_en": "뿜치킹 통새우 멘보샤(5개)",
+      "name_en": "Bbumchiking Whole Shrimp Menbosha (5 pcs)",
       "price_won": 7000,
       "contains": [],
       "may_contain": [],
@@ -583,7 +583,7 @@
     },
     {
       "name_ko": "뿜치킹 BBQ볼(5개)",
-      "name_en": "뿜치킹 BBQ볼(5개)",
+      "name_en": "Bbumchiking BBQ Balls (5 pcs)",
       "price_won": 6000,
       "contains": [
         "dairy",
@@ -596,7 +596,7 @@
     },
     {
       "name_ko": "BBQ 떡볶이",
-      "name_en": "BBQ 떡볶이",
+      "name_en": "BBQ Tteokbokki (Spicy Rice Cakes)",
       "price_won": 7000,
       "contains": [
         "beef",
@@ -612,7 +612,7 @@
     },
     {
       "name_ko": "뿜치킹 오감볼",
-      "name_en": "뿜치킹 오감볼",
+      "name_en": "Bbumchiking Ogam Balls",
       "price_won": 9500,
       "contains": [],
       "may_contain": [],
@@ -621,7 +621,7 @@
     },
     {
       "name_ko": "롱김말이(1개)",
-      "name_en": "롱김말이(1개)",
+      "name_en": "Long Fried Seaweed Roll (1 pc)",
       "price_won": 2000,
       "contains": [],
       "may_contain": [],
@@ -630,7 +630,7 @@
     },
     {
       "name_ko": "롱김말이(3개)",
-      "name_en": "롱김말이(3개)",
+      "name_en": "Long Fried Seaweed Roll (3 pcs)",
       "price_won": 6000,
       "contains": [],
       "may_contain": [],
@@ -639,7 +639,7 @@
     },
     {
       "name_ko": "BBQ 고추킹(2개)",
-      "name_en": "BBQ 고추킹(2개)",
+      "name_en": "BBQ Fried Stuffed Peppers (2 pcs)",
       "price_won": 9000,
       "contains": [
         "pork",
@@ -655,7 +655,7 @@
     },
     {
       "name_ko": "BBQ볼(5개)",
-      "name_en": "BBQ볼(5개)",
+      "name_en": "BBQ Balls (5 pcs)",
       "price_won": 5000,
       "contains": [
         "dairy",
@@ -668,7 +668,7 @@
     },
     {
       "name_ko": "BBQ 오뎅탕",
-      "name_en": "BBQ 오뎅탕",
+      "name_en": "BBQ Fish Cake Soup",
       "price_won": 11000,
       "contains": [
         "seafood",
@@ -682,7 +682,7 @@
     },
     {
       "name_ko": "BBQ 닭볶음탕",
-      "name_en": "BBQ 닭볶음탕",
+      "name_en": "BBQ Spicy Braised Chicken",
       "price_won": 26000,
       "contains": [
         "beef",
@@ -697,7 +697,7 @@
     },
     {
       "name_ko": "오징어튀김(3개)",
-      "name_en": "오징어튀김(3개)",
+      "name_en": "Fried Squid (3 pcs)",
       "price_won": 5000,
       "contains": [
         "beef",
@@ -712,7 +712,7 @@
     },
     {
       "name_ko": "황올한 닭발튀김",
-      "name_en": "황올한 닭발튀김",
+      "name_en": "Golden Fried Chicken Feet",
       "price_won": 7900,
       "contains": [
         "chicken",
@@ -727,7 +727,7 @@
     },
     {
       "name_ko": "BBQ 감자튀김",
-      "name_en": "BBQ 감자튀김",
+      "name_en": "BBQ French Fries",
       "price_won": 4000,
       "contains": [
         "soy"
@@ -738,7 +738,7 @@
     },
     {
       "name_ko": "타르타르 새우튀김(5개)",
-      "name_en": "타르타르 새우튀김(5개)",
+      "name_en": "Tartar Fried Shrimp (5 pcs)",
       "price_won": 10000,
       "contains": [
         "seafood",
@@ -753,7 +753,7 @@
     },
     {
       "name_ko": "통새우 멘보샤(5개)",
-      "name_en": "통새우 멘보샤(5개)",
+      "name_en": "Whole Shrimp Menbosha (5 pcs)",
       "price_won": 6000,
       "contains": [
         "seafood",
@@ -766,7 +766,7 @@
     },
     {
       "name_ko": "롱치즈스틱(1개)",
-      "name_en": "롱치즈스틱(1개)",
+      "name_en": "Long Cheese Stick (1 pc)",
       "price_won": 3500,
       "contains": [
         "egg",
@@ -780,7 +780,7 @@
     },
     {
       "name_ko": "BBQ 닭껍데기",
-      "name_en": "BBQ 닭껍데기",
+      "name_en": "BBQ Chicken Skin",
       "price_won": 5000,
       "contains": [
         "chicken",
@@ -796,7 +796,7 @@
     },
     {
       "name_ko": "BBQ 소떡",
-      "name_en": "BBQ 소떡",
+      "name_en": "BBQ Sausage & Rice Cake Skewer",
       "price_won": 3500,
       "contains": [
         "pork",
@@ -813,7 +813,7 @@
     },
     {
       "name_ko": "BBQ 모둠볼(6개)",
-      "name_en": "BBQ 모둠볼(6개)",
+      "name_en": "BBQ Assorted Balls (6 pcs)",
       "price_won": 6000,
       "contains": [
         "egg",
@@ -827,7 +827,7 @@
     },
     {
       "name_ko": "BBQ 모둠볼(10개)",
-      "name_en": "BBQ 모둠볼(10개)",
+      "name_en": "BBQ Assorted Balls (10 pcs)",
       "price_won": 9000,
       "contains": [
         "egg",

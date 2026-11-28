@@ -11,11 +11,11 @@
     "https://www.kfckorea.com/allmenu/snack"
   ],
   "checked_on": "2026-11-24",
-  "notes": "MENU ONLY - the official site publishes no allergen information, so every dish has empty lists and allergens_as_written = 'not shown'. Show these as 'ask staff'. Distinct items from kfckorea.com menu pages (치킨&세트, 버거&세트, 스낵&사이드); piece-count variants (1/3/5/8 조각) are merged into one entry, and sets, boxes, sauces, seasonings, tarts and drinks are left out. The site's '알레르기 유발물질' (/menu/allergyView) and '영양정보&원산지' (/menu/nutritionInfo) links returned 404 on 2026-11-24. Prices are not shown on the menu pages (null).",
+  "notes": "MENU ONLY - the official site publishes no allergen information, so every dish has empty lists and allergens_as_written = 'not shown'. Show these as 'ask staff'. Distinct items from kfckorea.com menu pages (치킨&세트, 버거&세트, 스낵&사이드); piece-count variants (1/3/5/8 조각) are merged into one entry, and sets, boxes, sauces, seasonings, tarts and drinks are left out. The site's '알레르기 유발물질' (/menu/allergyView) and '영양정보&원산지' (/menu/nutritionInfo) links returned 404 on 2026-11-24. Prices are not shown on the menu pages (null). name_en: English names were translated by the Mukji team (#126, SQL 046); they are not the brand's official English.",
   "dishes": [
     {
       "name_ko": "오리지널치킨",
-      "name_en": "오리지널치킨",
+      "name_en": "Original Recipe Chicken",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -24,7 +24,7 @@
     },
     {
       "name_ko": "핫크리스피치킨",
-      "name_en": "핫크리스피치킨",
+      "name_en": "Hot Crispy Chicken",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -33,7 +33,7 @@
     },
     {
       "name_ko": "갓쏘이치킨",
-      "name_en": "갓쏘이치킨",
+      "name_en": "God Soy Chicken",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -42,7 +42,7 @@
     },
     {
       "name_ko": "갓양념치킨",
-      "name_en": "갓양념치킨",
+      "name_en": "God Yangnyeom Chicken (Sweet & Spicy)",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -51,7 +51,7 @@
     },
     {
       "name_ko": "오리지널통다리",
-      "name_en": "오리지널통다리",
+      "name_en": "Original Recipe Whole Leg",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -60,7 +60,7 @@
     },
     {
       "name_ko": "핫크리스피통다리",
-      "name_en": "핫크리스피통다리",
+      "name_en": "Hot Crispy Whole Leg",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -69,7 +69,7 @@
     },
     {
       "name_ko": "갓쏘이통다리",
-      "name_en": "갓쏘이통다리",
+      "name_en": "God Soy Whole Leg",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -78,7 +78,7 @@
     },
     {
       "name_ko": "갓양념통다리",
-      "name_en": "갓양념통다리",
+      "name_en": "God Yangnyeom Whole Leg",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -87,7 +87,7 @@
     },
     {
       "name_ko": "핫윙",
-      "name_en": "핫윙",
+      "name_en": "Hot Wings",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -96,7 +96,7 @@
     },
     {
       "name_ko": "텐더",
-      "name_en": "텐더",
+      "name_en": "Tenders",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -105,7 +105,7 @@
     },
     {
       "name_ko": "징거",
-      "name_en": "징거",
+      "name_en": "Zinger",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -114,7 +114,7 @@
     },
     {
       "name_ko": "징거타워",
-      "name_en": "징거타워",
+      "name_en": "Zinger Tower",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -123,7 +123,7 @@
     },
     {
       "name_ko": "징거BLT",
-      "name_en": "징거BLT",
+      "name_en": "Zinger BLT",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -132,7 +132,7 @@
     },
     {
       "name_ko": "징거더블다운",
-      "name_en": "징거더블다운",
+      "name_en": "Zinger Double Down",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -141,7 +141,7 @@
     },
     {
       "name_ko": "둠징거",
-      "name_en": "둠징거",
+      "name_en": "Doom Zinger",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -150,7 +150,7 @@
     },
     {
       "name_ko": "둠트리플다운",
-      "name_en": "둠트리플다운",
+      "name_en": "Doom Triple Down",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -159,7 +159,7 @@
     },
     {
       "name_ko": "클래식징거통다리",
-      "name_en": "클래식징거통다리",
+      "name_en": "Classic Zinger Whole Leg",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -168,7 +168,7 @@
     },
     {
       "name_ko": "치즈징거통다리",
-      "name_en": "치즈징거통다리",
+      "name_en": "Cheese Zinger Whole Leg",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -177,7 +177,7 @@
     },
     {
       "name_ko": "칰폴레맵징거통다리",
-      "name_en": "칰폴레맵징거통다리",
+      "name_en": "Chickpotle Spicy Zinger Whole Leg",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -186,7 +186,7 @@
     },
     {
       "name_ko": "칰폴레맵징거타워",
-      "name_en": "칰폴레맵징거타워",
+      "name_en": "Chickpotle Spicy Zinger Tower",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -195,7 +195,7 @@
     },
     {
       "name_ko": "트위스터",
-      "name_en": "트위스터",
+      "name_en": "Twister",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -204,7 +204,7 @@
     },
     {
       "name_ko": "툼켄치밥",
-      "name_en": "툼켄치밥",
+      "name_en": "Tom Ken Chicken Rice",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -213,7 +213,7 @@
     },
     {
       "name_ko": "갓양념켄치밥",
-      "name_en": "갓양념켄치밥",
+      "name_en": "God Yangnyeom Ken Chicken Rice",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -222,7 +222,7 @@
     },
     {
       "name_ko": "버터갈릭라이스",
-      "name_en": "버터갈릭라이스",
+      "name_en": "Butter Garlic Rice",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -231,7 +231,7 @@
     },
     {
       "name_ko": "프렌치프라이",
-      "name_en": "프렌치프라이",
+      "name_en": "French Fries",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -240,7 +240,7 @@
     },
     {
       "name_ko": "너겟",
-      "name_en": "너겟",
+      "name_en": "Nuggets",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -249,7 +249,7 @@
     },
     {
       "name_ko": "코울슬로",
-      "name_en": "코울슬로",
+      "name_en": "Coleslaw",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -258,7 +258,7 @@
     },
     {
       "name_ko": "해쉬브라운",
-      "name_en": "해쉬브라운",
+      "name_en": "Hash Brown",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -267,7 +267,7 @@
     },
     {
       "name_ko": "매쉬포테이토 그레이비",
-      "name_en": "매쉬포테이토 그레이비",
+      "name_en": "Mashed Potatoes & Gravy",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -276,7 +276,7 @@
     },
     {
       "name_ko": "버터비스켓",
-      "name_en": "버터비스켓",
+      "name_en": "Butter Biscuit",
       "price_won": null,
       "contains": [],
       "may_contain": [],

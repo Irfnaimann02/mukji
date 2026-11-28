@@ -8,11 +8,11 @@
     "https://www.goobne.co.kr/menu/menu_list_p"
   ],
   "checked_on": "2026-11-24",
-  "notes": "MENU ONLY - the official site publishes no allergen information, so every dish has empty lists and allergens_as_written = 'not shown'. Show these as 'ask staff'. Menu and prices from goobne.co.kr '메뉴보기' (전체). No allergen, origin or nutrition page found on the site. Sauces, seasonings, toppings and egg tarts left out; pizzas, pastas and rice dishes kept as they are main menu items.",
+  "notes": "MENU ONLY - the official site publishes no allergen information, so every dish has empty lists and allergens_as_written = 'not shown'. Show these as 'ask staff'. Menu and prices from goobne.co.kr '메뉴보기' (전체). No allergen, origin or nutrition page found on the site. Sauces, seasonings, toppings and egg tarts left out; pizzas, pastas and rice dishes kept as they are main menu items. name_en: English names were translated by the Mukji team (#126, SQL 046); they are not the brand's official English.",
   "dishes": [
     {
       "name_ko": "(New) 서울엄마 파기름떡볶이 치킨",
-      "name_en": "(New) 서울엄마 파기름떡볶이 치킨",
+      "name_en": "(New) Seoul Mom Scallion-Oil Tteokbokki Chicken",
       "price_won": 21000,
       "contains": [],
       "may_contain": [],
@@ -21,7 +21,7 @@
     },
     {
       "name_ko": "New 오리지널",
-      "name_en": "New 오리지널",
+      "name_en": "New Original (Oven-Roasted Chicken)",
       "price_won": 17900,
       "contains": [],
       "may_contain": [],
@@ -30,7 +30,7 @@
     },
     {
       "name_ko": "고추 바사삭 가슴살 순살",
-      "name_en": "고추 바사삭 가슴살 순살",
+      "name_en": "Gochu Basasak Boneless Breast (Chili Crispy)",
       "price_won": 20900,
       "contains": [],
       "may_contain": [],
@@ -39,7 +39,7 @@
     },
     {
       "name_ko": "(New) 서울엄마 파기름떡볶이 치킨 윙봉",
-      "name_en": "(New) 서울엄마 파기름떡볶이 치킨 윙봉",
+      "name_en": "(New) Seoul Mom Scallion-Oil Tteokbokki Chicken Wings",
       "price_won": 24000,
       "contains": [],
       "may_contain": [],
@@ -48,7 +48,7 @@
     },
     {
       "name_ko": "굽네 순살 시카고 피자 시리즈",
-      "name_en": "굽네 순살 시카고 피자 시리즈",
+      "name_en": "Goobne Boneless Chicago Pizza Series",
       "price_won": 18900,
       "contains": [],
       "may_contain": [],
@@ -57,7 +57,7 @@
     },
     {
       "name_ko": "볼케이노",
-      "name_en": "볼케이노",
+      "name_en": "Volcano (Spicy Roasted Chicken)",
       "price_won": 19900,
       "contains": [],
       "may_contain": [],
@@ -66,7 +66,7 @@
     },
     {
       "name_ko": "갈비천왕",
-      "name_en": "갈비천왕",
+      "name_en": "Galbi Cheonwang (Galbi-Sauce Chicken)",
       "price_won": 19900,
       "contains": [],
       "may_contain": [],
@@ -75,7 +75,7 @@
     },
     {
       "name_ko": "고추 바사삭",
-      "name_en": "고추 바사삭",
+      "name_en": "Gochu Basasak (Chili Crispy Chicken)",
       "price_won": 19900,
       "contains": [],
       "may_contain": [],
@@ -84,7 +84,7 @@
     },
     {
       "name_ko": "시카고 딥디쉬 피자",
-      "name_en": "시카고 딥디쉬 피자",
+      "name_en": "Chicago Deep Dish Pizza",
       "price_won": 17500,
       "contains": [],
       "may_contain": [],
@@ -93,7 +93,7 @@
     },
     {
       "name_ko": "양념 히어로",
-      "name_en": "양념 히어로",
+      "name_en": "Yangnyeom Hero (Sweet & Spicy Chicken)",
       "price_won": 19900,
       "contains": [],
       "may_contain": [],
@@ -102,7 +102,7 @@
     },
     {
       "name_ko": "오븐 바사삭",
-      "name_en": "오븐 바사삭",
+      "name_en": "Oven Basasak (Crispy Oven Chicken)",
       "price_won": 18900,
       "contains": [],
       "may_contain": [],
@@ -111,7 +111,7 @@
     },
     {
       "name_ko": "남해마늘 바사삭",
-      "name_en": "남해마늘 바사삭",
+      "name_en": "Namhae Garlic Basasak",
       "price_won": 20900,
       "contains": [],
       "may_contain": [],
@@ -120,7 +120,7 @@
     },
     {
       "name_ko": "굽네 장각구이",
-      "name_en": "굽네 장각구이",
+      "name_en": "Goobne Roasted Whole Legs",
       "price_won": 23900,
       "contains": [],
       "may_contain": [],
@@ -129,7 +129,7 @@
     },
     {
       "name_ko": "콤비네이션 시카고 피자",
-      "name_en": "콤비네이션 시카고 피자",
+      "name_en": "Combination Chicago Pizza",
       "price_won": 18900,
       "contains": [],
       "may_contain": [],
@@ -138,7 +138,7 @@
     },
     {
       "name_ko": "치킨 베이크",
-      "name_en": "치킨 베이크",
+      "name_en": "Chicken Bake",
       "price_won": 8000,
       "contains": [],
       "may_contain": [],
@@ -147,7 +147,7 @@
     },
     {
       "name_ko": "웨지감자(국내산)",
-      "name_en": "웨지감자(국내산)",
+      "name_en": "Potato Wedges (Korean)",
       "price_won": 4000,
       "contains": [],
       "may_contain": [],
@@ -156,7 +156,7 @@
     },
     {
       "name_ko": "바비큐 시카고 피자",
-      "name_en": "바비큐 시카고 피자",
+      "name_en": "Barbecue Chicago Pizza",
       "price_won": 18900,
       "contains": [],
       "may_contain": [],
@@ -165,7 +165,7 @@
     },
     {
       "name_ko": "고추 바사삭 곱빼기(1.5마리)",
-      "name_en": "고추 바사삭 곱빼기(1.5마리)",
+      "name_en": "Gochu Basasak Extra (1.5 Chickens)",
       "price_won": 28900,
       "contains": [],
       "may_contain": [],
@@ -174,7 +174,7 @@
     },
     {
       "name_ko": "페퍼로니 시카고 피자",
-      "name_en": "페퍼로니 시카고 피자",
+      "name_en": "Pepperoni Chicago Pizza",
       "price_won": 18900,
       "contains": [],
       "may_contain": [],
@@ -183,7 +183,7 @@
     },
     {
       "name_ko": "New 오리지널 곱빼기(1.5마리)",
-      "name_en": "New 오리지널 곱빼기(1.5마리)",
+      "name_en": "New Original Extra (1.5 Chickens)",
       "price_won": 25900,
       "contains": [],
       "may_contain": [],
@@ -192,7 +192,7 @@
     },
     {
       "name_ko": "갈릭버터 웨지감자",
-      "name_en": "갈릭버터 웨지감자",
+      "name_en": "Garlic Butter Potato Wedges",
       "price_won": 5000,
       "contains": [],
       "may_contain": [],
@@ -201,7 +201,7 @@
     },
     {
       "name_ko": "New 오리지널 반 + 볼케이노 반",
-      "name_en": "New 오리지널 반 + 볼케이노 반",
+      "name_en": "Half New Original + Half Volcano",
       "price_won": 19900,
       "contains": [],
       "may_contain": [],
@@ -210,7 +210,7 @@
     },
     {
       "name_ko": "콰트로 치즈 웨지감자",
-      "name_en": "콰트로 치즈 웨지감자",
+      "name_en": "Quattro Cheese Potato Wedges",
       "price_won": 5000,
       "contains": [],
       "may_contain": [],
@@ -219,7 +219,7 @@
     },
     {
       "name_ko": "추추 치킨 스테이크 (1.5 SET)",
-      "name_en": "추추 치킨 스테이크 (1.5 SET)",
+      "name_en": "Chuchu Chicken Steak (1.5 Set)",
       "price_won": 17000,
       "contains": [],
       "may_contain": [],
@@ -228,7 +228,7 @@
     },
     {
       "name_ko": "New 오리지널 반 + 갈비천왕 반",
-      "name_en": "New 오리지널 반 + 갈비천왕 반",
+      "name_en": "Half New Original + Half Galbi Cheonwang",
       "price_won": 19900,
       "contains": [],
       "may_contain": [],
@@ -237,7 +237,7 @@
     },
     {
       "name_ko": "폭립",
-      "name_en": "폭립",
+      "name_en": "Pork Ribs",
       "price_won": 22500,
       "contains": [],
       "may_contain": [],
@@ -246,7 +246,7 @@
     },
     {
       "name_ko": "추추 치킨 스테이크 (2 SET)",
-      "name_en": "추추 치킨 스테이크 (2 SET)",
+      "name_en": "Chuchu Chicken Steak (2 Set)",
       "price_won": 22000,
       "contains": [],
       "may_contain": [],
@@ -255,7 +255,7 @@
     },
     {
       "name_ko": "모짜치즈볼(5pcs)",
-      "name_en": "모짜치즈볼(5pcs)",
+      "name_en": "Mozza Cheese Balls (5 pcs)",
       "price_won": 5000,
       "contains": [],
       "may_contain": [],
@@ -264,7 +264,7 @@
     },
     {
       "name_ko": "콰트로 모짜치즈볼(5pcs)",
-      "name_en": "콰트로 모짜치즈볼(5pcs)",
+      "name_en": "Quattro Mozza Cheese Balls (5 pcs)",
       "price_won": 6000,
       "contains": [],
       "may_contain": [],
@@ -273,7 +273,7 @@
     },
     {
       "name_ko": "맵달떡볶이",
-      "name_en": "맵달떡볶이",
+      "name_en": "Sweet & Spicy Tteokbokki",
       "price_won": 8500,
       "contains": [],
       "may_contain": [],
@@ -282,7 +282,7 @@
     },
     {
       "name_ko": "케이준감자",
-      "name_en": "케이준감자",
+      "name_en": "Cajun Potatoes",
       "price_won": 4500,
       "contains": [],
       "may_contain": [],
@@ -291,7 +291,7 @@
     },
     {
       "name_ko": "갈릭버터 케이준감자",
-      "name_en": "갈릭버터 케이준감자",
+      "name_en": "Garlic Butter Cajun Potatoes",
       "price_won": 5500,
       "contains": [],
       "may_contain": [],
@@ -300,7 +300,7 @@
     },
     {
       "name_ko": "콰트로 치즈 케이준감자",
-      "name_en": "콰트로 치즈 케이준감자",
+      "name_en": "Quattro Cheese Cajun Potatoes",
       "price_won": 5500,
       "contains": [],
       "may_contain": [],
@@ -309,7 +309,7 @@
     },
     {
       "name_ko": "New 오리지널+치트킹(매콤)",
-      "name_en": "New 오리지널+치트킹(매콤)",
+      "name_en": "New Original + Cheat King (Spicy)",
       "price_won": 18900,
       "contains": [],
       "may_contain": [],
@@ -318,7 +318,7 @@
     },
     {
       "name_ko": "찍먹커리(치킨마크니)",
-      "name_en": "찍먹커리(치킨마크니)",
+      "name_en": "Dipping Curry (Chicken Makhani)",
       "price_won": 2900,
       "contains": [],
       "may_contain": [],
@@ -327,7 +327,7 @@
     },
     {
       "name_ko": "볼로네제 파스타",
-      "name_en": "볼로네제 파스타",
+      "name_en": "Bolognese Pasta",
       "price_won": 7000,
       "contains": [],
       "may_contain": [],
@@ -336,7 +336,7 @@
     },
     {
       "name_ko": "바질&토마토 피자(S)",
-      "name_en": "바질&토마토 피자(S)",
+      "name_en": "Basil & Tomato Pizza (S)",
       "price_won": 9000,
       "contains": [],
       "may_contain": [],
@@ -345,7 +345,7 @@
     },
     {
       "name_ko": "까르보나라 파스타",
-      "name_en": "까르보나라 파스타",
+      "name_en": "Carbonara Pasta",
       "price_won": 7200,
       "contains": [],
       "may_contain": [],
@@ -354,7 +354,7 @@
     },
     {
       "name_ko": "갈릭크림 바게트볼",
-      "name_en": "갈릭크림 바게트볼",
+      "name_en": "Garlic Cream Baguette Balls",
       "price_won": 3300,
       "contains": [],
       "may_contain": [],
@@ -363,7 +363,7 @@
     },
     {
       "name_ko": "바게트볼 2ea",
-      "name_en": "바게트볼 2ea",
+      "name_en": "Baguette Balls (2 pcs)",
       "price_won": 6000,
       "contains": [],
       "may_contain": [],
@@ -372,7 +372,7 @@
     },
     {
       "name_ko": "트리플 포테이토 피자(M)",
-      "name_en": "트리플 포테이토 피자(M)",
+      "name_en": "Triple Potato Pizza (M)",
       "price_won": 14900,
       "contains": [],
       "may_contain": [],
@@ -381,7 +381,7 @@
     },
     {
       "name_ko": "갈비천왕 치즈치밥",
-      "name_en": "갈비천왕 치즈치밥",
+      "name_en": "Galbi Cheonwang Cheese Chicken Rice",
       "price_won": 6300,
       "contains": [],
       "may_contain": [],
@@ -390,7 +390,7 @@
     },
     {
       "name_ko": "볼케이노 치즈치밥",
-      "name_en": "볼케이노 치즈치밥",
+      "name_en": "Volcano Cheese Chicken Rice",
       "price_won": 6300,
       "contains": [],
       "may_contain": [],
@@ -399,7 +399,7 @@
     },
     {
       "name_ko": "매콤치즈 소떡소떡",
-      "name_en": "매콤치즈 소떡소떡",
+      "name_en": "Spicy Cheese Sausage & Rice Cake Skewer",
       "price_won": 3000,
       "contains": [],
       "may_contain": [],
@@ -408,7 +408,7 @@
     },
     {
       "name_ko": "불닭발",
-      "name_en": "불닭발",
+      "name_en": "Spicy Fire Chicken Feet",
       "price_won": 23000,
       "contains": [],
       "may_contain": [],
@@ -417,7 +417,7 @@
     },
     {
       "name_ko": "양념 반반",
-      "name_en": "양념 반반",
+      "name_en": "Half & Half Sweet & Spicy",
       "price_won": 19900,
       "contains": [],
       "may_contain": [],
