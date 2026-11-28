@@ -1,9 +1,8 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 
+import { loadLocalProfile, saveProfile } from '@/data/profile-store';
+import { onProfileReplaced, startSavedDataSync } from '@/data/saved-data-sync';
 import { DEFAULT_PROFILE, type FoodProfile } from '@/data/types';
-
-const KEY = 'foodProfile';
 
 const ProfileContext = createContext({
   profile: DEFAULT_PROFILE,
@@ -15,21 +14,37 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   // #4: true once the user changes the profile. If that happens before the saved profile
   // has loaded from the phone, the user's change wins and the older saved one is ignored.
   const changedByUser = useRef(false);
+  // #119: true once the account's profile was loaded (or the phone was cleared at sign-out).
+  // The slower phone read must not put the older profile back after that.
+  const replacedBySync = useRef(false);
 
   useEffect(() => {
-    AsyncStorage.getItem(KEY)
+    let alive = true;
+
+    loadLocalProfile()
       .then((saved) => {
-        if (saved && !changedByUser.current) setProfileState({ ...DEFAULT_PROFILE, ...JSON.parse(saved) });
+        if (alive && saved && !changedByUser.current && !replacedBySync.current) setProfileState(saved);
       })
       .catch((error) => console.warn('Could not load the saved food profile:', error)); // keep the default
+
+    const stopListening = onProfileReplaced((replaced) => {
+      replacedBySync.current = true;
+      if (alive) setProfileState(replaced);
+    });
+    // #119: load the email account's profile, favourites and searches; clear them at sign-out.
+    const stopSync = startSavedDataSync();
+
+    return () => {
+      alive = false;
+      stopListening();
+      stopSync();
+    };
   }, []);
 
   const setProfile = (p: FoodProfile) => {
     changedByUser.current = true;
     setProfileState(p);
-    AsyncStorage.setItem(KEY, JSON.stringify(p)).catch((error) =>
-      console.warn('Could not save the food profile:', error),
-    );
+    saveProfile(p).catch((error) => console.warn('Could not save the food profile:', error));
   };
 
   return (
