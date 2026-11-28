@@ -9,11 +9,11 @@
     "https://www.burgerking.co.kr/menu/detail/1100938"
   ],
   "checked_on": "2026-11-24",
-  "notes": "Allergens come from the site-wide '원산지, 영양성분, 알레르기 유발성분' popup (text table) opened from any menu detail page; current menu list from /menu/main (prices are not shown on the site, so null). Origin: beef patties Australia/New Zealand; chicken patties domestic/Thailand mixed depending on item (바삭킹 foreign, 너겟킹 and 크리스퍼 domestic); bacon is imported/US pork. Site note: some menu items may contain 밀, 대두, 우유, 돼지고기, 토마토, 닭고기, 쇠고기, 조개류, 난류, 게, 새우, 땅콩, 복숭아, 아황산류, 호두, 오징어, 잣 (general cross-contact notice, not per item, so not put in may_contain). Sets are omitted (they combine items listed here). name_en is the Korean name because the site has no English names. Not in the allergen table, so 'not shown': 프렌치프라이, 21치즈스틱, 빅 딥 체다치즈, 리얼 어니언링 (the table has a plain '어니언링' row = 대두, 밀, probably the same item but the name differs, so it was not applied).",
+  "notes": "Allergens come from the site-wide '원산지, 영양성분, 알레르기 유발성분' popup (text table) opened from any menu detail page; current menu list from /menu/main (prices are not shown on the site, so null). Origin: beef patties Australia/New Zealand; chicken patties domestic/Thailand mixed depending on item (바삭킹 foreign, 너겟킹 and 크리스퍼 domestic); bacon is imported/US pork. Site note: some menu items may contain 밀, 대두, 우유, 돼지고기, 토마토, 닭고기, 쇠고기, 조개류, 난류, 게, 새우, 땅콩, 복숭아, 아황산류, 호두, 오징어, 잣 (general cross-contact notice, not per item, so not put in may_contain). Sets are omitted (they combine items listed here). name_en: English names were translated by the Mukji team (#126, SQL 046); they are not the brand's official English. Not in the allergen table, so 'not shown': 프렌치프라이, 21치즈스틱, 빅 딥 체다치즈, 리얼 어니언링 (the table has a plain '어니언링' row = 대두, 밀, probably the same item but the name differs, so it was not applied).",
   "dishes": [
     {
       "name_ko": "쯔란로제 크리스퍼",
-      "name_en": "쯔란로제 크리스퍼",
+      "name_en": "Zzuran Rosé Crisper (Cumin Rosé Chicken Burger)",
       "price_won": null,
       "contains": [
         "beef",
@@ -29,7 +29,7 @@
     },
     {
       "name_ko": "쯔란로제 딥 치즈 크리스퍼",
-      "name_en": "쯔란로제 딥 치즈 크리스퍼",
+      "name_en": "Zzuran Rosé Deep Cheese Crisper",
       "price_won": null,
       "contains": [
         "pork",
@@ -46,7 +46,7 @@
     },
     {
       "name_ko": "블랙 트러플치즈 버거",
-      "name_en": "블랙 트러플치즈 버거",
+      "name_en": "Black Truffle Cheese Burger",
       "price_won": null,
       "contains": [
         "beef",
@@ -62,7 +62,7 @@
     },
     {
       "name_ko": "몬스터 맥시멈2",
-      "name_en": "몬스터 맥시멈2",
+      "name_en": "Monster Maximum 2",
       "price_won": null,
       "contains": [
         "pork",
@@ -78,7 +78,7 @@
     },
     {
       "name_ko": "베이컨치즈와퍼",
-      "name_en": "베이컨치즈와퍼",
+      "name_en": "Bacon Cheese Whopper",
       "price_won": null,
       "contains": [
         "pork",
@@ -94,7 +94,7 @@
     },
     {
       "name_ko": "오리지널스 뉴욕 스테이크",
-      "name_en": "오리지널스 뉴욕 스테이크",
+      "name_en": "Originals New York Steak",
       "price_won": null,
       "contains": [
         "pork",
@@ -111,7 +111,7 @@
     },
     {
       "name_ko": "몬스터 맥시멈",
-      "name_en": "몬스터 맥시멈",
+      "name_en": "Monster Maximum",
       "price_won": null,
       "contains": [
         "pork",
@@ -127,7 +127,7 @@
     },
     {
       "name_ko": "몬스터 맥시멈3",
-      "name_en": "몬스터 맥시멈3",
+      "name_en": "Monster Maximum 3",
       "price_won": null,
       "contains": [
         "pork",
@@ -143,7 +143,7 @@
     },
     {
       "name_ko": "더오치 맥시멈2",
-      "name_en": "더오치 맥시멈2",
+      "name_en": "The Ochi Maximum 2",
       "price_won": null,
       "contains": [
         "beef",
@@ -158,7 +158,7 @@
     },
     {
       "name_ko": "오리지널스 엘파소 치폴레",
-      "name_en": "오리지널스 엘파소 치폴레",
+      "name_en": "Originals El Paso Chipotle",
       "price_won": null,
       "contains": [
         "pork",
@@ -174,7 +174,7 @@
     },
     {
       "name_ko": "트러플 머쉬룸 와퍼",
-      "name_en": "트러플 머쉬룸 와퍼",
+      "name_en": "Truffle Mushroom Whopper",
       "price_won": null,
       "contains": [
         "pork",
@@ -190,7 +190,7 @@
     },
     {
       "name_ko": "핫 트러플 머쉬룸 와퍼",
-      "name_en": "핫 트러플 머쉬룸 와퍼",
+      "name_en": "Hot Truffle Mushroom Whopper",
       "price_won": null,
       "contains": [
         "pork",
@@ -206,7 +206,7 @@
     },
     {
       "name_ko": "메종 트러플치즈 버거",
-      "name_en": "메종 트러플치즈 버거",
+      "name_en": "Maison Truffle Cheese Burger",
       "price_won": null,
       "contains": [
         "pork",
@@ -222,7 +222,7 @@
     },
     {
       "name_ko": "몬스터와퍼",
-      "name_en": "몬스터와퍼",
+      "name_en": "Monster Whopper",
       "price_won": null,
       "contains": [
         "pork",
@@ -239,7 +239,7 @@
     },
     {
       "name_ko": "콰트로치즈와퍼",
-      "name_en": "콰트로치즈와퍼",
+      "name_en": "Quattro Cheese Whopper",
       "price_won": null,
       "contains": [
         "beef",
@@ -254,7 +254,7 @@
     },
     {
       "name_ko": "통새우와퍼",
-      "name_en": "통새우와퍼",
+      "name_en": "Whole Shrimp Whopper",
       "price_won": null,
       "contains": [
         "beef",
@@ -270,7 +270,7 @@
     },
     {
       "name_ko": "와퍼",
-      "name_en": "와퍼",
+      "name_en": "Whopper",
       "price_won": null,
       "contains": [
         "beef",
@@ -284,7 +284,7 @@
     },
     {
       "name_ko": "치즈와퍼",
-      "name_en": "치즈와퍼",
+      "name_en": "Cheese Whopper",
       "price_won": null,
       "contains": [
         "beef",
@@ -299,7 +299,7 @@
     },
     {
       "name_ko": "불고기와퍼",
-      "name_en": "불고기와퍼",
+      "name_en": "Bulgogi Whopper",
       "price_won": null,
       "contains": [
         "beef",
@@ -313,7 +313,7 @@
     },
     {
       "name_ko": "갈릭불고기와퍼",
-      "name_en": "갈릭불고기와퍼",
+      "name_en": "Garlic Bulgogi Whopper",
       "price_won": null,
       "contains": [
         "beef",
@@ -327,7 +327,7 @@
     },
     {
       "name_ko": "콰트로치즈 와퍼주니어",
-      "name_en": "콰트로치즈 와퍼주니어",
+      "name_en": "Quattro Cheese Whopper Jr.",
       "price_won": null,
       "contains": [
         "beef",
@@ -342,7 +342,7 @@
     },
     {
       "name_ko": "통새우와퍼주니어",
-      "name_en": "통새우와퍼주니어",
+      "name_en": "Whole Shrimp Whopper Jr.",
       "price_won": null,
       "contains": [
         "beef",
@@ -358,7 +358,7 @@
     },
     {
       "name_ko": "더블비프불고기버거",
-      "name_en": "더블비프불고기버거",
+      "name_en": "Double Beef Bulgogi Burger",
       "price_won": null,
       "contains": [
         "beef",
@@ -373,7 +373,7 @@
     },
     {
       "name_ko": "와퍼주니어",
-      "name_en": "와퍼주니어",
+      "name_en": "Whopper Jr.",
       "price_won": null,
       "contains": [
         "beef",
@@ -387,7 +387,7 @@
     },
     {
       "name_ko": "치즈와퍼주니어",
-      "name_en": "치즈와퍼주니어",
+      "name_en": "Cheese Whopper Jr.",
       "price_won": null,
       "contains": [
         "beef",
@@ -402,7 +402,7 @@
     },
     {
       "name_ko": "불고기와퍼주니어",
-      "name_en": "불고기와퍼주니어",
+      "name_en": "Bulgogi Whopper Jr.",
       "price_won": null,
       "contains": [
         "beef",
@@ -416,7 +416,7 @@
     },
     {
       "name_ko": "비프불고기버거",
-      "name_en": "비프불고기버거",
+      "name_en": "Beef Bulgogi Burger",
       "price_won": null,
       "contains": [
         "beef",
@@ -431,7 +431,7 @@
     },
     {
       "name_ko": "치즈버거",
-      "name_en": "치즈버거",
+      "name_en": "Cheeseburger",
       "price_won": null,
       "contains": [
         "beef",
@@ -446,7 +446,7 @@
     },
     {
       "name_ko": "더 크리스퍼",
-      "name_en": "더 크리스퍼",
+      "name_en": "The Crisper (Chicken Burger)",
       "price_won": null,
       "contains": [
         "beef",
@@ -461,7 +461,7 @@
     },
     {
       "name_ko": "더 크리스퍼 베이컨&치즈",
-      "name_en": "더 크리스퍼 베이컨&치즈",
+      "name_en": "The Crisper Bacon & Cheese",
       "price_won": null,
       "contains": [
         "pork",
@@ -478,7 +478,7 @@
     },
     {
       "name_ko": "크리스퍼 랩",
-      "name_en": "크리스퍼 랩",
+      "name_en": "Crisper Wrap",
       "price_won": null,
       "contains": [
         "chicken",
@@ -493,7 +493,7 @@
     },
     {
       "name_ko": "치킨킹BLT",
-      "name_en": "치킨킹BLT",
+      "name_en": "Chicken King BLT",
       "price_won": null,
       "contains": [
         "pork",
@@ -510,7 +510,7 @@
     },
     {
       "name_ko": "치킨킹",
-      "name_en": "치킨킹",
+      "name_en": "Chicken King",
       "price_won": null,
       "contains": [
         "beef",
@@ -526,7 +526,7 @@
     },
     {
       "name_ko": "통새우슈림프버거",
-      "name_en": "통새우슈림프버거",
+      "name_en": "Whole Shrimp Burger",
       "price_won": null,
       "contains": [
         "seafood",
@@ -541,7 +541,7 @@
     },
     {
       "name_ko": "치킨 치즈 마요 버거",
-      "name_en": "치킨 치즈 마요 버거",
+      "name_en": "Chicken Cheese Mayo Burger",
       "price_won": null,
       "contains": [
         "chicken",
@@ -556,7 +556,7 @@
     },
     {
       "name_ko": "치킨버거",
-      "name_en": "치킨버거",
+      "name_en": "Chicken Burger",
       "price_won": null,
       "contains": [
         "chicken",
@@ -571,7 +571,7 @@
     },
     {
       "name_ko": "롱치킨버거",
-      "name_en": "롱치킨버거",
+      "name_en": "Long Chicken Burger",
       "price_won": null,
       "contains": [
         "chicken",
@@ -585,7 +585,7 @@
     },
     {
       "name_ko": "불고기 롱치킨버거",
-      "name_en": "불고기 롱치킨버거",
+      "name_en": "Bulgogi Long Chicken Burger",
       "price_won": null,
       "contains": [
         "chicken",
@@ -599,7 +599,7 @@
     },
     {
       "name_ko": "몬스터 주니어",
-      "name_en": "몬스터 주니어",
+      "name_en": "Monster Junior",
       "price_won": null,
       "contains": [
         "beef",
@@ -615,7 +615,7 @@
     },
     {
       "name_ko": "크리스퍼 텐더",
-      "name_en": "크리스퍼 텐더",
+      "name_en": "Crisper Tenders",
       "price_won": null,
       "contains": [
         "chicken",
@@ -628,7 +628,7 @@
     },
     {
       "name_ko": "21치즈스틱",
-      "name_en": "21치즈스틱",
+      "name_en": "21 Cheese Sticks",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -637,7 +637,7 @@
     },
     {
       "name_ko": "오믈렛 크루아상위치",
-      "name_en": "오믈렛 크루아상위치",
+      "name_en": "Omelette Croissantwich",
       "price_won": null,
       "contains": [
         "egg",
@@ -651,7 +651,7 @@
     },
     {
       "name_ko": "잠봉햄&치즈오믈렛 크루아상위치",
-      "name_en": "잠봉햄&치즈오믈렛 크루아상위치",
+      "name_en": "Jambon Ham & Cheese Omelette Croissantwich",
       "price_won": null,
       "contains": [
         "pork",
@@ -666,7 +666,7 @@
     },
     {
       "name_ko": "BLT 오믈렛 크루아상위치",
-      "name_en": "BLT 오믈렛 크루아상위치",
+      "name_en": "BLT Omelette Croissantwich",
       "price_won": null,
       "contains": [
         "pork",
@@ -681,7 +681,7 @@
     },
     {
       "name_ko": "비프 킹 랩",
-      "name_en": "비프 킹 랩",
+      "name_en": "Beef King Wrap",
       "price_won": null,
       "contains": [
         "beef",
@@ -696,7 +696,7 @@
     },
     {
       "name_ko": "해쉬브라운",
-      "name_en": "해쉬브라운",
+      "name_en": "Hash Browns",
       "price_won": null,
       "contains": [
         "soy"
@@ -707,7 +707,7 @@
     },
     {
       "name_ko": "딥 트러플 프라이",
-      "name_en": "딥 트러플 프라이",
+      "name_en": "Deep Truffle Fries",
       "price_won": null,
       "contains": [
         "egg",
@@ -721,7 +721,7 @@
     },
     {
       "name_ko": "바삭킹4조각",
-      "name_en": "바삭킹4조각",
+      "name_en": "Basak King (Fried Chicken, 4 pcs)",
       "price_won": null,
       "contains": [
         "beef",
@@ -735,7 +735,7 @@
     },
     {
       "name_ko": "바삭킹2조각",
-      "name_en": "바삭킹2조각",
+      "name_en": "Basak King (Fried Chicken, 2 pcs)",
       "price_won": null,
       "contains": [
         "beef",
@@ -749,7 +749,7 @@
     },
     {
       "name_ko": "리얼 어니언링(R)",
-      "name_en": "리얼 어니언링(R)",
+      "name_en": "Real Onion Rings (R)",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -758,7 +758,7 @@
     },
     {
       "name_ko": "리얼 어니언링(L)",
-      "name_en": "리얼 어니언링(L)",
+      "name_en": "Real Onion Rings (L)",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -767,7 +767,7 @@
     },
     {
       "name_ko": "너겟킹 10조각",
-      "name_en": "너겟킹 10조각",
+      "name_en": "Nugget King (10 pcs)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -780,7 +780,7 @@
     },
     {
       "name_ko": "너겟킹 8조각",
-      "name_en": "너겟킹 8조각",
+      "name_en": "Nugget King (8 pcs)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -793,7 +793,7 @@
     },
     {
       "name_ko": "너겟킹 4조각",
-      "name_en": "너겟킹 4조각",
+      "name_en": "Nugget King (4 pcs)",
       "price_won": null,
       "contains": [
         "chicken",
@@ -806,7 +806,7 @@
     },
     {
       "name_ko": "코코넛슈림프(3조각)+스위트칠리소스",
-      "name_en": "코코넛슈림프(3조각)+스위트칠리소스",
+      "name_en": "Coconut Shrimp (3 pcs) + Sweet Chili Sauce",
       "price_won": null,
       "contains": [
         "seafood",
@@ -820,7 +820,7 @@
     },
     {
       "name_ko": "코코넛슈림프(6조각)+스위트칠리소스",
-      "name_en": "코코넛슈림프(6조각)+스위트칠리소스",
+      "name_en": "Coconut Shrimp (6 pcs) + Sweet Chili Sauce",
       "price_won": null,
       "contains": [
         "seafood",
@@ -834,7 +834,7 @@
     },
     {
       "name_ko": "코코넛슈림프(9조각)+스위트칠리소스",
-      "name_en": "코코넛슈림프(9조각)+스위트칠리소스",
+      "name_en": "Coconut Shrimp (9 pcs) + Sweet Chili Sauce",
       "price_won": null,
       "contains": [
         "seafood",
@@ -848,7 +848,7 @@
     },
     {
       "name_ko": "쉐이킹프라이 매콤치즈",
-      "name_en": "쉐이킹프라이 매콤치즈",
+      "name_en": "Shaking Fries Spicy Cheese",
       "price_won": null,
       "contains": [
         "dairy",
@@ -860,7 +860,7 @@
     },
     {
       "name_ko": "쉐이킹프라이 구운갈릭",
-      "name_en": "쉐이킹프라이 구운갈릭",
+      "name_en": "Shaking Fries Roasted Garlic",
       "price_won": null,
       "contains": [
         "dairy",
@@ -873,7 +873,7 @@
     },
     {
       "name_ko": "쉐이킹프라이 스윗어니언",
-      "name_en": "쉐이킹프라이 스윗어니언",
+      "name_en": "Shaking Fries Sweet Onion",
       "price_won": null,
       "contains": [
         "dairy",
@@ -885,7 +885,7 @@
     },
     {
       "name_ko": "프렌치프라이(R)",
-      "name_en": "프렌치프라이(R)",
+      "name_en": "French Fries (R)",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -894,7 +894,7 @@
     },
     {
       "name_ko": "프렌치프라이(L)",
-      "name_en": "프렌치프라이(L)",
+      "name_en": "French Fries (L)",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -903,7 +903,7 @@
     },
     {
       "name_ko": "콘샐러드",
-      "name_en": "콘샐러드",
+      "name_en": "Corn Salad",
       "price_won": null,
       "contains": [
         "egg",
@@ -915,7 +915,7 @@
     },
     {
       "name_ko": "코울슬로",
-      "name_en": "코울슬로",
+      "name_en": "Coleslaw",
       "price_won": null,
       "contains": [
         "egg",
@@ -927,7 +927,7 @@
     },
     {
       "name_ko": "빅 딥 체다치즈",
-      "name_en": "빅 딥 체다치즈",
+      "name_en": "Big Deep Cheddar Cheese",
       "price_won": null,
       "contains": [],
       "may_contain": [],

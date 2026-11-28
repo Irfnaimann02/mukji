@@ -12,11 +12,11 @@
     "https://www.bhc.co.kr/api/v1/web/products/143000"
   ],
   "checked_on": "2026-11-24",
-  "notes": "Data comes from the '원산지 / 영양 / 알레르기 정보' popup on bhc.co.kr menu pages; the popup is filled from the site's own product API (source_url per dish). Allergens are listed per component (meat, batter, sauce, boneless version...); 'contains' is the union of all listed components, including parts marked '순살메뉴만 해당' (boneless only), so bone-in orders may contain less. '알류(가금류만 해당)' and '계란' mapped to egg, '소고기' to beef, '조개류(굴/홍합/가리비...)' to seafood. Chicken: 국내산 where stated. Sauces/dips, 혼치 combo sets, burger sets, dessert and 제주한정 items were left out. Prices are the site's listed prices (0 shown as null). One pizza lists '이황산류' (typo for 아황산류). Review of #105: fish is not on Korea's allergen list, so dishes that are fish by name got 'seafood' added to 'contains' by hand: 빠삭 먹태구이.",
+  "notes": "Data comes from the '원산지 / 영양 / 알레르기 정보' popup on bhc.co.kr menu pages; the popup is filled from the site's own product API (source_url per dish). Allergens are listed per component (meat, batter, sauce, boneless version...); 'contains' is the union of all listed components, including parts marked '순살메뉴만 해당' (boneless only), so bone-in orders may contain less. '알류(가금류만 해당)' and '계란' mapped to egg, '소고기' to beef, '조개류(굴/홍합/가리비...)' to seafood. Chicken: 국내산 where stated. Sauces/dips, 혼치 combo sets, burger sets, dessert and 제주한정 items were left out. Prices are the site's listed prices (0 shown as null). One pizza lists '이황산류' (typo for 아황산류). Review of #105: fish is not on Korea's allergen list, so dishes that are fish by name got 'seafood' added to 'contains' by hand: 빠삭 먹태구이. name_en: English names were translated by the Mukji team (#126, SQL 046); they are not the brand's official English.",
   "dishes": [
     {
       "name_ko": "뿌링클",
-      "name_en": "뿌링클",
+      "name_en": "Bburinkle (Cheese-Seasoned Fried Chicken)",
       "price_won": 20000,
       "contains": [
         "beef",
@@ -32,7 +32,7 @@
     },
     {
       "name_ko": "핫뿌링클",
-      "name_en": "핫뿌링클",
+      "name_en": "Hot Bburinkle",
       "price_won": 20000,
       "contains": [
         "dairy",
@@ -45,7 +45,7 @@
     },
     {
       "name_ko": "콰삭킹",
-      "name_en": "콰삭킹",
+      "name_en": "Kwasak King (Extra Crispy Chicken)",
       "price_won": 20000,
       "contains": [
         "beef",
@@ -63,7 +63,7 @@
     },
     {
       "name_ko": "카이막 치즈볼",
-      "name_en": "카이막 치즈볼",
+      "name_en": "Kaymak Cheese Balls",
       "price_won": 6000,
       "contains": [
         "dairy",
@@ -76,7 +76,7 @@
     },
     {
       "name_ko": "맛초킹",
-      "name_en": "맛초킹",
+      "name_en": "Matcho King (Sweet Soy Garlic Chicken)",
       "price_won": 20000,
       "contains": [
         "chicken",
@@ -91,7 +91,7 @@
     },
     {
       "name_ko": "뿌링 카이막 치즈볼",
-      "name_en": "뿌링 카이막 치즈볼",
+      "name_en": "Bburinkle Kaymak Cheese Balls",
       "price_won": 7000,
       "contains": [
         "dairy",
@@ -104,7 +104,7 @@
     },
     {
       "name_ko": "콰삭 슈림프",
-      "name_en": "콰삭 슈림프",
+      "name_en": "Kwasak Shrimp",
       "price_won": 9000,
       "contains": [
         "beef",
@@ -121,7 +121,7 @@
     },
     {
       "name_ko": "뿌링클나쵸",
-      "name_en": "뿌링클나쵸",
+      "name_en": "Bburinkle Nachos",
       "price_won": 2000,
       "contains": [
         "dairy",
@@ -133,7 +133,7 @@
     },
     {
       "name_ko": "뿌링클라이스",
-      "name_en": "뿌링클라이스",
+      "name_en": "Bburinkle Rice",
       "price_won": 4000,
       "contains": [
         "beef",
@@ -149,7 +149,7 @@
     },
     {
       "name_ko": "맛초킹라이스",
-      "name_en": "맛초킹라이스",
+      "name_en": "Matcho King Rice",
       "price_won": 4000,
       "contains": [
         "beef",
@@ -165,7 +165,7 @@
     },
     {
       "name_ko": "뿌링치즈볼",
-      "name_en": "뿌링치즈볼",
+      "name_en": "Bburinkle Cheese Balls",
       "price_won": 6500,
       "contains": [
         "dairy",
@@ -178,7 +178,7 @@
     },
     {
       "name_ko": "달콤바삭치즈볼",
-      "name_en": "달콤바삭치즈볼",
+      "name_en": "Sweet Crispy Cheese Balls",
       "price_won": 5500,
       "contains": [
         "dairy",
@@ -191,7 +191,7 @@
     },
     {
       "name_ko": "분모자 로제 떡볶이",
-      "name_en": "분모자 로제 떡볶이",
+      "name_en": "Bunmoja Rosé Tteokbokki",
       "price_won": 6000,
       "contains": [
         "pork",
@@ -206,7 +206,7 @@
     },
     {
       "name_ko": "치로스",
-      "name_en": "치로스",
+      "name_en": "Chiros (Churros)",
       "price_won": 6000,
       "contains": [
         "egg",
@@ -220,7 +220,7 @@
     },
     {
       "name_ko": "뿌링감자",
-      "name_en": "뿌링감자",
+      "name_en": "Bburinkle Potatoes",
       "price_won": 5000,
       "contains": [
         "dairy",
@@ -233,7 +233,7 @@
     },
     {
       "name_ko": "빨간소떡",
-      "name_en": "빨간소떡",
+      "name_en": "Spicy Sausage & Rice Cake Skewer",
       "price_won": 3500,
       "contains": [
         "pork",
@@ -249,7 +249,7 @@
     },
     {
       "name_ko": "뿌링소떡",
-      "name_en": "뿌링소떡",
+      "name_en": "Bburinkle Sausage & Rice Cake Skewer",
       "price_won": 4000,
       "contains": [
         "pork",
@@ -266,7 +266,7 @@
     },
     {
       "name_ko": "뿌링핫도그",
-      "name_en": "뿌링핫도그",
+      "name_en": "Bburinkle Hot Dog",
       "price_won": 6000,
       "contains": [
         "pork",
@@ -283,7 +283,7 @@
     },
     {
       "name_ko": "웨지감자",
-      "name_en": "웨지감자",
+      "name_en": "Potato Wedges",
       "price_won": 6000,
       "contains": [
         "wheat",
@@ -295,7 +295,7 @@
     },
     {
       "name_ko": "뿌링치즈스틱",
-      "name_en": "뿌링치즈스틱",
+      "name_en": "Bburinkle Cheese Sticks",
       "price_won": 5000,
       "contains": [
         "egg",
@@ -309,7 +309,7 @@
     },
     {
       "name_ko": "뿌링진미채튀김",
-      "name_en": "뿌링진미채튀김",
+      "name_en": "Bburinkle Fried Dried Squid",
       "price_won": 6000,
       "contains": [
         "seafood",
@@ -324,7 +324,7 @@
     },
     {
       "name_ko": "케이준프라이",
-      "name_en": "케이준프라이",
+      "name_en": "Cajun Fries",
       "price_won": 4000,
       "contains": [
         "wheat",
@@ -336,7 +336,7 @@
     },
     {
       "name_ko": "치킨스넥",
-      "name_en": "치킨스넥",
+      "name_en": "Chicken Snack",
       "price_won": 11000,
       "contains": [
         "chicken",
@@ -352,7 +352,7 @@
     },
     {
       "name_ko": "뿌링클나쵸 더블",
-      "name_en": "뿌링클나쵸 더블",
+      "name_en": "Bburinkle Nachos Double",
       "price_won": 6500,
       "contains": [
         "dairy",
@@ -364,7 +364,7 @@
     },
     {
       "name_ko": "국물떡볶이",
-      "name_en": "국물떡볶이",
+      "name_en": "Soupy Tteokbokki (Rice Cakes in Broth)",
       "price_won": 11000,
       "contains": [
         "beef",
@@ -378,7 +378,7 @@
     },
     {
       "name_ko": "오징어 모듬 튀김",
-      "name_en": "오징어 모듬 튀김",
+      "name_en": "Assorted Fried Squid",
       "price_won": 13000,
       "contains": [
         "beef",
@@ -393,7 +393,7 @@
     },
     {
       "name_ko": "빠삭 먹태구이",
-      "name_en": "빠삭 먹태구이",
+      "name_en": "Crispy Grilled Dried Pollock",
       "price_won": 13000,
       "contains": [
         "seafood",
@@ -406,7 +406,7 @@
     },
     {
       "name_ko": "오징어&땅콩",
-      "name_en": "오징어&땅콩",
+      "name_en": "Squid & Peanuts",
       "price_won": 12000,
       "contains": [
         "seafood",
@@ -418,7 +418,7 @@
     },
     {
       "name_ko": "얼큰어묵탕",
-      "name_en": "얼큰어묵탕",
+      "name_en": "Spicy Fish Cake Soup",
       "price_won": 17000,
       "contains": [
         "seafood",
@@ -431,7 +431,7 @@
     },
     {
       "name_ko": "골뱅이무침",
-      "name_en": "골뱅이무침",
+      "name_en": "Spicy Sea Snail Salad",
       "price_won": 15000,
       "contains": [
         "wheat",
@@ -443,7 +443,7 @@
     },
     {
       "name_ko": "콰삭 치킨 버거",
-      "name_en": "콰삭 치킨 버거",
+      "name_en": "Kwasak Chicken Burger",
       "price_won": 5900,
       "contains": [
         "beef",
@@ -461,7 +461,7 @@
     },
     {
       "name_ko": "클래식 치킨 버거",
-      "name_en": "클래식 치킨 버거",
+      "name_en": "Classic Chicken Burger",
       "price_won": 5900,
       "contains": [
         "beef",
@@ -478,7 +478,7 @@
     },
     {
       "name_ko": "코울슬로 치킨 버거",
-      "name_en": "코울슬로 치킨 버거",
+      "name_en": "Coleslaw Chicken Burger",
       "price_won": 6900,
       "contains": [
         "beef",
@@ -495,7 +495,7 @@
     },
     {
       "name_ko": "콤비네이션 피자",
-      "name_en": "콤비네이션 피자",
+      "name_en": "Combination Pizza",
       "price_won": 14000,
       "contains": [
         "pork",
@@ -512,7 +512,7 @@
     },
     {
       "name_ko": "고구마피자",
-      "name_en": "고구마피자",
+      "name_en": "Sweet Potato Pizza",
       "price_won": 14000,
       "contains": [
         "pork",
@@ -529,7 +529,7 @@
     },
     {
       "name_ko": "감자피자",
-      "name_en": "감자피자",
+      "name_en": "Potato Pizza",
       "price_won": 14000,
       "contains": [
         "pork",
@@ -545,7 +545,7 @@
     },
     {
       "name_ko": "퐁듀피자",
-      "name_en": "퐁듀피자",
+      "name_en": "Fondue Pizza",
       "price_won": 15000,
       "contains": [
         "pork",
@@ -561,7 +561,7 @@
     },
     {
       "name_ko": "골드킹",
-      "name_en": "골드킹",
+      "name_en": "Gold King (Honey Garlic Chicken)",
       "price_won": 20000,
       "contains": [
         "chicken",
@@ -576,7 +576,7 @@
     },
     {
       "name_ko": "레드킹",
-      "name_en": "레드킹",
+      "name_en": "Red King (Spicy Chicken)",
       "price_won": 20000,
       "contains": [
         "chicken",
@@ -591,7 +591,7 @@
     },
     {
       "name_ko": "핫후라이드",
-      "name_en": "핫후라이드",
+      "name_en": "Hot Fried Chicken",
       "price_won": 20000,
       "contains": [
         "chicken",
@@ -607,7 +607,7 @@
     },
     {
       "name_ko": "양념치킨",
-      "name_en": "양념치킨",
+      "name_en": "Sweet & Spicy Chicken",
       "price_won": 20000,
       "contains": [
         "beef",
@@ -623,7 +623,7 @@
     },
     {
       "name_ko": "콜팝치킨",
-      "name_en": "콜팝치킨",
+      "name_en": "Coke & Popcorn Chicken",
       "price_won": 4000,
       "contains": [
         "beef",
@@ -639,7 +639,7 @@
     },
     {
       "name_ko": "뿌링콜팝",
-      "name_en": "뿌링콜팝",
+      "name_en": "Bburinkle Coke & Popcorn Chicken",
       "price_won": 5000,
       "contains": [
         "beef",
@@ -655,7 +655,7 @@
     },
     {
       "name_ko": "왕콜팝",
-      "name_en": "왕콜팝",
+      "name_en": "King Coke & Popcorn Chicken",
       "price_won": 5500,
       "contains": [
         "beef",
@@ -671,7 +671,7 @@
     },
     {
       "name_ko": "뿌링왕콜팝",
-      "name_en": "뿌링왕콜팝",
+      "name_en": "Bburinkle King Coke & Popcorn Chicken",
       "price_won": 7000,
       "contains": [
         "beef",
@@ -687,7 +687,7 @@
     },
     {
       "name_ko": "미니콜팝",
-      "name_en": "미니콜팝",
+      "name_en": "Mini Coke & Popcorn Chicken",
       "price_won": 4000,
       "contains": [
         "beef",
@@ -703,7 +703,7 @@
     },
     {
       "name_ko": "뿌링미니콜팝",
-      "name_en": "뿌링미니콜팝",
+      "name_en": "Bburinkle Mini Coke & Popcorn Chicken",
       "price_won": 5000,
       "contains": [
         "beef",
@@ -719,7 +719,7 @@
     },
     {
       "name_ko": "빅콜팝",
-      "name_en": "빅콜팝",
+      "name_en": "Big Coke & Popcorn Chicken",
       "price_won": 12500,
       "contains": [
         "beef",
@@ -735,7 +735,7 @@
     },
     {
       "name_ko": "뿌링빅콜팝",
-      "name_en": "뿌링빅콜팝",
+      "name_en": "Bburinkle Big Coke & Popcorn Chicken",
       "price_won": 15000,
       "contains": [
         "beef",
@@ -751,7 +751,7 @@
     },
     {
       "name_ko": "동글락 바삭 콜팝(Regular)",
-      "name_en": "동글락 바삭 콜팝(Regular)",
+      "name_en": "Donggeulrak Crispy Popcorn Chicken (Regular)",
       "price_won": 6500,
       "contains": [
         "beef",
@@ -768,7 +768,7 @@
     },
     {
       "name_ko": "동글락 바삭 콜팝(Large)",
-      "name_en": "동글락 바삭 콜팝(Large)",
+      "name_en": "Donggeulrak Crispy Popcorn Chicken (Large)",
       "price_won": 8500,
       "contains": [
         "beef",
@@ -785,7 +785,7 @@
     },
     {
       "name_ko": "동글락 바삭 콜팝(Mini)",
-      "name_en": "동글락 바삭 콜팝(Mini)",
+      "name_en": "Donggeulrak Crispy Popcorn Chicken (Mini)",
       "price_won": 6500,
       "contains": [
         "beef",
@@ -802,7 +802,7 @@
     },
     {
       "name_ko": "해바라기 후라이드",
-      "name_en": "해바라기 후라이드",
+      "name_en": "Sunflower Fried Chicken",
       "price_won": 20000,
       "contains": [
         "beef",
@@ -819,7 +819,7 @@
     },
     {
       "name_ko": "콰삭톡",
-      "name_en": "콰삭톡",
+      "name_en": "Kwasak Tok (Crispy Chicken Bites)",
       "price_won": 20000,
       "contains": [
         "beef",
@@ -837,7 +837,7 @@
     },
     {
       "name_ko": "바삭클",
-      "name_en": "바삭클",
+      "name_en": "Basakle (Crispy Chicken)",
       "price_won": 18000,
       "contains": [
         "beef",
@@ -851,7 +851,7 @@
     },
     {
       "name_ko": "불고기피자",
-      "name_en": "불고기피자",
+      "name_en": "Bulgogi Pizza",
       "price_won": null,
       "contains": [
         "beef",
@@ -867,7 +867,7 @@
     },
     {
       "name_ko": "스윗칠리킹",
-      "name_en": "스윗칠리킹",
+      "name_en": "Sweet Chili King",
       "price_won": 20000,
       "contains": [
         "beef",
@@ -884,7 +884,7 @@
     },
     {
       "name_ko": "스윗칠리킹 반반",
-      "name_en": "스윗칠리킹 반반",
+      "name_en": "Half & Half Sweet Chili King",
       "price_won": 22900,
       "contains": [
         "beef",
@@ -901,7 +901,7 @@
     },
     {
       "name_ko": "맛초킹 닭똥집 튀김",
-      "name_en": "맛초킹 닭똥집 튀김",
+      "name_en": "Matcho King Fried Gizzards",
       "price_won": 12000,
       "contains": [
         "beef",
@@ -916,7 +916,7 @@
     },
     {
       "name_ko": "레드킹 닭똥집 튀김",
-      "name_en": "레드킹 닭똥집 튀김",
+      "name_en": "Red King Fried Gizzards",
       "price_won": 12000,
       "contains": [
         "beef",
@@ -931,7 +931,7 @@
     },
     {
       "name_ko": "유린기",
-      "name_en": "유린기",
+      "name_en": "Yuringi (Crispy Chicken in Soy Chili Sauce)",
       "price_won": 13000,
       "contains": [
         "chicken",
@@ -947,7 +947,7 @@
     },
     {
       "name_ko": "나가사키 짬뽕 전골",
-      "name_en": "나가사키 짬뽕 전골",
+      "name_en": "Nagasaki Seafood Noodle Hot Pot",
       "price_won": 23000,
       "contains": [
         "beef",
@@ -997,7 +997,7 @@
     },
     {
       "name_ko": "후라이드 닭똥집 튀김",
-      "name_en": "후라이드 닭똥집 튀김",
+      "name_en": "Fried Chicken Gizzards",
       "price_won": 11000,
       "contains": [
         "beef",
@@ -1012,7 +1012,7 @@
     },
     {
       "name_ko": "커링클",
-      "name_en": "커링클",
+      "name_en": "Curinkle (Curry-Seasoned Fried Chicken)",
       "price_won": 21900,
       "contains": [
         "beef",
@@ -1028,7 +1028,7 @@
     },
     {
       "name_ko": "커링클/뿌링클 반반",
-      "name_en": "커링클/뿌링클 반반",
+      "name_en": "Half Curinkle / Half Bburinkle",
       "price_won": 23500,
       "contains": [
         "beef",
@@ -1045,7 +1045,7 @@
     },
     {
       "name_ko": "가래떡 떡볶이",
-      "name_en": "가래떡 떡볶이",
+      "name_en": "Garaetteok Tteokbokki (Thick Rice Cakes)",
       "price_won": 6900,
       "contains": [
         "beef",
@@ -1060,7 +1060,7 @@
     },
     {
       "name_ko": "크리스피번(뿌링클)",
-      "name_en": "크리스피번(뿌링클)",
+      "name_en": "Crispy Bun (Bburinkle)",
       "price_won": 5500,
       "contains": [
         "seafood",
@@ -1075,7 +1075,7 @@
     },
     {
       "name_ko": "크리스피번(밀크)",
-      "name_en": "크리스피번(밀크)",
+      "name_en": "Crispy Bun (Milk)",
       "price_won": 5500,
       "contains": [
         "seafood",
@@ -1090,7 +1090,7 @@
     },
     {
       "name_ko": "크리스피번(바나나)",
-      "name_en": "크리스피번(바나나)",
+      "name_en": "Crispy Bun (Banana)",
       "price_won": 5500,
       "contains": [
         "seafood",
@@ -1105,7 +1105,7 @@
     },
     {
       "name_ko": "콰삭감자",
-      "name_en": "콰삭감자",
+      "name_en": "Kwasak Potatoes",
       "price_won": 6900,
       "contains": [
         "beef",
@@ -1122,7 +1122,7 @@
     },
     {
       "name_ko": "콰삭모짜킹",
-      "name_en": "콰삭모짜킹",
+      "name_en": "Kwasak Mozza King",
       "price_won": 24000,
       "contains": [
         "beef",

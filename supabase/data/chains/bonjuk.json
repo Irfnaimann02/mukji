@@ -9,11 +9,11 @@
     "https://www.bonif.co.kr/brand/menu/detail?brdCd=BF101&cmdtIdx=540366"
   ],
   "checked_on": "2026-11-24",
-  "notes": "Text table '본죽 메뉴별 알레르기 유발물질 정보 (2026년 10월 업데이트)' under the '알레르기 정보' tab of any 본죽 menu page. '직접 유발물질' (direct) -> contains; '간접 유발물질' (indirect, i.e. possible cross-contact in the store) -> may_contain. Almost every porridge lists nearly all other allergens as indirect, so may_contain is long for most items. Covers 본죽 only (not 본죽&비빔밥 or 본도시락, which are separate brands on bonif.co.kr - branch names containing '본죽&비빔밥' will still match %본죽%). Prices vary by store and are not in the table (null). Includes the '추가 및 반찬' section (add-ons and side dishes). Review of #105: fish is not on Korea's allergen list, so dishes that are fish by name got 'seafood' added to 'contains' by hand: 추어죽, 불고기낙지죽, 참치야채죽.",
+  "notes": "Text table '본죽 메뉴별 알레르기 유발물질 정보 (2026년 10월 업데이트)' under the '알레르기 정보' tab of any 본죽 menu page. '직접 유발물질' (direct) -> contains; '간접 유발물질' (indirect, i.e. possible cross-contact in the store) -> may_contain. Almost every porridge lists nearly all other allergens as indirect, so may_contain is long for most items. Covers 본죽 only (not 본죽&비빔밥 or 본도시락, which are separate brands on bonif.co.kr - branch names containing '본죽&비빔밥' will still match %본죽%). Prices vary by store and are not in the table (null). Includes the '추가 및 반찬' section (add-ons and side dishes). Review of #105: fish is not on Korea's allergen list, so dishes that are fish by name got 'seafood' added to 'contains' by hand: 추어죽, 불고기낙지죽, 참치야채죽. name_en: English names were translated by the Mukji team (#126, SQL 046); they are not the brand's official English.",
   "dishes": [
     {
       "name_ko": "추어죽",
-      "name_en": "추어죽",
+      "name_en": "Loach Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -33,7 +33,7 @@
     },
     {
       "name_ko": "자연송이쇠고기죽",
-      "name_en": "자연송이쇠고기죽",
+      "name_en": "Pine Mushroom & Beef Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -53,7 +53,7 @@
     },
     {
       "name_ko": "특자연송이쇠고기죽",
-      "name_en": "특자연송이쇠고기죽",
+      "name_en": "Special Pine Mushroom & Beef Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -73,7 +73,7 @@
     },
     {
       "name_ko": "삼계죽",
-      "name_en": "삼계죽",
+      "name_en": "Ginseng Chicken Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -93,7 +93,7 @@
     },
     {
       "name_ko": "불고기낙지죽",
-      "name_en": "불고기낙지죽",
+      "name_en": "Bulgogi & Octopus Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -113,7 +113,7 @@
     },
     {
       "name_ko": "현미 삼계죽",
-      "name_en": "현미 삼계죽",
+      "name_en": "Brown Rice Ginseng Chicken Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -133,7 +133,7 @@
     },
     {
       "name_ko": "전복죽",
-      "name_en": "전복죽",
+      "name_en": "Abalone Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -153,7 +153,7 @@
     },
     {
       "name_ko": "진전복죽",
-      "name_en": "진전복죽",
+      "name_en": "Premium Abalone Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -173,7 +173,7 @@
     },
     {
       "name_ko": "특전복죽",
-      "name_en": "특전복죽",
+      "name_en": "Special Abalone Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -193,7 +193,7 @@
     },
     {
       "name_ko": "전복내장죽",
-      "name_en": "전복내장죽",
+      "name_en": "Abalone Innards Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -213,7 +213,7 @@
     },
     {
       "name_ko": "진전복내장죽",
-      "name_en": "진전복내장죽",
+      "name_en": "Premium Abalone Innards Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -233,7 +233,7 @@
     },
     {
       "name_ko": "특전복내장죽",
-      "name_en": "특전복내장죽",
+      "name_en": "Special Abalone Innards Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -253,7 +253,7 @@
     },
     {
       "name_ko": "트러플전복죽",
-      "name_en": "트러플전복죽",
+      "name_en": "Truffle Abalone Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -273,7 +273,7 @@
     },
     {
       "name_ko": "특트러플전복죽",
-      "name_en": "특트러플전복죽",
+      "name_en": "Special Truffle Abalone Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -293,7 +293,7 @@
     },
     {
       "name_ko": "삼계전복죽",
-      "name_en": "삼계전복죽",
+      "name_en": "Ginseng Chicken & Abalone Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -313,7 +313,7 @@
     },
     {
       "name_ko": "현미 전복죽",
-      "name_en": "현미 전복죽",
+      "name_en": "Brown Rice Abalone Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -333,7 +333,7 @@
     },
     {
       "name_ko": "쇠고기야채죽",
-      "name_en": "쇠고기야채죽",
+      "name_en": "Beef & Vegetable Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -353,7 +353,7 @@
     },
     {
       "name_ko": "쇠고기버섯죽",
-      "name_en": "쇠고기버섯죽",
+      "name_en": "Beef & Mushroom Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -373,7 +373,7 @@
     },
     {
       "name_ko": "해물죽",
-      "name_en": "해물죽",
+      "name_en": "Seafood Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -393,7 +393,7 @@
     },
     {
       "name_ko": "특해물죽",
-      "name_en": "특해물죽",
+      "name_en": "Special Seafood Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -413,7 +413,7 @@
     },
     {
       "name_ko": "새우죽",
-      "name_en": "새우죽",
+      "name_en": "Shrimp Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -433,7 +433,7 @@
     },
     {
       "name_ko": "특새우죽",
-      "name_en": "특새우죽",
+      "name_en": "Special Shrimp Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -453,7 +453,7 @@
     },
     {
       "name_ko": "통영굴버섯죽",
-      "name_en": "통영굴버섯죽",
+      "name_en": "Tongyeong Oyster & Mushroom Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -473,7 +473,7 @@
     },
     {
       "name_ko": "특통영굴버섯죽",
-      "name_en": "특통영굴버섯죽",
+      "name_en": "Special Tongyeong Oyster & Mushroom Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -493,7 +493,7 @@
     },
     {
       "name_ko": "참치야채죽",
-      "name_en": "참치야채죽",
+      "name_en": "Tuna & Vegetable Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -513,7 +513,7 @@
     },
     {
       "name_ko": "7가지야채죽",
-      "name_en": "7가지야채죽",
+      "name_en": "Seven-Vegetable Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -533,7 +533,7 @@
     },
     {
       "name_ko": "흰죽",
-      "name_en": "흰죽",
+      "name_en": "Plain Rice Porridge",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -542,7 +542,7 @@
     },
     {
       "name_ko": "미음",
-      "name_en": "미음",
+      "name_en": "Rice Gruel (Mieum)",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -551,7 +551,7 @@
     },
     {
       "name_ko": "현미 쇠고기야채죽",
-      "name_en": "현미 쇠고기야채죽",
+      "name_en": "Brown Rice Beef & Vegetable Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -571,7 +571,7 @@
     },
     {
       "name_ko": "버섯들깨산나물죽",
-      "name_en": "버섯들깨산나물죽",
+      "name_en": "Mushroom, Perilla & Wild Greens Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -591,7 +591,7 @@
     },
     {
       "name_ko": "홍게품은죽",
-      "name_en": "홍게품은죽",
+      "name_en": "Red Snow Crab Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -611,7 +611,7 @@
     },
     {
       "name_ko": "진홍게품은죽",
-      "name_en": "진홍게품은죽",
+      "name_en": "Premium Red Snow Crab Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -631,7 +631,7 @@
     },
     {
       "name_ko": "특홍게품은죽",
-      "name_en": "특홍게품은죽",
+      "name_en": "Special Red Snow Crab Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -651,7 +651,7 @@
     },
     {
       "name_ko": "낙지김치죽",
-      "name_en": "낙지김치죽",
+      "name_en": "Octopus & Kimchi Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -671,7 +671,7 @@
     },
     {
       "name_ko": "신짬뽕죽",
-      "name_en": "신짬뽕죽",
+      "name_en": "Spicy Seafood Noodle-Style Porridge",
       "price_won": null,
       "contains": [
         "beef",
@@ -691,7 +691,7 @@
     },
     {
       "name_ko": "참깨계란새우쮺",
-      "name_en": "참깨계란새우쮺",
+      "name_en": "Sesame, Egg & Shrimp Porridge",
       "price_won": null,
       "contains": [
         "pork",
@@ -711,7 +711,7 @@
     },
     {
       "name_ko": "푸팟퐁커리게살쮺",
-      "name_en": "푸팟퐁커리게살쮺",
+      "name_en": "Thai Crab Curry Porridge (Poo Pad Pong Curry)",
       "price_won": null,
       "contains": [
         "beef",
@@ -731,7 +731,7 @@
     },
     {
       "name_ko": "동지팥죽",
-      "name_en": "동지팥죽",
+      "name_en": "Winter Solstice Red Bean Porridge",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -740,7 +740,7 @@
     },
     {
       "name_ko": "단팥죽",
-      "name_en": "단팥죽",
+      "name_en": "Sweet Red Bean Porridge",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -749,7 +749,7 @@
     },
     {
       "name_ko": "단호박죽",
-      "name_en": "단호박죽",
+      "name_en": "Sweet Pumpkin Porridge",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -758,7 +758,7 @@
     },
     {
       "name_ko": "녹두죽",
-      "name_en": "녹두죽",
+      "name_en": "Mung Bean Porridge",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -767,7 +767,7 @@
     },
     {
       "name_ko": "명품잣죽",
-      "name_en": "명품잣죽",
+      "name_en": "Premium Pine Nut Porridge",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -776,7 +776,7 @@
     },
     {
       "name_ko": "흑임자죽",
-      "name_en": "흑임자죽",
+      "name_en": "Black Sesame Porridge",
       "price_won": null,
       "contains": [],
       "may_contain": [],
@@ -785,7 +785,7 @@
     },
     {
       "name_ko": "저당 단호박죽",
-      "name_en": "저당 단호박죽",
+      "name_en": "Low-Sugar Pumpkin Porridge",
       "price_won": null,
       "contains": [],
       "may_contain": [
@@ -800,7 +800,7 @@
     },
     {
       "name_ko": "저당 단팥죽",
-      "name_en": "저당 단팥죽",
+      "name_en": "Low-Sugar Sweet Red Bean Porridge",
       "price_won": null,
       "contains": [],
       "may_contain": [
@@ -815,7 +815,7 @@
     },
     {
       "name_ko": "늘푸른김치(국내산)",
-      "name_en": "늘푸른김치(국내산)",
+      "name_en": "Neulpureun Kimchi (Korean)",
       "price_won": null,
       "contains": [
         "beef",
@@ -831,7 +831,7 @@
     },
     {
       "name_ko": "종가집김치(국내산)",
-      "name_en": "종가집김치(국내산)",
+      "name_en": "Jongga Kimchi (Korean)",
       "price_won": null,
       "contains": [
         "seafood"
@@ -844,7 +844,7 @@
     },
     {
       "name_ko": "오징어초무침",
-      "name_en": "오징어초무침",
+      "name_en": "Spicy Squid Salad",
       "price_won": null,
       "contains": [
         "seafood"
@@ -855,7 +855,7 @@
     },
     {
       "name_ko": "장조림(외국산:뉴질랜드,호주,미국)",
-      "name_en": "장조림(외국산:뉴질랜드,호주,미국)",
+      "name_en": "Soy-Braised Beef (Imported: NZ, Australia, US)",
       "price_won": null,
       "contains": [
         "beef",
@@ -875,7 +875,7 @@
     },
     {
       "name_ko": "동치미베이스",
-      "name_en": "동치미베이스",
+      "name_en": "Radish Water Kimchi Base",
       "price_won": null,
       "contains": [],
       "may_contain": [
@@ -891,7 +891,7 @@
     },
     {
       "name_ko": "매실골드",
-      "name_en": "매실골드",
+      "name_en": "Green Plum Drink (Maesil Gold)",
       "price_won": null,
       "contains": [],
       "may_contain": [
@@ -910,7 +910,7 @@
     },
     {
       "name_ko": "모짜렐라치즈(냉동)",
-      "name_en": "모짜렐라치즈(냉동)",
+      "name_en": "Mozzarella Cheese (Frozen)",
       "price_won": null,
       "contains": [
         "dairy"
@@ -927,7 +927,7 @@
     },
     {
       "name_ko": "본현미죽밥",
-      "name_en": "본현미죽밥",
+      "name_en": "Brown Rice Porridge with Rice",
       "price_won": null,
       "contains": [],
       "may_contain": [
@@ -946,7 +946,7 @@
     },
     {
       "name_ko": "일회용진간장(팩)",
-      "name_en": "일회용진간장(팩)",
+      "name_en": "Soy Sauce Packet",
       "price_won": null,
       "contains": [
         "wheat",
