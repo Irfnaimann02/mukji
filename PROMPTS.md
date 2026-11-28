@@ -279,3 +279,11 @@ Log every use of AI here: the tool, what we asked, what we used, and what we cha
 - Changes by me: kept the existing sign-out dialog and its key instead of a new screen; the web version shows the numbered choice with "Log in" first.
 - Checked: the new SQL test (Adib's peanut case) fails on the old rule and passes on the new one; all migrations and SQL tests pass locally; 4 new app tests and 1 updated (the copy-window test fails on the old sign-in code); en/ko keys still match.
 - Files changed: `supabase/sql/045_user_saved_data.sql`, `supabase/tests/045_user_saved_data.sql`, `mobile/src/data/saved-data-sync.ts`, `mobile/src/logic/saved-data.ts`, `mobile/src/logic/__tests__/saved-data.test.ts`, `mobile/src/data/__tests__/saved-data-sync.test.ts`, `mobile/src/hooks/use-account.ts`, `mobile/src/i18n/translations.ts`, `ETHICS.md`, `PROMPTS.md`.
+
+## 2026-11-28 — #128 Week 13 README (Adib)
+- Tool: Claude (Claude Code)
+- Prompt: write the Week 13 README; the worksheet asks for problem, users, how to run, architecture and team, secret handling, and that a teammate can run the app from the README alone.
+- Output used: a rewritten `README.md` (it still said "Planning, Week 7"): problem, users, features, an honest data table, how to run, setting up a new Supabase project (SQL order, Edge Functions, secret names without values, email OTP and SMTP, team members), an architecture diagram, a secrets table, the team and the docs.
+- Changes by me: checked each claim against the code (row-level security for reviews, the AI limits in SQL 027, the Edge Function secret names, the SQL files to skip). Tested the run steps on a fresh clone of main: `npm install` (32 s), `tsc`, lint, 160 tests and a web build all pass. Scanned the whole commit history of every branch for API keys, service keys and passwords: none found.
+- Files changed: `README.md`, `PROMPTS.md`.
+
