@@ -4,6 +4,7 @@ import {
   clearFavouritesOnPhone,
   getFavourites,
   replaceFavouritesFromAccount,
+  type FavouriteRecord,
 } from '@/data/favourites-store';
 import {
   clearProfilePending,
@@ -11,6 +12,7 @@ import {
   loadLocalProfile,
   pushProfile,
   saveLocalProfile,
+  saveProfile,
 } from '@/data/profile-store';
 import { readSavedDataOwner, syncedAccountId, writeSavedDataOwner } from '@/data/saved-data-owner';
 import { copyGuestDataToAccount, fetchProfileRow } from '@/data/saved-data-remote';
@@ -30,12 +32,13 @@ import {
   profileAfterSignOut,
   profileFromRow,
   rowFromProfile,
+  sameSavedProfile,
 } from '@/logic/saved-data';
 
 // #119 S17: keeps the phone's profile, favourites and recent searches in step with the
 // signed-in email account (SQL 045). Guests keep everything on the phone only.
-//   - First sign-in on a phone: the guest data is copied into the account once
-//     (the account's own profile wins if it has one), then the account's data is loaded.
+//   - First sign-in on a phone: the guest data is copied into the account once (diets and
+//     allergies are combined with the account's, never dropped), then the account's data is loaded.
 //   - Every app start: changes that could not be sent are sent, then the account is loaded.
 //   - Sign-out (guest or account): the phone keeps only the language.
 
@@ -111,21 +114,50 @@ async function refreshFromAccount(accountId: string, stillCurrent: () => boolean
   if (stillCurrent()) await replaceFavouritesFromAccount(accountId, stillCurrent);
 }
 
+function copyPayload(profile: FoodProfile, recentSearches: string[], favourites: FavouriteRecord[]) {
+  const row = rowFromProfile(profile);
+  return {
+    diets: row.diets,
+    allergens: row.allergens,
+    likes: row.likes,
+    maxDistanceM: row.max_distance_m,
+    recentSearches,
+    favourites: favouritesForMerge(favourites),
+  };
+}
+
 async function copyGuestDataThenRefresh(accountId: string, stillCurrent: () => boolean): Promise<void> {
-  const profile = rowFromProfile((await loadLocalProfile()) ?? DEFAULT_PROFILE);
-  await copyGuestDataToAccount({
-    diets: profile.diets,
-    allergens: profile.allergens,
-    likes: profile.likes,
-    maxDistanceM: profile.max_distance_m,
-    recentSearches: await loadRecentSearches(),
-    favourites: favouritesForMerge(await getFavourites()),
-  });
+  let sent = (await loadLocalProfile()) ?? DEFAULT_PROFILE;
+  await copyGuestDataToAccount(copyPayload(sent, await loadRecentSearches(), await getFavourites()));
+
+  // #119 review: signing in must never drop a diet or allergy. Until the phone is marked as
+  // this account's, profile changes stay on the phone only, so:
+  //   - a change made while copying is copied too (the database combines diets and allergies);
+  //   - the account's (combined) profile replaces the phone's BEFORE the phone is marked;
+  //   - a change made in between is then sent as a normal change.
+  let applied: FoodProfile | null = null;
+  for (let attempt = 0; attempt < 3 && !applied; attempt++) {
+    const row = await fetchProfileRow(accountId);
+    if (!stillCurrent()) return;
+    const now = (await loadLocalProfile()) ?? DEFAULT_PROFILE;
+    if (sameSavedProfile(now, sent)) {
+      applied = row ? profileFromRow(row, now.language) : now;
+      await replaceProfile(applied);
+    } else {
+      sent = now;
+      await copyGuestDataToAccount(copyPayload(now, [], []));
+    }
+  }
+  // Still changing after three tries: leave it for the next sign-in event or app start.
+  if (!applied) throw new Error('The food profile kept changing during the first sign-in copy.');
   if (!stillCurrent()) return;
+
   // Copied: from now on the phone's data belongs to this account.
   await clearProfilePending();
   await clearRecentSearchesPending();
   await writeSavedDataOwner({ userId: accountId, guest: false });
+  const latest = (await loadLocalProfile()) ?? DEFAULT_PROFILE;
+  if (!sameSavedProfile(latest, applied)) await saveProfile(latest);
   await refreshFromAccount(accountId, stillCurrent);
 }
 

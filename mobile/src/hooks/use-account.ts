@@ -71,6 +71,9 @@ export function useAccount() {
       guest ? t('endGuestAndReturnWelcome') : t('signOutAndReturnWelcome'),
       [
         { text: t('cancel'), style: 'cancel' },
+        // #119: ending a guest session removes the guest's food profile, favourites and
+        // searches from the phone. Logging in by email instead copies them to the account.
+        ...(guest ? [{ text: t('logInButton'), onPress: () => router.push('/user-login') }] : []),
         {
           text: t('signOut'),
           style: 'destructive',

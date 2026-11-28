@@ -34,11 +34,18 @@ jest.mock('@/data/supabase', () => ({
 
 type Row = { diets: string[]; allergens: string[]; likes: string[]; max_distance_m: number; recent_searches: string[] };
 type FavRow = { restaurant_id: string; note: string; created_at: string; updated_at: string };
-const mockDb: { profile: Row | null; favourites: FavRow[]; offline: boolean; copies: unknown[] } = {
+const mockDb: {
+  profile: Row | null;
+  favourites: FavRow[];
+  offline: boolean;
+  copies: unknown[];
+  duringCopy: (() => Promise<void>) | null; // runs once while the first copy is "on the network"
+} = {
   profile: null,
   favourites: [],
   offline: false,
   copies: [],
+  duringCopy: null,
 };
 
 // Behaves like SQL 045 for one account.
@@ -77,10 +84,21 @@ jest.mock('@/data/saved-data-remote', () => {
     }) => {
       online();
       mockDb.copies.push(data);
+      const hook = mockDb.duringCopy;
+      mockDb.duringCopy = null;
+      if (hook) await hook();
+      const both = (a: string[], b: string[]) => [...new Set([...a, ...b])];
       if (!mockDb.profile) {
         mockDb.profile = {
           diets: data.diets, allergens: data.allergens, likes: data.likes,
           max_distance_m: data.maxDistanceM, recent_searches: data.recentSearches,
+        };
+      } else {
+        // like SQL 045: diets and allergies combined, likes and distance stay the account's
+        mockDb.profile = {
+          ...mockDb.profile,
+          diets: both(mockDb.profile.diets, data.diets),
+          allergens: both(mockDb.profile.allergens, data.allergens),
         };
       }
       for (const f of data.favourites) {
@@ -128,6 +146,7 @@ beforeEach(async () => {
   mockDb.favourites = [];
   mockDb.offline = false;
   mockDb.copies = [];
+  mockDb.duringCopy = null;
 });
 
 describe('first sign-in on a phone', () => {
@@ -148,19 +167,48 @@ describe('first sign-in on a phone', () => {
     stop();
   });
 
-  test('an account that already has a profile keeps it; favourites are added', async () => {
+  test('an account with a profile gets the phone\'s diets and allergies added; its likes and distance stay', async () => {
     mockDb.profile = accountRow(['vegan']);
     mockDb.favourites = [{ restaurant_id: 'r9', note: 'mine', created_at: '2026-11-25T00:00:00.000Z', updated_at: '2026-11-25T00:00:00.000Z' }];
-    await phoneHas(halal, ['r1']);
+    await phoneHas({ ...halal, likes: ['cafe'], maxDistanceM: 500 }, ['r1']);
     const stop = await signIn(ACCOUNT);
 
     const profile = await loadLocalProfile();
-    expect(profile?.diets).toEqual(['vegan']);
+    expect(profile?.diets).toEqual(['vegan', 'halal']);
     expect(profile?.allergens).toEqual(['egg']);
+    expect(profile?.likes).toEqual([]);
     expect(profile?.maxDistanceM).toBe(3000);
     expect(profile?.language).toBe('ko'); // the phone's language stays
     expect((await getFavourites()).map((f) => f.restaurantId)).toEqual(['r9', 'r1']);
     expect(await loadRecentSearches()).toEqual(['Kimbap']);
+    stop();
+  });
+
+  test('a peanut allergy added as a guest on a new phone is not dropped at sign-in (#119 review)', async () => {
+    mockDb.profile = { diets: ['halal'], allergens: [], likes: [], max_distance_m: 1500, recent_searches: [] };
+    await phoneHas({ ...DEFAULT_PROFILE, allergens: ['peanut'] });
+    const stop = await signIn(ACCOUNT);
+
+    expect(mockDb.profile?.allergens).toEqual(['peanut']);
+    expect(mockDb.profile?.diets).toEqual(['halal']);
+    const profile = await loadLocalProfile();
+    expect(profile?.allergens).toEqual(['peanut']);
+    expect(profile?.diets).toEqual(['halal']);
+    stop();
+  });
+
+  test('a restriction added on the phone while the copy runs is not lost', async () => {
+    mockDb.profile = { diets: ['halal'], allergens: [], likes: [], max_distance_m: 1500, recent_searches: [] };
+    await phoneHas(DEFAULT_PROFILE);
+    // the user adds a soy allergy while the first copy is still on its way
+    mockDb.duringCopy = () => saveProfile({ ...DEFAULT_PROFILE, allergens: ['soy'] });
+    const stop = await signIn(ACCOUNT);
+
+    expect(mockDb.copies).toHaveLength(2);
+    expect(mockDb.profile?.allergens).toEqual(['soy']);
+    expect((await loadLocalProfile())?.allergens).toEqual(['soy']);
+    expect((await loadLocalProfile())?.diets).toEqual(['halal']);
+    expect(await owner()).toEqual({ userId: 'u1', guest: false });
     stop();
   });
 

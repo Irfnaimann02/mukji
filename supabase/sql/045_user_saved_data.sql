@@ -104,7 +104,9 @@ create policy "user_favourites: own, real login" on public.user_favourites
 
 -- ---------- 5. First sign-in on a phone: copy the phone's guest data into the account ----------
 -- Called once per account per phone. Runs with the caller's rights, so the rules above apply.
---   Profile:   the account's own profile wins; the phone's is used only if the account has none.
+--   Profile:   if the account has none, the phone's is used. If it has one, diets and allergies
+--              are COMBINED (account's first, then the phone's new ones), so signing in never
+--              removes a restriction; food likes and distance stay the account's (#119 review).
 --   Searches:  the phone's first (newer), then the account's; no repeats (ignoring case); at most 5.
 --   Favourites: added to the account's list. A restaurant already there keeps the account's note.
 --              Restaurants that no longer exist are skipped instead of failing the whole copy.
@@ -128,7 +130,7 @@ begin
     raise exception 'real_login_required';
   end if;
 
-  insert into public.user_profiles (user_id, diets, allergens, likes, max_distance_m)
+  insert into public.user_profiles as p (user_id, diets, allergens, likes, max_distance_m)
   values (
     v_uid,
     coalesce(p_diets, '{}'),
@@ -136,7 +138,25 @@ begin
     coalesce(p_likes, '{}'),
     coalesce(p_max_distance_m, 1500)
   )
-  on conflict (user_id) do nothing;
+  on conflict (user_id) do update
+     set diets = array(
+           select both_lists.v
+           from (
+             select distinct on (u.v) u.v, u.ord
+             from unnest(p.diets || excluded.diets) with ordinality as u(v, ord)
+             order by u.v, u.ord
+           ) as both_lists
+           order by both_lists.ord
+         ),
+         allergens = array(
+           select both_lists.v
+           from (
+             select distinct on (u.v) u.v, u.ord
+             from unnest(p.allergens || excluded.allergens) with ordinality as u(v, ord)
+             order by u.v, u.ord
+           ) as both_lists
+           order by both_lists.ord
+         );
 
   update public.user_profiles as p
      set recent_searches = coalesce((

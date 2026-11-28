@@ -80,6 +80,20 @@ export function rowFromProfile(profile: FoodProfile) {
   };
 }
 
+/** True if two profiles hold the same saved choices (the language is a phone setting and is ignored). */
+export function sameSavedProfile(a: FoodProfile, b: FoodProfile): boolean {
+  const x = rowFromProfile(a);
+  const y = rowFromProfile(b);
+  const sameSet = (p: string[], q: string[]) =>
+    p.length === q.length && [...p].sort().join('|') === [...q].sort().join('|');
+  return (
+    sameSet(x.diets, y.diets) &&
+    sameSet(x.allergens, y.allergens) &&
+    sameSet(x.likes, y.likes) &&
+    x.max_distance_m === y.max_distance_m
+  );
+}
+
 // ---------- recent searches ----------
 
 export function cleanRecentSearches(raw: unknown): string[] {

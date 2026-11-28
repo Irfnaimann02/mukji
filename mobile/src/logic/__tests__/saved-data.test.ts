@@ -10,6 +10,7 @@ import {
   profileAfterSignOut,
   profileFromRow,
   rowFromProfile,
+  sameSavedProfile,
 } from '@/logic/saved-data';
 import { DEFAULT_PROFILE } from '@/data/types';
 import { describe, expect, it } from '@jest/globals';
@@ -55,6 +56,19 @@ describe('account rows', () => {
   it('writes no language and no unknown values to the account', () => {
     const p = { ...DEFAULT_PROFILE, diets: ['halal', 'keto'] as never, language: 'ko' as const };
     expect(rowFromProfile(p)).toEqual({ diets: ['halal'], allergens: [], likes: [], max_distance_m: 1500 });
+  });
+});
+
+describe('sameSavedProfile', () => {
+  const p = { diets: ['halal' as const, 'no_pork' as const], allergens: ['egg' as const], likes: [], maxDistanceM: 1500, language: 'en' as const };
+
+  it('ignores order and the language', () => {
+    expect(sameSavedProfile(p, { ...p, diets: ['no_pork', 'halal'], language: 'ko' })).toBe(true);
+  });
+
+  it('sees an added allergy or a new distance', () => {
+    expect(sameSavedProfile(p, { ...p, allergens: ['egg', 'peanut'] })).toBe(false);
+    expect(sameSavedProfile(p, { ...p, maxDistanceM: 500 })).toBe(false);
   });
 });
 

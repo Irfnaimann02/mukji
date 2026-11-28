@@ -13,6 +13,9 @@ declare
   v_count int;
   v_failed boolean;
   v_diets text[];
+  v_allergens text[];
+  v_likes text[];
+  v_distance int;
   v_searches text[];
   v_note text;
 begin
@@ -47,16 +50,23 @@ begin
   select note into v_note from public.user_favourites where user_id = v_user and restaurant_id = v_r1;
   if v_note <> 'phone note' then raise exception 'favourite note not copied (%)', v_note; end if;
 
-  -- a second copy (another phone): the account's profile and notes win, lists are merged
+  -- a second copy (another phone): diets and allergies are combined, so signing in never
+  -- removes a restriction (#119 review: account had halal + egg, the new phone's guest added
+  -- a peanut allergy -> peanut must stay). Likes, distance and notes stay the account's.
   perform public.merge_guest_saved_data(
-    array['vegan'], '{}', '{}', 3000,
+    array['vegan', 'halal'], array['peanut'], array['cafe'], 3000,
     array['KEBAB', 'Ramyeon'],
     jsonb_build_array(
       jsonb_build_object('restaurant_id', v_r1, 'note', 'other phone note'),
       jsonb_build_object('restaurant_id', v_r2, 'note', '')
     ));
-  select diets, recent_searches into v_diets, v_searches from public.user_profiles where user_id = v_user;
-  if v_diets is distinct from array['halal'] then raise exception 'account profile was overwritten (%)', v_diets; end if;
+  select diets, allergens, likes, max_distance_m, recent_searches
+    into v_diets, v_allergens, v_likes, v_distance, v_searches
+    from public.user_profiles where user_id = v_user;
+  if v_diets is distinct from array['halal', 'vegan'] then raise exception 'diets not combined (%)', v_diets; end if;
+  if v_allergens is distinct from array['egg', 'peanut'] then raise exception 'peanut allergy from the phone was dropped (%)', v_allergens; end if;
+  if v_likes is distinct from array['korean'] then raise exception 'account likes were overwritten (%)', v_likes; end if;
+  if v_distance <> 1000 then raise exception 'account distance was overwritten (%)', v_distance; end if;
   if v_searches is distinct from array['KEBAB', 'Ramyeon', 'kimbap'] then raise exception 'searches merged wrongly (%)', v_searches; end if;
   select note into v_note from public.user_favourites where user_id = v_user and restaurant_id = v_r1;
   if v_note <> 'phone note' then raise exception 'account note was overwritten (%)', v_note; end if;
